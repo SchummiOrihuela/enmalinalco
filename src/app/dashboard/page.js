@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabaseServer'
 import BusinessForm from './BusinessForm'
 import HoursForm from './HoursForm'
+import ClosuresForm from './ClosuresForm'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -18,12 +19,20 @@ export default async function DashboardPage() {
     .maybeSingle()
 
   let hours = []
+  let closures = []
   if (business) {
-    const { data } = await supabase
+    const { data: h } = await supabase
       .from('business_hours')
       .select('*')
       .eq('business_id', business.id)
-    hours = data || []
+    hours = h || []
+
+    const { data: v } = await supabase
+      .from('vacations')
+      .select('*')
+      .eq('business_id', business.id)
+      .order('start_date')
+    closures = v || []
   }
 
   return (
@@ -32,6 +41,7 @@ export default async function DashboardPage() {
       <p>Sesión activa: {user.email}</p>
       <BusinessForm business={business} userId={user.id} />
       {business && <HoursForm businessId={business.id} initialHours={hours} />}
+      {business && <ClosuresForm businessId={business.id} initialClosures={closures} />}
     </div>
   )
 }
