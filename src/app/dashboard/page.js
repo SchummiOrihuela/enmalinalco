@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabaseServer'
 import BusinessForm from './BusinessForm'
+import HoursForm from './HoursForm'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -16,11 +17,21 @@ export default async function DashboardPage() {
     .eq('owner_id', user.id)
     .maybeSingle()
 
+  let hours = []
+  if (business) {
+    const { data } = await supabase
+      .from('business_hours')
+      .select('*')
+      .eq('business_id', business.id)
+    hours = data || []
+  }
+
   return (
     <div style={{ padding: 40 }}>
       <h1>Panel de control</h1>
       <p>Sesión activa: {user.email}</p>
       <BusinessForm business={business} userId={user.id} />
+      {business && <HoursForm businessId={business.id} initialHours={hours} />}
     </div>
   )
 }
