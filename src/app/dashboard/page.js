@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabaseServer'
 import BusinessForm from './BusinessForm'
 import HoursForm from './HoursForm'
 import ClosuresForm from './ClosuresForm'
+import PhotosForm from './PhotosForm'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -20,6 +21,7 @@ export default async function DashboardPage() {
 
   let hours = []
   let closures = []
+  let photos = []
   if (business) {
     const { data: h } = await supabase
       .from('business_hours')
@@ -33,6 +35,13 @@ export default async function DashboardPage() {
       .eq('business_id', business.id)
       .order('start_date')
     closures = v || []
+
+    const { data: p } = await supabase
+      .from('business_photos')
+      .select('*')
+      .eq('business_id', business.id)
+      .order('sort_order')
+    photos = p || []
   }
 
   return (
@@ -42,6 +51,7 @@ export default async function DashboardPage() {
       <BusinessForm business={business} userId={user.id} />
       {business && <HoursForm businessId={business.id} initialHours={hours} />}
       {business && <ClosuresForm businessId={business.id} initialClosures={closures} />}
+      {business && <PhotosForm businessId={business.id} initialPhotos={photos} />}
     </div>
   )
 }
