@@ -31,10 +31,13 @@ export async function POST(req) {
     const status = event.data.attributes.status;
     const isActive = status === "active" || status === "on_trial";
 
-    await supabase
+    const { data, error } = await supabase
       .from("businesses")
       .update({ is_active: isActive })
-      .eq("email", email);
+      .eq("email", email)
+      .select();
+
+    console.log("LS update →", { email, isActive, count: data?.length, error });
   }
 
   return new Response("OK", { status: 200 });
