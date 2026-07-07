@@ -16,8 +16,6 @@ export async function POST(req) {
   const event = JSON.parse(rawBody);
   const eventName = event.meta.event_name;
   const email = event.data.attributes.user_email;
-  console.log("LS target URL →", process.env.NEXT_PUBLIC_SUPABASE_URL);
-  console.log("LS webhook attributes:", JSON.stringify(event.data.attributes));
 
   // Cliente admin (service role) para saltar RLS
   const supabase = createClient(
