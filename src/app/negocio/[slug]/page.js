@@ -1,5 +1,7 @@
 import { createClient } from '@/lib/supabaseServer'
 import { notFound } from 'next/navigation'
+import ReviewsList from '@/app/dashboard/ReviewsList'
+import ReviewForm from '@/app/dashboard/ReviewForm'
 const DIAS = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
 
 export default async function NegocioPage({ params }) {
@@ -73,6 +75,11 @@ export default async function NegocioPage({ params }) {
               {DIAS[h.day_of_week]}: {h.is_closed ? 'Cerrado' : `${h.open_time?.slice(0,5)} – ${h.close_time?.slice(0,5)}`}
             </li>
           ))}</ul>}
+      <hr style={{ margin: '32px 0' }} />
+      <ReviewsList businessId={business.id} />
+      <div style={{ marginTop: 32 }}>
+        <ReviewForm businessId={business.id} />
+      </div>
     </div>
   )
 }
