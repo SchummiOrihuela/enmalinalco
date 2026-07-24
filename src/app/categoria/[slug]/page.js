@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabaseServer'
 import { toSlug } from '@/lib/slug'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import { getPriority, getBadge } from '@/lib/plans'
 
 export default async function CategoriaPage({ params }) {
   const { slug } = await params
@@ -14,6 +15,7 @@ export default async function CategoriaPage({ params }) {
     .eq('is_active', true)
 
   const businesses = (all || []).filter((b) => toSlug(b.category) === slug)
+    .sort((a, b) => getPriority(b.plan) - getPriority(a.plan))
 
   if (businesses.length === 0) notFound()
 
@@ -30,6 +32,11 @@ export default async function CategoriaPage({ params }) {
             style={{ textDecoration: 'none', color: 'inherit',
                      border: '1px solid #ddd', borderRadius: 8, padding: 16 }}>
             <strong>{b.name}</strong>
+            {getBadge(b.plan) && (
+              <span style={{ marginLeft: 8, fontSize: 12, background: '#C59B1C', color: '#fff', padding: '2px 8px', borderRadius: 999 }}>
+                {getBadge(b.plan)}
+              </span>
+            )}
             {b.address && <div style={{ color: '#666', fontSize: 14 }}>📍 {b.address}</div>}
           </Link>
         ))}
