@@ -40,7 +40,7 @@ export default async function NegocioPage({ params }) {
         ))}
       </div>
 
-  {business.description && (
+      {business.description && (
         <p style={{ marginTop: 24 }}>{business.description}</p>
       )}
 
@@ -52,6 +52,14 @@ export default async function NegocioPage({ params }) {
             💬 <a href={`https://wa.me/${business.whatsapp.replace(/\D/g, '')}`}
                  target="_blank" rel="noopener noreferrer">
               WhatsApp
+            </a>
+          </div>
+        )}
+        {business.lat && business.lng && (
+          <div>
+            🗺️ <a href={`https://www.google.com/maps/search/?api=1&query=${business.lat},${business.lng}`}
+                 target="_blank" rel="noopener noreferrer">
+              Cómo llegar
             </a>
           </div>
         )}
