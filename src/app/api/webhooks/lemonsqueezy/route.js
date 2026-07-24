@@ -23,6 +23,7 @@ export async function POST(req) {
   const email = event.data.attributes.user_email;
   const variantId = String(event.data.attributes.variant_id);
   const tier = VARIANT_TO_TIER[variantId] || null;
+  console.log("VARIANT DEBUG →", { variantId, map: VARIANT_TO_TIER });
   // Cliente admin (service role) para saltar RLS
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
