@@ -53,7 +53,7 @@ export default async function DashboardPage() {
       <BusinessForm business={business} userId={user.id} />
       {business && <HoursForm businessId={business.id} initialHours={hours} />}
       {business && <ClosuresForm businessId={business.id} initialClosures={closures} />}
-      {business && <PhotosForm businessId={business.id} initialPhotos={photos} />}
+{business && <PhotosForm businessId={business.id} initialPhotos={photos} plan={business.plan} />}
       {business && <ReviewsList businessId={business.id} />}
     </div>
   )

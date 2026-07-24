@@ -2,8 +2,10 @@
 
 import { useState } from 'react'
 import { createClient } from '@/lib/supabaseBrowser'
+import { getMaxPhotos } from '@/lib/plans'
 
-export default function PhotosForm({ businessId, initialPhotos }) {
+export default function PhotosForm({ businessId, initialPhotos, plan }) {
+  const maxPhotos = getMaxPhotos(plan)
   const [photos, setPhotos] = useState(initialPhotos || [])
   const [msg, setMsg] = useState(null)
   const supabase = createClient()
@@ -11,6 +13,11 @@ export default function PhotosForm({ businessId, initialPhotos }) {
   async function handleUpload(e) {
     const file = e.target.files[0]
     if (!file) return
+    if (photos.length >= maxPhotos) {
+      setMsg(`Tu plan permite máximo ${maxPhotos} fotos. Mejora tu plan para subir más.`)
+      e.target.value = ''
+      return
+    }
 
     const tiposOk = ['image/jpeg', 'image/png', 'image/webp']
     if (!tiposOk.includes(file.type)) {
@@ -61,7 +68,7 @@ export default function PhotosForm({ businessId, initialPhotos }) {
 
   return (
     <div style={{ marginTop: 32, maxWidth: 500 }}>
-      <h2>Fotos</h2>
+      <h2>Fotos ({photos.length}/{maxPhotos})</h2>
 
       {photos.length === 0 && <p>Sin fotos aún.</p>}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
