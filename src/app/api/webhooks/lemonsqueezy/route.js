@@ -36,7 +36,7 @@ export async function POST(req) {
     const isActive = status === "active" || status === "on_trial";
     const { data, error } = await supabase
       .from("businesses")
-      .update({ is_active: isActive, tier })
+      .update({ is_active: isActive, plan: tier })
       .eq("email", email)
       .select();
     console.log("LS update →", { email, isActive, tier, count: data?.length, error });
