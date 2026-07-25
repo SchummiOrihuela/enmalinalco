@@ -783,7 +783,7 @@ const MARKUP = `<!-- Progress bar -->
   <div class="cat-scroller-wrap inner" style="padding-right:0;max-width:none">
     <div class="cat-scroll" role="list" aria-label="Categorías del directorio">
 
-      <div class="ccard ccard-wide" role="listitem" style="background:#1C3B28">
+      <a href="/categoria/restaurantes" class="ccard ccard-wide" role="listitem" style="background:#1C3B28">
         <div class="ccard-bg" style="background-image:url('https://picsum.photos/seed/malinalco-restaurant/600/400')"></div>
         <div class="ccard-body">
           <div class="ccard-icon">
@@ -792,9 +792,9 @@ const MARKUP = `<!-- Progress bar -->
           <div class="ccard-name">Restaurantes</div>
           <div class="ccard-n">42 lugares</div>
         </div>
-      </div>
+      </a>
 
-      <div class="ccard" role="listitem" style="background:#1C2E3B">
+      <a href="/categoria/hospedaje" class="ccard" role="listitem" style="background:#1C2E3B">
         <div class="ccard-bg" style="background-image:url('https://picsum.photos/seed/malinalco-hotel/400/500')"></div>
         <div class="ccard-body">
           <div class="ccard-icon">
@@ -803,9 +803,9 @@ const MARKUP = `<!-- Progress bar -->
           <div class="ccard-name">Hospedaje</div>
           <div class="ccard-n">28 opciones</div>
         </div>
-      </div>
+      </a>
 
-      <div class="ccard" role="listitem" style="background:#2B1C1C">
+      <a href="/categoria/spa-bienestar" class="ccard" role="listitem" style="background:#2B1C1C">
         <div class="ccard-bg" style="background-image:url('https://picsum.photos/seed/malinalco-spa/400/500')"></div>
         <div class="ccard-body">
           <div class="ccard-icon">
@@ -814,9 +814,9 @@ const MARKUP = `<!-- Progress bar -->
           <div class="ccard-name">Spa & Bienestar</div>
           <div class="ccard-n">17 centros</div>
         </div>
-      </div>
+      </a>
 
-      <div class="ccard" role="listitem" style="background:#1C1C2B">
+      <a href="/categoria/ecoturismo-aventura" class="ccard" role="listitem" style="background:#1C1C2B">
         <div class="ccard-bg" style="background-image:url('https://picsum.photos/seed/malinalco-mountain/400/500')"></div>
         <div class="ccard-body">
           <div class="ccard-icon">
@@ -825,9 +825,9 @@ const MARKUP = `<!-- Progress bar -->
           <div class="ccard-name">Ecoturismo</div>
           <div class="ccard-n">21 rutas</div>
         </div>
-      </div>
+      </a>
 
-      <div class="ccard" role="listitem" style="background:#2B1C24">
+      <a href="/categoria/artesanias-tiendas" class="ccard" role="listitem" style="background:#2B1C24">
         <div class="ccard-bg" style="background-image:url('https://picsum.photos/seed/malinalco-craft/400/500')"></div>
         <div class="ccard-body">
           <div class="ccard-icon">
@@ -836,9 +836,9 @@ const MARKUP = `<!-- Progress bar -->
           <div class="ccard-name">Artesanías</div>
           <div class="ccard-n">23 tiendas</div>
         </div>
-      </div>
+      </a>
 
-      <div class="ccard" role="listitem" style="background:#1E1C2E">
+      <a href="/categoria/cultura-turismo" class="ccard" role="listitem" style="background:#1E1C2E">
         <div class="ccard-bg" style="background-image:url('https://picsum.photos/seed/malinalco-temple/400/500')"></div>
         <div class="ccard-body">
           <div class="ccard-icon">
@@ -847,7 +847,7 @@ const MARKUP = `<!-- Progress bar -->
           <div class="ccard-name">Cultura</div>
           <div class="ccard-n">14 sitios</div>
         </div>
-      </div>
+      </a>
 
     </div>
   </div>
