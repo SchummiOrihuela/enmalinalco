@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { createClient } from '@/lib/supabaseBrowser'
+import { CATEGORIES } from '@/lib/categories'
 
 export default function BusinessForm({ business, userId }) {
   const [name, setName] = useState(business?.name || '')
@@ -41,8 +42,15 @@ export default function BusinessForm({ business, userId }) {
         style={{ width: '100%', padding: 8, margin: '8px 0' }} />
 
       <label>Categoría</label>
-      <input value={category} onChange={(e) => setCategory(e.target.value)}
-        style={{ width: '100%', padding: 8, margin: '8px 0' }} />
+      <select value={category} onChange={(e) => setCategory(e.target.value)}
+        style={{ width: '100%', padding: 8, margin: '8px 0' }}>
+        <option value="">Selecciona una categoría…</option>
+        {CATEGORIES.map((c) => (
+          <option key={c.name} value={c.name}>
+            {c.icon} {c.name}
+          </option>
+        ))}
+      </select>
 
       <label>Slug (URL única)</label>
       <input value={slug} onChange={(e) => setSlug(e.target.value)}
