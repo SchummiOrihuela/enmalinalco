@@ -848,6 +848,22 @@ const MARKUP = `<!-- Progress bar -->
           <div class="ccard-n">14 sitios</div>
         </div>
       </a>
+      <a href="/categoria/servicios" class="ccard" role="listitem" style="background:#1C2B24">
+        <div class="ccard-bg" style="background-image:url('https://picsum.photos/seed/malinalco-services/400/500')"></div>
+        <div class="ccard-body">
+          <div class="ccard-icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4l-6 6a2 2 0 1 0 2.8 2.8l6-6a4 4 0 0 0 5.4-5.4l-2.3 2.3-2.1-.6-.6-2.1z"/></svg></div>
+          <div class="ccard-name">Servicios</div>
+          <div class="ccard-n">🛠️ Directorio</div>
+        </div>
+      </a>
+      <a href="/categoria/eventos-experiencias" class="ccard" role="listitem" style="background:#2B241C">
+        <div class="ccard-bg" style="background-image:url('https://picsum.photos/seed/malinalco-events/400/500')"></div>
+        <div class="ccard-body">
+          <div class="ccard-icon"><svg viewBox="0 0 24 24"><path d="M4 5h16v16H4z"/><path d="M16 3v4M8 3v4M4 11h16"/></svg></div>
+          <div class="ccard-name">Eventos</div>
+          <div class="ccard-n">🎉 Experiencias</div>
+        </div>
+      </a>
 
     </div>
   </div>
