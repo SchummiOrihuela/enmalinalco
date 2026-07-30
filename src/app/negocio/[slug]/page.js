@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabaseServer'
 import { notFound } from 'next/navigation'
 import ReviewsList from '@/app/dashboard/ReviewsList'
+import { getBadge } from '@/lib/plans'
 import ReviewForm from '@/app/dashboard/ReviewForm'
 const DIAS = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
 
@@ -33,6 +34,11 @@ export default async function NegocioPage({ params }) {
   return (
     <div style={{ maxWidth: 800, margin: '0 auto', padding: 40 }}>
       <h1>{business.name}</h1>
+      {getBadge(business.plan) && (
+        <span style={{ display: 'inline-block', marginTop: 8, padding: '4px 12px', background: '#C59B1C', color: '#fff', borderRadius: 9999, fontSize: 13, fontWeight: 600 }}>
+          {getBadge(business.plan)}
+        </span>
+      )}
       <p style={{ color: '#666' }}>{business.category}</p>
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 24 }}>
