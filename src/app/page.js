@@ -1363,29 +1363,11 @@ export default function Home() {
         const numsEl = document.getElementById('nums');
         if (numsEl) cntObs.observe(numsEl);
 
-        // ── Checkout: conectar pcards a Stripe ──
+        // ── pcards del landing → llevan al registro/login (Patrón A) ──
         document.querySelectorAll('.pcrd[data-tier]').forEach(card => {
           card.style.cursor = 'pointer';
-          card.addEventListener('click', async () => {
-            const tier = card.dataset.tier;
-            if (card.dataset.loading === '1') return;
-            card.dataset.loading = '1';
-            card.style.opacity = '0.6';
-            try {
-              const res = await fetch('/api/stripe/checkout', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ tier }),
-              });
-              const data = await res.json();
-              if (data.url) { window.location.href = data.url; }
-              else { alert(data.error || 'Error al iniciar el checkout'); }
-            } catch (err) {
-              alert('Error de conexión. Intenta de nuevo.');
-            } finally {
-              card.dataset.loading = '0';
-              card.style.opacity = '1';
-            }
+          card.addEventListener('click', () => {
+            window.location.href = '/login';
           });
         });
       

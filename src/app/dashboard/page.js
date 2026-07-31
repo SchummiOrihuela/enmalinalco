@@ -5,6 +5,7 @@ import HoursForm from './HoursForm'
 import ClosuresForm from './ClosuresForm'
 import PhotosForm from './PhotosForm'
 import ReviewsList from './ReviewsList'
+import PlansSection from './PlansSection'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -55,6 +56,7 @@ export default async function DashboardPage() {
       {business && <ClosuresForm businessId={business.id} initialClosures={closures} />}
 {business && <PhotosForm businessId={business.id} initialPhotos={photos} plan={business.plan} />}
       {business && <ReviewsList businessId={business.id} />}
+      {business && <PlansSection businessId={business.id} currentPlan={business.plan} />}
     </div>
   )
 }
