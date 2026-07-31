@@ -1010,7 +1010,7 @@ const MARKUP = `<!-- Progress bar -->
     <!-- Pricing cards side -->
     <div class="pcards rv rv-d1">
 
-      <div class="pcrd" tabindex="0">
+      <div class="pcrd" tabindex="0" data-tier="malinalli">
         <div>
           <div class="plan-badge">Básico</div>
           <div class="plan-name">Malinalli</div>
@@ -1018,7 +1018,7 @@ const MARKUP = `<!-- Progress bar -->
         </div>
         <div style="display:flex;align-items:center;gap:var(--s3)">
           <div class="plan-price">
-            <div class="plan-amt">$299</div>
+            <div class="plan-amt">$99</div>
             <div class="plan-per">/mes MXN</div>
           </div>
           <div class="plan-arrow">
@@ -1027,7 +1027,7 @@ const MARKUP = `<!-- Progress bar -->
         </div>
       </div>
 
-      <div class="pcrd star" tabindex="0">
+      <div class="pcrd star" tabindex="0" data-tier="cuauhtli">
         <div>
           <div class="plan-badge">⭐ Más popular</div>
           <div class="plan-name">Cuāuhtli</div>
@@ -1035,7 +1035,7 @@ const MARKUP = `<!-- Progress bar -->
         </div>
         <div style="display:flex;align-items:center;gap:var(--s3)">
           <div class="plan-price">
-            <div class="plan-amt">$599</div>
+            <div class="plan-amt">$249</div>
             <div class="plan-per">/mes MXN</div>
           </div>
           <div class="plan-arrow">
@@ -1044,7 +1044,7 @@ const MARKUP = `<!-- Progress bar -->
         </div>
       </div>
 
-      <div class="pcrd" tabindex="0">
+      <div class="pcrd" tabindex="0" data-tier="ocelotl">
         <div>
           <div class="plan-badge">Élite</div>
           <div class="plan-name">Ocēlōtl</div>
@@ -1052,7 +1052,7 @@ const MARKUP = `<!-- Progress bar -->
         </div>
         <div style="display:flex;align-items:center;gap:var(--s3)">
           <div class="plan-price">
-            <div class="plan-amt">$999</div>
+            <div class="plan-amt">$449</div>
             <div class="plan-per">/mes MXN</div>
           </div>
           <div class="plan-arrow">
@@ -1362,6 +1362,32 @@ export default function Home() {
         }, { threshold: 0.3 });
         const numsEl = document.getElementById('nums');
         if (numsEl) cntObs.observe(numsEl);
+
+        // ── Checkout: conectar pcards a Stripe ──
+        document.querySelectorAll('.pcrd[data-tier]').forEach(card => {
+          card.style.cursor = 'pointer';
+          card.addEventListener('click', async () => {
+            const tier = card.dataset.tier;
+            if (card.dataset.loading === '1') return;
+            card.dataset.loading = '1';
+            card.style.opacity = '0.6';
+            try {
+              const res = await fetch('/api/stripe/checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ tier }),
+              });
+              const data = await res.json();
+              if (data.url) { window.location.href = data.url; }
+              else { alert(data.error || 'Error al iniciar el checkout'); }
+            } catch (err) {
+              alert('Error de conexión. Intenta de nuevo.');
+            } finally {
+              card.dataset.loading = '0';
+              card.style.opacity = '1';
+            }
+          });
+        });
       
       })();
     };
