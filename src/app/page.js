@@ -717,7 +717,7 @@ const MARKUP = `<!-- Progress bar -->
 
   <div class="scroll-cue" aria-hidden="true">
     <div class="sc-line"></div>
-    <span class="sc-txt">Scroll</span>
+    <span class="sc-txt">Explora</span>
   </div>
 </section>
 
