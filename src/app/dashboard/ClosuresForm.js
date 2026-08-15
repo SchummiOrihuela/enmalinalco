@@ -3,6 +3,49 @@
 import { useState } from 'react'
 import { createClient } from '@/lib/supabaseBrowser'
 
+const h2Style = {
+  fontFamily: "'Cormorant Garamond', Georgia, serif",
+  fontSize: '24px',
+  fontWeight: 400,
+  color: 'var(--ink)',
+  margin: '0 0 20px',
+}
+
+const labelStyle = {
+  display: 'block',
+  fontSize: '13px',
+  fontWeight: 600,
+  color: 'var(--ink)',
+  opacity: 0.7,
+  marginBottom: '6px',
+}
+
+const inputStyle = {
+  display: 'block',
+  width: '100%',
+  padding: '12px 14px',
+  fontSize: '15px',
+  fontFamily: 'inherit',
+  color: 'var(--ink)',
+  background: 'var(--parch)',
+  border: '1.5px solid rgba(128,128,128,0.25)',
+  borderRadius: '10px',
+  outline: 'none',
+  marginBottom: '18px',
+}
+
+const btnStyle = {
+  padding: '12px 28px',
+  fontSize: '15px',
+  fontWeight: 600,
+  fontFamily: 'inherit',
+  color: 'var(--parch)',
+  background: 'var(--ink)',
+  border: 'none',
+  borderRadius: '9999px',
+  cursor: 'pointer',
+}
+
 export default function ClosuresForm({ businessId, initialClosures }) {
   const [closures, setClosures] = useState(initialClosures || [])
   const [start, setStart] = useState('')
@@ -43,35 +86,70 @@ export default function ClosuresForm({ businessId, initialClosures }) {
   }
 
   return (
-    <div style={{ marginTop: 32, maxWidth: 500 }}>
-      <h2>Cierre Parcial</h2>
+    <div>
+      <h2 style={h2Style}>Cierre Parcial</h2>
 
-      {closures.length === 0 && <p>Sin cierres programados.</p>}
+      {closures.length === 0 && (
+        <p style={{ fontSize: '14px', color: 'var(--ink)', opacity: 0.5, marginBottom: '18px' }}>
+          Sin cierres programados.
+        </p>
+      )}
       {closures.map((c) => (
-        <div key={c.id} style={{ display: 'flex', gap: 8, alignItems: 'center', margin: '4px 0' }}>
-          <span>{c.start_date} → {c.end_date}</span>
-          {c.message && <span style={{ color: '#666' }}>({c.message})</span>}
-          <button onClick={() => handleDelete(c.id)} style={{ marginLeft: 'auto' }}>Borrar</button>
+        <div key={c.id} style={{
+          display: 'flex',
+          gap: '10px',
+          alignItems: 'center',
+          padding: '10px 14px',
+          background: 'var(--parch)',
+          borderRadius: '10px',
+          marginBottom: '8px',
+          fontSize: '14px',
+          color: 'var(--ink)',
+        }}>
+          <span style={{ fontWeight: 500 }}>{c.start_date} → {c.end_date}</span>
+          {c.message && <span style={{ opacity: 0.55 }}>({c.message})</span>}
+          <button
+            onClick={() => handleDelete(c.id)}
+            style={{
+              marginLeft: 'auto',
+              fontSize: '13px',
+              fontWeight: 600,
+              color: 'var(--terra)',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+            }}
+          >
+            Borrar
+          </button>
         </div>
       ))}
 
-      <div style={{ marginTop: 16 }}>
-        <label>Desde</label>
+      <div style={{ marginTop: '20px' }}>
+        <label style={labelStyle}>Desde</label>
         <input type="date" value={start} onChange={(e) => setStart(e.target.value)}
-          style={{ display: 'block', padding: 8, margin: '4px 0' }} />
-        <label>Hasta</label>
+          style={inputStyle} />
+        <label style={labelStyle}>Hasta</label>
         <input type="date" value={end} onChange={(e) => setEnd(e.target.value)}
-          style={{ display: 'block', padding: 8, margin: '4px 0' }} />
-        <label>Mensaje (opcional)</label>
+          style={inputStyle} />
+        <label style={labelStyle}>Mensaje (opcional)</label>
         <input value={message} onChange={(e) => setMessage(e.target.value)}
           placeholder="Cierre parcial por mantenimiento. Regresamos el 15 de marzo"
-          style={{ display: 'block', width: '100%', padding: 8, margin: '4px 0' }} />
-        <button onClick={handleAdd} style={{ padding: '8px 16px', marginTop: 8 }}>
+          style={inputStyle} />
+        <button onClick={handleAdd} style={btnStyle}>
           Agregar cierre
         </button>
       </div>
 
-      {msg && <p>{msg}</p>}
+      {msg && (
+        <p style={{
+          marginTop: '14px',
+          fontSize: '14px',
+          color: msg.startsWith('Error') || msg.startsWith('Indica') || msg.startsWith('La fecha') ? 'var(--terra)' : 'var(--verde)',
+        }}>
+          {msg}
+        </p>
+      )}
     </div>
   )
 }

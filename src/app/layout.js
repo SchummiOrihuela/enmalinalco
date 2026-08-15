@@ -1,14 +1,19 @@
 import "./globals.css";
+import ThemeToggle from "./ThemeToggle";
+
 export const metadata = {
   title: "En Malinalco — Guía del Pueblo Mágico",
   description:
     "La guía más completa de Malinalco, Pueblo Mágico del Estado de México. Restaurantes, hoteles, rutas y secretos locales.",
 };
 
+const themeScript = `(function(){try{var t=localStorage.getItem('em-theme')||(window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();`;
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
@@ -20,7 +25,10 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <ThemeToggle />
+      </body>
     </html>
   );
 }

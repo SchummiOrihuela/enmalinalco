@@ -2,10 +2,18 @@
 import { useState } from 'react'
 
 const PLANS = [
-  { tier: 'malinalli', name: 'Malinalli', price: '$99',  sub: 'Perfil esencial · 3 fotos' },
-  { tier: 'cuauhtli',  name: 'Cuāuhtli',  price: '$249', sub: 'Perfil premium · 10 fotos · Prioridad' },
-  { tier: 'ocelotl',   name: 'Ocēlōtl',   price: '$449', sub: 'Ficha exclusiva · Artículo editorial' },
+  { tier: 'malinalli', name: 'Malinalli', price: '$99',  sub: 'Perfil esencial · 3 fotos', badge: false },
+  { tier: 'cuauhtli',  name: 'Cuāuhtli',  price: '$249', sub: 'Perfil premium · 10 fotos · Prioridad', badge: false },
+  { tier: 'ocelotl',   name: 'Ocēlōtl',   price: '$449', sub: 'Ficha exclusiva · Artículo editorial', badge: true },
 ]
+
+const h2Style = {
+  fontFamily: "'Cormorant Garamond', Georgia, serif",
+  fontSize: '24px',
+  fontWeight: 400,
+  color: 'var(--ink)',
+  margin: '0 0 8px',
+}
 
 export default function PlansSection({ businessId, currentPlan }) {
   const [loading, setLoading] = useState(null)
@@ -28,38 +36,79 @@ export default function PlansSection({ businessId, currentPlan }) {
   }
 
   return (
-    <div style={{ marginTop: 32, paddingTop: 24, borderTop: '1px solid #ddd' }}>
-      <h2>Tu suscripción</h2>
-      <p style={{ color: '#666', marginBottom: 16 }}>
+    <div>
+      <h2 style={h2Style}>Tu suscripción</h2>
+      <p style={{ fontSize: '14px', color: 'var(--ink)', opacity: 0.6, marginBottom: '20px' }}>
         Plan actual: <strong>{currentPlan || 'Sin plan activo'}</strong>
       </p>
-      <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-        {PLANS.map(p => (
-          <div key={p.tier} style={{
-            border: currentPlan === p.tier ? '2px solid #3A6B47' : '1px solid #ccc',
-            borderRadius: 12, padding: 16, minWidth: 220, flex: '1 1 220px',
-          }}>
-            <div style={{ fontSize: 18, fontWeight: 600 }}>{p.name}</div>
-            <div style={{ fontSize: 13, color: '#666', margin: '4px 0 8px' }}>{p.sub}</div>
-            <div style={{ fontSize: 22, fontWeight: 700, marginBottom: 12 }}>
-              {p.price} <span style={{ fontSize: 12, fontWeight: 400 }}>/mes MXN</span>
+      <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+        {PLANS.map(p => {
+          const isCurrent = currentPlan === p.tier
+          return (
+            <div key={p.tier} style={{
+              position: 'relative',
+              border: isCurrent ? '2px solid var(--verde)' : '1px solid rgba(128,128,128,0.22)',
+              borderRadius: '16px',
+              padding: '22px',
+              minWidth: 220,
+              flex: '1 1 220px',
+              background: 'var(--parch)',
+            }}>
+              {p.badge && (
+                <span style={{
+                  position: 'absolute',
+                  top: '14px',
+                  right: '14px',
+                  fontSize: '10px',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.1em',
+                  color: '#fff',
+                  background: 'var(--oro)',
+                  padding: '3px 10px',
+                  borderRadius: '9999px',
+                }}>
+                  Ocēlōtl
+                </span>
+              )}
+              <div style={{
+                fontFamily: "'Cormorant Garamond', Georgia, serif",
+                fontSize: '22px',
+                fontStyle: 'italic',
+                color: 'var(--ink)',
+              }}>
+                {p.name}
+              </div>
+              <div style={{ fontSize: '13px', color: 'var(--ink)', opacity: 0.55, margin: '6px 0 12px', lineHeight: 1.4 }}>
+                {p.sub}
+              </div>
+              <div style={{ fontSize: '26px', fontWeight: 700, color: 'var(--ink)', marginBottom: '16px' }}>
+                {p.price} <span style={{ fontSize: '12px', fontWeight: 400, opacity: 0.5 }}>/mes MXN</span>
+              </div>
+              <button
+                onClick={() => handleSubscribe(p.tier)}
+                disabled={loading !== null || isCurrent}
+                style={{
+                  width: '100%',
+                  padding: '12px',
+                  borderRadius: '9999px',
+                  border: 'none',
+                  background: isCurrent ? 'rgba(128,128,128,0.3)' : 'var(--ink)',
+                  color: isCurrent ? 'var(--ink)' : 'var(--parch)',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  fontFamily: 'inherit',
+                  cursor: isCurrent ? 'default' : 'pointer',
+                  opacity: loading === p.tier ? 0.6 : 1,
+                }}
+              >
+                {isCurrent ? 'Plan actual'
+                  : loading === p.tier ? 'Cargando…'
+                  : 'Suscribirse'}
+              </button>
             </div>
-            <button
-              onClick={() => handleSubscribe(p.tier)}
-              disabled={loading !== null || currentPlan === p.tier}
-              style={{
-                width: '100%', padding: '10px', borderRadius: 8, border: 'none',
-                background: currentPlan === p.tier ? '#ccc' : '#1B1409',
-                color: '#fff', fontWeight: 600, cursor: 'pointer',
-                opacity: loading === p.tier ? 0.6 : 1,
-              }}
-            >
-              {currentPlan === p.tier ? 'Plan actual'
-                : loading === p.tier ? 'Cargando…'
-                : 'Suscribirse'}
-            </button>
-          </div>
-        ))}
+          )
+        })}
       </div>
     </div>
   )
