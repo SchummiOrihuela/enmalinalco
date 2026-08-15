@@ -1,27 +1,12 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { createClient } from '@/lib/supabaseBrowser'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [enviado, setEnviado] = useState(false)
   const [error, setError] = useState(null)
-  const [theme, setTheme] = useState('light')
   const supabase = createClient()
-
-  useEffect(() => {
-    const saved = localStorage.getItem('em-theme') ||
-      (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light')
-    setTheme(saved)
-    document.documentElement.setAttribute('data-theme', saved)
-  }, [])
-
-  function toggleTheme() {
-    const next = theme === 'dark' ? 'light' : 'dark'
-    setTheme(next)
-    document.documentElement.setAttribute('data-theme', next)
-    localStorage.setItem('em-theme', next)
-  }
 
   async function handleLogin() {
     setError(null)
@@ -46,30 +31,6 @@ export default function LoginPage() {
       padding: '24px',
       transition: 'background .4s ease',
     }}>
-      {/* Toggle tema */}
-      <button
-        onClick={toggleTheme}
-        aria-label="Cambiar tema"
-        style={{
-          position: 'fixed',
-          bottom: '24px',
-          right: '24px',
-          width: '44px',
-          height: '44px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          background: 'var(--surf)',
-          border: '1px solid rgba(128,128,128,0.2)',
-          borderRadius: '9999px',
-          boxShadow: '0 4px 16px rgba(27,20,9,0.1)',
-          cursor: 'pointer',
-          fontSize: '18px',
-        }}
-      >
-        {theme === 'dark' ? '☀️' : '🌙'}
-      </button>
-
       <div style={{
         width: '100%',
         maxWidth: '420px',
