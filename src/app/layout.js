@@ -1,3 +1,4 @@
+import "./globals.css";
 export const metadata = {
   title: "En Malinalco — Guía del Pueblo Mágico",
   description:
