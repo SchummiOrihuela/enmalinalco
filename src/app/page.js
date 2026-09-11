@@ -124,11 +124,11 @@ header.scrolled{
 .logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
 .logo-mark{width:32px;height:32px;flex-shrink:0}
 .logo-name{
-  font-family:var(--display);font-size:1.25rem;font-weight:400;
-  letter-spacing:-.01em;line-height:1;color:var(--ink);
+  font-family:var(--display);font-size:1.38rem;font-weight:600;
+  letter-spacing:-.015em;line-height:1;color:var(--ink);
   transition:color var(--dur);
 }
-.logo-name em{color:var(--verde);font-style:italic}
+.logo-name em{color:var(--verde-lt);font-style:italic;font-weight:600}
 .on-hero header:not(.scrolled){background:linear-gradient(to bottom,rgba(18,20,15,.66),rgba(18,20,15,0))}
 .on-hero header:not(.scrolled) .logo-name{color:#F2EDE3}
 .on-hero header:not(.scrolled) .logo-name em{color:var(--verde-lt)}
@@ -562,7 +562,8 @@ footer{background:#1E221A;padding-block:clamp(var(--s12),7vw,var(--s20))}
 .ft-col a:hover{color:rgba(242,237,227,.9)}
 .ft-bot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:var(--s4);
   padding-top:var(--s8)}
-.ft-bot p{font-size:var(--t-xs);color:rgba(242,237,227,.18)}
+.ft-bot p{font-size:var(--t-xs);color:rgba(242,237,227,.42)}
+.ft-bot p:last-child{color:rgba(242,237,227,.78);font-weight:500}
 .ft-heart{color:var(--terra)}
 
 /* ─── THEME TOGGLE ─── */
@@ -655,10 +656,10 @@ const MARKUP = `<!-- Progress bar -->
   <div class="hdr-inner">
     <a href="#" class="logo" aria-label="En Malinalco — Inicio">
       <svg class="logo-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="16" cy="16" r="15" stroke="currentColor" stroke-width="1" opacity="0.18"/>
-        <path d="M16 4.5L23 11.5H20.5V24.5H11.5V11.5H9L16 4.5Z" stroke="#3A6B47" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
-        <path d="M13 24.5V18.5L16 14.5L19 18.5V24.5" stroke="#BF5028" stroke-width="1.4" stroke-linejoin="round" fill="none"/>
-        <circle cx="16" cy="9.5" r="1.8" fill="#C59B1C"/>
+        <circle cx="16" cy="16" r="15" fill="#7CB689" fill-opacity="0.14" stroke="#8FD09B" stroke-width="1.1" stroke-opacity="0.45"/>
+        <path d="M16 4.5L23 11.5H20.5V24.5H11.5V11.5H9L16 4.5Z" fill="#7CB689" fill-opacity="0.22" stroke="#9BD6A6" stroke-width="1.9" stroke-linejoin="round"/>
+        <path d="M13 24.5V18.5L16 14.5L19 18.5V24.5" stroke="#E5794A" stroke-width="1.7" stroke-linejoin="round" fill="none"/>
+        <circle cx="16" cy="9.3" r="2.1" fill="#E8C34C"/>
       </svg>
       <span class="logo-name">en<em>malinalco</em></span>
     </a>
