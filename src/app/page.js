@@ -428,7 +428,7 @@ nav.dnav a:hover::after{transform:scaleX(1)}
   text-transform:uppercase;letter-spacing:.1em;line-height:1.5}
 
 /* ─── B2B + PRICING ─── */
-.b2b-sec{background:var(--ink);position:relative;overflow:hidden}
+.b2b-sec{background:#1B1409;position:relative;overflow:hidden}
 .b2b-sec::before{content:'';position:absolute;top:-10%;right:-5%;
   width:55%;height:120%;
   background:radial-gradient(ellipse at 80% 50%,rgba(58,107,71,.12) 0%,transparent 65%);
@@ -509,7 +509,7 @@ nav.dnav a:hover::after{transform:scaleX(1)}
 .aread svg{width:12px;height:12px}
 
 /* ─── FOOTER ─── */
-footer{background:var(--ink);padding-block:clamp(var(--s12),7vw,var(--s20))}
+footer{background:#1B1409;padding-block:clamp(var(--s12),7vw,var(--s20))}
 .ft-inner{max-width:var(--max);margin-inline:auto;
   padding-inline:clamp(var(--s6),5vw,var(--s16))}
 .ft-top{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;
