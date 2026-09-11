@@ -662,7 +662,7 @@ const MARKUP = `<!-- Progress bar -->
 <!-- ═══════════════════════ HERO ═══════════════════════ -->
 <section class="hero" id="hero" aria-label="Portada">
   <div class="hero-bg" id="hero-bg">
-    <img src="/img/malinalco-pueblo-magico-historia-origen.webp"
+    <img src="/img/hero/portada.webp"
          alt="Vista panorámica de Malinalco, Pueblo Mágico del Estado de México"
          width="1920" height="1080" fetchpriority="high">
   </div>
@@ -784,7 +784,7 @@ const MARKUP = `<!-- Progress bar -->
     <div class="cat-scroll" role="list" aria-label="Categorías del directorio">
 
       <a href="/categoria/restaurantes" class="ccard ccard-wide" role="listitem" style="background:#1C3B28">
-        <div class="ccard-bg" style="background-image:url('/img/restaurantes-malinalco-donde-comer.webp')"></div>
+        <div class="ccard-bg" style="background-image:url('/img/categorias/01-restaurantes.webp')"></div>
         <div class="ccard-body">
           <div class="ccard-icon">
             <svg viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
@@ -795,7 +795,7 @@ const MARKUP = `<!-- Progress bar -->
       </a>
 
       <a href="/categoria/hospedaje" class="ccard" role="listitem" style="background:#1C2E3B">
-        <div class="ccard-bg" style="background-image:url('/img/barrios-malinalco-pueblo-magico.webp')"></div>
+        <div class="ccard-bg" style="background-image:url('/img/categorias/02-hospedaje.webp')"></div>
         <div class="ccard-body">
           <div class="ccard-icon">
             <svg viewBox="0 0 24 24"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></svg>
@@ -806,7 +806,7 @@ const MARKUP = `<!-- Progress bar -->
       </a>
 
       <a href="/categoria/spa-bienestar" class="ccard" role="listitem" style="background:#2B1C1C">
-        <div class="ccard-bg" style="background-image:url('/img/guardianes-cerro-malinalco-tradicion.webp')"></div>
+        <div class="ccard-bg" style="background-image:url('/img/categorias/03-spa-bienestar.webp')"></div>
         <div class="ccard-body">
           <div class="ccard-icon">
             <svg viewBox="0 0 24 24"><path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10"/><path d="M12 6v6l4 2"/></svg>
@@ -817,7 +817,7 @@ const MARKUP = `<!-- Progress bar -->
       </a>
 
       <a href="/categoria/ecoturismo-aventura" class="ccard" role="listitem" style="background:#1C1C2B">
-        <div class="ccard-bg" style="background-image:url('/img/subida-cerro-idolos-malinalco-senderismo.webp')"></div>
+        <div class="ccard-bg" style="background-image:url('/img/categorias/04-ecoturismo.webp')"></div>
         <div class="ccard-body">
           <div class="ccard-icon">
             <svg viewBox="0 0 24 24"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>
@@ -828,7 +828,7 @@ const MARKUP = `<!-- Progress bar -->
       </a>
 
       <a href="/categoria/artesanias-tiendas" class="ccard" role="listitem" style="background:#2B1C24">
-        <div class="ccard-bg" style="background-image:url('/img/guerreros-aguila-jaguar-malinalco.webp')"></div>
+        <div class="ccard-bg" style="background-image:url('/img/categorias/05-artesanias.webp')"></div>
         <div class="ccard-body">
           <div class="ccard-icon">
             <svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
@@ -839,7 +839,7 @@ const MARKUP = `<!-- Progress bar -->
       </a>
 
       <a href="/categoria/cultura-turismo" class="ccard" role="listitem" style="background:#1E1C2E">
-        <div class="ccard-bg" style="background-image:url('/img/convento-agustino-malinalco-siglo-xvi.webp')"></div>
+        <div class="ccard-bg" style="background-image:url('/img/categorias/06-cultura.webp')"></div>
         <div class="ccard-body">
           <div class="ccard-icon">
             <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -849,7 +849,7 @@ const MARKUP = `<!-- Progress bar -->
         </div>
       </a>
       <a href="/categoria/servicios" class="ccard" role="listitem" style="background:#1C2B24">
-        <div class="ccard-bg" style="background-image:url('/img/calles-malinalco-pueblo-magico.webp')"></div>
+        <div class="ccard-bg" style="background-image:url('/img/categorias/07-servicios.webp')"></div>
         <div class="ccard-body">
           <div class="ccard-icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4l-6 6a2 2 0 1 0 2.8 2.8l6-6a4 4 0 0 0 5.4-5.4l-2.3 2.3-2.1-.6-.6-2.1z"/></svg></div>
           <div class="ccard-name">Servicios</div>
@@ -857,7 +857,7 @@ const MARKUP = `<!-- Progress bar -->
         </div>
       </a>
       <a href="/categoria/eventos-experiencias" class="ccard" role="listitem" style="background:#2B241C">
-        <div class="ccard-bg" style="background-image:url('/img/cabalgata-fiesta-divino-salvador-malinalco.webp')"></div>
+        <div class="ccard-bg" style="background-image:url('/img/categorias/08-eventos.webp')"></div>
         <div class="ccard-body">
           <div class="ccard-icon"><svg viewBox="0 0 24 24"><path d="M4 5h16v16H4z"/><path d="M16 3v4M8 3v4M4 11h16"/></svg></div>
           <div class="ccard-name">Eventos</div>
@@ -880,7 +880,7 @@ const MARKUP = `<!-- Progress bar -->
 
       <!-- BIG CARD -->
       <div class="pcard pcard-big rv">
-        <img src="/img/desayunar-malinalco-cafes-y-brunch.webp" alt="El Patio del Pueblo — restaurante tradicional" width="600" height="800" loading="lazy">
+        <img src="/img/destacados/big-restaurante.webp" alt="El Patio del Pueblo — restaurante tradicional" width="600" height="800" loading="lazy">
         <div class="pcard-ov">
           <span class="ptag">
             <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2h1a1 1 0 0 1 1 1v13a1 1 0 0 0 1 1h15"/></svg>
@@ -901,7 +901,7 @@ const MARKUP = `<!-- Progress bar -->
 
         <div class="pcard-sm rv rv-d1">
           <div class="pcard-sm-img">
-            <img src="/img/48-horas-malinalco.webp" alt="Casa de los Sueños — hotel boutique" width="260" height="200" loading="lazy">
+            <img src="/img/destacados/01-hotel.webp" alt="Casa de los Sueños — hotel boutique" width="260" height="200" loading="lazy">
           </div>
           <div class="pcard-sm-body">
             <div class="pcard-sm-cat">Hotel Boutique</div>
@@ -912,7 +912,7 @@ const MARKUP = `<!-- Progress bar -->
 
         <div class="pcard-sm rv rv-d2">
           <div class="pcard-sm-img">
-            <img src="/img/ZonaArqueologica.webp" alt="Cerro de los Ídolos — zona arqueológica" width="260" height="200" loading="lazy">
+            <img src="/img/destacados/02-zona-arqueologica.webp" alt="Cerro de los Ídolos — zona arqueológica" width="260" height="200" loading="lazy">
           </div>
           <div class="pcard-sm-body">
             <div class="pcard-sm-cat">Zona Arqueológica</div>
@@ -923,7 +923,7 @@ const MARKUP = `<!-- Progress bar -->
 
         <div class="pcard-sm rv rv-d3">
           <div class="pcard-sm-img">
-            <img src="/img/pesca-trucha-mezcal-malinalco.webp" alt="Tlalpan Spa — bienestar y relajación" width="260" height="200" loading="lazy">
+            <img src="/img/destacados/03-spa.webp" alt="Tlalpan Spa — bienestar y relajación" width="260" height="200" loading="lazy">
           </div>
           <div class="pcard-sm-body">
             <div class="pcard-sm-cat">Spa & Bienestar</div>
@@ -934,7 +934,7 @@ const MARKUP = `<!-- Progress bar -->
 
         <div class="pcard-sm rv rv-d4">
           <div class="pcard-sm-img">
-            <img src="/img/guerreros-aguila-jaguar-malinalco.webp" alt="Taller Xochicalli — artesanías locales" width="260" height="200" loading="lazy">
+            <img src="/img/destacados/04-artesanias.webp" alt="Taller Xochicalli — artesanías locales" width="260" height="200" loading="lazy">
           </div>
           <div class="pcard-sm-body">
             <div class="pcard-sm-cat">Artesanías</div>
@@ -1080,7 +1080,7 @@ const MARKUP = `<!-- Progress bar -->
 
       <article class="acard rv">
         <div class="acard-img">
-          <img src="/img/restaurantes-malinalco-donde-comer.webp" alt="Ruta gastronómica en Malinalco" width="600" height="338" loading="lazy">
+          <img src="/img/articulos/01-gastronomia.webp" alt="Ruta gastronómica en Malinalco" width="600" height="338" loading="lazy">
         </div>
         <div class="acard-body">
           <div class="atag">Gastronomía</div>
@@ -1095,7 +1095,7 @@ const MARKUP = `<!-- Progress bar -->
 
       <article class="acard rv rv-d1">
         <div class="acard-img">
-          <img src="/img/ZonaArqueologica.webp" alt="Zona arqueológica de Malinalco" width="600" height="338" loading="lazy">
+          <img src="/img/articulos/02-zona-arqueologica.webp" alt="Zona arqueológica de Malinalco" width="600" height="338" loading="lazy">
         </div>
         <div class="acard-body">
           <div class="atag">Historia</div>
@@ -1110,7 +1110,7 @@ const MARKUP = `<!-- Progress bar -->
 
       <article class="acard rv rv-d2">
         <div class="acard-img">
-          <img src="/img/ruta-5-dias-malinalco.webp" alt="Fin de semana perfecto en Malinalco" width="600" height="338" loading="lazy">
+          <img src="/img/articulos/03-fin-de-semana.webp" alt="Fin de semana perfecto en Malinalco" width="600" height="338" loading="lazy">
         </div>
         <div class="acard-body">
           <div class="atag">Itinerarios</div>
