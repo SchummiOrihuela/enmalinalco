@@ -129,7 +129,7 @@ header.scrolled{
   transition:color var(--dur);
 }
 .logo-name em{color:var(--verde);font-style:italic}
-.on-hero header:not(.scrolled){background:linear-gradient(to bottom,rgba(18,20,15,.5),rgba(18,20,15,0))}
+.on-hero header:not(.scrolled){background:linear-gradient(to bottom,rgba(18,20,15,.66),rgba(18,20,15,0))}
 .on-hero header:not(.scrolled) .logo-name{color:#F2EDE3}
 .on-hero header:not(.scrolled) .logo-name em{color:var(--verde-lt)}
 
@@ -196,9 +196,9 @@ nav.dnav a:hover::after{transform:scaleX(1)}
 
 .hero-eyebrow{display:inline-flex;align-items:center;gap:var(--s3);
   font-size:var(--t-2xs);font-weight:700;text-transform:uppercase;letter-spacing:.18em;
-  color:rgba(242,237,227,.55);margin-bottom:var(--s8);
+  color:rgba(242,237,227,.8);margin-bottom:var(--s8);
   opacity:0;transform:translateY(12px);transition:opacity .6s ease .15s,transform .6s var(--ease) .15s}
-.hero-eyebrow::before{content:'';display:block;width:28px;height:1px;background:rgba(242,237,227,.35)}
+.hero-eyebrow::before{content:'';display:block;width:28px;height:1px;background:rgba(242,237,227,.55)}
 .hero-eyebrow.in{opacity:1;transform:translateY(0)}
 
 .hero-h1{font-family:var(--display);font-size:var(--t-hero);font-weight:400;
@@ -601,6 +601,7 @@ footer{background:#1E221A;padding-block:clamp(var(--s12),7vw,var(--s20))}
   .ft-top{grid-template-columns:1fr}
   .ccard{flex:0 0 200px;height:280px}
   .ccard-wide{flex:0 0 290px}
+  .mq-track{animation-duration:66s}
   #ttog{bottom:var(--s4);right:var(--s4)}
   .scroll-cue{display:none}
 }
@@ -682,7 +683,7 @@ const MARKUP = `<!-- Progress bar -->
     </h1>
 
     <p class="hero-sub" id="hsub">
-      Restaurantes, hoteles, rutas y los rincones que solo conocen los locales. Curada con 8 años de amor por este pueblo.
+      Restaurantes, hoteles, rutas y los rincones que solo conocen los locales. Todo lo que vale la pena, en un solo lugar.
     </p>
 
     <div class="hero-btns" id="hbtns">
@@ -708,10 +709,6 @@ const MARKUP = `<!-- Progress bar -->
       <div class="hstat">
         <div class="hstat-val"><span data-count="48" data-suffix="k+">0</span></div>
         <div class="hstat-lbl">Visitas al mes</div>
-      </div>
-      <div class="hstat">
-        <div class="hstat-val"><span data-count="8">0</span></div>
-        <div class="hstat-lbl">Años cubriendo el pueblo</div>
       </div>
     </div>
   </div>
