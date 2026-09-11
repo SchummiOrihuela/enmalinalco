@@ -1114,7 +1114,7 @@ const MARKUP = `<!-- Progress bar -->
       <li><span class="hiw-num">3</span><div><strong>Personalízala a tu gusto</strong><span>Actualiza, modifica y mejora cuando quieras, desde tu celular o laptop. El espacio es tuyo.</span></div></li>
       <li><span class="hiw-num">4</span><div><strong>Listo, estás arriba</strong><span>Visible y fácil de encontrar, recibiendo más clientes.</span></div></li>
     </ol>
-    <a href="#" class="hiw-cta">
+    <a href="https://wa.me/525562513258?text=%C2%A1Hola!%20Me%20interesa%20anunciar%20mi%20negocio%20en%20enmalinalco.com.%20%C2%BFMe%20compartes%20m%C3%A1s%20informaci%C3%B3n%3F" target="_blank" rel="noopener noreferrer" class="hiw-cta">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       Empezar por WhatsApp
     </a>
