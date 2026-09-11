@@ -441,17 +441,17 @@ nav.dnav a:hover::after{transform:scaleX(1)}
 .b2b-text .eyebrow{color:rgba(197,155,28,.65)}
 .b2b-text .eyebrow::before{background:rgba(197,155,28,.5);opacity:1}
 .b2b-text .sec-h{color:#F2EDE3;margin-bottom:var(--s4)}
-.b2b-text .sec-p{color:rgba(242,237,227,.42);margin-bottom:var(--s8)}
+.b2b-text .sec-p{color:rgba(242,237,227,.62);margin-bottom:var(--s8)}
 .trust-row{display:flex;flex-wrap:wrap;gap:var(--s3);margin-bottom:var(--s10)}
 .tchip{display:inline-flex;align-items:center;gap:var(--s2);
-  padding:7px 14px;border:1px solid rgba(242,237,227,.08);border-radius:var(--r-full);
-  font-size:var(--t-2xs);font-weight:500;color:rgba(242,237,227,.5)}
+  padding:7px 14px;border:1px solid rgba(242,237,227,.12);border-radius:var(--r-full);
+  font-size:var(--t-2xs);font-weight:500;color:rgba(242,237,227,.72)}
 .tchip svg{width:12px;height:12px;flex-shrink:0;color:var(--oro)}
 .b2b-cta{display:inline-flex;align-items:center;gap:var(--s2);
-  padding:13px 26px;background:#F2EDE3;color:var(--ink);
+  padding:13px 26px;background:var(--verde);color:#fff;
   font-size:var(--t-sm);font-weight:700;border-radius:var(--r-full);
-  transition:transform var(--dur) var(--ease),box-shadow var(--dur)}
-.b2b-cta:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(242,237,227,.18)}
+  transition:transform var(--dur) var(--ease),box-shadow var(--dur),background var(--dur)}
+.b2b-cta:hover{transform:translateY(-2px);background:var(--verde-lt);color:var(--selva);box-shadow:0 8px 28px rgba(58,107,71,.32)}
 
 /* Pricing cards */
 .pcards{display:flex;flex-direction:column;gap:var(--s3)}
@@ -469,7 +469,7 @@ nav.dnav a:hover::after{transform:scaleX(1)}
   padding:2px 8px;border-radius:var(--r-full);display:inline-block;margin-bottom:4px}
 .plan-name{font-family:var(--display);font-size:1.2rem;font-style:italic;
   font-weight:400;color:#F2EDE3;line-height:1.1;margin-bottom:3px}
-.plan-sub{font-size:var(--t-2xs);color:rgba(242,237,227,.35)}
+.plan-sub{font-size:var(--t-2xs);color:rgba(242,237,227,.5)}
 .plan-price{text-align:right;flex-shrink:0}
 .plan-amt{font-family:var(--display);font-size:1.6rem;font-weight:400;
   color:#F2EDE3;white-space:nowrap}
@@ -481,6 +481,36 @@ nav.dnav a:hover::after{transform:scaleX(1)}
 .pcrd:hover .plan-arrow{border-color:rgba(242,237,227,.3);
   color:rgba(242,237,227,.8);transform:translateX(3px)}
 .pcrd.star .plan-arrow{border-color:rgba(130,201,148,.3);color:var(--verde-lt)}
+
+/* ─── Modal "Cómo funciona" ─── */
+.hiw-overlay{position:fixed;inset:0;z-index:600;display:none;align-items:center;justify-content:center;
+  padding:var(--s5);background:rgba(10,12,8,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.hiw-overlay:not([hidden]){display:flex}
+.hiw-box{position:relative;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;
+  background:var(--surf);border:1px solid rgba(242,237,227,.1);border-radius:var(--r-xl);
+  padding:var(--s10) var(--s8) var(--s8);box-shadow:0 24px 80px rgba(0,0,0,.5);
+  animation:hiw-in .32s var(--ease)}
+@keyframes hiw-in{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
+.hiw-close{position:absolute;top:var(--s4);right:var(--s4);width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;color:rgba(240,232,212,.6);
+  border:1px solid rgba(242,237,227,.12);transition:color var(--dur),border-color var(--dur)}
+.hiw-close:hover{color:var(--ink);border-color:rgba(242,237,227,.3)}
+.hiw-eyebrow{font-size:var(--t-2xs);font-weight:700;text-transform:uppercase;letter-spacing:.14em;
+  color:var(--oro);margin-bottom:var(--s2)}
+.hiw-title{font-family:var(--display);font-size:var(--t-lg);font-weight:400;color:var(--ink);
+  margin-bottom:var(--s6);line-height:1.15}
+.hiw-steps{display:flex;flex-direction:column;gap:var(--s5);margin-bottom:var(--s8)}
+.hiw-steps li{display:flex;gap:var(--s4);align-items:flex-start}
+.hiw-num{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:var(--verde);
+  color:#fff;font-weight:700;font-size:var(--t-sm);display:flex;align-items:center;justify-content:center}
+.hiw-steps li div{display:flex;flex-direction:column;gap:2px}
+.hiw-steps strong{font-size:var(--t-md);font-weight:600;color:var(--ink)}
+.hiw-steps span{font-size:var(--t-sm);color:rgba(240,232,212,.62);line-height:1.5}
+.hiw-cta{display:inline-flex;align-items:center;justify-content:center;gap:var(--s2);width:100%;
+  padding:14px 26px;background:var(--verde);color:#fff;font-size:var(--t-sm);font-weight:700;
+  border-radius:var(--r-full);transition:background var(--dur),transform var(--dur) var(--ease)}
+.hiw-cta:hover{background:var(--verde-lt);color:var(--selva);transform:translateY(-2px)}
+body.hiw-open{overflow:hidden}
 
 /* ─── ARTICLES ─── */
 .art-sec{background:var(--parch)}
@@ -980,13 +1010,13 @@ const MARKUP = `<!-- Progress bar -->
       <p class="eyebrow rv">Para dueños de negocio</p>
       <h2 class="sec-h rv rv-d1">¿Tienes un negocio en <em style="color:var(--verde-lt)">Malinalco</em>?</h2>
       <p class="sec-p rv rv-d2">
-        Miles de turistas visitan el pueblo cada fin de semana buscando dónde comer, dormir y qué hacer. Con tu ficha en enmalinalco.com, ellos te encuentran a ti primero.
+        Miles de turistas visitan <em style="color:var(--verde-lt);font-style:normal;font-weight:600">Mali</em> cada fin de semana buscando dónde comer, en qué lugar hospedarse y qué hacer en el pueblo. Anúnciate en enmalinalco.com y ellos te encontrarán a ti primero.
       </p>
 
       <div class="trust-row rv rv-d2">
         <span class="tchip">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          8 años como Superanfitrión
+          Control total de tu ficha
         </span>
         <span class="tchip">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -998,14 +1028,14 @@ const MARKUP = `<!-- Progress bar -->
         </span>
         <span class="tchip">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Sin comisiones por reserva
+          Actualízalo desde tu celular
         </span>
       </div>
 
-      <a href="#" class="b2b-cta rv rv-d3">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        Hablar por WhatsApp
-      </a>
+      <button type="button" id="b2b-steps" class="b2b-cta rv rv-d3" aria-haspopup="dialog">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        ¿Cómo funciona?
+      </button>
     </div>
 
     <!-- Pricing cards side -->
@@ -1062,13 +1092,34 @@ const MARKUP = `<!-- Progress bar -->
         </div>
       </div>
 
-      <p style="font-size:var(--t-2xs);color:rgba(242,237,227,.25);text-align:center;margin-top:var(--s2)">
+      <p style="font-size:var(--t-sm);color:rgba(242,237,227,.6);text-align:center;margin-top:var(--s3);letter-spacing:.01em">
         Sin contratos de permanencia · Cancela cuando quieras
       </p>
     </div>
 
   </div>
 </section>
+
+<!-- ═══════════════════════ MODAL "CÓMO FUNCIONA" ═══════════════════════ -->
+<div class="hiw-overlay" id="hiw" role="dialog" aria-modal="true" aria-labelledby="hiw-title" hidden>
+  <div class="hiw-box">
+    <button type="button" class="hiw-close" id="hiw-close" aria-label="Cerrar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <p class="hiw-eyebrow">Anúnciate en enmalinalco.com</p>
+    <h3 class="hiw-title" id="hiw-title">Es fácil, y tú tienes el control</h3>
+    <ol class="hiw-steps">
+      <li><span class="hiw-num">1</span><div><strong>Regístrate</strong><span>Crea tu cuenta en un minuto, sin complicaciones.</span></div></li>
+      <li><span class="hiw-num">2</span><div><strong>Llena tu ficha</strong><span>Datos, fotos, horarios y todo lo de tu establecimiento.</span></div></li>
+      <li><span class="hiw-num">3</span><div><strong>Personalízala a tu gusto</strong><span>Actualiza, modifica y mejora cuando quieras, desde tu celular o laptop. El espacio es tuyo.</span></div></li>
+      <li><span class="hiw-num">4</span><div><strong>Listo, estás arriba</strong><span>Visible y fácil de encontrar, recibiendo más clientes.</span></div></li>
+    </ol>
+    <a href="#" class="hiw-cta">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      Empezar por WhatsApp
+    </a>
+  </div>
+</div>
 
 <!-- ═══════════════════════ ARTÍCULOS ═══════════════════════ -->
 <section class="sec art-sec" id="articulos">
@@ -1350,7 +1401,20 @@ export default function Home() {
             window.location.href = '/login';
           });
         });
-      
+
+        // ── Modal "¿Cómo funciona?" ──
+        const hiw = document.getElementById('hiw');
+        const hiwOpen = document.getElementById('b2b-steps');
+        const hiwClose = document.getElementById('hiw-close');
+        if (hiw && hiwOpen) {
+          const openHiw = () => { hiw.hidden = false; document.body.classList.add('hiw-open'); hiwClose && hiwClose.focus(); };
+          const closeHiw = () => { hiw.hidden = true; document.body.classList.remove('hiw-open'); hiwOpen.focus(); };
+          hiwOpen.addEventListener('click', openHiw);
+          hiwClose && hiwClose.addEventListener('click', closeHiw);
+          hiw.addEventListener('click', (e) => { if (e.target === hiw) closeHiw(); });
+          document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !hiw.hidden) closeHiw(); });
+        }
+
       })();
     };
     run();
