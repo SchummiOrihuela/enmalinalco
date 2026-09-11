@@ -591,6 +591,7 @@ footer{background:#1E221A;padding-block:clamp(var(--s12),7vw,var(--s20))}
   .nums-grid{grid-template-columns:repeat(2,1fr)}
   .b2b-inner{grid-template-columns:1fr}
   .ft-top{grid-template-columns:1fr 1fr}
+  .mq-track{animation-duration:90s}
 }
 @media(max-width:768px){
   nav.dnav,.hcta{display:none}
@@ -601,7 +602,6 @@ footer{background:#1E221A;padding-block:clamp(var(--s12),7vw,var(--s20))}
   .ft-top{grid-template-columns:1fr}
   .ccard{flex:0 0 200px;height:280px}
   .ccard-wide{flex:0 0 290px}
-  .mq-track{animation-duration:66s}
   #ttog{bottom:var(--s4);right:var(--s4)}
   .scroll-cue{display:none}
 }
@@ -710,6 +710,10 @@ const MARKUP = `<!-- Progress bar -->
         <div class="hstat-val"><span data-count="48" data-suffix="k+">0</span></div>
         <div class="hstat-lbl">Visitas al mes</div>
       </div>
+      <div class="hstat">
+        <div class="hstat-val"><span data-count="4" data-decimal="8">0</span><sup>/5</sup></div>
+        <div class="hstat-lbl">Calificación promedio</div>
+      </div>
     </div>
   </div>
 
@@ -758,6 +762,26 @@ const MARKUP = `<!-- Progress bar -->
       <button class="pill" role="listitem">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l4-8 4 4 4-6 4 10"/></svg>
         Rutas naturales
+      </button>
+      <button class="pill" role="listitem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+        Farmacias
+      </button>
+      <button class="pill" role="listitem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M9 20v-6h6v6"/></svg>
+        Tiendas / Mini súper
+      </button>
+      <button class="pill" role="listitem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14l-7 8z"/><path d="M12 12v7"/><path d="M8 20h8"/></svg>
+        Bares
+      </button>
+      <button class="pill" role="listitem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2"/><path d="M4 11a8 8 0 0 1 16 0z"/><path d="M12 11v9"/><path d="M9 20h6"/></svg>
+        Terrazas
+      </button>
+      <button class="pill" role="listitem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2 5 4-14 2 9h6"/></svg>
+        Clínicas
       </button>
     </div>
   </div>
@@ -946,27 +970,6 @@ const MARKUP = `<!-- Progress bar -->
   </div>
 </section>
 
-<!-- ═══════════════════════ NUMBERS BAND ═══════════════════════ -->
-<div class="nums-band" id="nums">
-  <div class="nums-grid">
-    <div class="nitem rv">
-      <div class="nval"><span data-count="148">0</span><span class="nval-suf">+</span></div>
-      <div class="nlbl">Negocios en el directorio</div>
-    </div>
-    <div class="nitem rv rv-d1">
-      <div class="nval"><span data-count="48">0</span><span class="nval-suf">k</span></div>
-      <div class="nlbl">Visitas mensuales</div>
-    </div>
-    <div class="nitem rv rv-d2">
-      <div class="nval"><span data-count="8">0</span></div>
-      <div class="nlbl">Años de experiencia local</div>
-    </div>
-    <div class="nitem rv rv-d3">
-      <div class="nval"><span data-count="4" data-decimal="8">0</span><span class="nval-suf">/5</span></div>
-      <div class="nlbl">Calificación promedio</div>
-    </div>
-  </div>
-</div>
 
 <!-- ═══════════════════════ B2B + PRICING ═══════════════════════ -->
 <section class="b2b-sec" id="negocios">
@@ -1337,7 +1340,7 @@ export default function Home() {
             }
           });
         }, { threshold: 0.3 });
-        const numsEl = document.getElementById('nums');
+        const numsEl = document.getElementById('hstats');
         if (numsEl) cntObs.observe(numsEl);
 
         // ── pcards del landing → llevan al registro/login (Patrón A) ──
