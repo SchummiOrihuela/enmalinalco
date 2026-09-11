@@ -129,6 +129,7 @@ header.scrolled{
   transition:color var(--dur);
 }
 .logo-name em{color:var(--verde);font-style:italic}
+.on-hero header:not(.scrolled){background:linear-gradient(to bottom,rgba(18,20,15,.5),rgba(18,20,15,0))}
 .on-hero header:not(.scrolled) .logo-name{color:#F2EDE3}
 .on-hero header:not(.scrolled) .logo-name em{color:var(--verde-lt)}
 
@@ -140,7 +141,7 @@ nav.dnav a::after{content:'';position:absolute;bottom:-2px;left:0;right:0;
   transition:transform var(--dur) var(--ease)}
 nav.dnav a:hover{opacity:1}
 nav.dnav a:hover::after{transform:scaleX(1)}
-.on-hero header:not(.scrolled) nav.dnav a{color:#F2EDE3;opacity:.65}
+.on-hero header:not(.scrolled) nav.dnav a{color:#F2EDE3;opacity:.82}
 
 .hcta{display:inline-flex;align-items:center;gap:var(--s2);
   padding:9px 20px;background:var(--ink);color:var(--parch);
@@ -635,7 +636,7 @@ const MARKUP = `<!-- Progress bar -->
       <a href="#categorias">Directorio</a>
       <a href="#destacados">Destacados</a>
       <a href="#negocios">Para negocios</a>
-      <a href="#articulos">Artículos</a>
+      <a href="#articulos">Historias del pueblo</a>
     </nav>
 
     <div style="display:flex;align-items:center;gap:var(--s3)">
@@ -655,7 +656,7 @@ const MARKUP = `<!-- Progress bar -->
   <a href="#categorias">Directorio <span>→</span></a>
   <a href="#destacados">Destacados <span>→</span></a>
   <a href="#negocios">Para negocios <span>→</span></a>
-  <a href="#articulos">Artículos <span>→</span></a>
+  <a href="#articulos">Historias del pueblo <span>→</span></a>
   <a href="#negocios" class="mnav-cta">Registra tu negocio →</a>
 </nav>
 
@@ -691,7 +692,7 @@ const MARKUP = `<!-- Progress bar -->
       </a>
       <a href="#articulos" class="btn-h-s">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-        Leer artículos
+        Historias del pueblo
       </a>
     </div>
 
@@ -1167,7 +1168,7 @@ const MARKUP = `<!-- Progress bar -->
 
       <div class="ft-col">
         <h5>Contenido</h5>
-        <a href="#">Artículos</a>
+        <a href="#">Historias del pueblo</a>
         <a href="#">Rutas</a>
         <a href="#">Gastronomía</a>
         <a href="#">Historia</a>
