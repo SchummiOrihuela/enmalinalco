@@ -895,8 +895,8 @@ const MARKUP = `<!-- Progress bar -->
 <section class="sec feat-sec" id="destacados">
   <div class="inner">
     <p class="eyebrow rv">Lo mejor de Malinalco</p>
-    <h2 class="sec-h rv rv-d1">Lugares <em>seleccionados</em> por locales</h2>
-    <p class="sec-p rv rv-d2">Curados por quienes conocen el pueblo de adentro: el restaurante que no se anuncia, el hotel que enamora, la ruta que pocos conocen.</p>
+    <h2 class="sec-h rv rv-d1">Lugares <em>que amamos</em>, elegidos por locales</h2>
+    <p class="sec-p rv rv-d2">Elegidos a mano por quienes conocen el pueblo de adentro: el restaurante que no se anuncia, el hotel que enamora, la ruta que pocos conocen.</p>
 
     <div class="feat-grid">
 
