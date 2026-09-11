@@ -591,7 +591,7 @@ footer{background:#1E221A;padding-block:clamp(var(--s12),7vw,var(--s20))}
   .nums-grid{grid-template-columns:repeat(2,1fr)}
   .b2b-inner{grid-template-columns:1fr}
   .ft-top{grid-template-columns:1fr 1fr}
-  .mq-track{animation-duration:90s}
+  .mq-track{animation-duration:110s!important}
 }
 @media(max-width:768px){
   nav.dnav,.hcta{display:none}
