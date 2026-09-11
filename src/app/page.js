@@ -1045,7 +1045,7 @@ const MARKUP = `<!-- Progress bar -->
         <div>
           <div class="plan-badge">Básico</div>
           <div class="plan-name">Malinalli</div>
-          <div class="plan-sub">Perfil esencial · 3 fotos · Ubicación</div>
+          <div class="plan-sub">3 fotos · Contacto y ubicación</div>
         </div>
         <div style="display:flex;align-items:center;gap:var(--s3)">
           <div class="plan-price">
@@ -1062,7 +1062,7 @@ const MARKUP = `<!-- Progress bar -->
         <div>
           <div class="plan-badge">⭐ Más popular</div>
           <div class="plan-name">Cuāuhtli</div>
-          <div class="plan-sub">Perfil premium · 10 fotos · Prioridad en búsquedas</div>
+          <div class="plan-sub">10 fotos · Apareces antes en el listado</div>
         </div>
         <div style="display:flex;align-items:center;gap:var(--s3)">
           <div class="plan-price">
@@ -1079,7 +1079,7 @@ const MARKUP = `<!-- Progress bar -->
         <div>
           <div class="plan-badge">Élite</div>
           <div class="plan-name">Ocēlōtl</div>
-          <div class="plan-sub">Ficha exclusiva · Artículo editorial · Posición 1</div>
+          <div class="plan-sub">30 fotos · Primer lugar · Artículo editorial</div>
         </div>
         <div style="display:flex;align-items:center;gap:var(--s3)">
           <div class="plan-price">
