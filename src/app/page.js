@@ -18,10 +18,10 @@ const STYLE = `
   --parch:     #F3EEE4;
   --surf:      #F9F7F2;
   --selva:     #1C3B28;
-  --verde:     #3A6B47;
-  --verde-lt:  #82C994;
-  --terra:     #BF5028;
-  --oro:       #C59B1C;
+  --verde:     #7CB689;
+  --verde-lt:  #A8D6B0;
+  --terra:     #DE6A3E;
+  --oro:       #DCB24A;
   --fog:       rgba(27,20,9,.07);
 
   /* Type scale */
@@ -287,7 +287,7 @@ nav.dnav a:hover::after{transform:scaleX(1)}
   box-shadow:0 2px 16px rgba(58,107,71,.1),0 0 0 4px rgba(58,107,71,.06)}
 .sbar input{flex:1;border:none;outline:none;background:transparent;
   font:inherit;font-size:var(--t-md);color:var(--ink)}
-.sbar input::placeholder{color:rgba(27,20,9,.32)}
+.sbar input::placeholder{color:rgba(240,232,212,.34)}
 .sbtn{display:inline-flex;align-items:center;gap:var(--s2);
   padding:11px 22px;background:var(--ink);color:var(--parch);
   font-size:var(--t-sm);font-weight:600;border-radius:var(--r-full);flex-shrink:0;
@@ -407,7 +407,7 @@ nav.dnav a:hover::after{transform:scaleX(1)}
 .pcard-sm-cat{font-size:.65rem;font-weight:700;text-transform:uppercase;
   letter-spacing:.1em;color:var(--terra)}
 .pcard-sm-name{font-family:var(--display);font-size:1.05rem;color:var(--ink);line-height:1.2}
-.pcard-sm-sub{font-size:var(--t-2xs);color:rgba(27,20,9,.4)}
+.pcard-sm-sub{font-size:var(--t-2xs);color:rgba(240,232,212,.45)}
 
 /* ─── NUMBERS BAND ─── */
 .nums-band{background:var(--selva);padding-block:clamp(var(--s12),6vw,var(--s20));
@@ -497,19 +497,19 @@ nav.dnav a:hover::after{transform:scaleX(1)}
   letter-spacing:.12em;color:var(--verde);margin-bottom:var(--s2)}
 .atitle{font-family:var(--display);font-size:1.15rem;line-height:1.2;
   color:var(--ink);margin-bottom:var(--s3)}
-.aexc{font-size:var(--t-sm);color:rgba(27,20,9,.52);line-height:1.6;
+.aexc{font-size:var(--t-sm);color:rgba(240,232,212,.5);line-height:1.6;
   margin-bottom:var(--s4);display:-webkit-box;-webkit-line-clamp:2;
   -webkit-box-orient:vertical;overflow:hidden}
 .afoot{display:flex;justify-content:space-between;align-items:center;
   padding-top:var(--s4);border-top:1px solid rgba(27,20,9,.06)}
-.adate{font-size:var(--t-xs);color:rgba(27,20,9,.28)}
+.adate{font-size:var(--t-xs);color:rgba(240,232,212,.46)}
 .aread{font-size:var(--t-xs);font-weight:700;color:var(--verde);
   display:flex;align-items:center;gap:4px;transition:gap var(--dur)}
 .acard:hover .aread{gap:8px}
 .aread svg{width:12px;height:12px}
 
 /* ─── FOOTER ─── */
-footer{background:#1B1409;padding-block:clamp(var(--s12),7vw,var(--s20))}
+footer{background:#1E221A;padding-block:clamp(var(--s12),7vw,var(--s20))}
 .ft-inner{max-width:var(--max);margin-inline:auto;
   padding-inline:clamp(var(--s6),5vw,var(--s16))}
 .ft-top{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;
@@ -546,33 +546,33 @@ footer{background:#1B1409;padding-block:clamp(var(--s12),7vw,var(--s20))}
 [data-theme=dark] #ttog svg{color:#F2EDE3}
 
 /* ─── DARK MODE ─── */
-[data-theme=dark] body{background:#14110C;color:#E8E2D8}
+[data-theme=dark] body{background:#363B33;color:#F0E8D4}
 [data-theme=dark]{
-  --parch:#14110C; --surf:#1C1914; --ink:#E8E2D8; --fog:rgba(232,226,216,.06);
-  --selva:#0F2018
+  --parch:#363B33; --surf:#414740; --ink:#F0E8D4; --fog:rgba(240,232,212,.06);
+  --selva:#23271F
 }
-[data-theme=dark] header.scrolled{background:rgba(20,17,12,.92)}
+[data-theme=dark] header.scrolled{background:rgba(48,52,44,.92)}
 [data-theme=dark] .sbar{background:rgba(255,255,255,.04);border-color:rgba(242,237,227,.08)}
-[data-theme=dark] .sbar input{color:#E8E2D8}
-[data-theme=dark] .sbtn{background:#E8E2D8;color:#14110C}
+[data-theme=dark] .sbar input{color:#F0E8D4}
+[data-theme=dark] .sbtn{background:#F0E8D4;color:#363B33}
 [data-theme=dark] .pill{border-color:rgba(242,237,227,.12);color:rgba(242,237,227,.5)}
-[data-theme=dark] .pcard-sm{background:#1C1914;border-color:rgba(242,237,227,.07)}
-[data-theme=dark] .pcard-sm-name{color:#E8E2D8}
-[data-theme=dark] .acard{background:#1C1914;border-color:rgba(242,237,227,.06)}
-[data-theme=dark] .atitle{color:#E8E2D8}
+[data-theme=dark] .pcard-sm{background:#414740;border-color:rgba(242,237,227,.07)}
+[data-theme=dark] .pcard-sm-name{color:#F0E8D4}
+[data-theme=dark] .acard{background:#414740;border-color:rgba(242,237,227,.06)}
+[data-theme=dark] .atitle{color:#F0E8D4}
 [data-theme=dark] .afoot{border-top-color:rgba(242,237,227,.06)}
-[data-theme=dark] .search-hed{color:#E8E2D8}
-[data-theme=dark] .sec-h{color:#E8E2D8}
-[data-theme=dark] .sec-p{color:rgba(232,226,216,.45)}
-[data-theme=dark] .eyebrow{color:rgba(232,226,216,.35)}
-[data-theme=dark] .cat-sec{background:#1C1914}
-[data-theme=dark] .cat-scroller-wrap::after{background:linear-gradient(to right,transparent,#1C1914)}
-[data-theme=dark] .feat-sec{background:#14110C}
-[data-theme=dark] .hcta{background:rgba(242,237,227,.1);border:1px solid rgba(242,237,227,.15);color:#E8E2D8}
-[data-theme=dark] .logo-name{color:#E8E2D8}
-[data-theme=dark] nav.dnav a{color:#E8E2D8}
-[data-theme=dark] .mnav{background:#1C1914}
-[data-theme=dark] .mnav a{color:#E8E2D8;border-bottom-color:rgba(242,237,227,.07)}
+[data-theme=dark] .search-hed{color:#F0E8D4}
+[data-theme=dark] .sec-h{color:#F0E8D4}
+[data-theme=dark] .sec-p{color:rgba(240,232,212,.45)}
+[data-theme=dark] .eyebrow{color:rgba(240,232,212,.35)}
+[data-theme=dark] .cat-sec{background:#414740}
+[data-theme=dark] .cat-scroller-wrap::after{background:linear-gradient(to right,transparent,#414740)}
+[data-theme=dark] .feat-sec{background:#363B33}
+[data-theme=dark] .hcta{background:rgba(242,237,227,.1);border:1px solid rgba(242,237,227,.15);color:#F0E8D4}
+[data-theme=dark] .logo-name{color:#F0E8D4}
+[data-theme=dark] nav.dnav a{color:#F0E8D4}
+[data-theme=dark] .mnav{background:#414740}
+[data-theme=dark] .mnav a{color:#F0E8D4;border-bottom-color:rgba(242,237,227,.07)}
 
 /* ─── SCROLL REVEAL ─── */
 .rv{opacity:0;transform:translateY(28px);
@@ -1191,16 +1191,12 @@ const MARKUP = `<!-- Progress bar -->
   </div>
 </footer>
 
-<!-- Theme toggle -->
-<button id="ttog" aria-label="Cambiar tema">
-  <svg id="ico-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-  <svg id="ico-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-</button>`;
+`;
 
 export default function Home() {
   useEffect(() => {
     document.body.classList.add("on-hero");
-    document.body.setAttribute("data-theme", "light");
+    document.documentElement.setAttribute("data-theme", "dark");
 
     const run = () => {
       /* ──────────────────────────────────────────
@@ -1208,26 +1204,9 @@ export default function Home() {
       ────────────────────────────────────────── */
       (function(){
       
-        /* Theme */
-        const html = document.documentElement;
-        const ttog = document.getElementById('ttog');
-        const icoSun = document.getElementById('ico-sun');
-        const icoMoon = document.getElementById('ico-moon');
-        let theme = localStorage.getItem('em-theme') ||
-          (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
-        applyTheme(theme);
-        ttog.addEventListener('click', () => {
-          theme = theme === 'dark' ? 'light' : 'dark';
-          applyTheme(theme);
-          localStorage.setItem('em-theme', theme);
-        });
-        function applyTheme(t) {
-          html.setAttribute('data-theme', t);
-          icoSun.style.display  = t === 'dark' ? 'none' : 'block';
-          icoMoon.style.display = t === 'dark' ? 'block' : 'none';
-          ttog.setAttribute('aria-label', 'Cambiar a modo ' + (t === 'dark' ? 'claro' : 'oscuro'));
-        }
-      
+        /* Theme — único (Cantera al atardecer), sin toggle */
+        document.documentElement.setAttribute('data-theme', 'dark');
+
         /* Progress bar */
         const prog = document.getElementById('prog');
         window.addEventListener('scroll', () => {

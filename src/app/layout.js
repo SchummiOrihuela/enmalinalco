@@ -1,5 +1,4 @@
 import "./globals.css";
-import ThemeToggle from "./ThemeToggle";
 
 export const metadata = {
   title: "En Malinalco — Guía del Pueblo Mágico",
@@ -7,7 +6,7 @@ export const metadata = {
     "La guía más completa de Malinalco, Pueblo Mágico del Estado de México. Restaurantes, hoteles, rutas y secretos locales.",
 };
 
-const themeScript = `(function(){try{var t=localStorage.getItem('em-theme')||(window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();`;
+const themeScript = `(function(){try{document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();`;
 
 export default function RootLayout({ children }) {
   return (
@@ -27,7 +26,6 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         {children}
-        <ThemeToggle />
       </body>
     </html>
   );

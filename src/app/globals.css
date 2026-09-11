@@ -12,12 +12,16 @@
   --oro:      #C59B1C;
 }
 
-/* Modo oscuro por toggle (data-theme), NO por sistema */
+/* Tema único: Cantera al atardecer (piedra cálida + oro) */
 [data-theme="dark"] {
-  --parch:  #14110C;
-  --surf:   #1C1914;
-  --ink:    #E8E2D8;
-  --selva:  #0F2018;
+  --parch:    #363B33;
+  --surf:     #414740;
+  --ink:      #F0E8D4;
+  --selva:    #23271F;
+  --verde:    #7CB689;
+  --verde-lt: #A8D6B0;
+  --terra:    #DE6A3E;
+  --oro:      #DCB24A;
 }
 
 * { box-sizing: border-box; }
