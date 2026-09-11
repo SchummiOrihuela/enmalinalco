@@ -902,17 +902,17 @@ const MARKUP = `<!-- Progress bar -->
 
       <!-- BIG CARD -->
       <div class="pcard pcard-big rv">
-        <img src="/img/destacados/big-restaurante.webp" alt="El Patio del Pueblo — restaurante tradicional" width="600" height="800" loading="lazy">
+        <img src="/img/destacados/big-restaurante.webp" alt="Maíz Criollo — cocina de autor en Malinalco" width="600" height="800" loading="lazy">
         <div class="pcard-ov">
           <span class="ptag">
             <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2h1a1 1 0 0 1 1 1v13a1 1 0 0 0 1 1h15"/></svg>
-            Restaurante
+            Cocina de autor
           </span>
-          <h3 class="pname">El Patio del Pueblo</h3>
-          <p class="pdesc">Cocina mexiquense en el corazón del centro histórico. Tizne, molcajetes y una vista que detiene el tiempo.</p>
+          <h3 class="pname">Maíz Criollo</h3>
+          <p class="pdesc">Cocina de autor. Chile, tizne y molcajete vueltos color: platos que cuidan la forma tanto como el fondo, con sabores que detienen el tiempo.</p>
           <div class="pmeta">
             <span class="pstars">★★★★★</span>
-            <span class="prev">4.9 · 312 reseñas</span>
+            <span class="prev">4.9 · +10 reseñas</span>
             <span class="prev">· $$$</span>
           </div>
         </div>
