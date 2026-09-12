@@ -675,10 +675,18 @@ const MARKUP = `<!-- Progress bar -->
   <div class="hdr-inner">
     <a href="#" class="logo" aria-label="En Malinalco — Inicio">
       <svg class="logo-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="16" cy="16" r="15" fill="#7CB689" fill-opacity="0.14" stroke="#8FD09B" stroke-width="1.1" stroke-opacity="0.45"/>
-        <path d="M16 4.5L23 11.5H20.5V24.5H11.5V11.5H9L16 4.5Z" fill="#7CB689" fill-opacity="0.22" stroke="#9BD6A6" stroke-width="1.9" stroke-linejoin="round"/>
-        <path d="M13 24.5V18.5L16 14.5L19 18.5V24.5" stroke="#E5794A" stroke-width="1.7" stroke-linejoin="round" fill="none"/>
-        <circle cx="16" cy="9.3" r="2.1" fill="#E8C34C"/>
+        <path d="M2,16 C3,8.5 9,3.5 16,3.5 C23,3.5 29,8.5 30,16 Z" fill="#3F6B4B"/>
+        <path d="M2,16 C3,8.5 9,3.5 16,3.5 C23,3.5 29,8.5 30,16" fill="none" stroke="#2E5A3E" stroke-width="0.6"/>
+        <path d="M8,18.4 L24,18.4 L28,26.6 L4,26.6 Z" fill="#CBBBA0"/>
+        <path d="M6.6,24.3 L25.4,24.3 M7.5,22 L24.5,22 M8.4,19.9 L23.6,19.9" stroke="#9A8A6E" stroke-width="0.7" stroke-linecap="round"/>
+        <path d="M8,18.4 L4,26.6 M24,18.4 L28,26.6" stroke="#A99A7E" stroke-width="0.6"/>
+        <rect x="7.6" y="12.9" width="16.8" height="5.6" fill="#BBAA8D"/>
+        <rect x="9.4" y="14.2" width="2.4" height="4.3" fill="#33281D"/>
+        <rect x="20.2" y="14.2" width="2.4" height="4.3" fill="#33281D"/>
+        <path d="M14,18.5 L14,14.6 C14,13.6 14.9,13.1 16,13.1 C17.1,13.1 18,13.6 18,14.6 L18,18.5 Z" fill="#2A2016"/>
+        <path d="M16,3.2 C18.4,6.8 22,10.6 25,12.9 L7,12.9 C10,10.6 13.6,6.8 16,3.2 Z" fill="#D9A94A"/>
+        <path d="M8.8,11.6 Q16,8.8 23.2,11.6 M10.4,9.6 Q16,7.4 21.6,9.6 M12,7.7 Q16,6.2 20,7.7" stroke="#B0863A" stroke-width="0.55" fill="none"/>
+        <circle cx="16" cy="3.4" r="0.7" fill="#B0863A"/>
       </svg>
       <span class="logo-name">en<em>malinalco</em></span>
     </a>
@@ -1219,10 +1227,18 @@ const MARKUP = `<!-- Progress bar -->
       <div class="ft-brand">
         <a href="#" class="logo" aria-label="En Malinalco — Inicio">
           <svg class="logo-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <circle cx="16" cy="16" r="15" stroke="rgba(242,237,227,.2)" stroke-width="1"/>
-            <path d="M16 4.5L23 11.5H20.5V24.5H11.5V11.5H9L16 4.5Z" stroke="#3A6B47" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
-            <path d="M13 24.5V18.5L16 14.5L19 18.5V24.5" stroke="#BF5028" stroke-width="1.4" stroke-linejoin="round" fill="none"/>
-            <circle cx="16" cy="9.5" r="1.8" fill="#C59B1C"/>
+            <path d="M2,16 C3,8.5 9,3.5 16,3.5 C23,3.5 29,8.5 30,16 Z" fill="#3F6B4B"/>
+            <path d="M2,16 C3,8.5 9,3.5 16,3.5 C23,3.5 29,8.5 30,16" fill="none" stroke="#2E5A3E" stroke-width="0.6"/>
+            <path d="M8,18.4 L24,18.4 L28,26.6 L4,26.6 Z" fill="#CBBBA0"/>
+            <path d="M6.6,24.3 L25.4,24.3 M7.5,22 L24.5,22 M8.4,19.9 L23.6,19.9" stroke="#9A8A6E" stroke-width="0.7" stroke-linecap="round"/>
+            <path d="M8,18.4 L4,26.6 M24,18.4 L28,26.6" stroke="#A99A7E" stroke-width="0.6"/>
+            <rect x="7.6" y="12.9" width="16.8" height="5.6" fill="#BBAA8D"/>
+            <rect x="9.4" y="14.2" width="2.4" height="4.3" fill="#33281D"/>
+            <rect x="20.2" y="14.2" width="2.4" height="4.3" fill="#33281D"/>
+            <path d="M14,18.5 L14,14.6 C14,13.6 14.9,13.1 16,13.1 C17.1,13.1 18,13.6 18,14.6 L18,18.5 Z" fill="#2A2016"/>
+            <path d="M16,3.2 C18.4,6.8 22,10.6 25,12.9 L7,12.9 C10,10.6 13.6,6.8 16,3.2 Z" fill="#D9A94A"/>
+            <path d="M8.8,11.6 Q16,8.8 23.2,11.6 M10.4,9.6 Q16,7.4 21.6,9.6 M12,7.7 Q16,6.2 20,7.7" stroke="#B0863A" stroke-width="0.55" fill="none"/>
+            <circle cx="16" cy="3.4" r="0.7" fill="#B0863A"/>
           </svg>
           <span class="logo-name" style="color:#F2EDE3">en<em>malinalco</em></span>
         </a>
