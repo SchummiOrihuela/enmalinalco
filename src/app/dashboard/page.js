@@ -1,13 +1,16 @@
 import { redirect } from 'next/navigation'
+import { headers } from 'next/headers'
 import { createClient } from '@/lib/supabaseServer'
+import { FOUNDERS } from '@/lib/plans'
 import BusinessForm from './BusinessForm'
 import HoursForm from './HoursForm'
 import ClosuresForm from './ClosuresForm'
 import PhotosForm from './PhotosForm'
 import ReviewsList from './ReviewsList'
 import PlansSection from './PlansSection'
+import FoundersWelcome from './FoundersWelcome'
 
-export default async function DashboardPage() {
+export default async function DashboardPage({ searchParams }) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) {
@@ -18,6 +21,22 @@ export default async function DashboardPage() {
     .select('*')
     .eq('owner_id', user.id)
     .maybeSingle()
+
+  // Pantalla de bienvenida Fundador tras un checkout exitoso.
+  const sp = await searchParams
+  let foundersWelcome = null
+  if (sp?.success && business?.founder) {
+    const { data: count } = await supabase.rpc('founders_taken')
+    const h = await headers()
+    const host = h.get('host')
+    const proto = h.get('x-forwarded-proto') || 'https'
+    foundersWelcome = {
+      number: business.founder_number,
+      remaining: Math.max(0, FOUNDERS.cupos - (count || 0)),
+      trialEndsAt: business.trial_ends_at,
+      shareUrl: host ? `${proto}://${host}/` : 'https://enmalinalco.com/',
+    }
+  }
   let hours = []
   let closures = []
   let photos = []
@@ -48,6 +67,8 @@ export default async function DashboardPage() {
       fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif",
       transition: 'background .4s ease',
     }}>
+
+      {foundersWelcome && <FoundersWelcome {...foundersWelcome} />}
 
       {/* Barra superior de marca */}
       <header style={{

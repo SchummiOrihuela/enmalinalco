@@ -24,6 +24,22 @@ async function updateBusiness(businessId, fields) {
   if (!res.ok) throw new Error(`Supabase PATCH failed: ${res.status}`);
 }
 
+// Reclama un lugar Fundador de forma atómica (corte duro en 15 lo hace la DB).
+// Devuelve el número asignado o null si ya no había cupo.
+async function claimFounderSpot(businessId) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/claim_founder_spot`, {
+    method: 'POST',
+    headers: {
+      apikey: SERVICE_ROLE,
+      Authorization: `Bearer ${SERVICE_ROLE}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ bid: businessId }),
+  });
+  if (!res.ok) throw new Error(`claim_founder_spot failed: ${res.status}`);
+  return res.json(); // number | null
+}
+
 export async function POST(request) {
   const body = await request.text();
   const sig = request.headers.get('stripe-signature');
@@ -40,9 +56,24 @@ export async function POST(request) {
     switch (event.type) {
       case 'checkout.session.completed': {
         const s = event.data.object;
-        const { businessId, tier } = s.metadata || {};
+        const { businessId, tier, founder } = s.metadata || {};
         if (businessId) {
           await updateBusiness(businessId, { is_active: true, plan: tier });
+
+          if (founder === 'pending') {
+            // Reclama el lugar (la DB corta en 15). Si aún había cupo,
+            // guarda la fecha real de fin del trial desde la suscripción.
+            const number = await claimFounderSpot(businessId);
+            if (number && s.subscription) {
+              const sub = await stripe.subscriptions.retrieve(s.subscription);
+              const trialEndsAt = sub.trial_end
+                ? new Date(sub.trial_end * 1000).toISOString()
+                : null;
+              if (trialEndsAt) {
+                await updateBusiness(businessId, { trial_ends_at: trialEndsAt });
+              }
+            }
+          }
         }
         break;
       }
