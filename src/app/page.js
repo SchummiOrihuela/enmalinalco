@@ -243,8 +243,8 @@ nav.dnav a:hover::after{transform:scaleX(1)}
   opacity:0;transform:translateY(14px);
   transition:opacity .8s ease .82s,transform .8s var(--ease) .82s}
 .hero-stats.in{opacity:1;transform:translateY(0)}
-.hstat-val{font-family:var(--display);font-size:clamp(1.6rem,1.3rem + 1.5vw,2.8rem);
-  font-weight:400;color:#F2EDE3;line-height:1;display:flex;align-items:baseline;gap:.05em}
+.hstat-val{font-family:'Fraunces',var(--display);font-size:clamp(1.6rem,1.3rem + 1.5vw,2.8rem);
+  font-weight:500;color:#F2EDE3;line-height:1;display:flex;align-items:baseline;gap:.05em;font-variant-numeric:lining-nums}
 .hstat-val sup{font-size:.55em;color:var(--oro);font-style:italic;margin-left:.06em}
 .hstat-lbl{font-size:var(--t-2xs);color:rgba(242,237,227,.4);
   text-transform:uppercase;letter-spacing:.12em;margin-top:var(--s1)}
