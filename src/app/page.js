@@ -1371,7 +1371,7 @@ const MARKUP = `<!-- Progress bar -->
           </svg>
           <span class="logo-name" style="color:#F2EDE3">en<em>malinalco</em></span>
         </a>
-        <p>La guía de Malinalco escrita por quienes vivimos aquí. Los sabores, los rincones y las historias que hacen mágico a nuestro pueblo.</p>
+        <p>Malinalco contado por su gente. Lo que comemos, lo que celebramos y los rincones que solo conocemos los de aquí.</p>
         <div class="ft-socials" hidden>
           <a href="#" class="fsoc" aria-label="Instagram">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
