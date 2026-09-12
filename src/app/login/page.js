@@ -66,7 +66,7 @@ export default function LoginPage() {
                 Revisa tu <em style={{ color: 'var(--verde)', fontStyle: 'italic' }}>correo</em>
               </h1>
               <p style={{ margin: 0, fontSize: '15px', lineHeight: 1.65, color: 'var(--ink)', opacity: 0.6 }}>
-                Te enviamos un enlace mágico. Haz clic en él para entrar a tu panel.
+                Te acabamos de enviar un enlace. Ábrelo desde este mismo dispositivo y entrarás directo a tu panel. Si no lo ves en un minuto, revisa tu carpeta de spam.
               </p>
             </div>
           ) : (
@@ -79,10 +79,10 @@ export default function LoginPage() {
                 color: 'var(--ink)',
                 lineHeight: 1.2,
               }}>
-                Bienvenido de <em style={{ color: 'var(--verde)', fontStyle: 'italic' }}>vuelta</em>
+                Bienvenido a <em style={{ color: 'var(--verde)', fontStyle: 'italic' }}>enmalinalco</em>
               </h1>
               <p style={{ margin: '0 0 28px', fontSize: '15px', lineHeight: 1.6, color: 'var(--ink)', opacity: 0.55 }}>
-                Ingresa tu correo y te enviamos un enlace seguro para acceder a tu panel.
+                Escribe tu correo y te enviamos un enlace para entrar a tu panel. ¿Es tu primera vez? Tu cuenta se crea sola — sin contraseñas que recordar.
               </p>
 
               <input
@@ -120,7 +120,7 @@ export default function LoginPage() {
                   cursor: 'pointer',
                 }}
               >
-                Enviar enlace mágico
+                Enviarme mi enlace de acceso
               </button>
 
               {error && (
