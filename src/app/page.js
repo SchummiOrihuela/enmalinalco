@@ -475,8 +475,8 @@ nav.dnav a:hover::after{transform:scaleX(1)}
   font-weight:400;color:#F2EDE3;line-height:1.1;margin-bottom:3px}
 .plan-sub{font-size:var(--t-2xs);color:rgba(242,237,227,.5)}
 .plan-price{text-align:right;flex-shrink:0}
-.plan-amt{font-family:var(--display);font-size:1.6rem;font-weight:400;
-  color:#F2EDE3;white-space:nowrap}
+.plan-amt{font-family:'Fraunces',var(--display);font-size:1.7rem;font-weight:500;
+  color:#F2EDE3;white-space:nowrap;font-variant-numeric:lining-nums}
 .plan-per{font-size:var(--t-2xs);color:rgba(242,237,227,.3)}
 .plan-arrow{width:28px;height:28px;border-radius:50%;
   border:1px solid rgba(242,237,227,.12);
