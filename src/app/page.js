@@ -531,6 +531,32 @@ nav.dnav a:hover::after{transform:scaleX(1)}
 .hiw-cta:hover{background:var(--verde-lt);color:var(--selva);transform:translateY(-2px)}
 body.hiw-open{overflow:hidden}
 
+/* ─── Modales de documentos y contacto ─── */
+.doc-body{font-size:var(--t-sm);line-height:1.65;color:rgba(240,232,212,.72)}
+.doc-body h4{font-size:var(--t-sm);font-weight:700;color:var(--ink);margin:var(--s5) 0 var(--s1)}
+.doc-body h4:first-of-type{margin-top:0}
+.doc-body p{margin-bottom:var(--s3)}
+.doc-body strong{color:var(--ink);font-weight:600}
+.doc-body a{color:var(--verde-lt);text-decoration:underline;text-underline-offset:2px}
+.doc-updated{margin-top:var(--s6);font-size:var(--t-2xs);color:rgba(240,232,212,.42)}
+.cform{display:flex;flex-direction:column;gap:var(--s4)}
+.cf-field{display:flex;flex-direction:column;gap:6px}
+.cf-field label{font-size:var(--t-2xs);font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(240,232,212,.55)}
+.cf-field input,.cf-field select,.cf-field textarea{width:100%;padding:12px 14px;background:rgba(242,237,227,.04);
+  border:1px solid rgba(242,237,227,.14);border-radius:12px;color:var(--ink);font-size:var(--t-sm);
+  font-family:inherit;transition:border-color var(--dur)}
+.cf-field textarea{resize:vertical;min-height:88px}
+.cf-field input::placeholder,.cf-field textarea::placeholder{color:rgba(240,232,212,.32)}
+.cf-field input:focus,.cf-field select:focus,.cf-field textarea:focus{outline:none;border-color:var(--verde-lt)}
+.cf-field select{appearance:none;-webkit-appearance:none;cursor:pointer}
+.cform .hiw-cta{margin-top:var(--s1)}
+.cf-alt{margin-top:var(--s4);text-align:center;font-size:var(--t-2xs);color:rgba(240,232,212,.5)}
+.cf-alt a{color:var(--verde-lt)}
+.ft-contact{display:flex;flex-direction:column;gap:var(--s2);margin-top:var(--s1)}
+.ft-contact a{display:inline-flex;align-items:center;gap:8px;font-size:var(--t-sm);color:rgba(240,232,212,.72);transition:color var(--dur)}
+.ft-contact a:hover{color:var(--verde-lt)}
+.ft-contact svg{width:15px;height:15px;flex-shrink:0;color:var(--verde-lt)}
+
 /* ─── ARTICLES ─── */
 .art-sec{background:var(--parch)}
 .art-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5)}
@@ -1182,6 +1208,89 @@ const MARKUP = `<!-- Progress bar -->
   </div>
 </div>
 
+<!-- Modal Contacto -->
+<div class="hiw-overlay" id="m-contacto" role="dialog" aria-modal="true" aria-labelledby="mc-title" hidden>
+  <div class="hiw-box">
+    <button type="button" class="hiw-close" aria-label="Cerrar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <p class="hiw-eyebrow">Estamos para ayudarte</p>
+    <h3 class="hiw-title" id="mc-title">Hablemos</h3>
+    <form class="cform" id="cform">
+      <div class="cf-field">
+        <label for="cf-nombre">Tu nombre</label>
+        <input id="cf-nombre" name="nombre" type="text" placeholder="¿Cómo te llamas?" required>
+      </div>
+      <div class="cf-field">
+        <label for="cf-motivo">¿En qué te ayudamos?</label>
+        <select id="cf-motivo" name="motivo">
+          <option>Quiero anunciar mi negocio</option>
+          <option>Sugerir un lugar o corregir información</option>
+          <option>Soy visitante y tengo una duda</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="cf-field">
+        <label for="cf-msg">Tu mensaje</label>
+        <textarea id="cf-msg" name="mensaje" placeholder="Cuéntanos en qué podemos apoyarte…" required></textarea>
+      </div>
+      <button type="submit" class="hiw-cta">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        Enviar por WhatsApp
+      </button>
+    </form>
+    <p class="cf-alt">O escríbenos directo: <a href="https://wa.me/525562513258" target="_blank" rel="noopener noreferrer">WhatsApp</a> · <a href="mailto:hola@enmalinalco.com">hola@enmalinalco.com</a></p>
+  </div>
+</div>
+
+<!-- Modal Aviso de privacidad -->
+<div class="hiw-overlay" id="m-privacidad" role="dialog" aria-modal="true" aria-labelledby="mp-title" hidden>
+  <div class="hiw-box">
+    <button type="button" class="hiw-close" aria-label="Cerrar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <p class="hiw-eyebrow">Tu confianza primero</p>
+    <h3 class="hiw-title" id="mp-title">Aviso de privacidad</h3>
+    <div class="doc-body">
+      <p>En <strong>enmalinalco.com</strong> cuidamos tu información como cuidamos nuestro pueblo. Aquí te explicamos cómo, sin letras chiquitas.</p>
+      <h4>Qué datos recogemos</h4>
+      <p>Solo los que tú nos compartes: tu nombre y tu correo o WhatsApp cuando nos escribes, y los datos de tu establecimiento si registras un negocio. Nada que no nos hayas dado a propósito.</p>
+      <h4>Para qué los usamos</h4>
+      <p>Únicamente para responderte, publicar la ficha de tu negocio y mejorar la guía. Para nada más.</p>
+      <h4>Lo que nunca hacemos</h4>
+      <p>No vendemos, rentamos ni intercambiamos tu información con terceros. Punto.</p>
+      <h4>Tú tienes el control</h4>
+      <p>Puedes pedirnos acceder, corregir o eliminar tus datos cuando quieras. Solo escríbenos a <a href="mailto:hola@enmalinalco.com">hola@enmalinalco.com</a> y lo resolvemos.</p>
+      <p class="doc-updated">Última actualización: septiembre 2026 · Malinalco, Estado de México.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Términos de uso -->
+<div class="hiw-overlay" id="m-terminos" role="dialog" aria-modal="true" aria-labelledby="mt-title" hidden>
+  <div class="hiw-box">
+    <button type="button" class="hiw-close" aria-label="Cerrar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <p class="hiw-eyebrow">Claro y sin trampas</p>
+    <h3 class="hiw-title" id="mt-title">Términos de uso</h3>
+    <div class="doc-body">
+      <p>Gracias por usar <strong>enmalinalco.com</strong>, la guía del pueblo hecha por locales. Al navegar el sitio aceptas estos términos, escritos claro.</p>
+      <h4>Qué es esta guía</h4>
+      <p>Un directorio informativo de negocios, lugares e historias de Malinalco. Trabajamos para que sea útil y confiable, aunque la información es orientativa.</p>
+      <h4>Confirma antes de ir</h4>
+      <p>Horarios, precios y disponibilidad pueden cambiar. Te recomendamos confirmar directamente con cada negocio antes de tu visita.</p>
+      <h4>Los negocios son suyos</h4>
+      <p>Cada establecimiento es responsable de la información de su ficha. enmalinalco.com no presta los servicios anunciados ni responde por ellos.</p>
+      <h4>Contenido propio</h4>
+      <p>Los textos, fotos y el diseño de la guía son nuestros; te agradecemos no reproducirlos sin permiso.</p>
+      <h4>¿Dudas?</h4>
+      <p>Escríbenos a <a href="mailto:hola@enmalinalco.com">hola@enmalinalco.com</a>. Con gusto te ayudamos.</p>
+      <p class="doc-updated">Última actualización: septiembre 2026 · Malinalco, Estado de México.</p>
+    </div>
+  </div>
+</div>
+
 <!-- ═══════════════════════ ARTÍCULOS ═══════════════════════ -->
 <section class="sec art-sec" id="articulos">
   <div class="inner">
@@ -1263,7 +1372,7 @@ const MARKUP = `<!-- Progress bar -->
           <span class="logo-name" style="color:#F2EDE3">en<em>malinalco</em></span>
         </a>
         <p>La guía editorial más completa del Pueblo Mágico de Malinalco, Estado de México. Curada por locales, para todos.</p>
-        <div class="ft-socials">
+        <div class="ft-socials" hidden>
           <a href="#" class="fsoc" aria-label="Instagram">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
           </a>
@@ -1272,6 +1381,16 @@ const MARKUP = `<!-- Progress bar -->
           </a>
           <a href="#" class="fsoc" aria-label="WhatsApp">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </a>
+        </div>
+        <div class="ft-contact">
+          <a href="https://wa.me/525562513258" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            55 6251 3258
+          </a>
+          <a href="mailto:hola@enmalinalco.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+            hola@enmalinalco.com
           </a>
         </div>
       </div>
@@ -1299,9 +1418,9 @@ const MARKUP = `<!-- Progress bar -->
         <h5>Negocio</h5>
         <a href="#">Registrar negocio</a>
         <a href="#">Planes y precios</a>
-        <a href="#">Contacto</a>
-        <a href="#">Aviso de privacidad</a>
-        <a href="#">Términos de uso</a>
+        <a href="#" data-modal="m-contacto">Contacto</a>
+        <a href="#" data-modal="m-privacidad">Aviso de privacidad</a>
+        <a href="#" data-modal="m-terminos">Términos de uso</a>
       </div>
     </div>
 
@@ -1482,6 +1601,52 @@ export default function Home() {
           hiwClose && hiwClose.addEventListener('click', closeHiw);
           hiw.addEventListener('click', (e) => { if (e.target === hiw) closeHiw(); });
           document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !hiw.hidden) closeHiw(); });
+        }
+
+        // ── Modales del footer (Contacto / Privacidad / Términos) ──
+        const docModals = ['m-contacto', 'm-privacidad', 'm-terminos'];
+        const closeOv = (ov, opener) => {
+          ov.hidden = true;
+          if (!document.querySelector('.hiw-overlay:not([hidden])')) document.body.classList.remove('hiw-open');
+          opener && opener.focus();
+        };
+        document.querySelectorAll('[data-modal]').forEach((op) => {
+          op.addEventListener('click', (e) => {
+            e.preventDefault();
+            const ov = document.getElementById(op.getAttribute('data-modal'));
+            if (!ov) return;
+            ov.hidden = false;
+            document.body.classList.add('hiw-open');
+            const c = ov.querySelector('.hiw-close');
+            c && c.focus();
+            ov._opener = op;
+          });
+        });
+        docModals.forEach((id) => {
+          const ov = document.getElementById(id);
+          if (!ov) return;
+          ov.querySelector('.hiw-close').addEventListener('click', () => closeOv(ov, ov._opener));
+          ov.addEventListener('click', (e) => { if (e.target === ov) closeOv(ov, ov._opener); });
+        });
+        document.addEventListener('keydown', (e) => {
+          if (e.key !== 'Escape') return;
+          docModals.forEach((id) => {
+            const ov = document.getElementById(id);
+            if (ov && !ov.hidden) closeOv(ov, ov._opener);
+          });
+        });
+
+        // Contacto → arma el mensaje y abre WhatsApp
+        const cform = document.getElementById('cform');
+        if (cform) {
+          cform.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const n = document.getElementById('cf-nombre').value.trim();
+            const m = document.getElementById('cf-motivo').value;
+            const t = document.getElementById('cf-msg').value.trim();
+            const txt = '¡Hola! Soy ' + n + '.\nMotivo: ' + m + '\n\n' + t;
+            window.open('https://wa.me/525562513258?text=' + encodeURIComponent(txt), '_blank', 'noopener');
+          });
         }
 
       })();
