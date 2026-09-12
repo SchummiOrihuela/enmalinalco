@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabaseServer'
 import { notFound } from 'next/navigation'
+import { after } from 'next/server'
 import ReviewsList from '@/app/dashboard/ReviewsList'
 import { getBadge } from '@/lib/plans'
 import ReviewForm from '@/app/dashboard/ReviewForm'
@@ -18,6 +19,16 @@ export default async function NegocioPage({ params }) {
     .maybeSingle()
 
   if (!business) notFound()
+
+  // Contar la vista de ficha (métrica "vistas" del negocio).
+  // Se ejecuta DESPUÉS de responder (no bloquea el render) y no cuenta
+  // las visitas del propio dueño a su ficha. El incremento va por una
+  // función SECURITY DEFINER para no exponer UPDATE directo sobre businesses.
+  after(async () => {
+    const { data: { user } } = await supabase.auth.getUser()
+    if (user?.id === business.owner_id) return
+    await supabase.rpc('increment_business_view', { bid: business.id })
+  })
 
   // Traer fotos y horarios
   const { data: photos } = await supabase

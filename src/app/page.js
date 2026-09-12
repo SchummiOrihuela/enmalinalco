@@ -481,6 +481,25 @@ nav.dnav a:hover::after{transform:scaleX(1)}
 .pcrd:hover .plan-arrow{border-color:rgba(242,237,227,.3);
   color:rgba(242,237,227,.8);transform:translateX(3px)}
 .pcrd.star .plan-arrow{border-color:rgba(130,201,148,.3);color:var(--verde-lt)}
+.pcrd{align-items:flex-start}
+.pcrd .plan-price{margin-top:2px}
+.plan-feats{list-style:none;margin:var(--s3) 0 0;padding:0;display:flex;flex-direction:column;gap:5px}
+.plan-feats li{display:flex;gap:7px;align-items:flex-start;
+  font-size:var(--t-2xs);color:rgba(242,237,227,.62);line-height:1.35}
+.plan-feats svg{width:11px;height:11px;flex-shrink:0;margin-top:2px;color:var(--verde-lt)}
+.pcrd.star .plan-feats li{color:rgba(242,237,227,.78)}
+
+/* Banner Fundadores (gancho de lanzamiento) */
+.founders{display:flex;gap:var(--s4);align-items:flex-start;
+  background:linear-gradient(135deg,rgba(200,150,60,.14),rgba(58,107,71,.14));
+  border:1px solid rgba(200,150,60,.28);border-radius:var(--r-xl);
+  padding:var(--s5) var(--s6);margin-bottom:var(--s5)}
+.founders-mark{flex-shrink:0;font-size:1.3rem;line-height:1.2}
+.founders-body{display:flex;flex-direction:column;gap:3px}
+.founders-title{font-size:var(--t-2xs);font-weight:700;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--oro)}
+.founders-copy{font-size:var(--t-2xs);color:rgba(242,237,227,.72);line-height:1.45}
+.founders-copy strong{color:#F2EDE3;font-weight:600}
 
 /* ─── Modal "Cómo funciona" ─── */
 .hiw-overlay{position:fixed;inset:0;z-index:600;display:none;align-items:center;justify-content:center;
@@ -1042,20 +1061,28 @@ const MARKUP = `<!-- Progress bar -->
     <!-- Pricing cards side -->
     <div class="pcards rv rv-d1">
 
+      <div class="founders">
+        <span class="founders-mark">🌵</span>
+        <div class="founders-body">
+          <span class="founders-title">Fundadores de enmalinalco</span>
+          <span class="founders-copy">Los primeros <strong>15 negocios</strong> entran con <strong>2 meses gratis</strong> en Cuāuhtli u Ocēlōtl. Sin tarjeta, sin permanencia — a cambio, estrenas el directorio del pueblo.</span>
+        </div>
+      </div>
+
       <div class="pcrd" tabindex="0" data-tier="malinalli">
         <div>
           <div class="plan-badge">Básico</div>
           <div class="plan-name">Malinalli</div>
-          <div class="plan-sub">3 fotos · Contacto y ubicación</div>
+          <div class="plan-sub">Existe en el pueblo digital</div>
+          <ul class="plan-feats">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>3 fotos de tu negocio</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Contacto, ubicación y horarios</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ficha visible los 7 días</li>
+          </ul>
         </div>
-        <div style="display:flex;align-items:center;gap:var(--s3)">
-          <div class="plan-price">
-            <div class="plan-amt">$99</div>
-            <div class="plan-per">/mes MXN</div>
-          </div>
-          <div class="plan-arrow">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </div>
+        <div class="plan-price">
+          <div class="plan-amt">$99</div>
+          <div class="plan-per">/mes MXN</div>
         </div>
       </div>
 
@@ -1063,16 +1090,18 @@ const MARKUP = `<!-- Progress bar -->
         <div>
           <div class="plan-badge">⭐ Más popular</div>
           <div class="plan-name">Cuāuhtli</div>
-          <div class="plan-sub">10 fotos · Apareces antes en el listado</div>
+          <div class="plan-sub">Que te encuentren primero</div>
+          <ul class="plan-feats">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>10 fotos de tu negocio</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Apareces antes en tu categoría</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Insignia "Recomendado"</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>1 mención al mes en nuestras redes</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Reporte de cuánta gente te vio</li>
+          </ul>
         </div>
-        <div style="display:flex;align-items:center;gap:var(--s3)">
-          <div class="plan-price">
-            <div class="plan-amt">$249</div>
-            <div class="plan-per">/mes MXN</div>
-          </div>
-          <div class="plan-arrow">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </div>
+        <div class="plan-price">
+          <div class="plan-amt">$249</div>
+          <div class="plan-per">/mes MXN</div>
         </div>
       </div>
 
@@ -1080,16 +1109,19 @@ const MARKUP = `<!-- Progress bar -->
         <div>
           <div class="plan-badge">Élite</div>
           <div class="plan-name">Ocēlōtl</div>
-          <div class="plan-sub">30 fotos · Primer lugar · Artículo editorial</div>
+          <div class="plan-sub">El negocio de referencia del pueblo</div>
+          <ul class="plan-feats">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>30 fotos de tu negocio</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Primer lugar en tu categoría</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Tu historia contada (artículo editorial)</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Apareces en la portada</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Línea directa por WhatsApp conmigo</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Vas primero cuando el pueblo se llena</li>
+          </ul>
         </div>
-        <div style="display:flex;align-items:center;gap:var(--s3)">
-          <div class="plan-price">
-            <div class="plan-amt">$449</div>
-            <div class="plan-per">/mes MXN</div>
-          </div>
-          <div class="plan-arrow">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </div>
+        <div class="plan-price">
+          <div class="plan-amt">$449</div>
+          <div class="plan-per">/mes MXN</div>
         </div>
       </div>
 
