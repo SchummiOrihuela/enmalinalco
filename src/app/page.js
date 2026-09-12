@@ -1006,18 +1006,16 @@ const MARKUP = `<!-- Progress bar -->
 
       <!-- BIG CARD -->
       <div class="pcard pcard-big rv">
-        <img src="/img/destacados/big-restaurante.webp" alt="Maíz Criollo — cocina de autor en Malinalco" width="600" height="800" loading="lazy">
+        <img src="/img/destacados/big-zona-arqueologica.webp" alt="Cerro de los Ídolos — zona arqueológica de Malinalco" width="600" height="800" loading="lazy">
         <div class="pcard-ov">
           <span class="ptag">
-            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2h1a1 1 0 0 1 1 1v13a1 1 0 0 0 1 1h15"/></svg>
-            Cocina de autor
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Zona Arqueológica
           </span>
-          <h3 class="pname">Maíz Criollo</h3>
-          <p class="pdesc">Cocina de autor. Chile, tizne y molcajete vueltos color: platos que cuidan la forma tanto como el fondo, con sabores que detienen el tiempo.</p>
+          <h3 class="pname">Cerro de los Ídolos</h3>
+          <p class="pdesc">El templo monolítico tallado en la roca viva, único en Mesoamérica. Subir sus escalones es asomarse al Malinalco prehispánico.</p>
           <div class="pmeta">
-            <span class="pstars">★★★★★</span>
-            <span class="prev">4.9 · +10 reseñas</span>
-            <span class="prev">· $$$</span>
+            <span class="prev">Zona INAH · Guía disponible</span>
           </div>
         </div>
       </div>
@@ -1027,45 +1025,56 @@ const MARKUP = `<!-- Progress bar -->
 
         <div class="pcard-sm rv rv-d1">
           <div class="pcard-sm-img">
-            <img src="/img/destacados/01-hotel.webp" alt="Casa de los Sueños — hotel boutique" width="260" height="200" loading="lazy">
+            <img src="/img/destacados/01-mercado-artesanal.webp" alt="Mercado Artesanal de Malinalco" width="260" height="200" loading="lazy">
           </div>
           <div class="pcard-sm-body">
-            <div class="pcard-sm-cat">Hotel Boutique</div>
-            <div class="pcard-sm-name">Casa de los Sueños</div>
-            <div class="pcard-sm-sub">★★★★★ · Desde $1,800/noche</div>
+            <div class="pcard-sm-cat">Artesanías</div>
+            <div class="pcard-sm-name">Mercado Artesanal</div>
+            <div class="pcard-sm-sub">Textiles, barro y dulces típicos</div>
           </div>
         </div>
 
         <div class="pcard-sm rv rv-d2">
           <div class="pcard-sm-img">
-            <img src="/img/destacados/02-zona-arqueologica.webp" alt="Cerro de los Ídolos — zona arqueológica" width="260" height="200" loading="lazy">
+            <img src="/img/destacados/02-parroquia.webp" alt="Parroquia del Divino Salvador — Malinalco" width="260" height="200" loading="lazy">
           </div>
           <div class="pcard-sm-body">
-            <div class="pcard-sm-cat">Zona Arqueológica</div>
-            <div class="pcard-sm-name">Cerro de los Ídolos</div>
-            <div class="pcard-sm-sub">★★★★☆ · Guía disponible</div>
+            <div class="pcard-sm-cat">Cultura</div>
+            <div class="pcard-sm-name">Parroquia del Divino Salvador</div>
+            <div class="pcard-sm-sub">Arquitectura virreinal en el corazón del pueblo</div>
           </div>
         </div>
 
         <div class="pcard-sm rv rv-d3">
           <div class="pcard-sm-img">
-            <img src="/img/destacados/03-spa.webp" alt="Tlalpan Spa — bienestar y relajación" width="260" height="200" loading="lazy">
+            <img src="/img/destacados/03-museo-bichos.webp" alt="Museo Vivo Los Bichos — Malinalco" width="260" height="200" loading="lazy">
           </div>
           <div class="pcard-sm-body">
-            <div class="pcard-sm-cat">Spa & Bienestar</div>
-            <div class="pcard-sm-name">Tlalpan Spa</div>
-            <div class="pcard-sm-sub">★★★★★ · Reserva previa</div>
+            <div class="pcard-sm-cat">Museo Vivo</div>
+            <div class="pcard-sm-name">Los Bichos</div>
+            <div class="pcard-sm-sub">Insectos y reptiles vivos de cerca</div>
           </div>
         </div>
 
         <div class="pcard-sm rv rv-d4">
           <div class="pcard-sm-img">
-            <img src="/img/destacados/04-artesanias.webp" alt="Taller Xochicalli — artesanías locales" width="260" height="200" loading="lazy">
+            <img src="/img/destacados/04-criadero-truchas.webp" alt="Criadero de Truchas — Malinalco" width="260" height="200" loading="lazy">
           </div>
           <div class="pcard-sm-body">
-            <div class="pcard-sm-cat">Artesanías</div>
-            <div class="pcard-sm-name">Taller Xochicalli</div>
-            <div class="pcard-sm-sub">★★★★☆ · Lun–Dom 10–7pm</div>
+            <div class="pcard-sm-cat">Naturaleza</div>
+            <div class="pcard-sm-name">Criadero de Truchas</div>
+            <div class="pcard-sm-sub">Pesca y trucha fresca entre montañas</div>
+          </div>
+        </div>
+
+        <div class="pcard-sm rv rv-d4">
+          <div class="pcard-sm-img">
+            <img src="/img/destacados/05-museo-schneider.webp" alt="Museo Universitario Dr. Luis Mario Schneider — Malinalco" width="260" height="200" loading="lazy">
+          </div>
+          <div class="pcard-sm-body">
+            <div class="pcard-sm-cat">Cultura</div>
+            <div class="pcard-sm-name">Museo Mario Schneider</div>
+            <div class="pcard-sm-sub">Historia y arte de Malinalco</div>
           </div>
         </div>
 
