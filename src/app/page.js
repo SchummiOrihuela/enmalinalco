@@ -1239,7 +1239,7 @@ const MARKUP = `<!-- Progress bar -->
         Enviar por WhatsApp
       </button>
     </form>
-    <p class="cf-alt">O escríbenos directo: <a href="https://wa.me/525562513258" target="_blank" rel="noopener noreferrer">WhatsApp</a> · <a href="mailto:hola@enmalinalco.com">hola@enmalinalco.com</a></p>
+    <p class="cf-alt">O escríbenos directo: <a href="https://wa.me/525562513258" target="_blank" rel="noopener noreferrer">WhatsApp</a> · <a href="mailto:soporte@enmalinalco.com">soporte@enmalinalco.com</a></p>
   </div>
 </div>
 
@@ -1260,7 +1260,7 @@ const MARKUP = `<!-- Progress bar -->
       <h4>Lo que nunca hacemos</h4>
       <p>No vendemos, rentamos ni intercambiamos tu información con terceros. Punto.</p>
       <h4>Tú tienes el control</h4>
-      <p>Puedes pedirnos acceder, corregir o eliminar tus datos cuando quieras. Solo escríbenos a <a href="mailto:hola@enmalinalco.com">hola@enmalinalco.com</a> y lo resolvemos.</p>
+      <p>Puedes pedirnos acceder, corregir o eliminar tus datos cuando quieras. Solo escríbenos a <a href="mailto:soporte@enmalinalco.com">soporte@enmalinalco.com</a> y lo resolvemos.</p>
       <p class="doc-updated">Última actualización: septiembre 2026 · Malinalco, Estado de México.</p>
     </div>
   </div>
@@ -1285,7 +1285,7 @@ const MARKUP = `<!-- Progress bar -->
       <h4>Contenido propio</h4>
       <p>Los textos, fotos y el diseño de la guía son nuestros; te agradecemos no reproducirlos sin permiso.</p>
       <h4>¿Dudas?</h4>
-      <p>Escríbenos a <a href="mailto:hola@enmalinalco.com">hola@enmalinalco.com</a>. Con gusto te ayudamos.</p>
+      <p>Escríbenos a <a href="mailto:soporte@enmalinalco.com">soporte@enmalinalco.com</a>. Con gusto te ayudamos.</p>
       <p class="doc-updated">Última actualización: septiembre 2026 · Malinalco, Estado de México.</p>
     </div>
   </div>
@@ -1388,9 +1388,9 @@ const MARKUP = `<!-- Progress bar -->
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
             55 6251 3258
           </a>
-          <a href="mailto:hola@enmalinalco.com">
+          <a href="mailto:soporte@enmalinalco.com">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
-            hola@enmalinalco.com
+            soporte@enmalinalco.com
           </a>
         </div>
       </div>
