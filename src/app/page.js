@@ -366,8 +366,8 @@ nav.dnav a:hover::after{transform:scaleX(1)}
 
 /* ─── FEATURED EDITORIAL ─── */
 .feat-sec{background:var(--parch)}
-.feat-grid{display:grid;grid-template-columns:3fr 2fr;grid-template-rows:1fr 1fr;
-  gap:var(--s4);min-height:540px}
+.feat-grid{display:grid;grid-template-columns:3fr 2fr;
+  gap:var(--s4);align-items:stretch}
 .pcard{position:relative;border-radius:var(--r-xl);overflow:hidden;
   cursor:pointer;background:var(--selva)}
 .pcard img{width:100%;height:100%;object-fit:cover;
@@ -392,7 +392,8 @@ nav.dnav a:hover::after{transform:scaleX(1)}
 .prev{font-size:var(--t-xs);color:rgba(242,237,227,.4)}
 
 /* Hero vertical card */
-.pcard-big{grid-row:span 2}
+.pcard-big{grid-row:auto}
+.pcard-big img{position:absolute;inset:0}
 
 /* Horizontal small card */
 .pcard-sm{display:flex;border-radius:var(--r-lg);overflow:hidden;
