@@ -1,7 +1,24 @@
 'use client'
 import { useState } from 'react'
 import { createClient } from '@/lib/supabaseBrowser'
-import { CATEGORIES } from '@/lib/categories'
+import { CATEGORIAS } from '@/lib/categorias'
+
+// Emoji de alta calidad por categoría (el <select> nativo no admite SVG,
+// así que aquí mapeamos cada slug a un ícono limpio y reconocible).
+const EMOJI = {
+  restaurantes: '🍽️',
+  hospedaje: '🏨',
+  ecoturismo: '🏞️',
+  cultura: '🏛️',
+  'belleza-y-bienestar': '💆',
+  balnearios: '🏊',
+  salud: '⚕️',
+  tiendas: '🛒',
+  'ropa-y-accesorios': '👗',
+  veterinarias: '🐾',
+  servicios: '🧰',
+  construccion: '🧱',
+}
 
 const labelStyle = {
   display: 'block',
@@ -22,7 +39,15 @@ const inputStyle = {
   border: '1.5px solid rgba(128,128,128,0.25)',
   borderRadius: '10px',
   outline: 'none',
-  marginBottom: '18px',
+  marginBottom: '6px',
+}
+
+const helpStyle = {
+  fontSize: '12.5px',
+  lineHeight: 1.5,
+  color: 'var(--ink)',
+  opacity: 0.55,
+  margin: '0 0 18px',
 }
 
 const btnStyle = {
@@ -35,6 +60,16 @@ const btnStyle = {
   border: 'none',
   borderRadius: '9999px',
   cursor: 'pointer',
+}
+
+// Normaliza a slug amable: minúsculas, sin acentos, guiones.
+function toSlug(text) {
+  return (text || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
 }
 
 export default function BusinessForm({ business, userId }) {
@@ -78,29 +113,44 @@ export default function BusinessForm({ business, userId }) {
       <input
         value={name}
         onChange={(e) => setName(e.target.value)}
-        style={inputStyle}
+        style={{ ...inputStyle, marginBottom: '18px' }}
       />
 
       <label style={labelStyle}>Categoría</label>
       <select
         value={category}
         onChange={(e) => setCategory(e.target.value)}
-        style={{ ...inputStyle, cursor: 'pointer' }}
+        style={{ ...inputStyle, marginBottom: '18px', cursor: 'pointer' }}
       >
         <option value="">Selecciona una categoría…</option>
-        {CATEGORIES.map((c) => (
-          <option key={c.name} value={c.name}>
-            {c.icon} {c.name}
+        {CATEGORIAS.map((c) => (
+          <option key={c.slug} value={c.nombre}>
+            {EMOJI[c.slug] || '•'}  {c.nombre}
           </option>
         ))}
       </select>
 
-      <label style={labelStyle}>Slug (URL única)</label>
+      <label style={labelStyle}>Slug (dirección de tu ficha)</label>
       <input
         value={slug}
         onChange={(e) => setSlug(e.target.value)}
+        onBlur={() => slug && setSlug(toSlug(slug))}
+        placeholder="cantera-y-calma"
         style={inputStyle}
       />
+      <p style={helpStyle}>
+        Es la parte final de tu enlace, la que compartes con tus clientes. Usa solo
+        minúsculas y guiones — sin espacios ni acentos.
+        {slug && (
+          <>
+            <br />
+            Tu ficha vivirá en:{' '}
+            <span style={{ color: 'var(--verde)', fontWeight: 600 }}>
+              enmalinalco.com/negocio/{toSlug(slug)}
+            </span>
+          </>
+        )}
+      </p>
 
       <button onClick={handleSave} style={btnStyle}>
         Guardar

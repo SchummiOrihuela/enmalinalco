@@ -8,7 +8,7 @@ const h2Style = {
   fontSize: '24px',
   fontWeight: 400,
   color: 'var(--ink)',
-  margin: '0 0 20px',
+  margin: '0 0 6px',
 }
 
 const labelStyle = {
@@ -27,7 +27,7 @@ const inputStyle = {
   fontSize: '15px',
   fontFamily: 'inherit',
   color: 'var(--ink)',
-  background: 'var(--parch)',
+  background: 'var(--surf)',
   border: '1.5px solid rgba(128,128,128,0.25)',
   borderRadius: '10px',
   outline: 'none',
@@ -46,14 +46,40 @@ const btnStyle = {
   cursor: 'pointer',
 }
 
+const ghostBtn = {
+  padding: '11px 22px',
+  fontSize: '14px',
+  fontWeight: 600,
+  fontFamily: 'inherit',
+  color: 'var(--ink)',
+  background: 'transparent',
+  border: '1.5px solid rgba(128,128,128,0.3)',
+  borderRadius: '9999px',
+  cursor: 'pointer',
+}
+
+// Formatea 2026-03-15 → "15 mar 2026" para que se lea bonito.
+function fmt(d) {
+  try {
+    return new Date(d + 'T00:00:00').toLocaleDateString('es-MX', {
+      day: 'numeric', month: 'short', year: 'numeric',
+    })
+  } catch { return d }
+}
+
 export default function ClosuresForm({ businessId, initialClosures }) {
   const [closures, setClosures] = useState(initialClosures || [])
+  const [open, setOpen] = useState(false)
   const [start, setStart] = useState('')
   const [end, setEnd] = useState('')
   const [message, setMessage] = useState('')
   const [msg, setMsg] = useState(null)
 
   const supabase = createClient()
+
+  function resetForm() {
+    setStart(''); setEnd(''); setMessage('')
+  }
 
   async function handleAdd() {
     if (!start || !end) {
@@ -75,7 +101,7 @@ export default function ClosuresForm({ businessId, initialClosures }) {
       setMsg('Error: ' + error.message)
     } else {
       setClosures((prev) => [...prev, ...data])
-      setStart(''); setEnd(''); setMessage(''); setMsg('Cierre agregado.')
+      resetForm(); setOpen(false); setMsg('Cierre agregado.')
     }
   }
 
@@ -86,38 +112,44 @@ export default function ClosuresForm({ businessId, initialClosures }) {
   }
 
   return (
-    <div>
-      <h2 style={h2Style}>Cierre Parcial</h2>
+    <div style={{
+      marginTop: '24px',
+      paddingTop: '24px',
+      borderTop: '1px solid rgba(128,128,128,0.18)',
+    }}>
+      <h2 style={h2Style}>Cierres por temporada</h2>
+      <p style={{ fontSize: '13.5px', lineHeight: 1.55, color: 'var(--ink)', opacity: 0.6, margin: '0 0 18px' }}>
+        ¿Vas a cerrar unos días o semanas por vacaciones, mantenimiento o una temporada?
+        Prográmalo y cuéntale a tus clientes el porqué — lo verán en tu ficha.
+      </p>
 
-      {closures.length === 0 && (
-        <p style={{ fontSize: '14px', color: 'var(--ink)', opacity: 0.5, marginBottom: '18px' }}>
-          Sin cierres programados.
-        </p>
-      )}
+      {/* Cierres ya programados */}
       {closures.map((c) => (
         <div key={c.id} style={{
           display: 'flex',
-          gap: '10px',
-          alignItems: 'center',
-          padding: '10px 14px',
+          gap: '12px',
+          alignItems: 'flex-start',
+          padding: '14px 16px',
           background: 'var(--parch)',
-          borderRadius: '10px',
-          marginBottom: '8px',
-          fontSize: '14px',
-          color: 'var(--ink)',
+          borderRadius: '12px',
+          borderLeft: '3px solid var(--terra)',
+          marginBottom: '10px',
         }}>
-          <span style={{ fontWeight: 500 }}>{c.start_date} → {c.end_date}</span>
-          {c.message && <span style={{ opacity: 0.55 }}>({c.message})</span>}
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--ink)' }}>
+              {fmt(c.start_date)} — {fmt(c.end_date)}
+            </div>
+            {c.message && (
+              <div style={{ fontSize: '13.5px', color: 'var(--ink)', opacity: 0.6, marginTop: '3px', lineHeight: 1.45 }}>
+                {c.message}
+              </div>
+            )}
+          </div>
           <button
             onClick={() => handleDelete(c.id)}
             style={{
-              marginLeft: 'auto',
-              fontSize: '13px',
-              fontWeight: 600,
-              color: 'var(--terra)',
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
+              fontSize: '13px', fontWeight: 600, color: 'var(--terra)',
+              background: 'none', border: 'none', cursor: 'pointer',
             }}
           >
             Borrar
@@ -125,21 +157,47 @@ export default function ClosuresForm({ businessId, initialClosures }) {
         </div>
       ))}
 
-      <div style={{ marginTop: '20px' }}>
-        <label style={labelStyle}>Desde</label>
-        <input type="date" value={start} onChange={(e) => setStart(e.target.value)}
-          style={inputStyle} />
-        <label style={labelStyle}>Hasta</label>
-        <input type="date" value={end} onChange={(e) => setEnd(e.target.value)}
-          style={inputStyle} />
-        <label style={labelStyle}>Mensaje (opcional)</label>
-        <input value={message} onChange={(e) => setMessage(e.target.value)}
-          placeholder="Cierre parcial por mantenimiento. Regresamos el 15 de marzo"
-          style={inputStyle} />
-        <button onClick={handleAdd} style={btnStyle}>
-          Agregar cierre
+      {/* Botón que revela el formulario, o el formulario abierto */}
+      {!open ? (
+        <button onClick={() => { setOpen(true); setMsg(null) }} style={ghostBtn}>
+          ＋ Programar un cierre
         </button>
-      </div>
+      ) : (
+        <div style={{
+          marginTop: closures.length ? '8px' : 0,
+          padding: '20px',
+          background: 'var(--parch)',
+          borderRadius: '14px',
+          border: '1px solid rgba(128,128,128,0.16)',
+        }}>
+          <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+            <div style={{ flex: '1 1 160px' }}>
+              <label style={labelStyle}>Desde</label>
+              <input type="date" value={start} onChange={(e) => setStart(e.target.value)} style={inputStyle} />
+            </div>
+            <div style={{ flex: '1 1 160px' }}>
+              <label style={labelStyle}>Hasta</label>
+              <input type="date" value={end} onChange={(e) => setEnd(e.target.value)} style={inputStyle} />
+            </div>
+          </div>
+
+          <label style={labelStyle}>¿Por qué cierras? <span style={{ fontWeight: 400, opacity: 0.7 }}>(tus clientes lo verán)</span></label>
+          <textarea
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Ej. Cerramos por vacaciones de Semana Santa. ¡Regresamos con todo el 15 de marzo!"
+            rows={3}
+            style={{ ...inputStyle, resize: 'vertical', minHeight: '76px' }}
+          />
+
+          <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+            <button onClick={handleAdd} style={btnStyle}>Guardar cierre</button>
+            <button onClick={() => { setOpen(false); resetForm(); setMsg(null) }} style={ghostBtn}>
+              Cancelar
+            </button>
+          </div>
+        </div>
+      )}
 
       {msg && (
         <p style={{

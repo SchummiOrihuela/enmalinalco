@@ -9,6 +9,7 @@ import PhotosForm from './PhotosForm'
 import ReviewsList from './ReviewsList'
 import PlansSection from './PlansSection'
 import FoundersWelcome from './FoundersWelcome'
+import BackToTop from './BackToTop'
 
 export default async function DashboardPage({ searchParams }) {
   const supabase = await createClient()
@@ -63,7 +64,10 @@ export default async function DashboardPage({ searchParams }) {
   return (
     <div style={{
       minHeight: '100dvh',
-      background: 'var(--parch)',
+      background:
+        'radial-gradient(1100px 520px at 50% -8%, rgba(220,178,74,0.10), transparent 62%),' +
+        'radial-gradient(900px 500px at 110% 8%, rgba(124,182,137,0.07), transparent 60%),' +
+        'linear-gradient(180deg, #2C312A 0%, var(--parch) 44%, #333833 100%)',
       fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif",
       transition: 'background .4s ease',
     }}>
@@ -72,20 +76,36 @@ export default async function DashboardPage({ searchParams }) {
 
       {/* Barra superior de marca */}
       <header style={{
-        background: 'var(--selva)',
-        padding: '20px 40px',
+        background: 'linear-gradient(180deg, var(--selva) 0%, #1F2A20 100%)',
+        padding: '18px 40px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
+        borderBottom: '1px solid rgba(220,178,74,0.18)',
       }}>
-        <span style={{
-          fontFamily: "'Cormorant Garamond', Georgia, serif",
-          fontSize: '24px',
-          color: '#F2EDE3',
-          letterSpacing: '-0.01em',
-        }}>
-          en<em style={{ color: 'var(--verde-lt)', fontStyle: 'italic' }}>malinalco</em>
-        </span>
+        <a href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '11px', textDecoration: 'none' }}>
+          <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M2,16 C3,8.5 9,3.5 16,3.5 C23,3.5 29,8.5 30,16 Z" fill="#3F6B4B"/>
+            <path d="M8,18.4 L24,18.4 L28,26.6 L4,26.6 Z" fill="#CBBBA0"/>
+            <path d="M6.6,24.3 L25.4,24.3 M7.5,22 L24.5,22 M8.4,19.9 L23.6,19.9" stroke="#9A8A6E" strokeWidth="0.7" strokeLinecap="round"/>
+            <path d="M8,18.4 L4,26.6 M24,18.4 L28,26.6" stroke="#A99A7E" strokeWidth="0.6"/>
+            <rect x="7.6" y="12.9" width="16.8" height="5.6" fill="#BBAA8D"/>
+            <rect x="9.4" y="14.2" width="2.4" height="4.3" fill="#33281D"/>
+            <rect x="20.2" y="14.2" width="2.4" height="4.3" fill="#33281D"/>
+            <path d="M14,18.5 L14,14.6 C14,13.6 14.9,13.1 16,13.1 C17.1,13.1 18,13.6 18,14.6 L18,18.5 Z" fill="#2A2016"/>
+            <path d="M16,3.2 C18.4,6.8 22,10.6 25,12.9 L7,12.9 C10,10.6 13.6,6.8 16,3.2 Z" fill="#D9A94A"/>
+            <path d="M8.8,11.6 Q16,8.8 23.2,11.6 M10.4,9.6 Q16,7.4 21.6,9.6 M12,7.7 Q16,6.2 20,7.7" stroke="#B0863A" strokeWidth="0.55" fill="none"/>
+            <circle cx="16" cy="3.4" r="0.7" fill="#B0863A"/>
+          </svg>
+          <span style={{
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontSize: '24px',
+            color: '#F2EDE3',
+            letterSpacing: '-0.01em',
+          }}>
+            en<em style={{ color: 'var(--verde-lt)', fontStyle: 'italic' }}>malinalco</em>
+          </span>
+        </a>
         <a
           href="/"
           style={{
@@ -161,10 +181,6 @@ export default async function DashboardPage({ searchParams }) {
           {business && (
             <Section>
               <HoursForm businessId={business.id} initialHours={hours} />
-            </Section>
-          )}
-          {business && (
-            <Section>
               <ClosuresForm businessId={business.id} initialClosures={closures} />
             </Section>
           )}
@@ -185,6 +201,8 @@ export default async function DashboardPage({ searchParams }) {
           )}
         </div>
       </main>
+
+      <BackToTop />
     </div>
   )
 }
@@ -194,9 +212,10 @@ function Section({ children }) {
   return (
     <div style={{
       background: 'var(--surf)',
-      borderRadius: '16px',
+      borderRadius: '18px',
       padding: '28px',
-      boxShadow: '0 1px 4px rgba(27,20,9,0.05), 0 4px 16px rgba(27,20,9,0.04)',
+      border: '1px solid rgba(220,178,74,0.10)',
+      boxShadow: '0 1px 3px rgba(0,0,0,0.18), 0 12px 34px rgba(0,0,0,0.14)',
     }}>
       {children}
     </div>

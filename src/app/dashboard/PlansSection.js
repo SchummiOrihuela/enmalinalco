@@ -1,18 +1,25 @@
 'use client'
 import { useState } from 'react'
+import { PLANS } from '@/lib/plans'
 
-const PLANS = [
-  { tier: 'malinalli', name: 'Malinalli', price: '$99',  sub: 'Perfil esencial · 3 fotos', badge: false },
-  { tier: 'cuauhtli',  name: 'Cuāuhtli',  price: '$249', sub: 'Perfil premium · 10 fotos · Prioridad', badge: false },
-  { tier: 'ocelotl',   name: 'Ocēlōtl',   price: '$449', sub: 'Ficha exclusiva · Artículo editorial', badge: true },
-]
+const ORDER = ['malinalli', 'cuauhtli', 'ocelotl']
 
 const h2Style = {
   fontFamily: "'Cormorant Garamond', Georgia, serif",
   fontSize: '24px',
   fontWeight: 400,
   color: 'var(--ink)',
-  margin: '0 0 8px',
+  margin: '0 0 6px',
+}
+
+function Check() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--verde)"
+      strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
+      style={{ flexShrink: 0, marginTop: '2px' }}>
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  )
 }
 
 export default function PlansSection({ businessId, currentPlan }) {
@@ -35,76 +42,95 @@ export default function PlansSection({ businessId, currentPlan }) {
     }
   }
 
+  const currentName = currentPlan ? PLANS[currentPlan]?.name : null
+
   return (
     <div>
       <h2 style={h2Style}>Tu suscripción</h2>
-      <p style={{ fontSize: '14px', color: 'var(--ink)', opacity: 0.6, marginBottom: '20px' }}>
-        Plan actual: <strong>{currentPlan || 'Sin plan activo'}</strong>
+      <p style={{ fontSize: '14px', color: 'var(--ink)', opacity: 0.6, marginBottom: '22px' }}>
+        {currentName
+          ? <>Estás en el plan <strong style={{ color: 'var(--oro)' }}>{currentName}</strong>.</>
+          : <>Aún no tienes un plan activo. Elige el que mejor le quede a tu negocio.</>}
       </p>
-      <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
-        {PLANS.map(p => {
-          const isCurrent = currentPlan === p.tier
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: '16px', alignItems: 'stretch' }}>
+        {ORDER.map((tier) => {
+          const p = PLANS[tier]
+          const isCurrent = currentPlan === tier
+          const isElite = tier === 'ocelotl'
           return (
-            <div key={p.tier} style={{
+            <div key={tier} style={{
               position: 'relative',
-              border: isCurrent ? '2px solid var(--verde)' : '1px solid rgba(128,128,128,0.22)',
-              borderRadius: '16px',
-              padding: '22px',
-              minWidth: 220,
-              flex: '1 1 220px',
-              background: 'var(--parch)',
+              display: 'flex',
+              flexDirection: 'column',
+              border: isCurrent ? '1.5px solid var(--oro)' : '1px solid rgba(128,128,128,0.22)',
+              borderRadius: '18px',
+              padding: '24px 22px',
+              background: isCurrent
+                ? 'linear-gradient(160deg, rgba(220,178,74,0.16), rgba(220,178,74,0.03))'
+                : 'var(--parch)',
+              boxShadow: isCurrent ? '0 0 0 4px rgba(220,178,74,0.10), 0 10px 30px rgba(220,178,74,0.10)' : 'none',
+              transition: 'box-shadow .3s ease',
             }}>
-              {p.badge && (
-                <span style={{
-                  position: 'absolute',
-                  top: '14px',
-                  right: '14px',
-                  fontSize: '10px',
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.1em',
-                  color: '#fff',
-                  background: 'var(--oro)',
-                  padding: '3px 10px',
-                  borderRadius: '9999px',
-                }}>
-                  Ocēlōtl
-                </span>
-              )}
+              {/* Cinta de estado */}
+              {isCurrent ? (
+                <span style={ribbon('var(--oro)', 'var(--ink)')}>Tu plan actual</span>
+              ) : isElite ? (
+                <span style={ribbon('var(--selva)', '#F0E8D4')}>Élite</span>
+              ) : null}
+
+              {/* Nombre */}
               <div style={{
                 fontFamily: "'Cormorant Garamond', Georgia, serif",
-                fontSize: '22px',
+                fontSize: '26px',
                 fontStyle: 'italic',
+                fontWeight: 500,
                 color: 'var(--ink)',
+                lineHeight: 1.1,
               }}>
                 {p.name}
               </div>
-              <div style={{ fontSize: '13px', color: 'var(--ink)', opacity: 0.55, margin: '6px 0 12px', lineHeight: 1.4 }}>
-                {p.sub}
+              <div style={{ fontSize: '13px', color: 'var(--ink)', opacity: 0.6, margin: '4px 0 16px' }}>
+                {p.tagline}
               </div>
-              <div style={{ fontSize: '26px', fontWeight: 700, color: 'var(--ink)', marginBottom: '16px' }}>
-                {p.price} <span style={{ fontSize: '12px', fontWeight: 400, opacity: 0.5 }}>/mes MXN</span>
+
+              {/* Precio */}
+              <div style={{ marginBottom: '18px' }}>
+                <span style={{ fontSize: '30px', fontWeight: 700, color: 'var(--ink)' }}>${p.price}</span>
+                <span style={{ fontSize: '12px', fontWeight: 400, color: 'var(--ink)', opacity: 0.5 }}> /mes MXN</span>
               </div>
+
+              {/* Beneficios */}
+              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 22px', display: 'flex', flexDirection: 'column', gap: '9px' }}>
+                {p.benefits.map((b, i) => (
+                  <li key={i} style={{ display: 'flex', gap: '8px', fontSize: '13px', lineHeight: 1.4, color: 'var(--ink)', opacity: 0.82 }}>
+                    <Check />{b}
+                  </li>
+                ))}
+              </ul>
+
+              {/* Botón (anclado abajo para alinear alturas) */}
               <button
-                onClick={() => handleSubscribe(p.tier)}
+                onClick={() => handleSubscribe(tier)}
                 disabled={loading !== null || isCurrent}
                 style={{
+                  marginTop: 'auto',
                   width: '100%',
                   padding: '12px',
                   borderRadius: '9999px',
-                  border: 'none',
-                  background: isCurrent ? 'rgba(128,128,128,0.3)' : 'var(--ink)',
-                  color: isCurrent ? 'var(--ink)' : 'var(--parch)',
+                  border: isCurrent ? '1.5px solid var(--oro)' : 'none',
+                  background: isCurrent ? 'transparent' : 'var(--ink)',
+                  color: isCurrent ? 'var(--oro)' : 'var(--parch)',
                   fontSize: '14px',
                   fontWeight: 600,
                   fontFamily: 'inherit',
                   cursor: isCurrent ? 'default' : 'pointer',
-                  opacity: loading === p.tier ? 0.6 : 1,
+                  opacity: loading === tier ? 0.6 : 1,
                 }}
               >
-                {isCurrent ? 'Plan actual'
-                  : loading === p.tier ? 'Cargando…'
-                  : 'Suscribirse'}
+                {isCurrent ? '✓ Plan activo'
+                  : loading === tier ? 'Cargando…'
+                  : 'Elegir este plan'}
               </button>
             </div>
           )
@@ -112,4 +138,20 @@ export default function PlansSection({ businessId, currentPlan }) {
       </div>
     </div>
   )
+}
+
+function ribbon(bg, color) {
+  return {
+    position: 'absolute',
+    top: '16px',
+    right: '16px',
+    fontSize: '10px',
+    fontWeight: 700,
+    textTransform: 'uppercase',
+    letterSpacing: '0.09em',
+    color,
+    background: bg,
+    padding: '4px 10px',
+    borderRadius: '9999px',
+  }
 }

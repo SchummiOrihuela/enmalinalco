@@ -2,7 +2,10 @@
 
 import { useState } from 'react'
 import { createClient } from '@/lib/supabaseBrowser'
-import { getMaxPhotos } from '@/lib/plans'
+import { getMaxPhotos, PLANS } from '@/lib/plans'
+
+// Sugerencia del siguiente plan cuando el negocio llena sus fotos.
+const NEXT_PLAN = { malinalli: 'cuauhtli', cuauhtli: 'ocelotl' }
 
 const h2Style = {
   fontFamily: "'Cormorant Garamond', Georgia, serif",
@@ -37,7 +40,7 @@ export default function PhotosForm({ businessId, initialPhotos, plan }) {
     const file = e.target.files[0]
     if (!file) return
     if (photos.length >= maxPhotos) {
-      setMsg(`Tu plan permite máximo ${maxPhotos} fotos. Mejora tu plan para subir más.`)
+      setMsg(`Ya tienes tus ${maxPhotos} fotos llenas. Borra una para cambiarla, o mejora tu plan para mostrar más.`)
       e.target.value = ''
       return
     }
@@ -195,32 +198,57 @@ export default function PhotosForm({ businessId, initialPhotos, plan }) {
         </div>
       )}
 
-      {/* Uploader */}
-      <label style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: '8px',
-        padding: '12px 26px',
-        fontSize: '15px',
-        fontWeight: 600,
-        fontFamily: 'inherit',
-        color: atLimit ? 'var(--ink)' : 'var(--parch)',
-        background: atLimit ? 'var(--parch)' : 'var(--ink)',
-        border: atLimit ? '1.5px solid rgba(128,128,128,0.25)' : 'none',
-        borderRadius: '9999px',
-        cursor: atLimit || uploading ? 'not-allowed' : 'pointer',
-        opacity: uploading ? 0.6 : atLimit ? 0.55 : 1,
-        transition: 'opacity .2s ease',
-      }}>
-        {uploading ? 'Subiendo…' : atLimit ? 'Límite del plan alcanzado' : '＋ Subir foto'}
-        <input
-          type="file"
-          accept="image/jpeg,image/png,image/webp"
-          onChange={handleUpload}
-          disabled={atLimit || uploading}
-          style={{ display: 'none' }}
-        />
-      </label>
+      {/* Uploader — o mensaje cálido de límite con sugerencia de plan */}
+      {atLimit ? (
+        <div style={{
+          padding: '18px 20px',
+          background: 'linear-gradient(135deg, rgba(220,178,74,0.14), rgba(220,178,74,0.04))',
+          border: '1px solid rgba(220,178,74,0.28)',
+          borderRadius: '14px',
+        }}>
+          <p style={{ fontSize: '14px', fontWeight: 600, color: 'var(--ink)', margin: '0 0 4px' }}>
+            ¡Llenaste tus {maxPhotos} fotos! 🎉
+          </p>
+          {NEXT_PLAN[plan || 'malinalli'] ? (
+            <p style={{ fontSize: '13.5px', lineHeight: 1.55, color: 'var(--ink)', opacity: 0.7, margin: 0 }}>
+              Cada plan tiene su galería para que tu ficha cargue rápida y se vea impecable. Con{' '}
+              <strong style={{ color: 'var(--oro)' }}>{PLANS[NEXT_PLAN[plan || 'malinalli']].name}</strong>{' '}
+              subes hasta <strong>{PLANS[NEXT_PLAN[plan || 'malinalli']].maxPhotos} fotos</strong> y muestras tu negocio en grande.
+              {' '}Cámbialo abajo, en <em>Tu suscripción</em>. Si quieres cambiar alguna, borra una y sube otra.
+            </p>
+          ) : (
+            <p style={{ fontSize: '13.5px', lineHeight: 1.55, color: 'var(--ink)', opacity: 0.7, margin: 0 }}>
+              Estás en el plan más completo — ya muestras tu negocio en grande. Para cambiar una foto, borra una y sube otra.
+            </p>
+          )}
+        </div>
+      ) : (
+        <label style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '12px 26px',
+          fontSize: '15px',
+          fontWeight: 600,
+          fontFamily: 'inherit',
+          color: 'var(--parch)',
+          background: 'var(--ink)',
+          border: 'none',
+          borderRadius: '9999px',
+          cursor: uploading ? 'not-allowed' : 'pointer',
+          opacity: uploading ? 0.6 : 1,
+          transition: 'opacity .2s ease',
+        }}>
+          {uploading ? 'Subiendo…' : '＋ Subir foto'}
+          <input
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            onChange={handleUpload}
+            disabled={atLimit || uploading}
+            style={{ display: 'none' }}
+          />
+        </label>
+      )}
 
       {msg && (
         <p style={{
