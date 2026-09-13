@@ -1,24 +1,7 @@
 'use client'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { createClient } from '@/lib/supabaseBrowser'
 import { CATEGORIAS } from '@/lib/categorias'
-
-// Emoji de alta calidad por categoría (el <select> nativo no admite SVG,
-// así que aquí mapeamos cada slug a un ícono limpio y reconocible).
-const EMOJI = {
-  restaurantes: '🍽️',
-  hospedaje: '🏨',
-  ecoturismo: '🏞️',
-  cultura: '🏛️',
-  'belleza-y-bienestar': '💆',
-  balnearios: '🏊',
-  salud: '⚕️',
-  tiendas: '🛒',
-  'ropa-y-accesorios': '👗',
-  veterinarias: '🐾',
-  servicios: '🧰',
-  construccion: '🧱',
-}
 
 const labelStyle = {
   display: 'block',
@@ -72,6 +55,127 @@ function toSlug(text) {
     .replace(/^-+|-+$/g, '')
 }
 
+// Ícono de categoría: el mismo SVG de línea del landing, sobre su color.
+function CatIcon({ cat, size = 28 }) {
+  return (
+    <span style={{
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: size,
+      height: size,
+      borderRadius: '8px',
+      flexShrink: 0,
+      background: cat.color,
+      color: '#EFE7D0',
+    }}>
+      <svg
+        viewBox="0 0 24 24"
+        width={Math.round(size * 0.6)}
+        height={Math.round(size * 0.6)}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.9"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        dangerouslySetInnerHTML={{ __html: cat.svg }}
+      />
+    </span>
+  )
+}
+
+// Selector de categoría a medida (con íconos SVG, no emojis).
+function CategorySelect({ value, onChange }) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef(null)
+  const selected = CATEGORIAS.find((c) => c.nombre === value) || null
+
+  useEffect(() => {
+    function onDoc(e) {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false)
+    }
+    document.addEventListener('mousedown', onDoc)
+    return () => document.removeEventListener('mousedown', onDoc)
+  }, [])
+
+  return (
+    <div ref={ref} style={{ position: 'relative', marginBottom: '18px' }}>
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        style={{
+          ...inputStyle,
+          marginBottom: 0,
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
+          cursor: 'pointer',
+          textAlign: 'left',
+        }}
+      >
+        {selected
+          ? <><CatIcon cat={selected} /><span style={{ fontWeight: 500 }}>{selected.nombre}</span></>
+          : <span style={{ opacity: 0.5 }}>Selecciona una categoría…</span>}
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--oro)"
+          strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
+          style={{ marginLeft: 'auto', transform: open ? 'rotate(180deg)' : 'none', transition: 'transform .2s ease' }}>
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </button>
+
+      {open && (
+        <div style={{
+          position: 'absolute',
+          top: 'calc(100% + 6px)',
+          left: 0,
+          right: 0,
+          zIndex: 20,
+          maxHeight: '288px',
+          overflowY: 'auto',
+          background: 'var(--surf)',
+          border: '1px solid rgba(128,128,128,0.2)',
+          borderRadius: '12px',
+          boxShadow: '0 12px 32px rgba(0,0,0,0.22)',
+          padding: '6px',
+        }}>
+          {CATEGORIAS.map((c) => {
+            const active = c.nombre === value
+            return (
+              <button
+                key={c.slug}
+                type="button"
+                onClick={() => { onChange(c.nombre); setOpen(false) }}
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '11px',
+                  padding: '9px 10px',
+                  fontSize: '14px',
+                  fontWeight: active ? 600 : 500,
+                  fontFamily: 'inherit',
+                  color: 'var(--ink)',
+                  background: active ? 'rgba(185,138,22,0.14)' : 'transparent',
+                  border: 'none',
+                  borderRadius: '9px',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                }}
+                onMouseEnter={(e) => { if (!active) e.currentTarget.style.background = 'rgba(128,128,128,0.10)' }}
+                onMouseLeave={(e) => { if (!active) e.currentTarget.style.background = 'transparent' }}
+              >
+                <CatIcon cat={c} />
+                <span>{c.nombre}</span>
+                <span style={{ marginLeft: 'auto', fontSize: '12px', color: 'var(--ink)', opacity: 0.45 }}>{c.hint}</span>
+              </button>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
+}
+
 export default function BusinessForm({ business, userId }) {
   const [name, setName] = useState(business?.name || '')
   const [category, setCategory] = useState(business?.category || '')
@@ -117,18 +221,7 @@ export default function BusinessForm({ business, userId }) {
       />
 
       <label style={labelStyle}>Categoría</label>
-      <select
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-        style={{ ...inputStyle, marginBottom: '18px', cursor: 'pointer' }}
-      >
-        <option value="">Selecciona una categoría…</option>
-        {CATEGORIAS.map((c) => (
-          <option key={c.slug} value={c.nombre}>
-            {EMOJI[c.slug] || '•'}  {c.nombre}
-          </option>
-        ))}
-      </select>
+      <CategorySelect value={category} onChange={setCategory} />
 
       <label style={labelStyle}>Slug (dirección de tu ficha)</label>
       <input
