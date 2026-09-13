@@ -898,7 +898,7 @@ const MARKUP = `<!-- Progress bar -->
 
     <div class="hero-stats" id="hstats">
       <div class="hstat">
-        <div class="hstat-val"><span data-count="7">0</span></div>
+        <div class="hstat-val"><span data-count="3">0</span></div>
         <div class="hstat-lbl">Negocios registrados</div>
       </div>
       <div class="hstat">
@@ -906,7 +906,7 @@ const MARKUP = `<!-- Progress bar -->
         <div class="hstat-lbl">Categorías</div>
       </div>
       <div class="hstat">
-        <div class="hstat-val"><span data-count="244">0</span></div>
+        <div class="hstat-val"><span data-count="54">0</span></div>
         <div class="hstat-lbl">Visitas al mes</div>
       </div>
       <div class="hstat">
