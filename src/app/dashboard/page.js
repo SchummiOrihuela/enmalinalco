@@ -65,9 +65,10 @@ export default async function DashboardPage({ searchParams }) {
     <div style={{
       minHeight: '100dvh',
       background:
-        'radial-gradient(1100px 520px at 50% -8%, rgba(220,178,74,0.10), transparent 62%),' +
-        'radial-gradient(900px 500px at 110% 8%, rgba(124,182,137,0.07), transparent 60%),' +
-        'linear-gradient(180deg, #2C312A 0%, var(--parch) 44%, #333833 100%)',
+        'radial-gradient(1100px 520px at 50% -8%, rgba(197,155,28,0.10), transparent 60%),' +
+        'radial-gradient(820px 480px at 108% 4%, rgba(58,107,71,0.07), transparent 58%),' +
+        'radial-gradient(760px 520px at -10% 44%, rgba(191,80,40,0.05), transparent 55%),' +
+        'var(--parch)',
       fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif",
       transition: 'background .4s ease',
     }}>
@@ -139,10 +140,10 @@ export default async function DashboardPage({ searchParams }) {
           </p>
           <h1 style={{
             fontFamily: "'Cormorant Garamond', Georgia, serif",
-            fontSize: '38px',
-            fontWeight: 400,
+            fontSize: '40px',
+            fontWeight: 500,
             color: 'var(--ink)',
-            lineHeight: 1.1,
+            lineHeight: 1.08,
             margin: '0 0 12px',
           }}>
             {business ? business.name : 'Tu negocio'}
@@ -150,26 +151,44 @@ export default async function DashboardPage({ searchParams }) {
           <div style={{
             display: 'flex',
             flexWrap: 'wrap',
-            gap: '16px',
+            gap: '12px',
             alignItems: 'center',
             fontSize: '14px',
-            color: 'var(--ink)',
-            opacity: 0.6,
           }}>
-            <span>Sesión activa: {user.email}</span>
-            {business && (
-              <span style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                padding: '4px 12px',
-                background: 'var(--surf)',
-                borderRadius: '9999px',
-                fontSize: '13px',
-              }}>
-                👁️ {business.view_count || 0} vistas
-              </span>
-            )}
+            <span style={{ color: 'var(--ink)', opacity: 0.6 }}>Sesión activa: {user.email}</span>
+            {business && (() => {
+              const views = business.view_count || 0
+              const lastMonth = business.views_last_month
+              const delta = (lastMonth !== null && lastMonth !== undefined) ? views - lastMonth : null
+              return (
+                <span style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '5px 12px',
+                  background: 'var(--surf)',
+                  border: '1px solid rgba(220,178,74,0.22)',
+                  borderRadius: '9999px',
+                  fontSize: '13px',
+                  color: 'var(--ink)',
+                }}>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+                    👁️ <strong>{views}</strong> vistas
+                  </span>
+                  {delta !== null && delta > 0 && (
+                    <span style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '3px',
+                      fontWeight: 700,
+                      color: 'var(--verde)',
+                    }}>
+                      ▲ +{delta} vs. mes pasado
+                    </span>
+                  )}
+                </span>
+              )
+            })()}
           </div>
         </div>
 

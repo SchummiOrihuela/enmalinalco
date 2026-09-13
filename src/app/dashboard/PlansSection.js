@@ -47,9 +47,17 @@ export default function PlansSection({ businessId, currentPlan }) {
   return (
     <div>
       <h2 style={h2Style}>Tu suscripción</h2>
-      <p style={{ fontSize: '14px', color: 'var(--ink)', opacity: 0.6, marginBottom: '22px' }}>
+      <p style={{ fontSize: '15px', color: 'var(--ink)', opacity: 0.75, marginBottom: '22px' }}>
         {currentName
-          ? <>Estás en el plan <strong style={{ color: 'var(--oro)' }}>{currentName}</strong>.</>
+          ? <>Estás en el plan{' '}
+              <strong style={{
+                fontFamily: "'Cormorant Garamond', Georgia, serif",
+                fontStyle: 'italic',
+                fontWeight: 700,
+                fontSize: '22px',
+                color: 'var(--oro)',
+                verticalAlign: '-1px',
+              }}>{currentName}</strong>.</>
           : <>Aún no tienes un plan activo. Elige el que mejor le quede a tu negocio.</>}
       </p>
 
@@ -82,15 +90,16 @@ export default function PlansSection({ businessId, currentPlan }) {
               {/* Nombre */}
               <div style={{
                 fontFamily: "'Cormorant Garamond', Georgia, serif",
-                fontSize: '26px',
+                fontSize: '34px',
                 fontStyle: 'italic',
-                fontWeight: 500,
-                color: 'var(--ink)',
-                lineHeight: 1.1,
+                fontWeight: 600,
+                color: isCurrent ? 'var(--oro)' : 'var(--ink)',
+                lineHeight: 1.05,
+                letterSpacing: '-0.01em',
               }}>
                 {p.name}
               </div>
-              <div style={{ fontSize: '13px', color: 'var(--ink)', opacity: 0.6, margin: '4px 0 16px' }}>
+              <div style={{ fontSize: '13px', color: 'var(--ink)', opacity: 0.6, margin: '6px 0 16px' }}>
                 {p.tagline}
               </div>
 
