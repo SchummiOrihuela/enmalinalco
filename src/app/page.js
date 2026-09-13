@@ -605,10 +605,12 @@ footer{background:#1E221A;padding-block:clamp(var(--s12),7vw,var(--s20))}
 .fsoc:hover{border-color:rgba(242,237,227,.3);color:rgba(242,237,227,.85)}
 .fsoc svg{width:15px;height:15px}
 .ft-col h5{font-size:var(--t-2xs);font-weight:700;text-transform:uppercase;
-  letter-spacing:.14em;color:rgba(242,237,227,.3);margin-bottom:var(--s5)}
+  letter-spacing:.14em;color:var(--oro);margin-bottom:var(--s5)}
 .ft-col a{display:block;font-size:var(--t-sm);color:rgba(242,237,227,.45);
   margin-bottom:var(--s3);transition:color var(--dur)}
 .ft-col a:hover{color:rgba(242,237,227,.9)}
+.ft-col a.ft-gold{color:var(--oro)}
+.ft-col a.ft-gold:hover{color:#EBC66A}
 .ft-bot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:var(--s4);
   padding-top:var(--s8)}
 .ft-bot p{font-size:var(--t-xs);color:rgba(242,237,227,.42)}
@@ -1252,7 +1254,6 @@ const MARKUP = `<!-- Progress bar -->
         Enviar correo
       </button>
     </form>
-    <p class="cf-alt">O escríbenos directo: <a href="mailto:soporte@enmalinalco.com">soporte@enmalinalco.com</a> · <a href="https://wa.me/525562513258" target="_blank" rel="noopener noreferrer">WhatsApp</a></p>
   </div>
 </div>
 
@@ -1274,7 +1275,6 @@ const MARKUP = `<!-- Progress bar -->
       <p>No vendemos, rentamos ni intercambiamos tu información con terceros. Punto.</p>
       <h4>Tú tienes el control</h4>
       <p>Puedes pedirnos acceder, corregir o eliminar tus datos cuando quieras. Solo escríbenos a <a href="mailto:soporte@enmalinalco.com">soporte@enmalinalco.com</a> y lo resolvemos.</p>
-      <p class="doc-updated">Última actualización: septiembre 2026 · Malinalco, Estado de México.</p>
     </div>
   </div>
 </div>
@@ -1295,8 +1295,6 @@ const MARKUP = `<!-- Progress bar -->
       <p>Horarios, precios y disponibilidad pueden cambiar. Te recomendamos confirmar directamente con cada negocio antes de tu visita.</p>
       <h4>Los negocios son suyos</h4>
       <p>Cada establecimiento es responsable de la información de su ficha. enmalinalco.com no presta los servicios anunciados ni responde por ellos.</p>
-      <h4>Contenido propio</h4>
-      <p>Los textos, fotos y el diseño de la guía son nuestros; te agradecemos no reproducirlos sin permiso.</p>
       <h4>¿Dudas?</h4>
       <p>Escríbenos a <a href="mailto:soporte@enmalinalco.com">soporte@enmalinalco.com</a>. Con gusto te ayudamos.</p>
       <p class="doc-updated">Última actualización: septiembre 2026 · Malinalco, Estado de México.</p>
@@ -1430,8 +1428,8 @@ const MARKUP = `<!-- Progress bar -->
       <div class="ft-col">
         <h5>Negocio</h5>
         <a href="#">Registrar negocio</a>
-        <a href="#">Planes y precios</a>
-        <a href="#" data-modal="m-contacto">Contacto</a>
+        <a href="#" class="ft-gold">Planes y precios</a>
+        <a href="#" data-modal="m-contacto" class="ft-gold">Contacto</a>
         <a href="#" data-modal="m-privacidad">Aviso de privacidad</a>
         <a href="#" data-modal="m-terminos">Términos de uso</a>
       </div>
