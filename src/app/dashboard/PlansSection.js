@@ -51,12 +51,10 @@ export default function PlansSection({ businessId, currentPlan }) {
         {currentName
           ? <>Estás en el plan{' '}
               <strong style={{
-                fontFamily: "'Cormorant Garamond', Georgia, serif",
-                fontStyle: 'italic',
-                fontWeight: 700,
-                fontSize: '22px',
+                fontWeight: 800,
+                fontSize: '18px',
+                letterSpacing: '0.01em',
                 color: 'var(--oro)',
-                verticalAlign: '-1px',
               }}>{currentName}</strong>.</>
           : <>Aún no tienes un plan activo. Elige el que mejor le quede a tu negocio.</>}
       </p>
@@ -96,6 +94,8 @@ export default function PlansSection({ businessId, currentPlan }) {
                 color: isCurrent ? 'var(--oro)' : 'var(--ink)',
                 lineHeight: 1.05,
                 letterSpacing: '-0.01em',
+                marginTop: (isCurrent || isElite) ? '22px' : 0,
+                paddingRight: '4px',
               }}>
                 {p.name}
               </div>
