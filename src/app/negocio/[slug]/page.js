@@ -10,6 +10,11 @@ import { CATEGORIA_POR_SLUG } from '@/lib/categorias'
 import { BrandTile } from '@/app/components/BrandIcon'
 import PublicShell from '@/app/components/PublicShell'
 
+// Siempre renderizar en el servidor con datos frescos (sin caché estática).
+// Evita que fotos/horarios recién publicados aparezcan solo en unos dispositivos.
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 // Convierte "13:00" → "1:00 p.m." para leer bonito.
 function to12h(t) {
   if (!t) return ''

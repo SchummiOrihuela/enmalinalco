@@ -6,6 +6,11 @@ import { CATEGORIA_POR_SLUG } from '@/lib/categorias'
 import PublicShell from '@/app/components/PublicShell'
 import { BrandTile } from '@/app/components/BrandIcon'
 
+// Siempre renderizar en el servidor con datos frescos (sin caché estática).
+// Evita que fotos/negocios recién publicados aparezcan solo en unos dispositivos.
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default async function CategoriaPage({ params }) {
   const { slug } = await params
   const supabase = await createClient()
