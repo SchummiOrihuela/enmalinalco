@@ -14,11 +14,11 @@ const faqSchema = {
   mainEntity: [
     {
       q: "¿Qué es enmalinalco.com?",
-      a: "Es la guía y el directorio de Malinalco hecha por quienes vivimos aquí. Reúne restaurantes, hospedaje, artesanías, cultura y ecoturismo del pueblo, junto con rutas, historias y recomendaciones locales, para que encuentres todo lo que vale la pena en un solo lugar.",
+      a: "enmalinalco.com es la guía y el directorio de Malinalco, hechos por quienes vivimos aquí. Reúne restaurantes, hospedaje, artesanías, cultura y ecoturismo, junto con rutas, historias y recomendaciones locales, para que encuentres todo lo que vale la pena en un solo lugar.",
     },
     {
       q: "¿Cómo registro mi negocio en el directorio?",
-      a: "Muy fácil: entra a la sección Para negocios y elige un plan, o escríbenos por WhatsApp y te ayudamos a crear tu ficha con fotos, contacto, ubicación y horarios. En minutos tu negocio queda visible para quienes buscan en Malinalco.",
+      a: "Muy fácil: entra a la sección Para negocios, elige un plan y crea tu cuenta. Si prefieres, escríbenos y te ayudamos a armar tu ficha con fotos, contacto, ubicación y horarios. En minutos tu negocio queda visible para quienes buscan en Malinalco.",
     },
     {
       q: "¿Cuánto cuesta anunciar mi negocio?",
@@ -30,11 +30,11 @@ const faqSchema = {
     },
     {
       q: "¿Qué se puede hacer en Malinalco?",
-      a: "Muchísimo: subir a la zona arqueológica con su templo azteca tallado en roca viva, recorrer el mercado artesanal, visitar la Parroquia del Divino Salvador y el Museo Mario Schneider, conocer el criadero de truchas, probar la gastronomía local y perderte entre calles empedradas y montañas. Es un Pueblo Mágico para caminar con calma.",
+      a: "En Malinalco puedes subir a la zona arqueológica, con su templo azteca tallado en roca viva; recorrer el mercado artesanal; visitar la Parroquia del Divino Salvador y el Museo Mario Schneider; conocer el criadero de truchas y probar la gastronomía local. Es un Pueblo Mágico para caminar con calma, entre calles empedradas y montañas.",
     },
     {
       q: "¿Cómo llego a Malinalco desde CDMX o Toluca?",
-      a: "Desde la Ciudad de México son alrededor de 2 a 2.5 horas en auto, normalmente por la ruta hacia Chalma. Desde Toluca es más cerca, cerca de 1.5 horas. También hay transporte foráneo que conecta con el pueblo. Lo más cómodo es llegar en coche para moverte por la zona.",
+      a: "Desde la Ciudad de México son entre 2 y 2.5 horas en auto, normalmente por la ruta hacia Chalma. Desde Toluca es más rápido, alrededor de 1.5 horas. También hay transporte foráneo que conecta con el pueblo, aunque lo más cómodo es llegar en coche para moverte por la zona.",
     },
     {
       q: "¿Qué hacer en un fin de semana en Malinalco?",
@@ -42,7 +42,7 @@ const faqSchema = {
     },
     {
       q: "¿Dónde comer y hospedarse en Malinalco?",
-      a: "Hay desde fondas del mercado y trucha fresca hasta restaurantes con vista, y opciones de hospedaje que van de hoteles boutique a casas y cabañas entre montañas. En nuestro directorio encuentras lugares recomendados por gente de aquí, con fotos, contacto y ubicación.",
+      a: "Hay desde fondas del mercado y trucha fresca hasta restaurantes con vista, y opciones de hospedaje que van de hoteles boutique a casas y cabañas entre montañas. En nuestro directorio encuentras lugares elegidos por locales, con fotos, contacto y ubicación.",
     },
     {
       q: "¿Cuál es la mejor época para visitar Malinalco?",
@@ -50,7 +50,7 @@ const faqSchema = {
     },
     {
       q: "¿Cómo contacto al equipo de enmalinalco?",
-      a: "Escríbenos por WhatsApp o al correo soporte@enmalinalco.com, o usa el formulario de contacto del sitio. Con gusto te ayudamos a registrar tu negocio, corregir información o resolver cualquier duda como visitante.",
+      a: "Escríbenos al correo soporte@enmalinalco.com o usa el formulario de contacto del sitio. Con mucho gusto te ayudamos a registrar tu negocio, corregir información o resolver cualquier duda como visitante.",
     },
   ].map(({ q, a }) => ({
     "@type": "Question",

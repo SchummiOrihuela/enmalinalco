@@ -1491,14 +1491,14 @@ const MARKUP = `<!-- Progress bar -->
         <summary>¿Qué es enmalinalco.com?
           <svg class="faq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
         </summary>
-        <div class="faq-a">Es la guía y el directorio de Malinalco hecha por quienes vivimos aquí. Reúne restaurantes, hospedaje, artesanías, cultura y ecoturismo del pueblo, junto con rutas, historias y recomendaciones locales, para que encuentres todo lo que vale la pena en un solo lugar.</div>
+        <div class="faq-a">enmalinalco.com es la guía y el directorio de Malinalco, hechos por quienes vivimos aquí. Reúne restaurantes, hospedaje, artesanías, cultura y ecoturismo, junto con rutas, historias y recomendaciones locales, para que encuentres todo lo que vale la pena en un solo lugar.</div>
       </details>
 
       <details class="faq-item">
         <summary>¿Cómo registro mi negocio en el directorio?
           <svg class="faq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
         </summary>
-        <div class="faq-a">Muy fácil: entra a la sección <a href="#negocios">Para negocios</a> y elige un plan, o escríbenos por WhatsApp y te ayudamos a crear tu ficha con fotos, contacto, ubicación y horarios. En minutos tu negocio queda visible para quienes buscan en Malinalco.</div>
+        <div class="faq-a">Muy fácil: entra a la sección <a href="#negocios">Para negocios</a>, elige un plan y crea tu cuenta. Si prefieres, escríbenos y te ayudamos a armar tu ficha con fotos, contacto, ubicación y horarios. En minutos tu negocio queda visible para quienes buscan en Malinalco.</div>
       </details>
 
       <details class="faq-item">
@@ -1519,14 +1519,14 @@ const MARKUP = `<!-- Progress bar -->
         <summary>¿Qué se puede hacer en Malinalco?
           <svg class="faq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
         </summary>
-        <div class="faq-a">Muchísimo: subir a la zona arqueológica con su templo azteca tallado en roca viva, recorrer el mercado artesanal, visitar la Parroquia del Divino Salvador y el Museo Mario Schneider, conocer el criadero de truchas, probar la gastronomía local y perderte entre calles empedradas y montañas. Es un Pueblo Mágico para caminar con calma.</div>
+        <div class="faq-a">En Malinalco puedes subir a la zona arqueológica, con su templo azteca tallado en roca viva; recorrer el mercado artesanal; visitar la Parroquia del Divino Salvador y el Museo Mario Schneider; conocer el criadero de truchas y probar la gastronomía local. Es un Pueblo Mágico para caminar con calma, entre calles empedradas y montañas.</div>
       </details>
 
       <details class="faq-item">
         <summary>¿Cómo llego a Malinalco desde CDMX o Toluca?
           <svg class="faq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
         </summary>
-        <div class="faq-a">Desde la Ciudad de México son alrededor de 2 a 2.5 horas en auto, normalmente por la ruta hacia Chalma. Desde Toluca es más cerca, cerca de 1.5 horas. También hay transporte foráneo que conecta con el pueblo. Lo más cómodo es llegar en coche para moverte por la zona.</div>
+        <div class="faq-a">Desde la Ciudad de México son entre 2 y 2.5 horas en auto, normalmente por la ruta hacia Chalma. Desde Toluca es más rápido, alrededor de 1.5 horas. También hay transporte foráneo que conecta con el pueblo, aunque lo más cómodo es llegar en coche para moverte por la zona.</div>
       </details>
 
       <details class="faq-item">
@@ -1540,7 +1540,7 @@ const MARKUP = `<!-- Progress bar -->
         <summary>¿Dónde comer y hospedarse en Malinalco?
           <svg class="faq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
         </summary>
-        <div class="faq-a">Hay desde fondas del mercado y trucha fresca hasta restaurantes con vista, y opciones de hospedaje que van de hoteles boutique a casas y cabañas entre montañas. En nuestro <a href="#categorias">directorio</a> encuentras lugares recomendados por gente de aquí, con fotos, contacto y ubicación.</div>
+        <div class="faq-a">Hay desde fondas del mercado y trucha fresca hasta restaurantes con vista, y opciones de hospedaje que van de hoteles boutique a casas y cabañas entre montañas. En nuestro <a href="#categorias">directorio</a> encuentras lugares elegidos por locales, con fotos, contacto y ubicación.</div>
       </details>
 
       <details class="faq-item">
@@ -1554,7 +1554,7 @@ const MARKUP = `<!-- Progress bar -->
         <summary>¿Cómo contacto al equipo de enmalinalco?
           <svg class="faq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
         </summary>
-        <div class="faq-a">Escríbenos por WhatsApp o al correo <a href="mailto:soporte@enmalinalco.com">soporte@enmalinalco.com</a>, o usa el formulario de contacto del sitio. Con gusto te ayudamos a registrar tu negocio, corregir información o resolver cualquier duda como visitante.</div>
+        <div class="faq-a">Escríbenos al correo <a href="mailto:soporte@enmalinalco.com">soporte@enmalinalco.com</a> o usa el formulario de contacto del sitio. Con mucho gusto te ayudamos a registrar tu negocio, corregir información o resolver cualquier duda como visitante.</div>
       </details>
 
     </div>
