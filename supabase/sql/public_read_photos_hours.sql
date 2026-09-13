@@ -12,6 +12,11 @@
 -- Es aditivo: no quita las políticas existentes del dueño.
 -- ─────────────────────────────────────────────────────────────
 
+-- Permiso base de tabla (GRANT): sin esto, el rol anónimo ni siquiera
+-- puede tocar la tabla y RLS nunca llega a evaluarse (error 42501).
+grant select on public.business_photos to anon, authenticated;
+grant select on public.business_hours  to anon, authenticated;
+
 -- Asegura que RLS esté activo (no-op si ya lo estaba).
 alter table public.business_photos enable row level security;
 alter table public.business_hours  enable row level security;
