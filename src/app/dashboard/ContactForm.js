@@ -87,7 +87,7 @@ export default function ContactForm({ business }) {
       {/* Dirección (ancho completo) */}
       <label style={labelStyle}>Dirección</label>
       <div style={{ display: 'flex', gap: '11px', alignItems: 'center', marginBottom: '18px' }}>
-        {ICONS.address}
+        <BrandTile brand="address" />
         <input
           value={form.address}
           onChange={(e) => set('address', e.target.value)}
@@ -101,7 +101,7 @@ export default function ContactForm({ business }) {
         <div key={f.key} style={{ marginBottom: '18px' }}>
           <label style={labelStyle}>{f.label}</label>
           <div style={{ display: 'flex', gap: '11px', alignItems: 'center' }}>
-            {ICONS[f.key]}
+            <BrandTile brand={f.brand} />
             <input
               value={form[f.key]}
               onChange={(e) => set(f.key, e.target.value)}
