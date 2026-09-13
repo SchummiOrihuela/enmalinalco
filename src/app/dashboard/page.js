@@ -13,6 +13,7 @@ import BackToTop from './BackToTop'
 import ContactForm from './ContactForm'
 import PreviewSpace from './PreviewSpace'
 import FeedbackButton from './FeedbackButton'
+import ScrollProgress from '@/app/components/ScrollProgress'
 
 export default async function DashboardPage({ searchParams }) {
   const supabase = await createClient()
@@ -81,17 +82,17 @@ export default async function DashboardPage({ searchParams }) {
       background:
         'radial-gradient(1100px 560px at 50% -10%, rgba(220,178,74,0.12), transparent 60%),' +
         'radial-gradient(900px 520px at 108% 6%, rgba(124,182,137,0.10), transparent 58%),' +
-        'linear-gradient(168deg, #2C3D2F 0%, #35473800 60%), ' +
-        'linear-gradient(180deg, #2E3F31 0%, #384B3B 100%)',
+        'linear-gradient(180deg, #223528 0%, #294032 48%, #223227 100%)',
       fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif",
       transition: 'background .4s ease',
     }}>
+      <ScrollProgress />
 
       {foundersWelcome && <FoundersWelcome {...foundersWelcome} />}
 
       {/* Barra superior de marca */}
       <header style={{
-        background: 'linear-gradient(180deg, var(--selva) 0%, #1F2A20 100%)',
+        background: 'linear-gradient(180deg, #1C3B28 0%, #223528 100%)',
         padding: '16px 40px',
         display: 'flex',
         alignItems: 'center',

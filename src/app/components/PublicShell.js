@@ -1,19 +1,21 @@
 import Link from 'next/link'
+import ScrollProgress from '@/app/components/ScrollProgress'
 
 // Envoltorio de las páginas públicas (categoría y ficha):
 // nav elegante con logo + fondo creativo (verde cálido con formas orgánicas).
 // Componente de servidor, sin estado.
 export default function PublicShell({ children }) {
   return (
-    <div style={{ minHeight: '100dvh', position: 'relative', overflow: 'hidden', background: '#243020' }}>
-      {/* Fondo: degradado + destellos de color (nada de gris plano) */}
+    <div style={{ minHeight: '100dvh', position: 'relative', overflow: 'hidden', background: '#213A26' }}>
+      <ScrollProgress />
+      {/* Fondo: degradado + destellos de color (mismo verde que el nav, sin costura) */}
       <div aria-hidden style={{
         position: 'absolute', inset: 0, pointerEvents: 'none',
         background:
           'radial-gradient(1100px 560px at 50% -10%, rgba(220,178,74,0.14), transparent 60%),' +
           'radial-gradient(900px 520px at 110% 8%, rgba(124,182,137,0.12), transparent 58%),' +
           'radial-gradient(760px 560px at -12% 46%, rgba(191,80,40,0.08), transparent 55%),' +
-          'linear-gradient(180deg, #24311F 0%, #2B3A2B 55%, #263120 100%)',
+          'linear-gradient(180deg, #213A26 0%, #26331E 55%, #1F2A19 100%)',
       }} />
 
       {/* Forma-fondo: colinas orgánicas abajo (capas de verde) */}
@@ -38,9 +40,8 @@ export default function PublicShell({ children }) {
         position: 'relative', zIndex: 2,
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '16px clamp(20px, 5vw, 48px)',
-        background: 'linear-gradient(180deg, rgba(28,59,40,0.92), rgba(28,59,40,0.72))',
+        background: 'linear-gradient(180deg, #1C3B28 0%, #213A26 100%)',
         borderBottom: '1px solid rgba(220,178,74,0.18)',
-        backdropFilter: 'blur(6px)',
       }}>
         <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: 11, textDecoration: 'none' }}>
           <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

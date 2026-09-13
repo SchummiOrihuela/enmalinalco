@@ -117,7 +117,8 @@ export default async function NegocioPage({ params }) {
       )}
 
       {(() => {
-        // Redes sociales visibles según el plan (Cuāuhtli en adelante).
+        // WhatsApp y Ubicación: en todos los planes.
+        // Redes sociales (IG/FB): solo Tier 2 y 3 (Cuāuhtli en adelante).
         const social = getPriority(business.plan) >= 2
         const mapsHref = business.maps_url
           ? business.maps_url
@@ -125,7 +126,7 @@ export default async function NegocioPage({ params }) {
               ? `https://www.google.com/maps/search/?api=1&query=${business.lat},${business.lng}`
               : null)
         const chips = []
-        if (business.whatsapp && social) {
+        if (business.whatsapp) {
           chips.push({ brand: 'whatsapp', label: 'WhatsApp', href: `https://wa.me/${business.whatsapp.replace(/\D/g, '')}` })
         }
         if (business.instagram && social) {
