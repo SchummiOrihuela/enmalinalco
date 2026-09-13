@@ -178,6 +178,7 @@ function CategorySelect({ value, onChange }) {
 
 export default function BusinessForm({ business, userId }) {
   const [name, setName] = useState(business?.name || '')
+  const [description, setDescription] = useState(business?.description || '')
   const [category, setCategory] = useState(business?.category || '')
   const [slug, setSlug] = useState(business?.slug || '')
   const [msg, setMsg] = useState(null)
@@ -185,7 +186,7 @@ export default function BusinessForm({ business, userId }) {
 
   async function handleSave() {
     setMsg('Guardando...')
-    const datos = { name, category, slug, owner_id: userId }
+    const datos = { name, description, category, slug, owner_id: userId }
     let error
     if (business) {
       ({ error } = await supabase
@@ -218,6 +219,15 @@ export default function BusinessForm({ business, userId }) {
         value={name}
         onChange={(e) => setName(e.target.value)}
         style={{ ...inputStyle, marginBottom: '18px' }}
+      />
+
+      <label style={labelStyle}>Descripción</label>
+      <textarea
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        rows={3}
+        placeholder="Cuenta en una o dos líneas qué hace especial a tu negocio. Ej. Hospedaje con encanto en el corazón de Malinalco, casa restaurada con vista al cerro."
+        style={{ ...inputStyle, marginBottom: '18px', resize: 'vertical', minHeight: '80px', lineHeight: 1.5 }}
       />
 
       <label style={labelStyle}>Categoría</label>

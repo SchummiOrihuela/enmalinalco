@@ -13,33 +13,32 @@ export default function PreviewSpace({ slug }) {
 
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'center', margin: '4px 0 28px' }}>
-        <button
-          onClick={() => url && setOpen(true)}
-          disabled={!url}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '10px',
-            padding: '13px 26px',
-            fontSize: '15px',
-            fontWeight: 700,
-            fontFamily: 'inherit',
-            color: '#25201A',
-            background: 'linear-gradient(180deg, #E7C86A, #DCB24A)',
-            border: '1px solid rgba(0,0,0,0.06)',
-            borderRadius: '9999px',
-            cursor: url ? 'pointer' : 'not-allowed',
-            opacity: url ? 1 : 0.5,
-            boxShadow: '0 6px 20px rgba(220,178,74,0.28)',
-          }}
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" /><circle cx="12" cy="12" r="3" />
-          </svg>
-          Mira cómo quedó tu espacio
-        </button>
-      </div>
+      <button
+        onClick={() => url && setOpen(true)}
+        disabled={!url}
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '10px 18px',
+          fontSize: '13.5px',
+          fontWeight: 700,
+          fontFamily: 'inherit',
+          color: '#25201A',
+          background: 'linear-gradient(180deg, #E7C86A, #DCB24A)',
+          border: '1px solid rgba(0,0,0,0.06)',
+          borderRadius: '9999px',
+          cursor: url ? 'pointer' : 'not-allowed',
+          opacity: url ? 1 : 0.5,
+          boxShadow: '0 4px 14px rgba(220,178,74,0.30)',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" /><circle cx="12" cy="12" r="3" />
+        </svg>
+        Mira cómo quedó tu espacio
+      </button>
 
       {open && (
         <div

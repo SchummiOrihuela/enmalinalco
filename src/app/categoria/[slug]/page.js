@@ -3,6 +3,7 @@ import { toSlug } from '@/lib/slug'
 import Link from 'next/link'
 import { getPriority, getBadge } from '@/lib/plans'
 import { CATEGORIA_POR_SLUG } from '@/lib/categorias'
+import PublicShell from '@/app/components/PublicShell'
 
 export default async function CategoriaPage({ params }) {
   const { slug } = await params
@@ -44,7 +45,8 @@ export default async function CategoriaPage({ params }) {
       : slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()))
 
   return (
-    <div style={{ maxWidth: 800, margin: '0 auto', padding: '40px 24px' }}>
+    <PublicShell>
+    <div style={{ maxWidth: 800, margin: '0 auto', padding: '36px 24px 80px' }}>
       <style>{`
         .cat-back{display:inline-flex;align-items:center;gap:8px;margin-bottom:28px;
           font-size:14px;font-weight:600;color:#DCB24A;text-decoration:none;
@@ -70,13 +72,35 @@ export default async function CategoriaPage({ params }) {
         Volver al directorio
       </Link>
 
-      <h1 style={{ margin: '0 0 4px' }}>{categoryName}</h1>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 14, margin: '0 0 10px' }}>
+        {meta?.svg && (
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+            width: 52, height: 52, borderRadius: 14, flexShrink: 0,
+            background: meta.color, color: '#EFE7D0',
+            boxShadow: '0 4px 14px rgba(0,0,0,0.25)',
+          }}>
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor"
+              strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"
+              dangerouslySetInnerHTML={{ __html: meta.svg }} />
+          </span>
+        )}
+        <h1 style={{
+          margin: 0,
+          fontFamily: "'Cormorant Garamond', Georgia, serif",
+          fontSize: 44, fontWeight: 500, color: '#F6F0E0', lineHeight: 1.05,
+        }}>
+          {categoryName}
+        </h1>
+      </div>
       {meta?.descripcion && (
-        <p style={{ color: 'rgba(242,237,227,.7)', margin: '0 0 6px', maxWidth: '58ch', lineHeight: 1.6 }}>
+        <p style={{ color: 'rgba(242,237,227,.78)', margin: '0 0 6px', maxWidth: '58ch', lineHeight: 1.6 }}>
           {meta.descripcion}
         </p>
       )}
-      <p style={{ color: 'rgba(242,237,227,.45)', margin: 0, fontSize: 14 }}>{businesses.length} negocio(s)</p>
+      <p style={{ color: '#DCB24A', margin: 0, fontSize: 13, fontWeight: 600, letterSpacing: '0.04em' }}>
+        {businesses.length} {businesses.length === 1 ? 'negocio' : 'negocios'}
+      </p>
 
       {businesses.length === 0 && (
         <p style={{ color: 'rgba(242,237,227,.5)', marginTop: 24 }}>
@@ -107,5 +131,6 @@ export default async function CategoriaPage({ params }) {
         ))}
       </div>
     </div>
+    </PublicShell>
   )
 }

@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 import { headers } from 'next/headers'
 import { createClient } from '@/lib/supabaseServer'
-import { FOUNDERS } from '@/lib/plans'
+import { FOUNDERS, PLANS } from '@/lib/plans'
 import BusinessForm from './BusinessForm'
 import HoursForm from './HoursForm'
 import ClosuresForm from './ClosuresForm'
@@ -12,6 +12,7 @@ import FoundersWelcome from './FoundersWelcome'
 import BackToTop from './BackToTop'
 import ContactForm from './ContactForm'
 import PreviewSpace from './PreviewSpace'
+import FeedbackButton from './FeedbackButton'
 
 export default async function DashboardPage({ searchParams }) {
   const supabase = await createClient()
@@ -91,10 +92,12 @@ export default async function DashboardPage({ searchParams }) {
       {/* Barra superior de marca */}
       <header style={{
         background: 'linear-gradient(180deg, var(--selva) 0%, #1F2A20 100%)',
-        padding: '18px 40px',
+        padding: '16px 40px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
+        gap: '16px',
+        flexWrap: 'wrap',
         borderBottom: '1px solid rgba(220,178,74,0.18)',
       }}>
         <a href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '11px', textDecoration: 'none' }}>
@@ -120,19 +123,24 @@ export default async function DashboardPage({ searchParams }) {
             en<em style={{ color: 'var(--verde-lt)', fontStyle: 'italic' }}>malinalco</em>
           </span>
         </a>
-        <a
-          href="/"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            fontSize: '13px',
-            fontWeight: 600,
-            color: 'rgba(242,237,227,0.75)',
-            textDecoration: 'none',
-          }}
-        >
-          Ver sitio ↗
-        </a>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
+          {business && <TierNav plan={business.plan} />}
+          {business && <PreviewSpace slug={business.slug} />}
+          <a
+            href="/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontSize: '13px',
+              fontWeight: 600,
+              color: 'rgba(242,237,227,0.75)',
+              textDecoration: 'none',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            Ver sitio ↗
+          </a>
+        </div>
       </header>
 
       {/* Contenido */}
@@ -207,9 +215,6 @@ export default async function DashboardPage({ searchParams }) {
           </div>
         </div>
 
-        {/* Vista previa de la ficha pública */}
-        {business && <PreviewSpace slug={business.slug} />}
-
         {/* Secciones — cada tarjeta envuelve un componente hijo */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <Section>
@@ -237,15 +242,61 @@ export default async function DashboardPage({ searchParams }) {
             </Section>
           )}
           {business && (
-            <Section>
-              <PlansSection businessId={business.id} currentPlan={business.plan} />
-            </Section>
+            <div id="planes" style={{ scrollMarginTop: '24px' }}>
+              <Section>
+                <PlansSection businessId={business.id} currentPlan={business.plan} />
+              </Section>
+            </div>
           )}
         </div>
       </main>
 
       <BackToTop />
+      <FeedbackButton userEmail={user.email} businessName={business?.name} />
     </div>
+  )
+}
+
+/* Recordatorio de plan en el nav: mención (Ocēlōtl) o upsell corto (resto). */
+function TierNav({ plan }) {
+  const cur = PLANS[plan]
+  const NEXT = { malinalli: 'cuauhtli', cuauhtli: 'ocelotl' }
+  const ARG = {
+    cuauhtli: 'y aparece primero en tu categoría',
+    ocelotl: 'y sé la portada del pueblo',
+  }
+
+  const goldPill = {
+    display: 'inline-flex', alignItems: 'center', gap: '6px',
+    padding: '7px 14px', borderRadius: '9999px',
+    background: 'linear-gradient(180deg,#E7C86A,#DCB24A)', color: '#25201A',
+    fontSize: '12.5px', fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap',
+  }
+  const upsellPill = {
+    display: 'inline-flex', alignItems: 'center', gap: '6px',
+    padding: '7px 14px', borderRadius: '9999px',
+    background: 'rgba(220,178,74,0.12)', border: '1px solid rgba(220,178,74,0.5)',
+    color: '#EBC66A', fontSize: '12.5px', fontWeight: 600, textDecoration: 'none',
+  }
+
+  // Sin plan: invitación directa a elegir.
+  if (!cur) {
+    return <a href="#planes" style={upsellPill}>Elige tu plan →</a>
+  }
+
+  const nextKey = NEXT[plan]
+  // Ocēlōtl (o cualquiera sin siguiente): solo mención del nivel.
+  if (!nextKey) {
+    return <span style={goldPill}>★ Nivel {cur.name}</span>
+  }
+
+  // Malinalli / Cuāuhtli: mención + upsell con argumento corto.
+  const next = PLANS[nextKey]
+  return (
+    <a href="#planes" style={upsellPill} title={`Mejora a ${next.name}`}>
+      <span style={{ opacity: 0.85 }}>Plan {cur.name}</span>
+      <span>· Sube a <strong>{next.name}</strong> {ARG[nextKey]} →</span>
+    </a>
   )
 }
 
