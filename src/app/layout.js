@@ -1,9 +1,37 @@
 import "./globals.css";
 
+const SITE_URL = "https://enmalinalco.com";
+const TITLE = "En Malinalco — Guía del Pueblo Mágico";
+const DESCRIPTION =
+  "La guía y el directorio de Malinalco, Pueblo Mágico del Estado de México. Restaurantes, hoteles, rutas y secretos locales, hechos por quienes vivimos aquí.";
+
 export const metadata = {
-  title: "En Malinalco — Guía del Pueblo Mágico",
-  description:
-    "La guía más completa de Malinalco, Pueblo Mágico del Estado de México. Restaurantes, hoteles, rutas y secretos locales.",
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    siteName: "enmalinalco.com",
+    locale: "es_MX",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "enmalinalco.com — Guía del Pueblo Mágico de Malinalco",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ["/og-image.jpg"],
+  },
 };
 
 const themeScript = `(function(){try{document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();`;
