@@ -1297,7 +1297,6 @@ const MARKUP = `<!-- Progress bar -->
       <p>Cada establecimiento es responsable de la información de su ficha. enmalinalco.com no presta los servicios anunciados ni responde por ellos.</p>
       <h4>¿Dudas?</h4>
       <p>Escríbenos a <a href="mailto:soporte@enmalinalco.com">soporte@enmalinalco.com</a>. Con gusto te ayudamos.</p>
-      <p class="doc-updated">Última actualización: septiembre 2026 · Malinalco, Estado de México.</p>
     </div>
   </div>
 </div>
