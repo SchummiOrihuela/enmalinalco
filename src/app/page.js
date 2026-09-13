@@ -616,7 +616,7 @@ body.hiw-open{overflow:hidden}
 /* ─── ARTICLES ─── */
 .art-sec{background:var(--parch)}
 .art-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5)}
-.acard{background:#EDE3D0;border-radius:var(--r-xl);overflow:hidden;cursor:pointer;
+.acard{background:#F5ECD7;border-radius:var(--r-xl);overflow:hidden;cursor:pointer;
   border:1px solid rgba(40,30,16,.08);
   transition:transform var(--dur) var(--ease),box-shadow var(--dur)}
 .acard:focus-visible{outline:2px solid var(--oro);outline-offset:3px}
@@ -695,7 +695,7 @@ footer{background:var(--espresso);padding-block:clamp(var(--s12),7vw,var(--s20))
 [data-theme=dark] .pill{border-color:rgba(242,237,227,.12);color:rgba(242,237,227,.5)}
 [data-theme=dark] .pcard-sm{background:#294634;border-color:rgba(242,237,227,.07)}
 [data-theme=dark] .pcard-sm-name{color:#F0E8D4}
-[data-theme=dark] .acard{background:#EDE3D0;border-color:rgba(40,30,16,.08)}
+[data-theme=dark] .acard{background:#F5ECD7;border-color:rgba(40,30,16,.08)}
 [data-theme=dark] .atitle{color:#241C12}
 [data-theme=dark] .afoot{border-top-color:rgba(40,30,16,.1)}
 [data-theme=dark] .search-hed{color:#F0E8D4}
@@ -727,7 +727,7 @@ footer{background:var(--espresso);padding-block:clamp(var(--s12),7vw,var(--s20))
 .faq-item{border:1px solid var(--fog);border-radius:14px;
   background:var(--surf);overflow:hidden;
   transition:border-color var(--dur),background var(--dur),box-shadow var(--dur)}
-.faq-item[open]{background:#EDE3D0;border-color:rgba(220,178,74,.72);
+.faq-item[open]{background:#F5ECD7;border-color:rgba(220,178,74,.72);
   box-shadow:0 6px 24px rgba(0,0,0,.14)}
 .faq-item[open] summary{color:#241C12}
 .faq-item[open] summary:hover{color:#8A5E16}
@@ -750,7 +750,7 @@ footer{background:var(--espresso);padding-block:clamp(var(--s12),7vw,var(--s20))
 [data-theme=dark] .faq-sec{background:#1F3623}
 [data-theme=dark] .faq-item summary{color:#F0E8D4}
 [data-theme=dark] .faq-item .faq-a{color:rgba(240,232,212,.6)}
-[data-theme=dark] .faq-item[open]{background:#EDE3D0}
+[data-theme=dark] .faq-item[open]{background:#F5ECD7}
 [data-theme=dark] .faq-item[open] summary{color:#241C12}
 [data-theme=dark] .faq-item[open] summary:hover{color:#8A5E16}
 [data-theme=dark] .faq-item[open] .faq-a{color:rgba(40,30,16,.72)}
