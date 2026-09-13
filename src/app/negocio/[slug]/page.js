@@ -1,9 +1,12 @@
 import { createClient } from '@/lib/supabaseServer'
 import { notFound } from 'next/navigation'
 import { after } from 'next/server'
+import Link from 'next/link'
 import ReviewsList from '@/app/dashboard/ReviewsList'
 import { getBadge } from '@/lib/plans'
 import ReviewForm from '@/app/dashboard/ReviewForm'
+import { toSlug } from '@/lib/slug'
+import { CATEGORIA_POR_SLUG } from '@/lib/categorias'
 const DIAS = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
 
 export default async function NegocioPage({ params }) {
@@ -42,8 +45,37 @@ export default async function NegocioPage({ params }) {
     .select('*')
     .eq('business_id', business.id)
 
+  // Migas de pan: Directorio / Categoría / Negocio (para no perder al cliente)
+  const catSlug = toSlug(business.category || '')
+  const catName = CATEGORIA_POR_SLUG[catSlug]?.nombre || business.category
+
   return (
-    <div style={{ maxWidth: 800, margin: '0 auto', padding: 40 }}>
+    <div style={{ maxWidth: 800, margin: '0 auto', padding: '32px 24px 40px' }}>
+      <style>{`
+        .bc{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:28px;font-size:14px}
+        .bc-link{display:inline-flex;align-items:center;gap:6px;color:#DCB24A;
+          text-decoration:none;font-weight:600;transition:color .25s ease}
+        .bc-link:hover{color:#EBC66A;text-decoration:underline;text-underline-offset:3px}
+        .bc-sep{color:rgba(242,237,227,.3)}
+        .bc-current{color:rgba(242,237,227,.55);min-width:0;overflow:hidden;
+          text-overflow:ellipsis;white-space:nowrap;max-width:40vw}
+      `}</style>
+
+      <nav className="bc" aria-label="Ruta de navegación">
+        <Link href="/#categorias" className="bc-link">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+          Directorio
+        </Link>
+        {business.category && (
+          <>
+            <span className="bc-sep" aria-hidden="true">/</span>
+            <Link href={`/categoria/${catSlug}`} className="bc-link">{catName}</Link>
+          </>
+        )}
+        <span className="bc-sep" aria-hidden="true">/</span>
+        <span className="bc-current">{business.name}</span>
+      </nav>
+
       <h1>{business.name}</h1>
       {getBadge(business.plan) && (
         <span style={{ display: 'inline-block', marginTop: 8, padding: '4px 12px', background: '#C59B1C', color: '#fff', borderRadius: 9999, fontSize: 13, fontWeight: 600 }}>
