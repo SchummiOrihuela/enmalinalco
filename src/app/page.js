@@ -134,14 +134,14 @@ header.scrolled{
 .on-hero header:not(.scrolled) .logo-name em{color:var(--verde-lt)}
 
 nav.dnav{display:flex;gap:var(--s10)}
-nav.dnav a{font-size:var(--t-sm);font-weight:500;color:var(--ink);opacity:.6;
+nav.dnav a{font-size:var(--t-sm);font-weight:500;color:var(--oro);opacity:.82;
   position:relative;padding-block:2px;transition:opacity var(--dur)}
 nav.dnav a::after{content:'';position:absolute;bottom:-2px;left:0;right:0;
   height:1px;background:var(--verde);transform:scaleX(0);transform-origin:left;
   transition:transform var(--dur) var(--ease)}
 nav.dnav a:hover{opacity:1}
 nav.dnav a:hover::after{transform:scaleX(1)}
-.on-hero header:not(.scrolled) nav.dnav a{color:#F2EDE3;opacity:.82}
+.on-hero header:not(.scrolled) nav.dnav a{color:#EBC66A;opacity:.92}
 
 .hcta{display:inline-flex;align-items:center;gap:var(--s2);
   padding:9px 20px;background:var(--ink);color:var(--parch);
@@ -367,6 +367,18 @@ nav.dnav a:hover::after{transform:scaleX(1)}
   text-transform:uppercase;letter-spacing:.1em}
 .ccard-wide{flex:0 0 360px;height:340px}
 
+/* Vista expandida: todas las categorías en cuadrícula */
+.cat-scroller-wrap.is-grid::after{opacity:0}
+.cat-scroll.is-grid{display:grid;overflow:visible;scroll-snap-type:none;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.cat-scroll.is-grid .ccard,
+.cat-scroll.is-grid .ccard-wide{flex:none;width:auto;height:300px}
+.see-all .sa-less{display:none}
+.see-all.is-open .sa-more{display:none}
+.see-all.is-open .sa-less{display:inline}
+.see-all.is-open svg{transform:rotate(90deg)}
+.see-all svg{transition:transform var(--dur)}
+
 /* ─── FEATURED EDITORIAL ─── */
 .feat-sec{background:var(--parch)}
 .feat-grid{display:grid;grid-template-columns:3fr 2fr;
@@ -445,7 +457,8 @@ nav.dnav a:hover::after{transform:scaleX(1)}
 .b2b-text .eyebrow{color:rgba(197,155,28,.65)}
 .b2b-text .eyebrow::before{background:rgba(197,155,28,.5);opacity:1}
 .b2b-text .sec-h{color:#F2EDE3;margin-bottom:var(--s4)}
-.b2b-text .sec-p{color:rgba(242,237,227,.62);margin-bottom:var(--s8)}
+.b2b-text .sec-p{color:rgba(242,237,227,.62);margin-bottom:var(--s8);
+  max-width:46ch;text-wrap:balance;line-height:1.7}
 .trust-row{display:flex;flex-wrap:wrap;gap:var(--s3);margin-bottom:var(--s10)}
 .tchip{display:inline-flex;align-items:center;gap:var(--s2);
   padding:7px 14px;border:1px solid rgba(242,237,227,.12);border-radius:var(--r-full);
@@ -543,6 +556,13 @@ body.hiw-open{overflow:hidden}
 .doc-body strong{color:var(--ink);font-weight:600}
 .doc-body a{color:var(--verde-lt);text-decoration:underline;text-underline-offset:2px}
 .doc-updated{margin-top:var(--s6);font-size:var(--t-2xs);color:rgba(240,232,212,.42)}
+.art-modal-img{width:calc(100% + var(--s8) + var(--s8));
+  margin:calc(var(--s10) * -1) calc(var(--s8) * -1) var(--s5);
+  height:190px;object-fit:cover;object-position:center;display:block;
+  border-radius:var(--r-xl) var(--r-xl) 0 0}
+.art-meta{font-size:var(--t-2xs);text-transform:uppercase;letter-spacing:.1em;
+  color:rgba(240,232,212,.5);margin-bottom:var(--s6)}
+.art-meta b{color:var(--oro);font-weight:700}
 .cform{display:flex;flex-direction:column;gap:var(--s4)}
 .cf-field{display:flex;flex-direction:column;gap:6px}
 .cf-field label{font-size:var(--t-2xs);font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(240,232,212,.55)}
@@ -564,9 +584,10 @@ body.hiw-open{overflow:hidden}
 /* ─── ARTICLES ─── */
 .art-sec{background:var(--parch)}
 .art-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5)}
-.acard{background:var(--surf);border-radius:var(--r-xl);overflow:hidden;
+.acard{background:var(--surf);border-radius:var(--r-xl);overflow:hidden;cursor:pointer;
   border:1px solid rgba(27,20,9,.06);
   transition:transform var(--dur) var(--ease),box-shadow var(--dur)}
+.acard:focus-visible{outline:2px solid var(--oro);outline-offset:3px}
 .acard:hover{transform:translateY(-5px);box-shadow:var(--sh-lg)}
 .acard-img{aspect-ratio:16/9;overflow:hidden;background:var(--selva)}
 .acard-img img{width:100%;height:100%;object-fit:cover;
@@ -653,7 +674,7 @@ footer{background:#1E221A;padding-block:clamp(var(--s12),7vw,var(--s20))}
 [data-theme=dark] .feat-sec{background:#363B33}
 [data-theme=dark] .hcta{background:rgba(242,237,227,.1);border:1px solid rgba(242,237,227,.15);color:#F0E8D4}
 [data-theme=dark] .logo-name{color:#F0E8D4}
-[data-theme=dark] nav.dnav a{color:#F0E8D4}
+[data-theme=dark] nav.dnav a{color:#EBC66A}
 [data-theme=dark] .mnav{background:#414740}
 [data-theme=dark] .mnav a{color:#F0E8D4;border-bottom-color:rgba(242,237,227,.07)}
 
@@ -665,6 +686,29 @@ footer{background:#1E221A;padding-block:clamp(var(--s12),7vw,var(--s20))}
 .rv-d2{transition-delay:.16s}
 .rv-d3{transition-delay:.24s}
 .rv-d4{transition-delay:.32s}
+
+/* ─── FAQ ─── */
+.faq-sec{background:var(--parch)}
+.faq-list{max-width:60ch;margin:var(--s10) auto 0;
+  display:flex;flex-direction:column;gap:var(--s3)}
+.faq-item{border:1px solid var(--fog);border-radius:14px;
+  background:var(--surf);overflow:hidden;transition:border-color var(--dur)}
+.faq-item[open]{border-color:rgba(220,178,74,.5)}
+.faq-item summary{list-style:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;gap:var(--s4);
+  padding:var(--s5) var(--s6);font-family:var(--body);
+  font-size:var(--t-md);font-weight:600;color:var(--ink);
+  transition:color var(--dur)}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary:hover{color:var(--oro)}
+.faq-item summary .faq-ic{flex:none;width:20px;height:20px;color:var(--oro);
+  transition:transform var(--dur) var(--ease)}
+.faq-item[open] summary .faq-ic{transform:rotate(45deg)}
+.faq-item .faq-a{padding:0 var(--s6) var(--s5);
+  font-size:var(--t-sm);line-height:1.65;color:rgba(27,20,9,.62)}
+.faq-item .faq-a a{color:var(--oro);text-decoration:underline;text-underline-offset:2px}
+[data-theme=dark] .faq-item summary{color:#F0E8D4}
+[data-theme=dark] .faq-item .faq-a{color:rgba(240,232,212,.6)}
 
 /* ─── RESPONSIVE ─── */
 @media(max-width:1024px){
@@ -905,15 +949,15 @@ const MARKUP = `<!-- Progress bar -->
         <p class="eyebrow">Directorio</p>
         <h2 class="sec-h">Explora por <em>categoría</em></h2>
       </div>
-      <a href="#" class="see-all">
-        Ver todo
+      <a href="#" class="see-all" id="cat-seeall" role="button" aria-expanded="false">
+        <span class="sa-more">Ver todo</span><span class="sa-less">Ver menos</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
     </div>
   </div>
 
-  <div class="cat-scroller-wrap inner" style="padding-right:0;max-width:none">
-    <div class="cat-scroll" role="list" aria-label="Categorías del directorio">
+  <div class="cat-scroller-wrap inner" id="cat-wrap" style="padding-right:0;max-width:none">
+    <div class="cat-scroll" id="cat-scroll" role="list" aria-label="Categorías del directorio">
 
       <a href="/categoria/restaurantes" class="ccard ccard-wide" role="listitem" style="background:#1C3B28">
         <div class="ccard-bg" style="background-image:url('/img/categorias/01-restaurantes.webp')"></div>
@@ -1099,7 +1143,7 @@ const MARKUP = `<!-- Progress bar -->
       <p class="eyebrow rv">Para dueños de negocio</p>
       <h2 class="sec-h rv rv-d1">¿Tienes un negocio en <em style="color:var(--verde-lt)">Malinalco</em>?</h2>
       <p class="sec-p rv rv-d2">
-        Miles de turistas visitan <em style="color:var(--verde-lt);font-style:normal;font-weight:600">Mali</em> cada fin de semana buscando dónde comer, en qué lugar hospedarse y qué hacer en el pueblo. Anúnciate en enmalinalco.com y ellos te encontrarán a ti primero.
+        Miles de turistas visitan <em style="color:var(--verde-lt);font-style:normal;font-weight:600">Malinalco</em> cada fin de semana buscando dónde comer, dónde hospedarse y qué hacer. Anúnciate en <span style="white-space:nowrap;font-weight:600;color:rgba(242,237,227,.85)">enmalinalco.com</span> y te encontrarán a ti primero.
       </p>
 
       <div class="trust-row rv rv-d2">
@@ -1185,7 +1229,7 @@ const MARKUP = `<!-- Progress bar -->
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Tu historia contada (artículo editorial)</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Apareces en la portada</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Línea directa por WhatsApp conmigo</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Vas primero cuando el pueblo se llena</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>En temporada alta, apareces en el Top 3</li>
           </ul>
         </div>
         <div class="plan-price">
@@ -1216,9 +1260,9 @@ const MARKUP = `<!-- Progress bar -->
       <li><span class="hiw-num">3</span><div><strong>Personalízala a tu gusto</strong><span>Actualiza, modifica y mejora cuando quieras, desde tu celular o laptop. El espacio es tuyo.</span></div></li>
       <li><span class="hiw-num">4</span><div><strong>Listo, estás arriba</strong><span>Visible y fácil de encontrar, recibiendo más clientes.</span></div></li>
     </ol>
-    <a href="https://wa.me/525562513258?text=%C2%A1Hola!%20Me%20interesa%20anunciar%20mi%20negocio%20en%20enmalinalco.com.%20%C2%BFMe%20compartes%20m%C3%A1s%20informaci%C3%B3n%3F" target="_blank" rel="noopener noreferrer" class="hiw-cta">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      Empezar por WhatsApp
+    <a href="mailto:soporte@enmalinalco.com?subject=Quiero%20anunciar%20mi%20negocio%20en%20enmalinalco.com" class="hiw-cta">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+      ¿Tienes alguna duda? Escríbenos un mail
     </a>
   </div>
 </div>
@@ -1229,8 +1273,8 @@ const MARKUP = `<!-- Progress bar -->
     <button type="button" class="hiw-close" aria-label="Cerrar">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
     </button>
-    <p class="hiw-eyebrow">Estamos para ayudarte</p>
-    <h3 class="hiw-title" id="mc-title">Hablemos</h3>
+    <p class="hiw-eyebrow">Con mucho gusto te ayudamos</p>
+    <h3 class="hiw-title" id="mc-title">¿Platicamos?</h3>
     <form class="cform" id="cform">
       <div class="cf-field">
         <label for="cf-nombre">Tu nombre</label>
@@ -1301,6 +1345,81 @@ const MARKUP = `<!-- Progress bar -->
   </div>
 </div>
 
+<!-- Modal Artículo 1 · Gastronomía -->
+<div class="hiw-overlay" id="m-art1" role="dialog" aria-modal="true" aria-labelledby="art1-title" hidden>
+  <div class="hiw-box">
+    <button type="button" class="hiw-close" aria-label="Cerrar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <img class="art-modal-img" src="/img/articulos/01-gastronomia.webp" alt="Ruta gastronómica en Malinalco">
+    <p class="hiw-eyebrow">Gastronomía</p>
+    <h3 class="hiw-title" id="art1-title">La ruta del sabor: 7 lugares imperdibles para comer en Malinalco</h3>
+    <p class="art-meta">12 May 2026 · <b>6 min de lectura</b></p>
+    <div class="doc-body">
+      <p>En Malinalco se come con calma y con historia. Aquí la cocina no presume: se hereda. Esta es una ruta honesta por los sabores que definen al pueblo, del mercado a los rincones que solo los de aquí conocemos.</p>
+      <h4>1. El mercado, el corazón de todo</h4>
+      <p>Empieza temprano en el mercado municipal. Antojitos recién hechos, quesadillas de flor de calabaza, tamales y aguas del día. Es el mejor termómetro del pueblo: si algo está bueno aquí, lo está en todos lados.</p>
+      <h4>2. La trucha de la sierra</h4>
+      <p>Del criadero a tu plato: trucha fresca a las brasas, al ajillo o empapelada, entre montañas y aire limpio. Un imperdible si vienes en fin de semana.</p>
+      <h4>3. Cocina de autor con raíz</h4>
+      <p>Un par de restaurantes reinterpretan lo local con técnica y respeto. Ideal para una comida larga con vista al valle.</p>
+      <h4>4. Los tacos de la esquina que no se anuncian</h4>
+      <p>No tienen letrero ni redes. Se llenan de locales al caer la tarde. Pregunta: la gente del pueblo te dirá dónde.</p>
+      <h4>5. Dulces típicos y pan de la región</h4>
+      <p>Cierra con algo dulce: conservas, palanquetas y pan artesanal para el camino de regreso.</p>
+      <p><strong>Tip local:</strong> ven con hambre y sin prisa. Malinalco se saborea despacio.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Artículo 2 · Historia -->
+<div class="hiw-overlay" id="m-art2" role="dialog" aria-modal="true" aria-labelledby="art2-title" hidden>
+  <div class="hiw-box">
+    <button type="button" class="hiw-close" aria-label="Cerrar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <img class="art-modal-img" src="/img/articulos/02-zona-arqueologica.webp" alt="Zona arqueológica de Malinalco">
+    <p class="hiw-eyebrow">Historia</p>
+    <h3 class="hiw-title" id="art2-title">La zona arqueológica: todo lo que debes saber antes de visitar</h3>
+    <p class="art-meta">5 May 2026 · <b>8 min de lectura</b></p>
+    <div class="doc-body">
+      <p>Coronando el cerro de los Ídolos, Malinalco guarda uno de los tesoros más singulares de México: un templo tallado directamente en la roca viva de la montaña. No se construyó con piedras encimadas, se esculpió excavando el cerro. Único en su tipo.</p>
+      <h4>Qué vas a ver</h4>
+      <p>La Casa de las Águilas y los Jaguares, un recinto ceremonial mexica ligado a los guerreros más importantes del imperio. Bajorrelieves de águilas y felinos, y una vista que explica por qué eligieron este lugar sagrado.</p>
+      <h4>Cómo llegar arriba</h4>
+      <p>Se sube por una escalinata de varios cientos de escalones desde el centro del pueblo. Toma con calma: hay descansos y sombra, y el camino ya es parte de la experiencia.</p>
+      <h4>Antes de ir</h4>
+      <p>Lleva agua, calzado cómodo y protección para el sol. Ve temprano para evitar el calor y disfrutar el sitio con tranquilidad. Consulta horarios y acceso el día de tu visita, pueden cambiar.</p>
+      <p><strong>Vale la pena:</strong> pocas veces se camina, literalmente, dentro de la historia.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Artículo 3 · Itinerarios -->
+<div class="hiw-overlay" id="m-art3" role="dialog" aria-modal="true" aria-labelledby="art3-title" hidden>
+  <div class="hiw-box">
+    <button type="button" class="hiw-close" aria-label="Cerrar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <img class="art-modal-img" src="/img/articulos/03-fin-de-semana.webp" alt="Fin de semana perfecto en Malinalco">
+    <p class="hiw-eyebrow">Itinerarios</p>
+    <h3 class="hiw-title" id="art3-title">48 horas perfectas en Malinalco: el itinerario definitivo</h3>
+    <p class="art-meta">28 Abr 2026 · <b>5 min de lectura</b></p>
+    <div class="doc-body">
+      <p>¿Solo tienes un fin de semana? Suficiente para enamorarte del pueblo. Este es el plan de dos días que recomendamos los que vivimos aquí, sin prisas y sin perderte lo esencial.</p>
+      <h4>Sábado por la mañana</h4>
+      <p>Sube temprano a la zona arqueológica, cuando el clima ayuda y hay poca gente. Baja a desayunar al centro y recorre el mercado y la Parroquia del Divino Salvador.</p>
+      <h4>Sábado por la tarde</h4>
+      <p>Visita el Museo Mario Schneider o el museo de los bichos, y date tiempo para un café tranquilo. Al atardecer, cena local con calma.</p>
+      <h4>Domingo</h4>
+      <p>Día de naturaleza: el criadero de truchas, un paseo entre montañas o una escapada a Chalma. Cierra con una buena comida antes de volver.</p>
+      <h4>Dónde dormir</h4>
+      <p>Hay desde hoteles boutique hasta casas y cabañas entre montañas. Revisa la sección de hospedaje del directorio y reserva con anticipación en temporada alta.</p>
+      <p><strong>El secreto:</strong> no lo llenes todo. Deja huecos para perderte por las calles empedradas. Ahí está la magia.</p>
+    </div>
+  </div>
+</div>
+
 <!-- ═══════════════════════ ARTÍCULOS ═══════════════════════ -->
 <section class="sec art-sec" id="articulos">
   <div class="inner">
@@ -1310,7 +1429,7 @@ const MARKUP = `<!-- Progress bar -->
 
     <div class="art-grid">
 
-      <article class="acard rv">
+      <article class="acard rv" data-modal="m-art1" role="button" tabindex="0" aria-label="Leer: La ruta del sabor">
         <div class="acard-img">
           <img src="/img/articulos/01-gastronomia.webp" alt="Ruta gastronómica en Malinalco" width="600" height="338" loading="lazy">
         </div>
@@ -1325,7 +1444,7 @@ const MARKUP = `<!-- Progress bar -->
         </div>
       </article>
 
-      <article class="acard rv rv-d1">
+      <article class="acard rv rv-d1" data-modal="m-art2" role="button" tabindex="0" aria-label="Leer: La zona arqueológica">
         <div class="acard-img">
           <img src="/img/articulos/02-zona-arqueologica.webp" alt="Zona arqueológica de Malinalco" width="600" height="338" loading="lazy">
         </div>
@@ -1340,7 +1459,7 @@ const MARKUP = `<!-- Progress bar -->
         </div>
       </article>
 
-      <article class="acard rv rv-d2">
+      <article class="acard rv rv-d2" data-modal="m-art3" role="button" tabindex="0" aria-label="Leer: 48 horas perfectas en Malinalco">
         <div class="acard-img">
           <img src="/img/articulos/03-fin-de-semana.webp" alt="Fin de semana perfecto en Malinalco" width="600" height="338" loading="lazy">
         </div>
@@ -1354,6 +1473,89 @@ const MARKUP = `<!-- Progress bar -->
           </div>
         </div>
       </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ FAQ ═══════════════════════ -->
+<section class="sec faq-sec" id="faq">
+  <div class="inner">
+    <p class="eyebrow rv">Preguntas frecuentes</p>
+    <h2 class="sec-h rv rv-d1">Lo que <em>más nos preguntan</em></h2>
+    <p class="sec-p rv rv-d2">Todo sobre visitar Malinalco y anunciar tu negocio en el directorio del pueblo.</p>
+
+    <div class="faq-list rv rv-d2">
+
+      <details class="faq-item">
+        <summary>¿Qué es enmalinalco.com?
+          <svg class="faq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+        </summary>
+        <div class="faq-a">Es la guía y el directorio de Malinalco hecha por quienes vivimos aquí. Reúne restaurantes, hospedaje, artesanías, cultura y ecoturismo del pueblo, junto con rutas, historias y recomendaciones locales, para que encuentres todo lo que vale la pena en un solo lugar.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>¿Cómo registro mi negocio en el directorio?
+          <svg class="faq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+        </summary>
+        <div class="faq-a">Muy fácil: entra a la sección <a href="#negocios">Para negocios</a> y elige un plan, o escríbenos por WhatsApp y te ayudamos a crear tu ficha con fotos, contacto, ubicación y horarios. En minutos tu negocio queda visible para quienes buscan en Malinalco.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>¿Cuánto cuesta anunciar mi negocio?
+          <svg class="faq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+        </summary>
+        <div class="faq-a">Hay tres planes mensuales en pesos: Malinalli $99, Cuāuhtli $249 y Ocēlōtl $449. Además, los primeros 15 negocios entran como Fundadores con 2 meses gratis en Cuāuhtli u Ocēlōtl, sin tarjeta y sin permanencia.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>¿Qué incluye cada plan?
+          <svg class="faq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+        </summary>
+        <div class="faq-a">Malinalli te da 3 fotos, contacto, ubicación y horarios visibles toda la semana. Cuāuhtli suma 10 fotos, mejor posición en tu categoría, insignia "Recomendado", una mención al mes en redes y reporte de visitas. Ocēlōtl llega hasta 30 fotos, primer lugar en tu categoría, tu historia contada, aparición en portada y línea directa por WhatsApp. Puedes verlos a detalle en <a href="#negocios">Para negocios</a>.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>¿Qué se puede hacer en Malinalco?
+          <svg class="faq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+        </summary>
+        <div class="faq-a">Muchísimo: subir a la zona arqueológica con su templo azteca tallado en roca viva, recorrer el mercado artesanal, visitar la Parroquia del Divino Salvador y el Museo Mario Schneider, conocer el criadero de truchas, probar la gastronomía local y perderte entre calles empedradas y montañas. Es un Pueblo Mágico para caminar con calma.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>¿Cómo llego a Malinalco desde CDMX o Toluca?
+          <svg class="faq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+        </summary>
+        <div class="faq-a">Desde la Ciudad de México son alrededor de 2 a 2.5 horas en auto, normalmente por la ruta hacia Chalma. Desde Toluca es más cerca, cerca de 1.5 horas. También hay transporte foráneo que conecta con el pueblo. Lo más cómodo es llegar en coche para moverte por la zona.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>¿Qué hacer en un fin de semana en Malinalco?
+          <svg class="faq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+        </summary>
+        <div class="faq-a">Un plan ideal de dos días: el sábado por la mañana sube a la zona arqueológica, baja a desayunar al centro y recorre el mercado y la parroquia; por la tarde, un museo y un café tranquilo. El domingo, naturaleza: el criadero de truchas, un paseo entre montañas o una visita a Chalma, y comida local antes de volver. Todo a ritmo de pueblo, sin prisas.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>¿Dónde comer y hospedarse en Malinalco?
+          <svg class="faq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+        </summary>
+        <div class="faq-a">Hay desde fondas del mercado y trucha fresca hasta restaurantes con vista, y opciones de hospedaje que van de hoteles boutique a casas y cabañas entre montañas. En nuestro <a href="#categorias">directorio</a> encuentras lugares recomendados por gente de aquí, con fotos, contacto y ubicación.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>¿Cuál es la mejor época para visitar Malinalco?
+          <svg class="faq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+        </summary>
+        <div class="faq-a">Malinalco es bonito todo el año por su clima templado. La temporada de lluvias (verano) deja el paisaje más verde; el otoño e invierno son ideales para caminar sin calor. Los fines de semana largos y puentes son los más concurridos, así que si buscas tranquilidad, entre semana o temprano por la mañana es perfecto.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>¿Cómo contacto al equipo de enmalinalco?
+          <svg class="faq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+        </summary>
+        <div class="faq-a">Escríbenos por WhatsApp o al correo <a href="mailto:soporte@enmalinalco.com">soporte@enmalinalco.com</a>, o usa el formulario de contacto del sitio. Con gusto te ayudamos a registrar tu negocio, corregir información o resolver cualquier duda como visitante.</div>
+      </details>
 
     </div>
   </div>
@@ -1394,10 +1596,6 @@ const MARKUP = `<!-- Progress bar -->
           </a>
         </div>
         <div class="ft-contact">
-          <a href="https://wa.me/525562513258" target="_blank" rel="noopener noreferrer">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-            55 6251 3258
-          </a>
           <a href="mailto:soporte@enmalinalco.com">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
             soporte@enmalinalco.com
@@ -1428,7 +1626,7 @@ const MARKUP = `<!-- Progress bar -->
         <h5>Negocio</h5>
         <a href="#">Registrar negocio</a>
         <a href="#" class="ft-gold">Planes y precios</a>
-        <a href="#" data-modal="m-contacto" class="ft-gold">Contacto</a>
+        <a href="#" data-modal="m-contacto">Contacto</a>
         <a href="#" data-modal="m-privacidad">Aviso de privacidad</a>
         <a href="#" data-modal="m-terminos">Términos de uso</a>
       </div>
@@ -1592,6 +1790,21 @@ export default function Home() {
         const numsEl = document.getElementById('hstats');
         if (numsEl) cntObs.observe(numsEl);
 
+        // ── "Ver todo" → expande el scroller de categorías a cuadrícula ──
+        const seeAll = document.getElementById('cat-seeall');
+        const catScroll = document.getElementById('cat-scroll');
+        const catWrap = document.getElementById('cat-wrap');
+        if (seeAll && catScroll && catWrap) {
+          seeAll.addEventListener('click', (e) => {
+            e.preventDefault();
+            const open = catScroll.classList.toggle('is-grid');
+            catWrap.classList.toggle('is-grid', open);
+            seeAll.classList.toggle('is-open', open);
+            seeAll.setAttribute('aria-expanded', open ? 'true' : 'false');
+            if (!open) catScroll.scrollLeft = 0;
+          });
+        }
+
         // ── pcards del landing → llevan al registro/login (Patrón A) ──
         document.querySelectorAll('.pcrd[data-tier]').forEach(card => {
           card.style.cursor = 'pointer';
@@ -1614,14 +1827,14 @@ export default function Home() {
         }
 
         // ── Modales del footer (Contacto / Privacidad / Términos) ──
-        const docModals = ['m-contacto', 'm-privacidad', 'm-terminos'];
+        const docModals = ['m-contacto', 'm-privacidad', 'm-terminos', 'm-art1', 'm-art2', 'm-art3'];
         const closeOv = (ov, opener) => {
           ov.hidden = true;
           if (!document.querySelector('.hiw-overlay:not([hidden])')) document.body.classList.remove('hiw-open');
           opener && opener.focus();
         };
         document.querySelectorAll('[data-modal]').forEach((op) => {
-          op.addEventListener('click', (e) => {
+          const openModal = (e) => {
             e.preventDefault();
             const ov = document.getElementById(op.getAttribute('data-modal'));
             if (!ov) return;
@@ -1630,7 +1843,13 @@ export default function Home() {
             const c = ov.querySelector('.hiw-close');
             c && c.focus();
             ov._opener = op;
-          });
+          };
+          op.addEventListener('click', openModal);
+          if (op.getAttribute('role') === 'button') {
+            op.addEventListener('keydown', (e) => {
+              if (e.key === 'Enter' || e.key === ' ') openModal(e);
+            });
+          }
         });
         docModals.forEach((id) => {
           const ov = document.getElementById(id);

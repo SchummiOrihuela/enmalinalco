@@ -46,7 +46,7 @@ export const PLANS = {
       "Tu historia contada (artículo editorial)",
       "Apareces en la portada",
       "Línea directa por WhatsApp conmigo",
-      "Vas primero cuando el pueblo se llena",
+      "En temporada alta, apareces en el Top 3",
     ],
   },
 };
