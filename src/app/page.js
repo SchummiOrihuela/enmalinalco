@@ -16,6 +16,13 @@ const CAT_CARDS = CATEGORIAS.map((c, i) => `
         </div>
       </a>`).join('');
 
+// Pills de "búsquedas populares" del buscador, también desde el config.
+const PILLS = CATEGORIAS.map((c) => `
+      <button class="pill" role="listitem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${c.svg}</svg>
+        ${c.nombre}
+      </button>`).join('');
+
 const STYLE = `
 /* ═══════════════════════════════════════════
    DESIGN TOKENS
@@ -910,67 +917,7 @@ const MARKUP = `<!-- Progress bar -->
       <input type="search" placeholder="Restaurantes, hoteles, spas, rutas…" aria-label="Buscar en Malinalco">
       <button class="sbtn">Buscar</button>
     </div>
-    <div class="pills" role="list" aria-label="Búsquedas populares">
-      <button class="pill" role="listitem">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2h1a1 1 0 0 1 1 1v13a1 1 0 0 0 1 1h15"/><path d="M8 6h8"/><path d="M6 10h10"/><path d="M11 14h5"/></svg>
-        Restaurantes
-      </button>
-      <button class="pill" role="listitem">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></svg>
-        Hospedaje
-      </button>
-      <button class="pill" role="listitem">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        Zona arqueológica
-      </button>
-      <button class="pill" role="listitem">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-        Spa & bienestar
-      </button>
-      <button class="pill" role="listitem">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l4-8 4 4 4-6 4 10"/></svg>
-        Rutas naturales
-      </button>
-      <button class="pill" role="listitem">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
-        Farmacias
-      </button>
-      <button class="pill" role="listitem">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M9 20v-6h6v6"/></svg>
-        Tiendas / Mini súper
-      </button>
-      <button class="pill" role="listitem">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14l-7 8z"/><path d="M12 12v7"/><path d="M8 20h8"/></svg>
-        Bares
-      </button>
-      <button class="pill" role="listitem">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2"/><path d="M4 11a8 8 0 0 1 16 0z"/><path d="M12 11v9"/><path d="M9 20h6"/></svg>
-        Terrazas
-      </button>
-      <button class="pill" role="listitem">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2 5 4-14 2 9h6"/></svg>
-        Clínicas
-      </button>
-      <button class="pill" role="listitem">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5 5L3 18l3 3 6.7-6.7a4 4 0 0 0 5-5l-2.5 2.5-2.5-.7-.7-2.5z"/></svg>
-        Ferreterías
-      </button>
-      <button class="pill" role="listitem">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
-        Papelerías
-      </button>
-      <button class="pill" role="listitem">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7v10"/><path d="M18 7v10"/><path d="M3 9v6"/><path d="M21 9v6"/><path d="M6 12h12"/></svg>
-        Gimnasios
-      </button>
-      <button class="pill" role="listitem">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 16l5-5 4 4 3-3 6 6"/><circle cx="8.5" cy="8.5" r="1.5"/></svg>
-        Galería de Arte
-      </button>
-      <button class="pill" role="listitem">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="4" cy="9" r="2"/><circle cx="8" cy="15" r="2"/><path d="M9.7 15.5a3 3 0 0 0 5.2 0c1-1.8 2.1-2 2.6-3.5.6-1.9-.8-4-3-4s-2.9 1-4.5 1-2.3-1-4.5-1-3.6 2.1-3 4c.5 1.5 1.6 1.7 2.6 3.5"/></svg>
-        Veterinarias
-      </button>
+    <div class="pills" role="list" aria-label="Búsquedas populares">${PILLS}
     </div>
   </div>
 </div>
