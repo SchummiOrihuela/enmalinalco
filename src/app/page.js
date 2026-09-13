@@ -48,6 +48,7 @@ const STYLE = `
   /* Neutros cálidos: dan respiro entre las franjas verdes */
   --espresso:  #221C13;   /* café oscuro para franjas (marquee, footer) */
   --stone:     #ECE6D9;   /* neutro cálido claro (rítmo entre secciones) */
+  --cafe-soft: #EBE1D0;   /* café suave tipo latte (respiro antes del Directorio) */
 
   /* Type scale */
   --t-2xs: clamp(.65rem,  .62rem + .15vw, .75rem);
@@ -301,7 +302,7 @@ nav.dnav a:hover::after{transform:scaleX(1)}
 .mq-dot{width:3px;height:3px;background:var(--terra);border-radius:50%;opacity:.6;flex-shrink:0}
 
 /* ─── SEARCH ─── */
-.search-sec{background:var(--parch);padding-block:clamp(var(--s12),6vw,var(--s20))}
+.search-sec{background:var(--cafe-soft);padding-block:clamp(var(--s12),6vw,var(--s20))}
 .search-wrap{max-width:780px;margin-inline:auto;
   padding-inline:clamp(var(--s6),5vw,var(--s16));text-align:center}
 .search-hed{font-family:var(--display);font-size:var(--t-xl);font-weight:400;
@@ -685,7 +686,7 @@ footer{background:var(--espresso);padding-block:clamp(var(--s12),7vw,var(--s20))
 [data-theme=dark] body{background:#1F3623;color:#F0E8D4}
 [data-theme=dark]{
   --parch:#1F3623; --surf:#294634; --ink:#F0E8D4; --fog:rgba(240,232,212,.06);
-  --selva:#23271F
+  --selva:#23271F; --cafe-soft:#3B342B
 }
 [data-theme=dark] header.scrolled{background:rgba(28,44,30,.92)}
 [data-theme=dark] .sbar{background:rgba(255,255,255,.04);border-color:rgba(242,237,227,.08)}
