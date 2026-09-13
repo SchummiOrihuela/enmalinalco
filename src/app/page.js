@@ -1605,28 +1605,24 @@ const MARKUP = `<!-- Progress bar -->
 
       <div class="ft-col">
         <h5>Directorio</h5>
-        <a href="#">Restaurantes</a>
-        <a href="#">Hospedaje</a>
-        <a href="#">Spa & Bienestar</a>
-        <a href="#">Artesanías</a>
-        <a href="#">Ecoturismo</a>
-        <a href="#">Cultura</a>
+        <a href="/categoria/restaurantes">Restaurantes</a>
+        <a href="/categoria/hospedaje">Hospedaje</a>
+        <a href="/categoria/ecoturismo-aventura">Ecoturismo</a>
+        <a href="/categoria/cultura-turismo">Cultura</a>
       </div>
 
       <div class="ft-col">
         <h5>Contenido</h5>
-        <a href="#">Historias del pueblo</a>
-        <a href="#">Rutas</a>
-        <a href="#">Gastronomía</a>
-        <a href="#">Historia</a>
-        <a href="#">Eventos</a>
+        <a href="#articulos">Historias del pueblo</a>
+        <a href="#articulos">Historia</a>
+        <a href="#articulos">Eventos</a>
+        <a href="#" data-modal="m-contacto">Contacto</a>
       </div>
 
       <div class="ft-col">
         <h5>Negocio</h5>
-        <a href="#">Registrar negocio</a>
-        <a href="#" class="ft-gold">Planes y precios</a>
-        <a href="#" data-modal="m-contacto">Contacto</a>
+        <a href="#negocios">Registrar negocio</a>
+        <a href="#negocios" class="ft-gold">Planes y precios</a>
         <a href="#" data-modal="m-privacidad">Aviso de privacidad</a>
         <a href="#" data-modal="m-terminos">Términos de uso</a>
       </div>
