@@ -439,7 +439,7 @@ nav.dnav a:hover::after{transform:scaleX(1)}
 
 /* Horizontal small card */
 .pcard-sm{display:flex;border-radius:var(--r-lg);overflow:hidden;
-  background:var(--surf);border:1px solid rgba(27,20,9,.07);
+  background:#F5ECD7;border:1px solid rgba(40,30,16,.08);
   transition:box-shadow var(--dur) var(--ease),transform var(--dur) var(--ease)}
 .pcard-sm:hover{box-shadow:var(--sh-md);transform:translateY(-2px)}
 .pcard-sm-img{width:130px;flex-shrink:0;overflow:hidden;position:relative}
@@ -450,8 +450,8 @@ nav.dnav a:hover::after{transform:scaleX(1)}
   justify-content:center;gap:4px}
 .pcard-sm-cat{font-size:.65rem;font-weight:700;text-transform:uppercase;
   letter-spacing:.1em;color:var(--terra)}
-.pcard-sm-name{font-family:var(--display);font-size:1.05rem;color:var(--ink);line-height:1.2}
-.pcard-sm-sub{font-size:var(--t-2xs);color:rgba(240,232,212,.45)}
+.pcard-sm-name{font-family:var(--display);font-size:1.05rem;color:#241C12;line-height:1.2}
+.pcard-sm-sub{font-size:var(--t-2xs);color:rgba(40,30,16,.55)}
 
 /* ─── NUMBERS BAND ─── */
 .nums-band{background:var(--selva);padding-block:clamp(var(--s12),6vw,var(--s20));
@@ -693,8 +693,8 @@ footer{background:var(--espresso);padding-block:clamp(var(--s12),7vw,var(--s20))
 [data-theme=dark] .sbar input{color:#F0E8D4}
 [data-theme=dark] .sbtn{background:#F0E8D4;color:#1F3623}
 [data-theme=dark] .pill{border-color:rgba(220,178,74,.55);color:rgba(255,255,255,.9)}
-[data-theme=dark] .pcard-sm{background:#294634;border-color:rgba(242,237,227,.07)}
-[data-theme=dark] .pcard-sm-name{color:#F0E8D4}
+[data-theme=dark] .pcard-sm{background:#F5ECD7;border-color:rgba(40,30,16,.08)}
+[data-theme=dark] .pcard-sm-name{color:#241C12}
 [data-theme=dark] .acard{background:#F5ECD7;border-color:rgba(40,30,16,.08)}
 [data-theme=dark] .atitle{color:#241C12}
 [data-theme=dark] .afoot{border-top-color:rgba(40,30,16,.1)}
