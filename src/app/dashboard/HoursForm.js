@@ -5,6 +5,30 @@ import { createClient } from '@/lib/supabaseBrowser'
 
 const DIAS = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
 
+// Convierte "13:30" → "1:30 p.m." para leerlo bonito.
+function to12h(hhmm) {
+  const [H, M] = hhmm.split(':').map(Number)
+  const ap = H < 12 ? 'a.m.' : 'p.m.'
+  let h = H % 12
+  if (h === 0) h = 12
+  return `${h}:${String(M).padStart(2, '0')} ${ap}`
+}
+
+// Franjas de media hora, de 00:00 a 23:30, para los menús.
+const SLOTS = []
+for (let H = 0; H < 24; H++) {
+  for (const M of [0, 30]) {
+    const v = `${String(H).padStart(2, '0')}:${String(M).padStart(2, '0')}`
+    SLOTS.push({ v, label: to12h(v) })
+  }
+}
+
+// Deja cualquier valor de la BD ("13:00:00") como "HH:MM".
+function hhmm(t, fallback) {
+  if (!t) return fallback
+  return t.slice(0, 5)
+}
+
 const h2Style = {
   fontFamily: "'Cormorant Garamond', Georgia, serif",
   fontSize: '24px',
@@ -13,15 +37,25 @@ const h2Style = {
   margin: '0 0 20px',
 }
 
-const timeStyle = {
-  padding: '8px 10px',
+const selectStyle = {
+  appearance: 'none',
+  WebkitAppearance: 'none',
+  MozAppearance: 'none',
+  padding: '9px 30px 9px 14px',
   fontSize: '14px',
+  fontWeight: 500,
   fontFamily: 'inherit',
   color: 'var(--ink)',
   background: 'var(--parch)',
-  border: '1.5px solid rgba(128,128,128,0.25)',
-  borderRadius: '8px',
+  border: '1.5px solid rgba(128,128,128,0.22)',
+  borderRadius: '10px',
   outline: 'none',
+  cursor: 'pointer',
+  // flechita propia (el fondo es un SVG en data URI, dorado suave)
+  backgroundImage:
+    "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23C59B1C' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E\")",
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: 'right 11px center',
 }
 
 const btnStyle = {
@@ -34,7 +68,54 @@ const btnStyle = {
   border: 'none',
   borderRadius: '9999px',
   cursor: 'pointer',
-  marginTop: '16px',
+  marginTop: '20px',
+}
+
+// Interruptor Abierto / Cerrado, más amable que un checkbox.
+function Toggle({ closed, onChange }) {
+  const open = !closed
+  return (
+    <button
+      type="button"
+      onClick={() => onChange(!closed)}
+      aria-pressed={open}
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '9px',
+        background: 'none',
+        border: 'none',
+        cursor: 'pointer',
+        padding: 0,
+        fontFamily: 'inherit',
+      }}
+    >
+      <span style={{ fontSize: '13px', fontWeight: 600, color: open ? 'var(--verde)' : 'var(--ink)', opacity: open ? 1 : 0.5, minWidth: '54px', textAlign: 'right' }}>
+        {open ? 'Abierto' : 'Cerrado'}
+      </span>
+      <span style={{
+        position: 'relative',
+        width: '40px',
+        height: '23px',
+        borderRadius: '9999px',
+        background: open ? 'var(--verde)' : 'rgba(128,128,128,0.35)',
+        transition: 'background .2s ease',
+        flexShrink: 0,
+      }}>
+        <span style={{
+          position: 'absolute',
+          top: '2.5px',
+          left: open ? '19px' : '2.5px',
+          width: '18px',
+          height: '18px',
+          borderRadius: '50%',
+          background: '#fff',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
+          transition: 'left .2s ease',
+        }} />
+      </span>
+    </button>
+  )
 }
 
 export default function HoursForm({ businessId, initialHours }) {
@@ -42,8 +123,8 @@ export default function HoursForm({ businessId, initialHours }) {
     const h = initialHours?.find((x) => x.day_of_week === i)
     return {
       day_of_week: i,
-      open_time: h?.open_time || '09:00',
-      close_time: h?.close_time || '18:00',
+      open_time: hhmm(h?.open_time, '09:00'),
+      close_time: hhmm(h?.close_time, '18:00'),
       is_closed: h?.is_closed || false,
     }
   })
@@ -86,35 +167,32 @@ export default function HoursForm({ businessId, initialHours }) {
           display: 'flex',
           alignItems: 'center',
           gap: '10px',
-          padding: '8px 0',
+          padding: '11px 0',
           borderBottom: '1px solid rgba(128,128,128,0.12)',
-          opacity: h.is_closed ? 0.55 : 1,
         }}>
-          <span style={{ width: 90, fontSize: '14px', fontWeight: 500, color: 'var(--ink)' }}>
+          <span style={{ width: 92, fontSize: '14px', fontWeight: 600, color: 'var(--ink)', opacity: h.is_closed ? 0.5 : 1 }}>
             {DIAS[i]}
           </span>
-          <input type="time" value={h.open_time} disabled={h.is_closed}
-            onChange={(e) => update(i, 'open_time', e.target.value)}
-            style={{ ...timeStyle, opacity: h.is_closed ? 0.5 : 1 }} />
-          <span style={{ color: 'var(--ink)', opacity: 0.4 }}>–</span>
-          <input type="time" value={h.close_time} disabled={h.is_closed}
-            onChange={(e) => update(i, 'close_time', e.target.value)}
-            style={{ ...timeStyle, opacity: h.is_closed ? 0.5 : 1 }} />
-          <label style={{
-            fontSize: '13px',
-            color: 'var(--ink)',
-            opacity: 0.7,
-            marginLeft: 'auto',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '5px',
-            cursor: 'pointer',
-          }}>
-            <input type="checkbox" checked={h.is_closed}
-              onChange={(e) => update(i, 'is_closed', e.target.checked)}
-              style={{ accentColor: 'var(--verde)', cursor: 'pointer' }} />
-            Cerrado
-          </label>
+
+          {h.is_closed ? (
+            <span style={{ flex: 1, fontSize: '14px', fontStyle: 'italic', color: 'var(--ink)', opacity: 0.4 }}>
+              Cerrado todo el día
+            </span>
+          ) : (
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <select value={h.open_time} onChange={(e) => update(i, 'open_time', e.target.value)} style={selectStyle}>
+                {SLOTS.map((s) => <option key={s.v} value={s.v}>{s.label}</option>)}
+              </select>
+              <span style={{ color: 'var(--ink)', opacity: 0.35 }}>a</span>
+              <select value={h.close_time} onChange={(e) => update(i, 'close_time', e.target.value)} style={selectStyle}>
+                {SLOTS.map((s) => <option key={s.v} value={s.v}>{s.label}</option>)}
+              </select>
+            </div>
+          )}
+
+          <div style={{ marginLeft: 'auto' }}>
+            <Toggle closed={h.is_closed} onChange={(v) => update(i, 'is_closed', v)} />
+          </div>
         </div>
       ))}
       <button onClick={handleSave} style={btnStyle}>

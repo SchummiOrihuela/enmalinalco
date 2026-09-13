@@ -24,6 +24,7 @@ function Check() {
 
 export default function PlansSection({ businessId, currentPlan }) {
   const [loading, setLoading] = useState(null)
+  const [hovered, setHovered] = useState(null)
 
   async function handleSubscribe(tier) {
     if (loading) return
@@ -64,8 +65,12 @@ export default function PlansSection({ businessId, currentPlan }) {
           const p = PLANS[tier]
           const isCurrent = currentPlan === tier
           const isElite = tier === 'ocelotl'
+          const isHover = hovered === tier
           return (
-            <div key={tier} style={{
+            <div key={tier}
+              onMouseEnter={() => setHovered(tier)}
+              onMouseLeave={() => setHovered(null)}
+              style={{
               position: 'relative',
               display: 'flex',
               flexDirection: 'column',
@@ -75,8 +80,14 @@ export default function PlansSection({ businessId, currentPlan }) {
               background: isCurrent
                 ? 'linear-gradient(160deg, rgba(220,178,74,0.16), rgba(220,178,74,0.03))'
                 : 'var(--parch)',
-              boxShadow: isCurrent ? '0 0 0 4px rgba(220,178,74,0.10), 0 10px 30px rgba(220,178,74,0.10)' : 'none',
-              transition: 'box-shadow .3s ease',
+              transform: isHover ? 'translateY(-6px) scale(1.025)' : 'translateY(0) scale(1)',
+              boxShadow: isHover
+                ? '0 18px 44px rgba(0,0,0,0.22), 0 0 0 1px rgba(220,178,74,0.35)'
+                : isCurrent
+                  ? '0 0 0 4px rgba(220,178,74,0.10), 0 10px 30px rgba(220,178,74,0.10)'
+                  : 'none',
+              transition: 'transform .28s cubic-bezier(.2,.7,.3,1), box-shadow .28s ease',
+              zIndex: isHover ? 2 : 1,
             }}>
               {/* Cinta de estado */}
               {isCurrent ? (
