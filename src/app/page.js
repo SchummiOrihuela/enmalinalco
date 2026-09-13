@@ -675,32 +675,32 @@ footer{background:#1E221A;padding-block:clamp(var(--s12),7vw,var(--s20))}
 [data-theme=dark] #ttog svg{color:#F2EDE3}
 
 /* ─── DARK MODE ─── */
-[data-theme=dark] body{background:#363B33;color:#F0E8D4}
+[data-theme=dark] body{background:#1F3623;color:#F0E8D4}
 [data-theme=dark]{
-  --parch:#363B33; --surf:#414740; --ink:#F0E8D4; --fog:rgba(240,232,212,.06);
+  --parch:#1F3623; --surf:#294634; --ink:#F0E8D4; --fog:rgba(240,232,212,.06);
   --selva:#23271F
 }
-[data-theme=dark] header.scrolled{background:rgba(48,52,44,.92)}
+[data-theme=dark] header.scrolled{background:rgba(28,44,30,.92)}
 [data-theme=dark] .sbar{background:rgba(255,255,255,.04);border-color:rgba(242,237,227,.08)}
 [data-theme=dark] .sbar input{color:#F0E8D4}
-[data-theme=dark] .sbtn{background:#F0E8D4;color:#363B33}
+[data-theme=dark] .sbtn{background:#F0E8D4;color:#1F3623}
 [data-theme=dark] .pill{border-color:rgba(242,237,227,.12);color:rgba(242,237,227,.5)}
-[data-theme=dark] .pcard-sm{background:#414740;border-color:rgba(242,237,227,.07)}
+[data-theme=dark] .pcard-sm{background:#294634;border-color:rgba(242,237,227,.07)}
 [data-theme=dark] .pcard-sm-name{color:#F0E8D4}
-[data-theme=dark] .acard{background:#414740;border-color:rgba(242,237,227,.06)}
+[data-theme=dark] .acard{background:#294634;border-color:rgba(242,237,227,.06)}
 [data-theme=dark] .atitle{color:#F0E8D4}
 [data-theme=dark] .afoot{border-top-color:rgba(242,237,227,.06)}
 [data-theme=dark] .search-hed{color:#F0E8D4}
 [data-theme=dark] .sec-h{color:#F0E8D4}
 [data-theme=dark] .sec-p{color:rgba(240,232,212,.45)}
 [data-theme=dark] .eyebrow{color:rgba(240,232,212,.35)}
-[data-theme=dark] .cat-sec{background:#414740}
-[data-theme=dark] .cat-scroller-wrap::after{background:linear-gradient(to right,transparent,#414740)}
-[data-theme=dark] .feat-sec{background:#363B33}
+[data-theme=dark] .cat-sec{background:#294634}
+[data-theme=dark] .cat-scroller-wrap::after{background:linear-gradient(to right,transparent,#294634)}
+[data-theme=dark] .feat-sec{background:#1F3623}
 [data-theme=dark] .hcta{background:rgba(242,237,227,.1);border:1px solid rgba(242,237,227,.15);color:#F0E8D4}
 [data-theme=dark] .logo-name{color:#F0E8D4}
 [data-theme=dark] nav.dnav a{color:#EBC66A}
-[data-theme=dark] .mnav{background:#414740}
+[data-theme=dark] .mnav{background:#294634}
 [data-theme=dark] .mnav a{color:#F0E8D4;border-bottom-color:rgba(242,237,227,.07)}
 
 /* ─── SCROLL REVEAL ─── */

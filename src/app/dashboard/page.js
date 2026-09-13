@@ -80,9 +80,10 @@ export default async function DashboardPage({ searchParams }) {
       '--oro': '#B98A16',
       minHeight: '100dvh',
       background:
-        'radial-gradient(1100px 560px at 50% -10%, rgba(220,178,74,0.12), transparent 60%),' +
-        'radial-gradient(900px 520px at 108% 6%, rgba(124,182,137,0.10), transparent 58%),' +
-        'linear-gradient(180deg, #223528 0%, #294032 48%, #223227 100%)',
+        'radial-gradient(1100px 560px at 50% -10%, rgba(220,178,74,0.14), transparent 60%),' +
+        'radial-gradient(900px 520px at 108% 6%, rgba(124,182,137,0.12), transparent 58%),' +
+        'radial-gradient(760px 560px at -12% 46%, rgba(191,80,40,0.08), transparent 55%),' +
+        'linear-gradient(180deg, #213A26 0%, #26331E 55%, #1F2A19 100%)',
       fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif",
       transition: 'background .4s ease',
     }}>
@@ -92,7 +93,7 @@ export default async function DashboardPage({ searchParams }) {
 
       {/* Barra superior de marca */}
       <header style={{
-        background: 'linear-gradient(180deg, #1C3B28 0%, #223528 100%)',
+        background: 'linear-gradient(180deg, #1C3B28 0%, #213A26 100%)',
         padding: '16px 40px',
         display: 'flex',
         alignItems: 'center',

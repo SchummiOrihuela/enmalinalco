@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { getPriority, getBadge } from '@/lib/plans'
 import { CATEGORIA_POR_SLUG } from '@/lib/categorias'
 import PublicShell from '@/app/components/PublicShell'
+import { BrandTile } from '@/app/components/BrandIcon'
 
 export default async function CategoriaPage({ params }) {
   const { slug } = await params
@@ -121,6 +122,21 @@ export default async function CategoriaPage({ params }) {
               {b.address && (
                 <div style={{ color: 'rgba(242,237,227,.55)', fontSize: 14, marginTop: 4 }}>📍 {b.address}</div>
               )}
+              {(() => {
+                // Íconos de lo que el visitante encontrará adentro (según plan).
+                const social = getPriority(b.plan) >= 2
+                const brands = []
+                if (b.whatsapp) brands.push('whatsapp')
+                if (b.instagram && social) brands.push('instagram')
+                if (b.facebook && social) brands.push('facebook')
+                if (b.maps_url || (b.lat && b.lng)) brands.push('maps')
+                if (!brands.length) return null
+                return (
+                  <div style={{ display: 'flex', gap: 6, marginTop: 10 }}>
+                    {brands.map((br) => <BrandTile key={br} brand={br} size={24} />)}
+                  </div>
+                )
+              })()}
             </div>
             {firstPhoto[b.id] ? (
               <img className="cat-thumb" src={firstPhoto[b.id]} alt={b.name} />
