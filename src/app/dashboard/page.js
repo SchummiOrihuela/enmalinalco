@@ -63,12 +63,23 @@ export default async function DashboardPage({ searchParams }) {
 
   return (
     <div style={{
+      // Paleta fija del panel: fondo verde + tarjetas crema (texto oscuro),
+      // sin importar el tema global. Al sobrescribir las variables aquí,
+      // TODAS las tarjetas hijas heredan el look crema con buen contraste.
+      '--ink': '#25201A',
+      '--parch': '#EDE4CE',   // insets / inputs (crema un poco más profundo)
+      '--surf': '#F6F0E0',    // tarjetas (crema claro)
+      '--selva': '#1C3B28',
+      '--verde': '#3A6B47',
+      '--verde-lt': '#82C994',
+      '--terra': '#BF5028',
+      '--oro': '#B98A16',
       minHeight: '100dvh',
       background:
-        'radial-gradient(1100px 520px at 50% -8%, rgba(197,155,28,0.10), transparent 60%),' +
-        'radial-gradient(820px 480px at 108% 4%, rgba(58,107,71,0.07), transparent 58%),' +
-        'radial-gradient(760px 520px at -10% 44%, rgba(191,80,40,0.05), transparent 55%),' +
-        'var(--parch)',
+        'radial-gradient(1100px 560px at 50% -10%, rgba(220,178,74,0.12), transparent 60%),' +
+        'radial-gradient(900px 520px at 108% 6%, rgba(124,182,137,0.10), transparent 58%),' +
+        'linear-gradient(168deg, #2C3D2F 0%, #35473800 60%), ' +
+        'linear-gradient(180deg, #2E3F31 0%, #384B3B 100%)',
       fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif",
       transition: 'background .4s ease',
     }}>
@@ -133,7 +144,7 @@ export default async function DashboardPage({ searchParams }) {
             fontWeight: 700,
             textTransform: 'uppercase',
             letterSpacing: '0.14em',
-            color: 'var(--terra)',
+            color: '#E7C86A',
             margin: '0 0 8px',
           }}>
             Panel de control
@@ -142,7 +153,7 @@ export default async function DashboardPage({ searchParams }) {
             fontFamily: "'Cormorant Garamond', Georgia, serif",
             fontSize: '40px',
             fontWeight: 500,
-            color: 'var(--ink)',
+            color: '#F6F0E0',
             lineHeight: 1.08,
             margin: '0 0 12px',
           }}>
@@ -155,7 +166,7 @@ export default async function DashboardPage({ searchParams }) {
             alignItems: 'center',
             fontSize: '14px',
           }}>
-            <span style={{ color: 'var(--ink)', opacity: 0.6 }}>Sesión activa: {user.email}</span>
+            <span style={{ color: 'rgba(246,240,224,0.72)' }}>Sesión activa: {user.email}</span>
             {business && (() => {
               const views = business.view_count || 0
               const lastMonth = business.views_last_month

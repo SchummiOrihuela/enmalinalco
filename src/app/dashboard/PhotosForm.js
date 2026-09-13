@@ -7,6 +7,38 @@ import { getMaxPhotos, PLANS } from '@/lib/plans'
 // Sugerencia del siguiente plan cuando el negocio llena sus fotos.
 const NEXT_PLAN = { malinalli: 'cuauhtli', cuauhtli: 'ocelotl' }
 
+// Botón-ícono cuadrado (flechas de reordenar).
+function IconBtn({ children, label, disabled, onClick }) {
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      title={label}
+      disabled={disabled}
+      onClick={onClick}
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '28px',
+        height: '28px',
+        borderRadius: '7px',
+        border: '1px solid rgba(128,128,128,0.2)',
+        background: 'var(--parch)',
+        color: 'var(--ink)',
+        opacity: disabled ? 0.3 : 0.85,
+        cursor: disabled ? 'default' : 'pointer',
+        flexShrink: 0,
+      }}
+    >
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+        {children}
+      </svg>
+    </button>
+  )
+}
+
 const h2Style = {
   fontFamily: "'Cormorant Garamond', Georgia, serif",
   fontSize: '24px',
@@ -111,6 +143,52 @@ export default function PhotosForm({ businessId, initialPhotos, plan }) {
     setPhotos(rest)
   }
 
+  // Reasigna sort_order 0..n y marca como principal la primera (índice 0).
+  function reindex(arr) {
+    return arr.map((p, i) => ({ ...p, sort_order: i, is_primary: i === 0 }))
+  }
+
+  // Persiste el nuevo orden en la base. Devuelve el primer error, o null.
+  async function persistOrder(arr) {
+    for (const p of arr) {
+      const { error } = await supabase
+        .from('business_photos')
+        .update({ sort_order: p.sort_order, is_primary: p.is_primary })
+        .eq('id', p.id)
+      if (error) return error
+    }
+    return null
+  }
+
+  // Mueve una foto una posición a la izquierda (-1) o derecha (+1).
+  async function move(id, dir) {
+    const idx = photos.findIndex((p) => p.id === id)
+    const to = idx + dir
+    if (idx < 0 || to < 0 || to >= photos.length) return
+    const arr = [...photos]
+    const [x] = arr.splice(idx, 1)
+    arr.splice(to, 0, x)
+    const next = reindex(arr)
+    setPhotos(next)
+    setMsg(null)
+    const error = await persistOrder(next)
+    if (error) setMsg('Error al reordenar: ' + error.message)
+  }
+
+  // Hace principal una foto: la lleva al frente.
+  async function makePrimary(id) {
+    const idx = photos.findIndex((p) => p.id === id)
+    if (idx <= 0) return
+    const arr = [...photos]
+    const [x] = arr.splice(idx, 1)
+    arr.unshift(x)
+    const next = reindex(arr)
+    setPhotos(next)
+    setMsg(null)
+    const error = await persistOrder(next)
+    if (error) setMsg('Error al reordenar: ' + error.message)
+  }
+
   return (
     <div>
       {/* Encabezado con contador */}
@@ -119,7 +197,7 @@ export default function PhotosForm({ businessId, initialPhotos, plan }) {
         <span style={counterStyle}>{photos.length} / {maxPhotos}</span>
       </div>
       <p style={{ fontSize: '13px', color: 'var(--ink)', opacity: 0.55, margin: '0 0 20px' }}>
-        JPG, PNG o WEBP · máx. 2 MB · la primera foto será la principal.
+        JPG, PNG o WEBP · máx. 2 MB · usa ◀ ▶ para ordenar y ★ para elegir la principal.
       </p>
 
       {/* Grid de fotos */}
@@ -139,17 +217,17 @@ export default function PhotosForm({ businessId, initialPhotos, plan }) {
         </div>
       ) : (
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginBottom: '20px' }}>
-          {photos.map((p) => (
+          {photos.map((p, idx) => (
             <div key={p.id} style={{
               position: 'relative',
-              width: 132,
+              width: 148,
               borderRadius: '12px',
               overflow: 'hidden',
-              background: 'var(--parch)',
-              border: '1px solid rgba(27,20,9,0.08)',
-              boxShadow: '0 1px 4px rgba(27,20,9,0.06)',
+              background: 'var(--surf)',
+              border: p.is_primary ? '1.5px solid var(--oro)' : '1px solid rgba(128,128,128,0.18)',
+              boxShadow: '0 1px 4px rgba(0,0,0,0.14)',
             }}>
-              <div style={{ position: 'relative', width: '100%', height: 100 }}>
+              <div style={{ position: 'relative', width: '100%', height: 108 }}>
                 <img
                   src={p.url}
                   alt=""
@@ -176,6 +254,48 @@ export default function PhotosForm({ businessId, initialPhotos, plan }) {
                   </span>
                 )}
               </div>
+
+              {/* Barra de orden: mover ◀ ▶ y hacer principal ★ */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '4px',
+                padding: '6px 4px',
+                borderTop: '1px solid rgba(128,128,128,0.14)',
+              }}>
+                <IconBtn label="Mover a la izquierda" disabled={idx === 0} onClick={() => move(p.id, -1)}>
+                  <polyline points="15 18 9 12 15 6" />
+                </IconBtn>
+                <button
+                  onClick={() => makePrimary(p.id)}
+                  disabled={p.is_primary}
+                  title="Hacer principal"
+                  style={{
+                    flex: 1,
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '4px',
+                    padding: '5px 0',
+                    fontSize: '11.5px',
+                    fontWeight: 600,
+                    fontFamily: 'inherit',
+                    color: p.is_primary ? 'var(--oro)' : 'var(--ink)',
+                    opacity: p.is_primary ? 0.55 : 0.85,
+                    background: 'transparent',
+                    border: 'none',
+                    borderRadius: '7px',
+                    cursor: p.is_primary ? 'default' : 'pointer',
+                  }}
+                >
+                  {p.is_primary ? '★ Principal' : '☆ Principal'}
+                </button>
+                <IconBtn label="Mover a la derecha" disabled={idx === photos.length - 1} onClick={() => move(p.id, 1)}>
+                  <polyline points="9 18 15 12 9 6" />
+                </IconBtn>
+              </div>
+
               <button
                 onClick={() => handleDelete(p.id)}
                 style={{
@@ -187,7 +307,7 @@ export default function PhotosForm({ businessId, initialPhotos, plan }) {
                   color: 'var(--terra)',
                   background: 'transparent',
                   border: 'none',
-                  borderTop: '1px solid rgba(27,20,9,0.08)',
+                  borderTop: '1px solid rgba(128,128,128,0.14)',
                   cursor: 'pointer',
                 }}
               >
