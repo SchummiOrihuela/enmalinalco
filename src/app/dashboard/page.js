@@ -10,6 +10,8 @@ import ReviewsList from './ReviewsList'
 import PlansSection from './PlansSection'
 import FoundersWelcome from './FoundersWelcome'
 import BackToTop from './BackToTop'
+import ContactForm from './ContactForm'
+import PreviewSpace from './PreviewSpace'
 
 export default async function DashboardPage({ searchParams }) {
   const supabase = await createClient()
@@ -120,6 +122,8 @@ export default async function DashboardPage({ searchParams }) {
         </a>
         <a
           href="/"
+          target="_blank"
+          rel="noopener noreferrer"
           style={{
             fontSize: '13px',
             fontWeight: 600,
@@ -127,7 +131,7 @@ export default async function DashboardPage({ searchParams }) {
             textDecoration: 'none',
           }}
         >
-          ← Ver sitio
+          Ver sitio ↗
         </a>
       </header>
 
@@ -203,11 +207,19 @@ export default async function DashboardPage({ searchParams }) {
           </div>
         </div>
 
+        {/* Vista previa de la ficha pública */}
+        {business && <PreviewSpace slug={business.slug} />}
+
         {/* Secciones — cada tarjeta envuelve un componente hijo */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <Section>
             <BusinessForm business={business} userId={user.id} />
           </Section>
+          {business && (
+            <Section>
+              <ContactForm business={business} />
+            </Section>
+          )}
           {business && (
             <Section>
               <HoursForm businessId={business.id} initialHours={hours} />
