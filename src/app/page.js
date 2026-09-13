@@ -1,6 +1,20 @@
 "use client";
 
 import { useEffect } from "react";
+import { CATEGORIAS, buscarCategoria } from "@/lib/categorias";
+
+// Tarjetas de categoría del inicio, generadas desde la fuente única de verdad.
+const CAT_CARDS = CATEGORIAS.map((c, i) => `
+      <a href="/categoria/${c.slug}" class="ccard${i === 0 ? ' ccard-wide' : ''}" role="listitem" style="background:${c.color}">
+        <div class="ccard-bg" style="background-image:url('${c.foto}')"></div>
+        <div class="ccard-body">
+          <div class="ccard-icon">
+            <svg viewBox="0 0 24 24">${c.svg}</svg>
+          </div>
+          <div class="ccard-name">${c.nombre}</div>
+          <div class="ccard-n">${c.hint}</div>
+        </div>
+      </a>`).join('');
 
 const STYLE = `
 /* ═══════════════════════════════════════════
@@ -710,6 +724,24 @@ footer{background:#1E221A;padding-block:clamp(var(--s12),7vw,var(--s20))}
 [data-theme=dark] .faq-item summary{color:#F0E8D4}
 [data-theme=dark] .faq-item .faq-a{color:rgba(240,232,212,.6)}
 
+/* ─── VOLVER ARRIBA ─── */
+.to-top{position:fixed;right:clamp(18px,4vw,34px);bottom:clamp(18px,4vw,34px);
+  z-index:500;width:52px;height:52px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(27,20,9,.55);backdrop-filter:blur(10px);
+  border:1px solid rgba(220,178,74,.55);color:var(--oro);
+  box-shadow:0 10px 30px rgba(0,0,0,.28);cursor:pointer;
+  opacity:0;visibility:hidden;transform:translateY(14px) scale(.9);
+  transition:opacity .35s var(--ease),transform .35s var(--ease),
+    visibility .35s,background .3s,color .3s}
+.to-top.show{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
+.to-top:hover{background:var(--oro);color:var(--ink);transform:translateY(-3px) scale(1.05)}
+.to-top svg{width:20px;height:20px}
+.to-top .tt-ring{position:absolute;inset:-4px;border-radius:50%;
+  border:1px solid rgba(220,178,74,.18);animation:tt-pulse 2.8s var(--ease) infinite}
+@keyframes tt-pulse{0%{transform:scale(.86);opacity:.7}70%{transform:scale(1.15);opacity:0}100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){.to-top .tt-ring{animation:none}}
+
 /* ─── RESPONSIVE ─── */
 @media(max-width:1024px){
   .feat-grid{grid-template-columns:1fr 1fr}
@@ -772,6 +804,7 @@ const MARKUP = `<!-- Progress bar -->
       <a href="#destacados">Destacados</a>
       <a href="#negocios">Para negocios</a>
       <a href="#articulos">Historias del pueblo</a>
+      <a href="#" data-modal="m-contacto">Contacto</a>
     </nav>
 
     <div style="display:flex;align-items:center;gap:var(--s3)">
@@ -792,6 +825,7 @@ const MARKUP = `<!-- Progress bar -->
   <a href="#destacados">Destacados <span>→</span></a>
   <a href="#negocios">Para negocios <span>→</span></a>
   <a href="#articulos">Historias del pueblo <span>→</span></a>
+  <a href="#" data-modal="m-contacto">Contacto <span>→</span></a>
   <a href="#negocios" class="mnav-cta">Registra tu negocio →</a>
 </nav>
 
@@ -957,90 +991,7 @@ const MARKUP = `<!-- Progress bar -->
   </div>
 
   <div class="cat-scroller-wrap inner" id="cat-wrap" style="padding-right:0;max-width:none">
-    <div class="cat-scroll" id="cat-scroll" role="list" aria-label="Categorías del directorio">
-
-      <a href="/categoria/restaurantes" class="ccard ccard-wide" role="listitem" style="background:#1C3B28">
-        <div class="ccard-bg" style="background-image:url('/img/categorias/01-restaurantes.webp')"></div>
-        <div class="ccard-body">
-          <div class="ccard-icon">
-            <svg viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
-          </div>
-          <div class="ccard-name">Restaurantes</div>
-          <div class="ccard-n">42 lugares</div>
-        </div>
-      </a>
-
-      <a href="/categoria/hospedaje" class="ccard" role="listitem" style="background:#1C2E3B">
-        <div class="ccard-bg" style="background-image:url('/img/categorias/02-hospedaje.webp')"></div>
-        <div class="ccard-body">
-          <div class="ccard-icon">
-            <svg viewBox="0 0 24 24"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></svg>
-          </div>
-          <div class="ccard-name">Hospedaje</div>
-          <div class="ccard-n">28 opciones</div>
-        </div>
-      </a>
-
-      <a href="/categoria/spa-bienestar" class="ccard" role="listitem" style="background:#2B1C1C">
-        <div class="ccard-bg" style="background-image:url('/img/categorias/03-spa-bienestar.webp')"></div>
-        <div class="ccard-body">
-          <div class="ccard-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10"/><path d="M12 6v6l4 2"/></svg>
-          </div>
-          <div class="ccard-name">Spa & Bienestar</div>
-          <div class="ccard-n">17 centros</div>
-        </div>
-      </a>
-
-      <a href="/categoria/ecoturismo-aventura" class="ccard" role="listitem" style="background:#1C1C2B">
-        <div class="ccard-bg" style="background-image:url('/img/categorias/04-ecoturismo.webp')"></div>
-        <div class="ccard-body">
-          <div class="ccard-icon">
-            <svg viewBox="0 0 24 24"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>
-          </div>
-          <div class="ccard-name">Ecoturismo</div>
-          <div class="ccard-n">21 rutas</div>
-        </div>
-      </a>
-
-      <a href="/categoria/artesanias-tiendas" class="ccard" role="listitem" style="background:#2B1C24">
-        <div class="ccard-bg" style="background-image:url('/img/categorias/05-artesanias.webp')"></div>
-        <div class="ccard-body">
-          <div class="ccard-icon">
-            <svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-          </div>
-          <div class="ccard-name">Artesanías</div>
-          <div class="ccard-n">23 tiendas</div>
-        </div>
-      </a>
-
-      <a href="/categoria/cultura-turismo" class="ccard" role="listitem" style="background:#1E1C2E">
-        <div class="ccard-bg" style="background-image:url('/img/categorias/06-cultura.webp')"></div>
-        <div class="ccard-body">
-          <div class="ccard-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <div class="ccard-name">Cultura</div>
-          <div class="ccard-n">14 sitios</div>
-        </div>
-      </a>
-      <a href="/categoria/servicios" class="ccard" role="listitem" style="background:#1C2B24">
-        <div class="ccard-bg" style="background-image:url('/img/categorias/07-servicios.webp')"></div>
-        <div class="ccard-body">
-          <div class="ccard-icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4l-6 6a2 2 0 1 0 2.8 2.8l6-6a4 4 0 0 0 5.4-5.4l-2.3 2.3-2.1-.6-.6-2.1z"/></svg></div>
-          <div class="ccard-name">Servicios</div>
-          <div class="ccard-n">🛠️ Directorio</div>
-        </div>
-      </a>
-      <a href="/categoria/eventos-experiencias" class="ccard" role="listitem" style="background:#2B241C">
-        <div class="ccard-bg" style="background-image:url('/img/categorias/08-eventos.webp')"></div>
-        <div class="ccard-body">
-          <div class="ccard-icon"><svg viewBox="0 0 24 24"><path d="M4 5h16v16H4z"/><path d="M16 3v4M8 3v4M4 11h16"/></svg></div>
-          <div class="ccard-name">Eventos</div>
-          <div class="ccard-n">🎉 Experiencias</div>
-        </div>
-      </a>
-
+    <div class="cat-scroll" id="cat-scroll" role="list" aria-label="Categorías del directorio">${CAT_CARDS}
     </div>
   </div>
 </section>
@@ -1635,6 +1586,12 @@ const MARKUP = `<!-- Progress bar -->
   </div>
 </footer>
 
+<!-- Volver arriba -->
+<button type="button" class="to-top" id="to-top" aria-label="Volver arriba">
+  <span class="tt-ring" aria-hidden="true"></span>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+
 `;
 
 export default function Home() {
@@ -1799,6 +1756,36 @@ export default function Home() {
             seeAll.setAttribute('aria-expanded', open ? 'true' : 'false');
             if (!open) catScroll.scrollLeft = 0;
           });
+        }
+
+        // ── Buscador: mapea lo que escribe el cliente (o sinónimos) a su categoría ──
+        const sInput = document.querySelector('.sbar input[type="search"]');
+        const sBtn = document.querySelector('.sbar .sbtn');
+        const irACategoria = (texto) => {
+          const cat = buscarCategoria(texto);
+          if (cat) { window.location.href = '/categoria/' + cat.slug; return true; }
+          // Sin coincidencia: llevamos al cliente al listado de categorías.
+          const cats = document.getElementById('categorias');
+          if (cats) cats.scrollIntoView({ behavior: 'smooth' });
+          return false;
+        };
+        if (sInput) {
+          sInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') { e.preventDefault(); irACategoria(sInput.value); }
+          });
+        }
+        if (sBtn) sBtn.addEventListener('click', (e) => { e.preventDefault(); irACategoria(sInput ? sInput.value : ''); });
+        document.querySelectorAll('.pills .pill').forEach((pill) => {
+          pill.addEventListener('click', () => irACategoria(pill.textContent));
+        });
+
+        // ── Botón "volver arriba" ──
+        const toTop = document.getElementById('to-top');
+        if (toTop) {
+          const onScrollTop = () => toTop.classList.toggle('show', window.scrollY > 600);
+          window.addEventListener('scroll', onScrollTop, { passive: true });
+          onScrollTop();
+          toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
         }
 
         // ── pcards del landing → llevan al registro/login (Patrón A) ──

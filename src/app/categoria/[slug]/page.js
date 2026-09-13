@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabaseServer'
 import { toSlug } from '@/lib/slug'
 import Link from 'next/link'
 import { getPriority, getBadge } from '@/lib/plans'
+import { CATEGORIA_POR_SLUG } from '@/lib/categorias'
 
 export default async function CategoriaPage({ params }) {
   const { slug } = await params
@@ -30,11 +31,15 @@ export default async function CategoriaPage({ params }) {
     }
   }
 
-  // Nombre legible: del primer negocio, o derivado del slug si está vacía
+  // Metadatos de la categoría (fuente única de verdad)
+  const meta = CATEGORIA_POR_SLUG[slug]
+
+  // Nombre legible: del config, o del primer negocio, o derivado del slug
   const categoryName =
-    businesses.length > 0
+    meta?.nombre ||
+    (businesses.length > 0
       ? businesses[0].category
-      : slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+      : slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()))
 
   return (
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '40px 24px' }}>
@@ -64,7 +69,12 @@ export default async function CategoriaPage({ params }) {
       </Link>
 
       <h1 style={{ margin: '0 0 4px' }}>{categoryName}</h1>
-      <p style={{ color: 'rgba(242,237,227,.55)', margin: 0 }}>{businesses.length} negocio(s)</p>
+      {meta?.descripcion && (
+        <p style={{ color: 'rgba(242,237,227,.7)', margin: '0 0 6px', maxWidth: '58ch', lineHeight: 1.6 }}>
+          {meta.descripcion}
+        </p>
+      )}
+      <p style={{ color: 'rgba(242,237,227,.45)', margin: 0, fontSize: 14 }}>{businesses.length} negocio(s)</p>
 
       {businesses.length === 0 && (
         <p style={{ color: 'rgba(242,237,227,.5)', marginTop: 24 }}>
