@@ -45,17 +45,6 @@ export const CATEGORIAS = [
     svg: '<path d="m8 3 4 8 5-5 5 15H2L8 3z"/>',
   },
   {
-    slug: 'balnearios',
-    nombre: 'Balnearios',
-    hint: 'Agua y albercas',
-    descripcion:
-      'Balnearios, albercas y parques acuáticos para refrescarte en familia.',
-    sinonimos: ['balneario', 'alberca', 'albercas', 'acuatico', 'acuático', 'agua', 'piscina', 'chapoteadero', 'parque acuático', 'nadar', 'aguas termales'],
-    color: '#152A33',
-    foto: '/img/categorias/balnearios.webp',
-    svg: '<path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>',
-  },
-  {
     slug: 'cultura',
     nombre: 'Cultura',
     hint: 'Arte e historia',
@@ -76,6 +65,17 @@ export const CATEGORIAS = [
     color: '#2B1C24',
     foto: '/img/categorias/03-spa-bienestar.webp',
     svg: '<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/>',
+  },
+  {
+    slug: 'balnearios',
+    nombre: 'Balnearios',
+    hint: 'Agua y albercas',
+    descripcion:
+      'Balnearios, albercas y parques acuáticos para refrescarte en familia.',
+    sinonimos: ['balneario', 'alberca', 'albercas', 'acuatico', 'acuático', 'agua', 'piscina', 'chapoteadero', 'parque acuático', 'nadar', 'aguas termales'],
+    color: '#152A33',
+    foto: '/img/categorias/balnearios.webp',
+    svg: '<path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>',
   },
   {
     slug: 'salud',
@@ -111,17 +111,6 @@ export const CATEGORIAS = [
     svg: '<path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/>',
   },
   {
-    slug: 'construccion',
-    nombre: 'Construcción',
-    hint: 'Ferreterías y materiales',
-    descripcion:
-      'Ferreterías, tlapalerías, jarcierías, pinturas Comex y materiales para construir o remodelar.',
-    sinonimos: ['construccion', 'construcción', 'ferreteria', 'ferretería', 'tlapaleria', 'tlapalería', 'jarciería', 'jarcieria', 'comex', 'pintura', 'pinturas', 'material', 'materiales', 'cemento', 'herramienta'],
-    color: '#33291A',
-    foto: '/img/categorias/construccion.webp',
-    svg: '<path d="m15 12-8.5 8.5a2.12 2.12 0 0 1-3-3L12 9"/><path d="M17.64 15 22 10.64"/><path d="m20.91 11.7-1.25-1.25c-.6-.6-.93-1.4-.93-2.25v-.86L16.01 4.6a5.56 5.56 0 0 0-3.94-1.64H9l.92.82A6.18 6.18 0 0 1 12 8.4v1.56l2 2h.86c.85 0 1.65.33 2.25.93l1.25 1.25"/>',
-  },
-  {
     slug: 'veterinarias',
     nombre: 'Veterinarias',
     hint: 'Para tus mascotas',
@@ -142,6 +131,17 @@ export const CATEGORIAS = [
     color: '#1C2B24',
     foto: '/img/categorias/07-servicios.webp',
     svg: '<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4l-6 6a2 2 0 1 0 2.8 2.8l6-6a4 4 0 0 0 5.4-5.4l-2.3 2.3-2.1-.6-.6-2.1z"/>',
+  },
+  {
+    slug: 'construccion',
+    nombre: 'Construcción',
+    hint: 'Ferreterías y materiales',
+    descripcion:
+      'Ferreterías, tlapalerías, jarcierías, pinturas Comex y materiales para construir o remodelar.',
+    sinonimos: ['construccion', 'construcción', 'ferreteria', 'ferretería', 'tlapaleria', 'tlapalería', 'jarciería', 'jarcieria', 'comex', 'pintura', 'pinturas', 'material', 'materiales', 'cemento', 'herramienta'],
+    color: '#33291A',
+    foto: '/img/categorias/construccion.webp',
+    svg: '<path d="m15 12-8.5 8.5a2.12 2.12 0 0 1-3-3L12 9"/><path d="M17.64 15 22 10.64"/><path d="m20.91 11.7-1.25-1.25c-.6-.6-.93-1.4-.93-2.25v-.86L16.01 4.6a5.56 5.56 0 0 0-3.94-1.64H9l.92.82A6.18 6.18 0 0 1 12 8.4v1.56l2 2h.86c.85 0 1.65.33 2.25.93l1.25 1.25"/>',
   },
 ]
 

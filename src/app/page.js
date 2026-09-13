@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { CATEGORIAS, buscarCategoria } from "@/lib/categorias";
+import { createClient } from "@/lib/supabaseBrowser";
 
 // Tarjetas de categoría del inicio, generadas desde la fuente única de verdad.
 const CAT_CARDS = CATEGORIAS.map((c, i) => `
@@ -556,6 +557,9 @@ nav.dnav a:hover::after{transform:scaleX(1)}
   color:var(--oro);margin-bottom:var(--s2)}
 .hiw-title{font-family:var(--display);font-size:var(--t-lg);font-weight:400;color:var(--ink);
   margin-bottom:var(--s6);line-height:1.15}
+.hiw-title em{font-style:italic;color:var(--verde)}
+.hiw-sub{font-size:var(--t-sm);line-height:1.65;color:var(--ink);opacity:.62;margin:0 0 var(--s6)}
+.if-error{margin-top:var(--s3);font-size:var(--t-xs);color:var(--terra);text-align:center}
 .hiw-steps{display:flex;flex-direction:column;gap:var(--s5);margin-bottom:var(--s8)}
 .hiw-steps li{display:flex;gap:var(--s4);align-items:flex-start}
 .hiw-num{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:var(--verde);
@@ -811,7 +815,7 @@ const MARKUP = `<!-- Progress bar -->
       <a href="#destacados">Destacados</a>
       <a href="#negocios">Para negocios</a>
       <a href="#articulos">Historias del pueblo</a>
-      <a href="#" data-modal="m-contacto">Contacto</a>
+      <a href="#" data-modal="m-ingresar">Ingresar</a>
     </nav>
 
     <div style="display:flex;align-items:center;gap:var(--s3)">
@@ -832,7 +836,7 @@ const MARKUP = `<!-- Progress bar -->
   <a href="#destacados">Destacados <span>→</span></a>
   <a href="#negocios">Para negocios <span>→</span></a>
   <a href="#articulos">Historias del pueblo <span>→</span></a>
-  <a href="#" data-modal="m-contacto">Contacto <span>→</span></a>
+  <a href="#" data-modal="m-ingresar">Ingresar <span>→</span></a>
   <a href="#negocios" class="mnav-cta">Registra tu negocio →</a>
 </nav>
 
@@ -1162,6 +1166,36 @@ const MARKUP = `<!-- Progress bar -->
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
       ¿Tienes alguna duda? Escríbenos un mail
     </a>
+  </div>
+</div>
+
+<!-- Modal Contacto -->
+<div class="hiw-overlay" id="m-ingresar" role="dialog" aria-modal="true" aria-labelledby="mi-title" hidden>
+  <div class="hiw-box">
+    <button type="button" class="hiw-close" aria-label="Cerrar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <div id="ingresar-form">
+      <p class="hiw-eyebrow">Qué gusto verte por aquí</p>
+      <h3 class="hiw-title" id="mi-title">Bienvenido a <em>casa</em></h3>
+      <p class="hiw-sub">Entra a tu panel para publicar y cuidar tu negocio. Escribe tu correo y te mandamos un enlace mágico — sin contraseñas que recordar. ¿Primera vez? Tu cuenta se crea sola.</p>
+      <form class="cform" id="iform">
+        <div class="cf-field">
+          <label for="if-email">Tu correo</label>
+          <input id="if-email" name="email" type="email" placeholder="tu@correo.com" autocomplete="email" required>
+        </div>
+        <button type="submit" class="hiw-cta" id="if-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+          Enviarme mi enlace de acceso
+        </button>
+        <p id="if-error" class="if-error" hidden></p>
+      </form>
+    </div>
+    <div id="ingresar-ok" hidden style="text-align:center">
+      <p class="hiw-eyebrow">Ya casi</p>
+      <h3 class="hiw-title">Revisa tu <em>correo</em></h3>
+      <p class="hiw-sub">Te acabamos de enviar tu enlace de acceso. Ábrelo desde este mismo dispositivo y entrarás directo a tu panel. Si no lo ves en un minuto, échale un ojo a la carpeta de spam.</p>
+    </div>
   </div>
 </div>
 
@@ -1757,7 +1791,7 @@ export default function Home() {
         }
 
         // ── Modales del footer (Contacto / Privacidad / Términos) ──
-        const docModals = ['m-contacto', 'm-privacidad', 'm-terminos', 'm-art1', 'm-art2', 'm-art3'];
+        const docModals = ['m-ingresar', 'm-contacto', 'm-privacidad', 'm-terminos', 'm-art1', 'm-art2', 'm-art3'];
         const closeOv = (ov, opener) => {
           ov.hidden = true;
           if (!document.querySelector('.hiw-overlay:not([hidden])')) document.body.classList.remove('hiw-open');
@@ -1768,6 +1802,11 @@ export default function Home() {
             e.preventDefault();
             const ov = document.getElementById(op.getAttribute('data-modal'));
             if (!ov) return;
+            if (ov.id === 'm-ingresar') {
+              const fb = document.getElementById('ingresar-form');
+              const ob = document.getElementById('ingresar-ok');
+              if (fb && ob) { fb.hidden = false; ob.hidden = true; }
+            }
             ov.hidden = false;
             document.body.classList.add('hiw-open');
             const c = ov.querySelector('.hiw-close');
@@ -1806,6 +1845,39 @@ export default function Home() {
             const asunto = m + (n ? ' — ' + n : '');
             const cuerpo = 'Nombre: ' + n + '\nMotivo: ' + m + '\n\n' + t;
             window.location.href = 'mailto:soporte@enmalinalco.com?subject=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(cuerpo);
+          });
+        }
+
+        // ── Ingresar → enlace mágico (Supabase OTP) ──
+        const iform = document.getElementById('iform');
+        if (iform) {
+          const btn = document.getElementById('if-btn');
+          const err = document.getElementById('if-error');
+          const formBox = document.getElementById('ingresar-form');
+          const okBox = document.getElementById('ingresar-ok');
+          iform.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('if-email').value.trim();
+            if (!email) return;
+            err.hidden = true;
+            btn.disabled = true;
+            const btnHTML = btn.innerHTML;
+            btn.textContent = 'Enviando…';
+            try {
+              const supabase = createClient();
+              const { error } = await supabase.auth.signInWithOtp({
+                email,
+                options: { emailRedirectTo: window.location.origin + '/auth/callback' },
+              });
+              if (error) throw error;
+              formBox.hidden = true;
+              okBox.hidden = false;
+            } catch (ex) {
+              err.textContent = (ex && ex.message) ? ex.message : 'No pudimos enviar el enlace. Inténtalo de nuevo.';
+              err.hidden = false;
+              btn.disabled = false;
+              btn.innerHTML = btnHTML;
+            }
           });
         }
 
