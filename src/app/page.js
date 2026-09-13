@@ -501,16 +501,18 @@ nav.dnav a:hover::after{transform:scaleX(1)}
 .pcrd{background:rgba(242,237,227,.04);border:1px solid rgba(242,237,227,.07);
   border-radius:var(--r-xl);padding:var(--s6) var(--s6);
   display:flex;justify-content:space-between;align-items:center;gap:var(--s4);
-  transition:background var(--dur),border-color var(--dur),transform var(--dur) var(--ease);
+  transition:background var(--dur),border-color var(--dur),box-shadow var(--dur),transform var(--dur) var(--ease);
+  transform-origin:center;will-change:transform;
   cursor:pointer}
 .pcrd:hover{background:rgba(242,237,227,.07);border-color:rgba(242,237,227,.14);
-  transform:translateX(5px)}
+  transform:translateY(-6px) scale(1.025);
+  box-shadow:0 18px 48px rgba(0,0,0,.28)}
 .pcrd.star{background:rgba(58,107,71,.18);border-color:rgba(58,107,71,.38)}
 .pcrd.star:hover{background:rgba(58,107,71,.26)}
 .plan-badge{font-size:.58rem;font-weight:700;text-transform:uppercase;
   letter-spacing:.12em;color:var(--verde-lt);background:rgba(130,201,148,.12);
   padding:2px 8px;border-radius:var(--r-full);display:inline-block;margin-bottom:4px}
-.plan-name{font-family:var(--display);font-size:1.2rem;font-style:italic;
+.plan-name{font-family:var(--display);font-size:1.34rem;font-style:italic;
   font-weight:400;color:#F2EDE3;line-height:1.1;margin-bottom:3px}
 .plan-sub{font-size:var(--t-2xs);color:rgba(242,237,227,.5)}
 .plan-price{text-align:right;flex-shrink:0}
@@ -1092,7 +1094,6 @@ const MARKUP = `<!-- Progress bar -->
 
       <div class="pcrd" tabindex="0" data-tier="malinalli">
         <div>
-          <div class="plan-badge">Básico</div>
           <div class="plan-name">Malinalli</div>
           <div class="plan-sub">Existe en el pueblo digital</div>
           <ul class="plan-feats">
@@ -1128,7 +1129,6 @@ const MARKUP = `<!-- Progress bar -->
 
       <div class="pcrd" tabindex="0" data-tier="ocelotl">
         <div>
-          <div class="plan-badge">Élite</div>
           <div class="plan-name">Ocēlōtl</div>
           <div class="plan-sub">El negocio de referencia del pueblo</div>
           <ul class="plan-feats">
