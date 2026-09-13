@@ -70,13 +70,19 @@ export default function PhotosForm({ businessId, initialPhotos, plan }) {
       .from('business-photos')
       .getPublicUrl(path)
 
+    // sort_order = (máximo actual) + 1, para que NUNCA choque aunque se haya
+    // borrado una foto de en medio (borrar no reindexa los sort_order).
+    const nextSort = photos.length
+      ? Math.max(...photos.map((p) => p.sort_order ?? 0)) + 1
+      : 0
+
     const { data, error } = await supabase
       .from('business_photos')
       .insert({
         business_id: businessId,
         url: pub.publicUrl,
         is_primary: photos.length === 0,
-        sort_order: photos.length,
+        sort_order: nextSort,
       })
       .select()
 
@@ -87,9 +93,19 @@ export default function PhotosForm({ businessId, initialPhotos, plan }) {
   }
 
   async function handleDelete(id) {
+    const target = photos.find((p) => p.id === id)
     const { error } = await supabase.from('business_photos').delete().eq('id', id)
-    if (error) setMsg('Error: ' + error.message)
-    else setPhotos((prev) => prev.filter((p) => p.id !== id))
+    if (error) { setMsg('Error: ' + error.message); return }
+
+    let rest = photos.filter((p) => p.id !== id)
+    // Si se borró la principal, promovemos la primera restante (menor sort_order)
+    // para que siempre haya exactamente una foto "Principal".
+    if (target?.is_primary && rest.length) {
+      const nueva = [...rest].sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0))[0]
+      await supabase.from('business_photos').update({ is_primary: true }).eq('id', nueva.id)
+      rest = rest.map((p) => (p.id === nueva.id ? { ...p, is_primary: true } : p))
+    }
+    setPhotos(rest)
   }
 
   return (

@@ -23,9 +23,11 @@ export default async function CategoriaPage({ params }) {
   if (ids.length) {
     const { data: photos } = await supabase
       .from('business_photos')
-      .select('business_id,url,sort_order')
+      .select('business_id,url,sort_order,is_primary')
       .in('business_id', ids)
+      .order('is_primary', { ascending: false })
       .order('sort_order')
+    // Primera por negocio: la marcada como principal, o la de menor sort_order.
     for (const p of photos || []) {
       if (firstPhoto[p.business_id] === undefined) firstPhoto[p.business_id] = p.url
     }
