@@ -1,4 +1,5 @@
 import "./globals.css";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const SITE_URL = "https://enmalinalco.com";
 const TITLE = "En Malinalco — Guía del Pueblo Mágico";
@@ -110,6 +111,9 @@ export default function RootLayout({ children }) {
       <body>
         {children}
       </body>
+      {process.env.NEXT_PUBLIC_GA_ID && (
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+      )}
     </html>
   );
 }
