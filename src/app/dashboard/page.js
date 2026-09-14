@@ -126,7 +126,7 @@ export default async function DashboardPage({ searchParams }) {
           </span>
         </a>
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
-          {business && <TierNav plan={business.plan} />}
+          {business && <TierNav plan={business.plan} isActive={business.is_active} />}
           {business && <PreviewSpace slug={business.slug} />}
           <a
             href="/"
@@ -260,8 +260,9 @@ export default async function DashboardPage({ searchParams }) {
 }
 
 /* Recordatorio de plan en el nav: mención (Ocēlōtl) o upsell corto (resto). */
-function TierNav({ plan }) {
-  const cur = PLANS[plan]
+function TierNav({ plan, isActive }) {
+  // Sin pago no hay plan real, aunque la columna traiga 'malinalli' por defecto.
+  const cur = isActive ? PLANS[plan] : null
   const NEXT = { malinalli: 'cuauhtli', cuauhtli: 'ocelotl' }
   const ARG = {
     cuauhtli: 'y aparece primero en tu categoría',
@@ -281,9 +282,9 @@ function TierNav({ plan }) {
     color: '#EBC66A', fontSize: '12.5px', fontWeight: 600, textDecoration: 'none',
   }
 
-  // Sin plan: invitación directa a elegir.
+  // Sin plan activo: invitación directa a elegir (baja a la sección de planes).
   if (!cur) {
-    return <a href="#planes" style={upsellPill}>Elige tu plan →</a>
+    return <a href="#planes" style={upsellPill}>Sin plan activo · listo para elegir el mejor →</a>
   }
 
   const nextKey = NEXT[plan]
