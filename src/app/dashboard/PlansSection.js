@@ -22,9 +22,14 @@ function Check() {
   )
 }
 
-export default function PlansSection({ businessId, currentPlan }) {
+export default function PlansSection({ businessId, currentPlan, isActive }) {
   const [loading, setLoading] = useState(null)
   const [hovered, setHovered] = useState(null)
+
+  // Un plan solo cuenta como "actual" si el negocio pagó (is_active).
+  // Sin pago, el negocio no tiene plan activo aunque la columna `plan`
+  // traiga el valor por defecto (malinalli).
+  const activePlan = isActive ? currentPlan : null
 
   async function handleSubscribe(tier) {
     if (loading) return
@@ -43,7 +48,7 @@ export default function PlansSection({ businessId, currentPlan }) {
     }
   }
 
-  const currentName = currentPlan ? PLANS[currentPlan]?.name : null
+  const currentName = activePlan ? PLANS[activePlan]?.name : null
 
   return (
     <div>
@@ -57,13 +62,18 @@ export default function PlansSection({ businessId, currentPlan }) {
                 letterSpacing: '0.01em',
                 color: 'var(--oro)',
               }}>{currentName}</strong>.</>
-          : <>Aún no tienes un plan activo. Elige el que mejor le quede a tu negocio.</>}
+          : <><strong style={{
+                fontWeight: 800,
+                fontSize: '18px',
+                letterSpacing: '0.01em',
+                color: 'var(--oro)',
+              }}>Sin plan activo</strong>. Elige el que mejor le quede a tu negocio.</>}
       </p>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: '16px', alignItems: 'stretch' }}>
         {ORDER.map((tier) => {
           const p = PLANS[tier]
-          const isCurrent = currentPlan === tier
+          const isCurrent = activePlan === tier
           const isElite = tier === 'ocelotl'
           const isHover = hovered === tier
           return (

@@ -1,5 +1,6 @@
 'use client'
 import { useState, useRef, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabaseBrowser'
 import { CATEGORIAS } from '@/lib/categorias'
 
@@ -183,6 +184,7 @@ export default function BusinessForm({ business, userId }) {
   const [slug, setSlug] = useState(business?.slug || '')
   const [msg, setMsg] = useState(null)
   const supabase = createClient()
+  const router = useRouter()
 
   async function handleSave() {
     setMsg('Guardando...')
@@ -198,8 +200,14 @@ export default function BusinessForm({ business, userId }) {
         .from('businesses')
         .insert(datos))
     }
-    if (error) setMsg('Error: ' + error.message)
-    else setMsg('Guardado correctamente.')
+    if (error) {
+      setMsg('Error: ' + error.message)
+    } else {
+      setMsg('Guardado correctamente.')
+      // Refresca el server component para que aparezcan (al crear) o se
+      // actualicen las demás secciones del panel sin recargar a mano.
+      router.refresh()
+    }
   }
 
   return (

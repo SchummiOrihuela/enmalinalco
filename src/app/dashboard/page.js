@@ -246,7 +246,7 @@ export default async function DashboardPage({ searchParams }) {
           {business && (
             <div id="planes" style={{ scrollMarginTop: '24px' }}>
               <Section>
-                <PlansSection businessId={business.id} currentPlan={business.plan} />
+                <PlansSection businessId={business.id} currentPlan={business.plan} isActive={business.is_active} />
               </Section>
             </div>
           )}
