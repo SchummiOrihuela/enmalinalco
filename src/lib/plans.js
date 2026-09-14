@@ -64,7 +64,7 @@ export const FOUNDERS = {
   titulo: "Fundadores de enmalinalco",
   copy:
     "Los primeros 15 negocios entran con 2 meses gratis en Cuāuhtli u Ocēlōtl. " +
-    "Sin tarjeta, sin permanencia. A cambio, estrenas el directorio del pueblo.",
+    "Sin permanencia: cancela cuando quieras. A cambio, estrenas el directorio del pueblo.",
 };
 // Helper: devuelve el límite de fotos según el plan del negocio.
 export function getMaxPhotos(plan) {

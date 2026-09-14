@@ -51,7 +51,7 @@ const faqSchema = {
     },
     {
       q: "¿Cuánto cuesta anunciar mi negocio?",
-      a: "Hay tres planes mensuales en pesos: Malinalli $99, Cuāuhtli $249 y Ocēlōtl $449. Además, los primeros 15 negocios entran como Fundadores con 2 meses gratis en Cuāuhtli u Ocēlōtl, sin tarjeta y sin permanencia.",
+      a: "Hay tres planes mensuales en pesos: Malinalli $99, Cuāuhtli $249 y Ocēlōtl $449. Además, los primeros 15 negocios entran como Fundadores con 2 meses gratis en Cuāuhtli u Ocēlōtl, sin permanencia y cancelando cuando quieran.",
     },
     {
       q: "¿Qué incluye cada plan?",

@@ -1100,7 +1100,7 @@ const MARKUP = `<!-- Progress bar -->
         <span class="founders-mark">🌵</span>
         <div class="founders-body">
           <span class="founders-title">Fundadores de enmalinalco</span>
-          <span class="founders-copy">Los primeros <strong>15 negocios</strong> entran con <strong>2 meses gratis</strong> en Cuāuhtli u Ocēlōtl. Sin tarjeta, sin permanencia — a cambio, estrenas el directorio del pueblo.</span>
+          <span class="founders-copy">Los primeros <strong>15 negocios</strong> entran con <strong>2 meses gratis</strong> en Cuāuhtli u Ocēlōtl. Sin permanencia, cancela cuando quieras — a cambio, estrenas el directorio del pueblo.</span>
         </div>
       </div>
 
@@ -1455,7 +1455,7 @@ const MARKUP = `<!-- Progress bar -->
         <summary>¿Cuánto cuesta anunciar mi negocio?
           <svg class="faq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
         </summary>
-        <div class="faq-a">Hay tres planes mensuales en pesos: Malinalli $99, Cuāuhtli $249 y Ocēlōtl $449. Además, los primeros 15 negocios entran como Fundadores con 2 meses gratis en Cuāuhtli u Ocēlōtl, sin tarjeta y sin permanencia.</div>
+        <div class="faq-a">Hay tres planes mensuales en pesos: Malinalli $99, Cuāuhtli $249 y Ocēlōtl $449. Además, los primeros 15 negocios entran como Fundadores con 2 meses gratis en Cuāuhtli u Ocēlōtl, sin permanencia y cancelando cuando quieran.</div>
       </details>
 
       <details class="faq-item">
