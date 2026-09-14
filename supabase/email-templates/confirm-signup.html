@@ -1,0 +1,81 @@
+<!--
+  Plantilla de correo: CONFIRM SIGNUP (bienvenida a quien se registra por primera vez) — enmalinalco.com
+  Pegar en: Supabase → Authentication → Emails → Confirm signup → Body (vista "Source").
+  Subject sugerido: Bienvenido a enmalinalco.com — confirma tu correo
+  Variable de Supabase: {{ .ConfirmationURL }}
+  Mismo estilo que magic-link.html (logo + dorado), copy de primera vez.
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<title>Bienvenido a enMalinalco</title>
+</head>
+<body style="margin:0; padding:0; background-color:#F3EEE4; -webkit-text-size-adjust:100%;">
+  <div style="display:none; max-height:0; overflow:hidden; opacity:0; font-size:1px; line-height:1px; color:#F3EEE4;">
+    Confirma tu correo y tu negocio empezará a aparecer en el directorio del pueblo.
+  </div>
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F3EEE4;">
+    <tr>
+      <td align="center" style="padding:40px 16px;">
+        <table role="presentation" width="480" cellpadding="0" cellspacing="0" style="width:480px; max-width:480px; background-color:#F4EACE; border-radius:20px; overflow:hidden; box-shadow:0 12px 40px rgba(27,20,9,0.10);">
+          <tr>
+            <td align="center" style="background-color:#1C3B28; padding:40px 40px 34px;">
+              <img src="https://enmalinalco.com/img/email-logo.png" width="72" height="72" alt="En Malinalco" style="display:block; width:72px; height:72px; border:0; margin:0 auto 16px;">
+              <div style="font-family:Georgia,'Times New Roman',serif; font-size:25px; line-height:1; color:#F3EEE4; letter-spacing:-0.01em;">
+                en<span style="color:#A8D6B0; font-style:italic;">malinalco</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:38px 44px 40px;">
+              <p style="margin:0 0 10px; font-family:Arial,Helvetica,sans-serif; font-size:11px; font-weight:bold; text-transform:uppercase; letter-spacing:0.14em; color:#2E6B43;">
+                Te damos la bienvenida
+              </p>
+              <h1 style="margin:0 0 16px; font-family:Georgia,'Times New Roman',serif; font-size:30px; font-weight:normal; line-height:1.15; color:#1B1409;">
+                Confirma tu correo y <span style="color:#1C3B28; font-style:italic;">arrancamos</span>
+              </h1>
+              <p style="margin:0 0 30px; font-family:Arial,Helvetica,sans-serif; font-size:15px; line-height:1.65; color:#4A4335;">
+                Qué gusto tenerte en <strong style="color:#1C3B28;">enmalinalco.com</strong>, el directorio del pueblo hecho por quienes vivimos aquí. Confirma tu correo con el botón y entra directo a tu panel para armar la ficha de tu negocio.
+              </p>
+              <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto 30px;">
+                <tr>
+                  <td align="center" bgcolor="#DCB24A" style="border-radius:9999px;">
+                    <a href="{{ .ConfirmationURL }}" target="_blank" style="display:inline-block; padding:16px 42px; font-family:Arial,Helvetica,sans-serif; font-size:15px; font-weight:bold; color:#1B1409; text-decoration:none; border-radius:9999px; border:1.5px solid #DCB24A;">
+                      Confirmar y entrar &nbsp;&rarr;
+                    </a>
+                  </td>
+                </tr>
+              </table>
+              <p style="margin:0 0 4px; font-family:Arial,Helvetica,sans-serif; font-size:12px; line-height:1.6; color:#8A8272;">
+                ¿El botón no funciona? Copia y pega este enlace en tu navegador:
+              </p>
+              <p style="margin:0 0 26px; font-family:Arial,Helvetica,sans-serif; font-size:12px; line-height:1.5; word-break:break-all;">
+                <a href="{{ .ConfirmationURL }}" target="_blank" style="color:#1C3B28; text-decoration:underline;">{{ .ConfirmationURL }}</a>
+              </p>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                <tr><td style="border-top:1px solid #E6D8B4; font-size:0; line-height:0;">&nbsp;</td></tr>
+              </table>
+              <p style="margin:22px 0 0; font-family:Arial,Helvetica,sans-serif; font-size:12.5px; line-height:1.6; color:#8A8272;">
+                Este enlace es de <strong style="color:#4A4335;">un solo uso</strong> y expira pronto por tu seguridad. Si tú no creaste esta cuenta, puedes ignorar este correo con toda tranquilidad.
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" style="background-color:#EFE2C2; padding:22px 40px; border-top:1px solid #E6D8B4;">
+              <p style="margin:0; font-family:Arial,Helvetica,sans-serif; font-size:11px; color:#B0A891;">
+                Hecho con <span style="color:#DE6A3E;">&#9829;</span> desde Malinalco, Estado de M&eacute;xico
+              </p>
+            </td>
+          </tr>
+        </table>
+        <p style="margin:20px 0 0; font-family:Arial,Helvetica,sans-serif; font-size:11px; color:#B0A891;">
+          enmalinalco.com &middot; La gu&iacute;a viva del Pueblo M&aacute;gico
+        </p>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
