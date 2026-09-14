@@ -74,7 +74,6 @@ export default function PlansSection({ businessId, currentPlan, isActive }) {
         {ORDER.map((tier) => {
           const p = PLANS[tier]
           const isCurrent = activePlan === tier
-          const isElite = tier === 'ocelotl'
           const isHover = hovered === tier
           return (
             <div key={tier}
@@ -99,12 +98,10 @@ export default function PlansSection({ businessId, currentPlan, isActive }) {
               transition: 'transform .28s cubic-bezier(.2,.7,.3,1), box-shadow .28s ease',
               zIndex: isHover ? 2 : 1,
             }}>
-              {/* Cinta de estado */}
-              {isCurrent ? (
+              {/* Cinta de estado (solo el plan activo la lleva; así las 3 alinean) */}
+              {isCurrent && (
                 <span style={ribbon('var(--oro)', 'var(--ink)')}>Tu plan actual</span>
-              ) : isElite ? (
-                <span style={ribbon('var(--selva)', '#F0E8D4')}>Élite</span>
-              ) : null}
+              )}
 
               {/* Nombre */}
               <div style={{
@@ -115,7 +112,7 @@ export default function PlansSection({ businessId, currentPlan, isActive }) {
                 color: isCurrent ? 'var(--oro)' : 'var(--ink)',
                 lineHeight: 1.05,
                 letterSpacing: '-0.01em',
-                marginTop: (isCurrent || isElite) ? '22px' : 0,
+                marginTop: isCurrent ? '22px' : 0,
                 paddingRight: '4px',
               }}>
                 {p.name}
