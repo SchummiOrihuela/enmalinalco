@@ -1107,10 +1107,12 @@ const MARKUP = `<!-- Progress bar -->
       <div class="pcrd" tabindex="0" data-tier="malinalli">
         <div>
           <div class="plan-name">Malinalli</div>
-          <div class="plan-sub">Existe en el pueblo digital</div>
+          <div class="plan-sub">Ya eres parte del pueblo digital</div>
           <ul class="plan-feats">
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>3 fotos de tu negocio</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Contacto, ubicación y horarios</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Apareces en el directorio del pueblo</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Comparte tu ficha por WhatsApp y redes</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ficha visible los 7 días</li>
           </ul>
         </div>
@@ -1127,10 +1129,10 @@ const MARKUP = `<!-- Progress bar -->
           <div class="plan-sub">Que te encuentren primero</div>
           <ul class="plan-feats">
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>10 fotos de tu negocio</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Apareces antes en tu categoría</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Apareces en los primeros lugares de tu categoría</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Insignia "Recomendado"</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>1 mención al mes en nuestras redes</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Reporte de cuánta gente te vio</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Reporte de cuánta gente te ve (para que veas que funciona tu plan)</li>
           </ul>
         </div>
         <div class="plan-price">
@@ -1148,7 +1150,7 @@ const MARKUP = `<!-- Progress bar -->
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Primer lugar en tu categoría</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Tu historia contada (artículo editorial)</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Apareces en la portada</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Línea directa por WhatsApp conmigo</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Atención personalizada</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>En temporada alta, apareces en el Top 3</li>
           </ul>
         </div>
@@ -1462,7 +1464,7 @@ const MARKUP = `<!-- Progress bar -->
         <summary>¿Qué incluye cada plan?
           <svg class="faq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
         </summary>
-        <div class="faq-a">Malinalli te da 3 fotos, contacto, ubicación y horarios visibles toda la semana. Cuāuhtli suma 10 fotos, mejor posición en tu categoría, insignia "Recomendado", una mención al mes en redes y reporte de visitas. Ocēlōtl llega hasta 30 fotos, primer lugar en tu categoría, tu historia contada, aparición en portada y línea directa por WhatsApp. Puedes verlos a detalle en <a href="#negocios">Para negocios</a>.</div>
+        <div class="faq-a">Malinalli te da 3 fotos, contacto, ubicación y horarios visibles toda la semana, y tu lugar en el directorio del pueblo. Cuāuhtli suma 10 fotos, aparecer en los primeros lugares de tu categoría, insignia "Recomendado", una mención al mes en redes y reporte de cuánta gente te ve. Ocēlōtl llega hasta 30 fotos, primer lugar en tu categoría, tu historia contada, aparición en portada y atención personalizada. Puedes verlos a detalle en <a href="#negocios">Para negocios</a>.</div>
       </details>
 
       <details class="faq-item">

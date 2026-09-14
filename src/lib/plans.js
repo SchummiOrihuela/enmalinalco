@@ -6,13 +6,15 @@ export const PLANS = {
     price: 99,
     label: "Básico",
     // Promesa de una línea: qué logra este tier para el dueño.
-    tagline: "Existe en el pueblo digital",
+    tagline: "Ya eres parte del pueblo digital",
     maxPhotos: 3,
     priority: 1,
     badge: null,
     benefits: [
       "3 fotos de tu negocio",
       "Contacto, ubicación y horarios",
+      "Apareces en el directorio del pueblo",
+      "Comparte tu ficha por WhatsApp y redes",
       "Ficha visible los 7 días",
     ],
   },
@@ -26,10 +28,10 @@ export const PLANS = {
     badge: null,
     benefits: [
       "10 fotos de tu negocio",
-      "Apareces antes en tu categoría",
+      "Apareces en los primeros lugares de tu categoría",
       'Insignia "Recomendado"',
       "1 mención al mes en nuestras redes",
-      "Reporte de cuánta gente te vio",
+      "Reporte de cuánta gente te ve (para que veas que funciona tu plan)",
     ],
   },
   ocelotl: {
@@ -45,7 +47,7 @@ export const PLANS = {
       "Primer lugar en tu categoría",
       "Tu historia contada (artículo editorial)",
       "Apareces en la portada",
-      "Línea directa por WhatsApp conmigo",
+      "Atención personalizada",
       "En temporada alta, apareces en el Top 3",
     ],
   },

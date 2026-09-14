@@ -55,7 +55,7 @@ const faqSchema = {
     },
     {
       q: "¿Qué incluye cada plan?",
-      a: "Malinalli te da 3 fotos, contacto, ubicación y horarios visibles toda la semana. Cuāuhtli suma 10 fotos, mejor posición en tu categoría, insignia Recomendado, una mención al mes en redes y reporte de visitas. Ocēlōtl llega hasta 30 fotos, primer lugar en tu categoría, tu historia contada, aparición en portada y línea directa por WhatsApp.",
+      a: "Malinalli te da 3 fotos, contacto, ubicación y horarios visibles toda la semana, y tu lugar en el directorio del pueblo. Cuāuhtli suma 10 fotos, aparecer en los primeros lugares de tu categoría, insignia Recomendado, una mención al mes en redes y reporte de cuánta gente te ve. Ocēlōtl llega hasta 30 fotos, primer lugar en tu categoría, tu historia contada, aparición en portada y atención personalizada.",
     },
     {
       q: "¿Qué se puede hacer en Malinalco?",
