@@ -1099,8 +1099,8 @@ const MARKUP = `<!-- Progress bar -->
       <div class="founders">
         <span class="founders-mark">🌵</span>
         <div class="founders-body">
-          <span class="founders-title">Fundadores de enmalinalco</span>
-          <span class="founders-copy">Los primeros <strong>15 negocios</strong> entran con <strong>2 meses gratis</strong> en Cuāuhtli u Ocēlōtl. Sin permanencia, cancela cuando quieras — a cambio, estrenas el directorio del pueblo.</span>
+          <span class="founders-title">Programa Fundadores</span>
+          <span class="founders-copy">Un lugar reservado para los primeros <strong>50 negocios</strong> que creen en el proyecto. Accede a una <strong>tarifa preferente</strong> —30% menos durante tus primeros 3 meses, en el plan que elijas— y asegura tu presencia en el directorio del pueblo desde el primer día. Sin permanencia.</span>
         </div>
       </div>
 
@@ -1455,7 +1455,7 @@ const MARKUP = `<!-- Progress bar -->
         <summary>¿Cuánto cuesta anunciar mi negocio?
           <svg class="faq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
         </summary>
-        <div class="faq-a">Hay tres planes mensuales en pesos: Malinalli $99, Cuāuhtli $249 y Ocēlōtl $449. Además, los primeros 15 negocios entran como Fundadores con 2 meses gratis en Cuāuhtli u Ocēlōtl, sin permanencia y cancelando cuando quieran.</div>
+        <div class="faq-a">Cada plan es una inversión mensual en la visibilidad de tu negocio: Malinalli $99, Cuāuhtli $249 y Ocēlōtl $449. Como reconocimiento a quienes creen en el proyecto desde el inicio, los primeros 50 negocios acceden al Programa Fundadores: una tarifa preferente con 30% menos durante sus primeros 3 meses, en el plan que elijan, sin permanencia.</div>
       </details>
 
       <details class="faq-item">

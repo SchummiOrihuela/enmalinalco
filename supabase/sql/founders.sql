@@ -1,5 +1,8 @@
--- Programa "Fundadores": primeros 15 negocios en Cuāuhtli/Ocēlōtl con 2 meses gratis.
--- Ejecutar UNA vez en el editor SQL de Supabase.
+-- Programa "Fundadores": primeros 50 negocios (cualquier plan) con 30% de
+-- descuento los primeros 3 meses (el descuento lo maneja un cupón de Stripe).
+-- Ejecutar en el editor SQL de Supabase. OJO: el corte duro (50) está en la
+-- función claim_founder_spot; si cambia el cupo, actualízalo aquí Y en
+-- FOUNDERS.cupos de src/lib/plans.js.
 
 -- 1) Columnas de estado del programa en cada negocio.
 alter table public.businesses
@@ -33,7 +36,7 @@ begin
   end if;
 
   select count(*) into taken from public.businesses where founder = true;
-  if taken >= 15 then
+  if taken >= 50 then
     return null;
   end if;
 

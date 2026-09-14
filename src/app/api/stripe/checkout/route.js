@@ -12,7 +12,7 @@ const PRICE_MAP = {
 
 // ¿Queda cupo Fundador? Consulta el conteo real con el service role.
 // (El lugar se RECLAMA de forma atómica en el webhook al confirmarse el pago;
-//  aquí solo decidimos si ofrecer el trial de 2 meses.)
+//  aquí solo decidimos si aplicar el descuento Fundador.)
 async function founderSpotAvailable() {
   if (!FOUNDERS.active) return false;
   try {
@@ -50,21 +50,25 @@ export async function POST(request) {
     const isFounder =
       FOUNDERS.tiers.includes(tier) && (await founderSpotAvailable());
 
-    const subscriptionData = {
-      metadata: { businessId: businessId || '', tier, founder: isFounder ? 'pending' : '' },
-    };
-    if (isFounder) {
-      subscriptionData.trial_period_days = FOUNDERS.mesesGratis * 30;
-    }
+    const meta = { businessId: businessId || '', tier, founder: isFounder ? 'pending' : '' };
 
-    const session = await stripe.checkout.sessions.create({
+    const sessionParams = {
       mode: 'subscription',
       line_items: [{ price, quantity: 1 }],
       success_url: `${origin}/dashboard?success=true`,
       cancel_url: `${origin}/dashboard?canceled=true`,
-      metadata: { businessId: businessId || '', tier, founder: isFounder ? 'pending' : '' },
-      subscription_data: subscriptionData,
-    });
+      metadata: meta,
+      subscription_data: { metadata: meta },
+    };
+
+    // Fundador: 30% de descuento los primeros 3 meses vía cupón de Stripe.
+    // El cupón (percent_off:30, duration:repeating, duration_in_months:3) se
+    // crea una vez en Stripe y su id va en STRIPE_FOUNDER_COUPON.
+    if (isFounder && process.env.STRIPE_FOUNDER_COUPON) {
+      sessionParams.discounts = [{ coupon: process.env.STRIPE_FOUNDER_COUPON }];
+    }
+
+    const session = await stripe.checkout.sessions.create(sessionParams);
 
     return NextResponse.json({ url: session.url });
   } catch (err) {

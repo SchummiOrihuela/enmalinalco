@@ -1,15 +1,10 @@
 'use client'
 import { useState } from 'react'
+import { FOUNDERS } from '@/lib/plans'
 
-export default function FoundersWelcome({ number, remaining, trialEndsAt, shareUrl }) {
+export default function FoundersWelcome({ number, remaining, shareUrl }) {
   const [open, setOpen] = useState(true)
   if (!open) return null
-
-  const fecha = trialEndsAt
-    ? new Date(trialEndsAt).toLocaleDateString('es-MX', {
-        day: 'numeric', month: 'long', year: 'numeric',
-      })
-    : null
 
   const shareText =
     `¡Me sumé como Fundador de enmalinalco.com, el directorio de negocios de Malinalco! ` +
@@ -64,10 +59,9 @@ export default function FoundersWelcome({ number, remaining, trialEndsAt, shareU
 
         <div style={{ padding: '24px 28px 28px' }}>
           <p style={{ margin: '0 0 16px', fontSize: '14px', lineHeight: 1.6, color: 'var(--ink)', opacity: 0.8 }}>
-            Tus primeros 2 meses corren por nuestra cuenta.
-            {fecha
-              ? <> Tu primer cargo será el <strong>{fecha}</strong> — te avisaremos antes, sin sorpresas.</>
-              : <> Te avisaremos antes de tu primer cargo, sin sorpresas.</>}
+            Aseguraste tu lugar con una <strong>tarifa preferente de Fundador</strong>: {FOUNDERS.descuento}% menos
+            durante tus primeros <strong>{FOUNDERS.mesesDescuento} meses</strong>. Es el momento de sacarle
+            provecho a tu ficha — del cuarto mes en adelante, precio normal. Sin permanencia.
           </p>
 
           <div style={{
@@ -76,7 +70,7 @@ export default function FoundersWelcome({ number, remaining, trialEndsAt, shareU
           }}>
             {remaining > 0
               ? <>Solo quedan <strong>{remaining} {remaining === 1 ? 'lugar' : 'lugares'} Fundador</strong>. Corre la voz.</>
-              : <>Con esto se completan los <strong>15 lugares Fundador</strong>. ¡Gracias por estrenar el directorio!</>}
+              : <>Con esto se completan los <strong>{FOUNDERS.cupos} lugares Fundador</strong>. ¡Gracias por estrenar el directorio!</>}
           </div>
 
           <a

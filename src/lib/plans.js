@@ -58,13 +58,15 @@ export const DEFAULT_PLAN = "malinalli";
 // Al terminar la promo se busca que se queden en Cuāuhtli/Ocēlōtl.
 export const FOUNDERS = {
   active: true,
-  cupos: 15,
-  mesesGratis: 2,
-  tiers: ["cuauhtli", "ocelotl"],
-  titulo: "Fundadores de enmalinalco",
+  cupos: 50,
+  descuento: 30, // % de descuento
+  mesesDescuento: 3, // meses que dura el descuento antes del precio completo
+  tiers: ["malinalli", "cuauhtli", "ocelotl"],
+  titulo: "Programa Fundadores",
   copy:
-    "Los primeros 15 negocios entran con 2 meses gratis en Cuāuhtli u Ocēlōtl. " +
-    "Sin permanencia: cancela cuando quieras. A cambio, estrenas el directorio del pueblo.",
+    "Un lugar reservado para los primeros 50 negocios que creen en el proyecto. " +
+    "Accedes a una tarifa preferente —30% menos durante tus primeros 3 meses, en el plan que elijas— " +
+    "y aseguras tu presencia en el directorio del pueblo desde el primer día. Sin permanencia.",
 };
 // Helper: devuelve el límite de fotos según el plan del negocio.
 export function getMaxPhotos(plan) {

@@ -61,18 +61,9 @@ export async function POST(request) {
           await updateBusiness(businessId, { is_active: true, plan: tier });
 
           if (founder === 'pending') {
-            // Reclama el lugar (la DB corta en 15). Si aún había cupo,
-            // guarda la fecha real de fin del trial desde la suscripción.
-            const number = await claimFounderSpot(businessId);
-            if (number && s.subscription) {
-              const sub = await stripe.subscriptions.retrieve(s.subscription);
-              const trialEndsAt = sub.trial_end
-                ? new Date(sub.trial_end * 1000).toISOString()
-                : null;
-              if (trialEndsAt) {
-                await updateBusiness(businessId, { trial_ends_at: trialEndsAt });
-              }
-            }
+            // Reclama el lugar de forma atómica (la DB corta en el cupo máximo).
+            // El descuento Fundador (30% x 3 meses) lo maneja el cupón de Stripe.
+            await claimFounderSpot(businessId);
           }
         }
         break;

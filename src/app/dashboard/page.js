@@ -38,7 +38,6 @@ export default async function DashboardPage({ searchParams }) {
     foundersWelcome = {
       number: business.founder_number,
       remaining: Math.max(0, FOUNDERS.cupos - (count || 0)),
-      trialEndsAt: business.trial_ends_at,
       shareUrl: host ? `${proto}://${host}/` : 'https://enmalinalco.com/',
     }
   }
