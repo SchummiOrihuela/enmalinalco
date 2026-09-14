@@ -58,7 +58,9 @@ export const DEFAULT_PLAN = "malinalli";
 // Al terminar la promo se busca que se queden en Cuāuhtli/Ocēlōtl.
 export const FOUNDERS = {
   active: true,
-  cupos: 50,
+  // Corte interno en 52: 2 lugares son las compras de prueba del host, así
+  // quedan 50 lugares reales para clientes (el copy público dice "50").
+  cupos: 52,
   descuento: 30, // % de descuento
   mesesDescuento: 3, // meses que dura el descuento antes del precio completo
   tiers: ["malinalli", "cuauhtli", "ocelotl"],

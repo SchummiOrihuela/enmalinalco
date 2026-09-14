@@ -1,8 +1,8 @@
 -- Programa "Fundadores": primeros 50 negocios (cualquier plan) con 30% de
 -- descuento los primeros 3 meses (el descuento lo maneja un cupón de Stripe).
--- Ejecutar en el editor SQL de Supabase. OJO: el corte duro (50) está en la
--- función claim_founder_spot; si cambia el cupo, actualízalo aquí Y en
--- FOUNDERS.cupos de src/lib/plans.js.
+-- Ejecutar en el editor SQL de Supabase. OJO: el corte duro está en la función
+-- claim_founder_spot y es 52 = 50 lugares reales + 2 compras de prueba del host;
+-- si cambia el cupo, actualízalo aquí Y en FOUNDERS.cupos de src/lib/plans.js.
 
 -- 1) Columnas de estado del programa en cada negocio.
 alter table public.businesses
@@ -36,7 +36,7 @@ begin
   end if;
 
   select count(*) into taken from public.businesses where founder = true;
-  if taken >= 50 then
+  if taken >= 52 then
     return null;
   end if;
 
