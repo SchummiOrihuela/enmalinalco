@@ -574,6 +574,7 @@ nav.dnav a:hover::after{transform:scaleX(1)}
 .hiw-steps li div{display:flex;flex-direction:column;gap:2px}
 .hiw-steps strong{font-size:var(--t-md);font-weight:600;color:var(--ink)}
 .hiw-steps span{font-size:var(--t-sm);color:rgba(240,232,212,.62);line-height:1.5}
+.hiw-hl{color:var(--oro);font-weight:600}
 .hiw-cta{display:inline-flex;align-items:center;justify-content:center;gap:var(--s2);width:100%;
   padding:14px 26px;background:var(--verde);color:#fff;font-size:var(--t-sm);font-weight:700;
   border-radius:var(--r-full);transition:background var(--dur),transform var(--dur) var(--ease)}
@@ -1178,9 +1179,10 @@ const MARKUP = `<!-- Progress bar -->
     <h3 class="hiw-title" id="hiw-title">Es fácil, y tú tienes el control</h3>
     <ol class="hiw-steps">
       <li><span class="hiw-num">1</span><div><strong>Regístrate</strong><span>Crea tu cuenta en un minuto, sin complicaciones.</span></div></li>
-      <li><span class="hiw-num">2</span><div><strong>Llena tu ficha</strong><span>Datos, fotos, horarios y todo lo de tu establecimiento.</span></div></li>
-      <li><span class="hiw-num">3</span><div><strong>Personalízala a tu gusto</strong><span>Actualiza, modifica y mejora cuando quieras, desde tu celular o laptop. El espacio es tuyo.</span></div></li>
-      <li><span class="hiw-num">4</span><div><strong>Listo, estás arriba</strong><span>Visible y fácil de encontrar, recibiendo más clientes.</span></div></li>
+      <li><span class="hiw-num">2</span><div><strong>Elige tu paquete</strong><span>Escoge el plan que más te acomode. Si eres de los primeros, aprovecha el <b class="hiw-hl">Programa Fundadores: 30% de descuento durante tus 3 primeros meses</b>, sin permanencia.</span></div></li>
+      <li><span class="hiw-num">3</span><div><strong>Paga seguro y regresa solo</strong><span>El pago es seguro. Al terminar, <b class="hiw-hl">vuelves automáticamente al sitio</b> para continuar; no tienes que hacer nada más.</span></div></li>
+      <li><span class="hiw-num">4</span><div><strong>Llena tu ficha a tu gusto</strong><span>Datos, fotos, horarios y todo lo de tu negocio. Actualízalo cuando quieras, desde tu celular o laptop. El espacio es tuyo.</span></div></li>
+      <li><span class="hiw-num">5</span><div><strong>Listo, estás arriba</strong><span>Visible y fácil de encontrar en el directorio del pueblo, recibiendo más clientes.</span></div></li>
     </ol>
     <a href="mailto:soporte@enmalinalco.com?subject=Quiero%20anunciar%20mi%20negocio%20en%20enmalinalco.com" class="hiw-cta">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
