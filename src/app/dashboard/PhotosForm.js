@@ -63,6 +63,7 @@ export default function PhotosForm({ businessId, initialPhotos, plan }) {
   const maxPhotos = getMaxPhotos(plan)
   const [photos, setPhotos] = useState(initialPhotos || [])
   const [msg, setMsg] = useState(null)
+  const [alerta, setAlerta] = useState(null) // ventana flotante: { titulo, texto }
   const [uploading, setUploading] = useState(false)
   const supabase = createClient()
 
@@ -79,12 +80,19 @@ export default function PhotosForm({ businessId, initialPhotos, plan }) {
 
     const tiposOk = ['image/jpeg', 'image/png', 'image/webp']
     if (!tiposOk.includes(file.type)) {
-      setMsg('Solo se permiten imágenes JPG, PNG o WEBP.')
+      setAlerta({
+        titulo: 'Formato no admitido',
+        texto: 'Esta foto no se subió. Solo aceptamos imágenes JPG, PNG o WEBP. Convierte tu imagen a uno de esos formatos e inténtalo de nuevo.',
+      })
       e.target.value = ''
       return
     }
     if (file.size > 2 * 1024 * 1024) {
-      setMsg('La imagen supera 2 MB. Comprímela e inténtalo de nuevo.')
+      const mb = (file.size / (1024 * 1024)).toFixed(1)
+      setAlerta({
+        titulo: 'La foto es muy pesada',
+        texto: `Esta foto pesa ${mb} MB y no se subió, porque el máximo permitido es 2 MB. No es un error: es para que tu ficha cargue rápida. Comprime o reduce el tamaño de la foto e inténtalo de nuevo.`,
+      })
       e.target.value = ''
       return
     }
@@ -370,14 +378,82 @@ export default function PhotosForm({ businessId, initialPhotos, plan }) {
         </label>
       )}
 
-      {msg && (
-        <p style={{
-          marginTop: '14px',
-          fontSize: '14px',
-          color: msg.startsWith('Error') ? 'var(--terra)' : 'var(--verde)',
-        }}>
-          {msg}
-        </p>
+      {msg && (() => {
+        // Verde solo para confirmaciones ("Subiendo…", "Foto agregada.").
+        // Todo lo demás (errores y rechazos de tamaño/tipo/límite) va en alerta.
+        const ok = msg.startsWith('Subiendo') || msg.startsWith('Foto agregada')
+        return (
+          <p style={{
+            marginTop: '14px',
+            fontSize: '14px',
+            color: ok ? 'var(--verde)' : 'var(--terra)',
+          }}>
+            {msg}
+          </p>
+        )
+      })()}
+
+      {/* Ventana flotante: cuando una foto no se puede subir (tamaño o formato). */}
+      {alerta && (
+        <div
+          onClick={() => setAlerta(null)}
+          style={{
+            position: 'fixed', inset: 0, zIndex: 1000,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            padding: '20px',
+            background: 'rgba(20,28,22,0.55)',
+            backdropFilter: 'blur(2px)',
+          }}
+        >
+          <div
+            role="alertdialog"
+            aria-modal="true"
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              width: '100%', maxWidth: 400,
+              background: 'var(--surf, #F7F1E4)',
+              borderRadius: '16px',
+              padding: '26px 24px 22px',
+              boxShadow: '0 12px 40px rgba(0,0,0,0.32)',
+              textAlign: 'center',
+            }}
+          >
+            <div style={{
+              width: 46, height: 46, margin: '0 auto 14px',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              borderRadius: '50%', background: 'rgba(193,74,58,0.12)',
+            }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--terra)"
+                strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                <line x1="12" y1="9" x2="12" y2="13" />
+                <line x1="12" y1="17" x2="12.01" y2="17" />
+              </svg>
+            </div>
+            <h3 style={{
+              margin: '0 0 8px',
+              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontSize: '22px', fontWeight: 500, color: 'var(--ink)',
+            }}>
+              {alerta.titulo}
+            </h3>
+            <p style={{ margin: '0 0 20px', fontSize: '14px', lineHeight: 1.55, color: 'var(--ink)', opacity: 0.78 }}>
+              {alerta.texto}
+            </p>
+            <button
+              type="button"
+              onClick={() => setAlerta(null)}
+              style={{
+                padding: '11px 30px',
+                fontSize: '15px', fontWeight: 600, fontFamily: 'inherit',
+                color: 'var(--parch)', background: 'var(--ink)',
+                border: 'none', borderRadius: '9999px', cursor: 'pointer',
+              }}
+            >
+              Entendido
+            </button>
+          </div>
+        </div>
       )}
     </div>
   )
