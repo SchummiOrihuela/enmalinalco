@@ -58,6 +58,18 @@ const selectStyle = {
   backgroundPosition: 'right 11px center',
 }
 
+const breakBtnStyle = {
+  padding: '6px 12px',
+  fontSize: '12px',
+  fontWeight: 600,
+  fontFamily: 'inherit',
+  color: 'var(--verde)',
+  background: 'none',
+  border: '1.5px solid rgba(128,128,128,0.22)',
+  borderRadius: '9999px',
+  cursor: 'pointer',
+}
+
 const btnStyle = {
   padding: '12px 28px',
   fontSize: '15px',
@@ -125,6 +137,8 @@ export default function HoursForm({ businessId, initialHours }) {
       day_of_week: i,
       open_time: hhmm(h?.open_time, '09:00'),
       close_time: hhmm(h?.close_time, '18:00'),
+      break_start: hhmm(h?.break_start, null),
+      break_end: hhmm(h?.break_end, null),
       is_closed: h?.is_closed || false,
     }
   })
@@ -143,13 +157,18 @@ export default function HoursForm({ businessId, initialHours }) {
   async function handleSave() {
     setMsg('Guardando...')
 
-    const filas = hours.map((h) => ({
-      business_id: businessId,
-      day_of_week: h.day_of_week,
-      open_time: h.is_closed ? null : h.open_time,
-      close_time: h.is_closed ? null : h.close_time,
-      is_closed: h.is_closed,
-    }))
+    const filas = hours.map((h) => {
+      const conComida = !h.is_closed && h.break_start && h.break_end
+      return {
+        business_id: businessId,
+        day_of_week: h.day_of_week,
+        open_time: h.is_closed ? null : h.open_time,
+        close_time: h.is_closed ? null : h.close_time,
+        break_start: conComida ? h.break_start : null,
+        break_end: conComida ? h.break_end : null,
+        is_closed: h.is_closed,
+      }
+    })
 
     const { error } = await supabase
       .from('business_hours')
@@ -179,14 +198,37 @@ export default function HoursForm({ businessId, initialHours }) {
               Cerrado todo el día
             </span>
           ) : (
-            <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ flex: 1, display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '8px' }}>
               <select value={h.open_time} onChange={(e) => update(i, 'open_time', e.target.value)} style={selectStyle}>
                 {SLOTS.map((s) => <option key={s.v} value={s.v}>{s.label}</option>)}
               </select>
               <span style={{ color: 'var(--ink)', opacity: 0.35 }}>a</span>
+              {h.break_start && h.break_end ? (
+                <>
+                  <select value={h.break_start} onChange={(e) => update(i, 'break_start', e.target.value)} style={selectStyle}>
+                    {SLOTS.map((s) => <option key={s.v} value={s.v}>{s.label}</option>)}
+                  </select>
+                  <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--verde)' }}>comida</span>
+                  <select value={h.break_end} onChange={(e) => update(i, 'break_end', e.target.value)} style={selectStyle}>
+                    {SLOTS.map((s) => <option key={s.v} value={s.v}>{s.label}</option>)}
+                  </select>
+                  <span style={{ color: 'var(--ink)', opacity: 0.35 }}>a</span>
+                </>
+              ) : null}
               <select value={h.close_time} onChange={(e) => update(i, 'close_time', e.target.value)} style={selectStyle}>
                 {SLOTS.map((s) => <option key={s.v} value={s.v}>{s.label}</option>)}
               </select>
+              {h.break_start && h.break_end ? (
+                <button type="button" onClick={() => { update(i, 'break_start', null); update(i, 'break_end', null) }}
+                  style={breakBtnStyle} title="Quitar hora de comida">
+                  Quitar comida
+                </button>
+              ) : (
+                <button type="button" onClick={() => { update(i, 'break_start', '14:00'); update(i, 'break_end', '16:00') }}
+                  style={breakBtnStyle}>
+                  + Cerrar a mediodía
+                </button>
+              )}
             </div>
           )}
 

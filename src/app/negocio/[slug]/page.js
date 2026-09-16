@@ -210,8 +210,10 @@ export default async function NegocioPage({ params }) {
                 {h.is_closed ? (
                   <span style={{ fontSize: 13, fontStyle: 'italic', color: 'rgba(240,232,212,0.4)' }}>Cerrado</span>
                 ) : (
-                  <span style={{ fontSize: 14, fontWeight: 500, color: isToday ? '#EBC66A' : 'rgba(240,232,212,0.85)' }}>
-                    {to12h(h.open_time)} – {to12h(h.close_time)}
+                  <span style={{ fontSize: 14, fontWeight: 500, color: isToday ? '#EBC66A' : 'rgba(240,232,212,0.85)', textAlign: 'right' }}>
+                    {h.break_start && h.break_end
+                      ? `${to12h(h.open_time)} – ${to12h(h.break_start)} y ${to12h(h.break_end)} – ${to12h(h.close_time)}`
+                      : `${to12h(h.open_time)} – ${to12h(h.close_time)}`}
                   </span>
                 )}
               </div>
