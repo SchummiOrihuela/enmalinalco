@@ -9,6 +9,7 @@ import { toSlug } from '@/lib/slug'
 import { CATEGORIA_POR_SLUG } from '@/lib/categorias'
 import { BrandTile } from '@/app/components/BrandIcon'
 import PublicShell from '@/app/components/PublicShell'
+import PhotoGallery from '@/app/components/PhotoGallery'
 
 // Siempre renderizar en el servidor con datos frescos (sin caché estática).
 // Evita que fotos/horarios recién publicados aparezcan solo en unos dispositivos.
@@ -110,12 +111,7 @@ export default async function NegocioPage({ params }) {
       </div>
       <p style={{ color: '#DCB24A', margin: '6px 0 0', fontSize: 13, fontWeight: 600, letterSpacing: '0.04em' }}>{business.category}</p>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 24 }}>
-        {(photos || []).map((p) => (
-          <img key={p.id} src={p.url} alt=""
-            style={{ width: 240, height: 180, objectFit: 'cover', borderRadius: 8 }} />
-        ))}
-      </div>
+      <PhotoGallery photos={photos || []} />
 
       {business.description && (
         <p style={{ marginTop: 24 }}>{business.description}</p>
