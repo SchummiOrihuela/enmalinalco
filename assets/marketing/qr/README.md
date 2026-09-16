@@ -12,6 +12,7 @@ Material para promover **enmalinalco.com** con un código QR elegante en la pale
 | `qr-poster.html` | HTML | Abrir en navegador, editar o imprimir |
 | `qr-code.png` | 1024×1024 | El QR solo, para pegar en cualquier diseño |
 | `qr-code.svg` | vector | El QR solo, se imprime nítido a cualquier tamaño |
+| `qr-poster.pdf` / `qr-square.pdf` / `qr-story.pdf` | PDF 300 DPI | Llevar a imprenta/papelería sin que reescalen |
 
 El QR apunta a `https://enmalinalco.com` y está verificado (decodifica incluso comprimido en JPG).
 Módulos redondeados y ojos en tinta sólida para lectura garantizada.
@@ -28,6 +29,7 @@ node buildqr.mjs              # 2. QR estilizado -> qr-code.svg
 node poster.mjs              # 3. póster vertical HTML -> qr-poster.html
 node svgposter.mjs          # 4. póster vertical JPG  -> qr-poster.jpg
 node multiposter.mjs        # 5. cuadrado + story     -> qr-square.jpg, qr-story.jpg
+node makepdf.mjs            # 6. PDF 300 DPI          -> qr-*.pdf (requiere pdfkit)
 ```
 
 Para cambiar la **URL**, edita `qrmatrix.mjs`. Para cambiar **textos, colores o layout**,
