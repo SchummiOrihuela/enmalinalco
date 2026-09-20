@@ -11,6 +11,35 @@ import { BrandTile } from '@/app/components/BrandIcon'
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
+const SITE_URL = 'https://enmalinalco.com'
+
+// Título y descripción únicos por categoría (antes heredaban el de la home).
+export async function generateMetadata({ params }) {
+  const { slug } = await params
+  const meta = CATEGORIA_POR_SLUG[slug]
+  const nombre = meta?.nombre || slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+  const title = `${nombre} en Malinalco — Guía y Directorio`
+  const description =
+    meta?.descripcion ||
+    `${nombre} en Malinalco, Pueblo Mágico del Estado de México. Encuéntralos en la guía En Malinalco.`
+  const url = `${SITE_URL}/categoria/${slug}`
+
+  return {
+    title,
+    description,
+    alternates: { canonical: `/categoria/${slug}` },
+    openGraph: {
+      type: 'website',
+      url,
+      siteName: 'enmalinalco.com',
+      locale: 'es_MX',
+      title,
+      description,
+    },
+    twitter: { card: 'summary_large_image', title, description },
+  }
+}
+
 export default async function CategoriaPage({ params }) {
   const { slug } = await params
   const supabase = await createClient()
@@ -50,8 +79,31 @@ export default async function CategoriaPage({ params }) {
       ? businesses[0].category
       : slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()))
 
+  // Datos estructurados: lista de negocios de la categoría + migas de pan.
+  const itemList = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: `${categoryName} en Malinalco`,
+    itemListElement: businesses.map((b, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `${SITE_URL}/negocio/${b.slug}`,
+      name: b.name,
+    })),
+  }
+  const breadcrumbs = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Directorio', item: `${SITE_URL}/` },
+      { '@type': 'ListItem', position: 2, name: categoryName, item: `${SITE_URL}/categoria/${slug}` },
+    ],
+  }
+
   return (
     <PublicShell>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '36px 24px 80px' }}>
       <style>{`
         .cat-back{display:inline-flex;align-items:center;gap:8px;margin-bottom:28px;

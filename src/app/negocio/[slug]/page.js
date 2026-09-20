@@ -16,6 +16,48 @@ import PhotoGallery from '@/app/components/PhotoGallery'
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
+const SITE_URL = 'https://enmalinalco.com'
+
+// Título y descripción ÚNICOS por negocio: sin esto todas las fichas
+// heredaban el mismo texto de la home y Google no las distinguía.
+export async function generateMetadata({ params }) {
+  const { slug } = await params
+  const supabase = await createClient()
+  const { data: b } = await supabase
+    .from('businesses')
+    .select('name, category, description, address')
+    .eq('slug', slug)
+    .eq('is_active', true)
+    .maybeSingle()
+
+  if (!b) {
+    return { title: 'Negocio no encontrado — En Malinalco' }
+  }
+
+  const catSlug = toSlug(b.category || '')
+  const catName = CATEGORIA_POR_SLUG[catSlug]?.nombre || b.category || ''
+  const title = `${b.name}${catName ? ` — ${catName}` : ''} en Malinalco`
+  const description =
+    (b.description && b.description.trim().slice(0, 155)) ||
+    `${b.name}${catName ? `, ${catName.toLowerCase()}` : ''} en Malinalco, Pueblo Mágico.${b.address ? ` ${b.address}.` : ''} Encuéntralo en la guía En Malinalco.`
+  const url = `${SITE_URL}/negocio/${slug}`
+
+  return {
+    title,
+    description,
+    alternates: { canonical: `/negocio/${slug}` },
+    openGraph: {
+      type: 'website',
+      url,
+      siteName: 'enmalinalco.com',
+      locale: 'es_MX',
+      title,
+      description,
+    },
+    twitter: { card: 'summary_large_image', title, description },
+  }
+}
+
 // Convierte "13:00" → "1:00 p.m." para leer bonito.
 function to12h(t) {
   if (!t) return ''
@@ -67,8 +109,38 @@ export default async function NegocioPage({ params }) {
   const catSlug = toSlug(business.category || '')
   const catName = CATEGORIA_POR_SLUG[catSlug]?.nombre || business.category
 
+  // Datos estructurados (Schema.org): esto es lo que leen Google (rich results)
+  // y los buscadores de IA para entender y citar el negocio.
+  const businessUrl = `${SITE_URL}/negocio/${slug}`
+  const localBusiness = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: business.name,
+    url: businessUrl,
+    ...(business.description ? { description: business.description } : {}),
+    ...(business.phone && business.phone !== '0' ? { telephone: business.phone } : {}),
+    ...(business.address
+      ? { address: { '@type': 'PostalAddress', streetAddress: business.address, addressLocality: 'Malinalco', addressRegion: 'Estado de México', addressCountry: 'MX' } }
+      : { address: { '@type': 'PostalAddress', addressLocality: 'Malinalco', addressRegion: 'Estado de México', addressCountry: 'MX' } }),
+    ...(business.lat && business.lng
+      ? { geo: { '@type': 'GeoCoordinates', latitude: business.lat, longitude: business.lng } }
+      : {}),
+    ...((photos || []).length ? { image: photos.map((p) => p.url).filter(Boolean).slice(0, 6) } : {}),
+  }
+  const breadcrumbs = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Directorio', item: `${SITE_URL}/` },
+      ...(catName ? [{ '@type': 'ListItem', position: 2, name: catName, item: `${SITE_URL}/categoria/${catSlug}` }] : []),
+      { '@type': 'ListItem', position: catName ? 3 : 2, name: business.name, item: businessUrl },
+    ],
+  }
+
   return (
     <PublicShell>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '32px 24px 80px' }}>
       <style>{`
         .bc{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:28px;font-size:14px}
