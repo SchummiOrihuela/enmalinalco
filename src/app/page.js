@@ -978,20 +978,20 @@ const MARKUP = `<!-- Progress bar -->
     <div class="feat-grid">
 
       <!-- BIG CARD -->
-      <div class="pcard pcard-big rv">
-        <img src="/img/destacados/big-zona-arqueologica.webp" alt="Cerro de los Ídolos — zona arqueológica de Malinalco" width="600" height="800" loading="lazy">
+      <a href="https://www.canteraycalma.com/blog/festival-cultural-malinalco/" target="_blank" rel="noopener" class="pcard pcard-big rv">
+        <img src="/img/destacados/big-festival-cultural.webp" alt="Festival Cultural de Malinalco 2026" width="600" height="800" loading="lazy">
         <div class="pcard-ov">
           <span class="ptag">
             <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            Zona Arqueológica
+            Festival Cultural
           </span>
-          <h3 class="pname">Cerro de los Ídolos</h3>
-          <p class="pdesc">El templo monolítico tallado en la roca viva, único en Mesoamérica. Subir sus escalones es asomarse al Malinalco prehispánico.</p>
+          <h3 class="pname">Festival Cultural de Malinalco 2026</h3>
+          <p class="pdesc">El regreso que el pueblo esperó 8 años: más de 50 actividades gratuitas —teatro, conciertos, danza y talleres— en 11 sedes del centro histórico.</p>
           <div class="pmeta">
-            <span class="prev">Zona INAH · Guía disponible</span>
+            <span class="prev">16–18 de octubre · Entrada libre</span>
           </div>
         </div>
-      </div>
+      </a>
 
       <!-- Small cards column -->
       <div style="display:flex;flex-direction:column;gap:var(--s4)">
