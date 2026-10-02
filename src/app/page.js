@@ -1316,7 +1316,7 @@ const MARKUP = `<!-- Progress bar -->
 
       <a href="/historias/10-restaurantes-malinalco" class="acard rv" aria-label="Leer: 10 restaurantes en Malinalco">
         <div class="acard-img">
-          <img src="/img/articulos/01-gastronomia.webp" alt="Ruta gastronómica en Malinalco" width="600" height="338" loading="lazy">
+          <img src="/img/articulos/10-restaurantes-malinalco.webp" alt="Ruta gastronómica en Malinalco" width="600" height="338" loading="lazy">
         </div>
         <div class="acard-body">
           <div class="atag">Gastronomía</div>
@@ -1331,7 +1331,7 @@ const MARKUP = `<!-- Progress bar -->
 
       <a href="/historias/malinalco-pueblo-magico-historia" class="acard rv rv-d1" aria-label="Leer: Por qué Malinalco es Pueblo Mágico">
         <div class="acard-img">
-          <img src="/img/categorias/06-cultura.webp" alt="Malinalco, Pueblo Mágico" width="600" height="338" loading="lazy">
+          <img src="/img/articulos/malinalco-pueblo-magico-historia.webp" alt="Malinalco, Pueblo Mágico" width="600" height="338" loading="lazy">
         </div>
         <div class="acard-body">
           <div class="atag">Historia</div>
@@ -1346,7 +1346,7 @@ const MARKUP = `<!-- Progress bar -->
 
       <a href="/historias/casa-de-las-aguilas" class="acard rv rv-d2" aria-label="Leer: La Casa de las Águilas">
         <div class="acard-img">
-          <img src="/img/articulos/02-zona-arqueologica.webp" alt="Zona arqueológica de Malinalco" width="600" height="338" loading="lazy">
+          <img src="/img/articulos/casa-de-las-aguilas.webp" alt="Zona arqueológica de Malinalco" width="600" height="338" loading="lazy">
         </div>
         <div class="acard-body">
           <div class="atag">Mali Prehispánico</div>
@@ -1361,7 +1361,7 @@ const MARKUP = `<!-- Progress bar -->
 
       <a href="/historias/48-horas-malinalco" class="acard rv rv-d3" aria-label="Leer: 48 horas en Malinalco">
         <div class="acard-img">
-          <img src="/img/articulos/03-fin-de-semana.webp" alt="Fin de semana perfecto en Malinalco" width="600" height="338" loading="lazy">
+          <img src="/img/articulos/48-horas-malinalco.webp" alt="Fin de semana perfecto en Malinalco" width="600" height="338" loading="lazy">
         </div>
         <div class="acard-body">
           <div class="atag">Tu Finde en Mali</div>

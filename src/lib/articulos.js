@@ -66,7 +66,7 @@ export const ARTICULOS = [
     fechaDisplay: '12 de mayo de 2026',
     autor: 'Equipo En Malinalco',
     lectura: '7 min',
-    imagen: '/img/articulos/01-gastronomia.webp',
+    imagen: '/img/articulos/10-restaurantes-malinalco.webp',
     imagenAlt: 'Mesa puesta con vista a las montañas de Malinalco',
     cuerpo: [
       { t: 'p', html: 'Para un Pueblo Mágico de apenas 25 mil habitantes, Malinalco esconde una escena gastronómica que sorprende a cualquiera que llega por primera vez. Hay cocina de autor, trucha recién sacada del agua, cafés de especialidad y fondas donde se come como en casa. El problema es el de siempre: <strong>¿cuáles valen la pena de verdad?</strong>' },
@@ -126,7 +126,7 @@ export const ARTICULOS = [
     fechaDisplay: '15 de mayo de 2026',
     autor: 'Equipo En Malinalco',
     lectura: '5 min',
-    imagen: '/img/articulos/01-gastronomia.webp',
+    imagen: '/img/articulos/donde-desayunar-malinalco.webp',
     imagenAlt: 'Desayuno con café y pan en una terraza de Malinalco',
     cuerpo: [
       { t: 'p', html: 'En Malinalco el desayuno no es solo comer: es descubrir que un baguette con mermelada casera puede ser lo más memorable de todo el viaje. Aquí los seis lugares que recomendamos, todos de dueños locales, con recetas de familia y nada de cadenas. ¿Buscas más opciones? Están en <a href="/categoria/restaurantes">Restaurantes del directorio</a>.' },
@@ -171,7 +171,7 @@ export const ARTICULOS = [
     fechaDisplay: '14 de mayo de 2026',
     autor: 'Equipo En Malinalco',
     lectura: '6 min',
-    imagen: '/img/articulos/01-gastronomia.webp',
+    imagen: '/img/articulos/pesca-trucha-mezcal-malinalco.webp',
     imagenAlt: 'Trucha a las brasas junto a un mezcal artesanal en Malinalco',
     cuerpo: [
       { t: 'p', html: 'Hay experiencias turísticas, y hay experiencias que te conectan con un lugar. Esto es lo segundo. Pescar tu propia trucha en un criadero de montaña, que te la preparen al momento en las brasas, y cerrar la tarde con un mezcal artesanal viendo el proceso de destilación es lo que los locales hacemos cuando queremos un domingo fuera de lo común.' },
@@ -223,7 +223,7 @@ export const ARTICULOS = [
     fechaDisplay: '26 de abril de 2026',
     autor: 'Equipo En Malinalco',
     lectura: '7 min',
-    imagen: '/img/articulos/02-zona-arqueologica.webp',
+    imagen: '/img/articulos/convento-agustino-malinalco.webp',
     imagenAlt: 'Fachada del Convento Agustino de Malinalco',
     cuerpo: [
       { t: 'p', html: 'En 1521 Malinalco cayó ante los conquistadores tras siglos como territorio sagrado de los mexicas. Diecinueve años después llegaron los frailes agustinos, y con ellos el convento como instrumento para una transformación espiritual. Llegaron a borrar el pasado; lo que dejaron es único en América.' },
@@ -279,7 +279,7 @@ export const ARTICULOS = [
     fechaDisplay: '27 de abril de 2026',
     autor: 'Equipo En Malinalco',
     lectura: '8 min',
-    imagen: '/img/articulos/02-zona-arqueologica.webp',
+    imagen: '/img/articulos/malinalco-pueblo-magico-historia.webp',
     imagenAlt: 'Vista del valle subtropical de Malinalco',
     cuerpo: [
       { t: 'p', html: 'Malinalco recibió el nombramiento de Pueblo Mágico en 2010 y lo ha mantenido sin interrupción por más de 14 años. Pero el reconocimiento oficial solo formalizó lo que ya era evidente: la magia del pueblo no la creó un programa de turismo.' },
@@ -339,7 +339,7 @@ export const ARTICULOS = [
     fechaDisplay: '28 de abril de 2026',
     autor: 'Equipo En Malinalco',
     lectura: '8 min',
-    imagen: '/img/articulos/02-zona-arqueologica.webp',
+    imagen: '/img/articulos/barrios-de-malinalco.webp',
     imagenAlt: 'Capilla de barrio en Malinalco',
     cuerpo: [
       { t: 'p', html: 'La mayoría de los visitantes sube al cerro, visita el convento, come en la plaza y se va. Pero se pierden algo esencial: los barrios. Malinalco tiene ocho, cada uno con su capilla del siglo XVI o XVII, su santo patrono, sus fiestas y su carácter. Juntos forman el alma del pueblo.' },
@@ -396,7 +396,7 @@ export const ARTICULOS = [
     fechaDisplay: '25 de abril de 2026',
     autor: 'Equipo En Malinalco',
     lectura: '7 min',
-    imagen: '/img/articulos/02-zona-arqueologica.webp',
+    imagen: '/img/articulos/casa-de-las-aguilas.webp',
     imagenAlt: 'El Cuauhcalli, templo monolítico de la zona arqueológica de Malinalco',
     cuerpo: [
       { t: 'p', html: 'La zona arqueológica de Malinalco no se visita: se vive. Entras por la boca abierta de una serpiente gigante y algo cambia al estar de pie sobre esta tierra sagrada. En el centro está el Cuauhcalli, la Casa de las Águilas.' },
@@ -456,7 +456,7 @@ export const ARTICULOS = [
     fechaDisplay: '2 de mayo de 2026',
     autor: 'Equipo En Malinalco',
     lectura: '8 min',
-    imagen: '/img/articulos/02-zona-arqueologica.webp',
+    imagen: '/img/articulos/guerreros-aguila-jaguar.webp',
     imagenAlt: 'Relieve de guerreros águila y jaguar en Malinalco',
     cuerpo: [
       { t: 'p', html: 'Los Guerreros Águila y los Guerreros Jaguar eran las dos órdenes militares más prestigiosas del Imperio Azteca: el equivalente prehispánico de una fuerza especial combinada con una orden religiosa sagrada. La mayoría de los guerreros nunca lo lograba; los que sí, eran tratados como seres a medio camino entre los hombres y los dioses.' },
@@ -506,7 +506,7 @@ export const ARTICULOS = [
     fechaDisplay: '3 de mayo de 2026',
     autor: 'Equipo En Malinalco',
     lectura: '7 min',
-    imagen: '/img/articulos/02-zona-arqueologica.webp',
+    imagen: '/img/articulos/subida-cerro-idolos.webp',
     imagenAlt: 'Escalinata de subida al Cerro de los Ídolos en Malinalco',
     cuerpo: [
       { t: 'p', html: 'Después de años recibiendo viajeros, lo tenemos claro: la diferencia entre disfrutar el Cerro de los Ídolos y sufrirlo no es la condición física, es la preparación. Dos datos que casi nadie te dice: la zona cierra los lunes y el último acceso es a las 15:00, no a las 16:00.' },
@@ -570,7 +570,7 @@ export const ARTICULOS = [
     fechaDisplay: '5 de junio de 2026',
     autor: 'Equipo En Malinalco',
     lectura: '9 min',
-    imagen: '/img/articulos/03-fin-de-semana.webp',
+    imagen: '/img/articulos/48-horas-malinalco.webp',
     imagenAlt: 'Calle empedrada de Malinalco un fin de semana',
     cuerpo: [
       { t: 'p', html: 'Malinalco es un pueblo compacto: puedes ir de la zona arqueológica a un palenque de mezcal artesanal el mismo día, casi todo caminando o en mototaxi económico. Este itinerario aprovecha cada hora sin sentirse una carrera. ¿Dónde dormir? Revisa <a href="/categoria/hospedaje">Hospedaje</a>.' },
@@ -622,7 +622,7 @@ export const ARTICULOS = [
     fechaDisplay: '28 de mayo de 2026',
     autor: 'Equipo En Malinalco',
     lectura: '5 min',
-    imagen: '/img/articulos/03-fin-de-semana.webp',
+    imagen: '/img/articulos/fin-de-semana-malinalco-cdmx.webp',
     imagenAlt: 'Carretera hacia Malinalco entre montañas',
     cuerpo: [
       { t: 'p', html: 'La carretera a Malinalco pasa por Lerma y Tenango del Valle —un recorrido por el Estado de México que ya vale la pena por el paisaje—. No hay peaje en la ruta principal y la señalización es clara desde que sales de la ciudad.' },
@@ -691,7 +691,7 @@ export const ARTICULOS = [
     fechaDisplay: '29 de mayo de 2026',
     autor: 'Equipo En Malinalco',
     lectura: '5 min',
-    imagen: '/img/articulos/03-fin-de-semana.webp',
+    imagen: '/img/articulos/malinalco-con-familia.webp',
     imagenAlt: 'Familia paseando por las calles de Malinalco',
     cuerpo: [
       { t: 'p', html: 'Los niños que vienen a Malinalco no piden regresar al hotel a ver televisión: el pueblo los absorbe. La zona arqueológica, el museo de bichos vivos y el criadero de truchas con albercas están en un radio de 5 km, en un pueblo donde las calles son de piedra y los árboles son más altos que los edificios.' },
@@ -754,7 +754,7 @@ export const ARTICULOS = [
     fechaDisplay: '30 de mayo de 2026',
     autor: 'Equipo En Malinalco',
     lectura: '5 min',
-    imagen: '/img/articulos/03-fin-de-semana.webp',
+    imagen: '/img/articulos/escapada-romantica-malinalco.webp',
     imagenAlt: 'Atardecer romántico sobre Malinalco',
     cuerpo: [
       { t: 'p', html: 'Lo que hace que un fin de semana romántico funcione de verdad en Malinalco no es el lujo: es la autenticidad del destino. Un pueblo con gastronomía de nivel, temazcal en pareja, calles empedradas para caminar sin rumbo y una zona arqueológica única, a 70 km de la ciudad y sin masificación.' },
@@ -816,7 +816,7 @@ export const ARTICULOS = [
     fechaDisplay: '10 de junio de 2026',
     autor: 'Equipo En Malinalco',
     lectura: '5 min',
-    imagen: '/img/articulos/03-fin-de-semana.webp',
+    imagen: '/img/articulos/3-dias-malinalco.webp',
     imagenAlt: 'Paisaje de Malinalco y su cañón',
     cuerpo: [
       { t: 'p', html: 'Tres días permiten ver Malinalco sin correr y sumar una joya cercana: el Santuario del Señor de Chalma, a 15 minutos. Este es el itinerario para aprovecharlos. ¿Dónde quedarte? Compara en <a href="/categoria/hospedaje">Hospedaje</a>.' },
@@ -874,7 +874,7 @@ export const ARTICULOS = [
     fechaDisplay: '17 de junio de 2026',
     autor: 'Equipo En Malinalco',
     lectura: '4 min',
-    imagen: '/img/articulos/03-fin-de-semana.webp',
+    imagen: '/img/articulos/ruta-5-dias-malinalco.webp',
     imagenAlt: 'Ruta por los pueblos del sur del Estado de México',
     cuerpo: [
       { t: 'p', html: 'Esta ruta conecta los cuatro destinos más destacados del sur del Estado de México en un circuito lógico desde la CDMX. Base en Malinalco los primeros días, excursión a Chalma y Tenancingo, y cierre en Valle de Bravo —sin regresar dos veces por el mismo camino. Arranca eligiendo <a href="/categoria/hospedaje">dónde hospedarte</a> en Malinalco.' },
@@ -943,7 +943,7 @@ export const ARTICULOS = [
     fechaDisplay: '23 de septiembre de 2026',
     autor: 'Equipo En Malinalco',
     lectura: '6 min',
-    imagen: '/img/articulos/03-fin-de-semana.webp',
+    imagen: '/img/articulos/festival-cultural-malinalco.webp',
     imagenAlt: 'Festival Cultural en las calles de Malinalco',
     cuerpo: [
       { t: 'p', html: 'Después de ocho años, el Festival Cultural de Malinalco regresa. Del 16 al 18 de octubre de 2026 el pueblo se transforma en un escenario al aire libre con más de 50 actividades culturales gratuitas en capillas, plazas, el convento y los jardines.' },
