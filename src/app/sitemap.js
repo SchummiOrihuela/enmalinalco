@@ -3,6 +3,7 @@
 // Es lo que Google usa para descubrir e indexar todo el sitio.
 import { createServerClient } from '@supabase/ssr'
 import { CATEGORIAS } from '@/lib/categorias'
+import { ARTICULOS } from '@/lib/articulos'
 
 const SITE = 'https://enmalinalco.com'
 
@@ -23,7 +24,16 @@ export default async function sitemap() {
   // Páginas fijas conocidas del sitio.
   const staticPages = [
     { url: `${SITE}/`, changeFrequency: 'daily', priority: 1, lastModified: now },
+    { url: `${SITE}/historias`, changeFrequency: 'weekly', priority: 0.8, lastModified: now },
   ]
+
+  // Una página por artículo del blog ("Historias del pueblo").
+  const articlePages = ARTICULOS.map((a) => ({
+    url: `${SITE}/historias/${a.slug}`,
+    lastModified: a.fechaISO ? new Date(a.fechaISO) : now,
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }))
 
   // Una página por categoría.
   const categoryPages = CATEGORIAS.map((c) => ({
@@ -54,5 +64,5 @@ export default async function sitemap() {
     // Si Supabase falla, el sitemap sigue sirviendo lo estático.
   }
 
-  return [...staticPages, ...categoryPages, ...businessPages]
+  return [...staticPages, ...categoryPages, ...articlePages, ...businessPages]
 }

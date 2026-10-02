@@ -616,10 +616,16 @@ body.hiw-open{overflow:hidden}
 
 /* ─── ARTICLES ─── */
 .art-sec{background:var(--parch)}
-.art-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5)}
+.art-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:var(--s5)}
 .acard{background:#F5ECD7;border-radius:var(--r-xl);overflow:hidden;cursor:pointer;
+  text-decoration:none;color:inherit;
   border:1px solid rgba(40,30,16,.08);
   transition:transform var(--dur) var(--ease),box-shadow var(--dur)}
+.art-all{display:flex;justify-content:center;margin-top:var(--s8)}
+.art-all a{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;
+  border-radius:9999px;background:var(--selva);color:#F5ECD7;font-weight:700;
+  font-size:.95rem;text-decoration:none;transition:transform var(--dur) var(--ease),box-shadow var(--dur)}
+.art-all a:hover{transform:translateY(-2px);box-shadow:var(--sh-lg)}
 .acard:focus-visible{outline:2px solid var(--oro);outline-offset:3px}
 .acard:hover{transform:translateY(-5px);box-shadow:var(--sh-lg)}
 .acard-img{aspect-ratio:16/9;overflow:hidden;background:var(--selva)}
@@ -978,7 +984,7 @@ const MARKUP = `<!-- Progress bar -->
     <div class="feat-grid">
 
       <!-- BIG CARD -->
-      <a href="https://www.canteraycalma.com/blog/festival-cultural-malinalco/" target="_blank" rel="noopener" class="pcard pcard-big rv">
+      <a href="/historias/festival-cultural-malinalco" class="pcard pcard-big rv">
         <img src="/img/destacados/big-festival-cultural.webp" alt="Festival Cultural de Malinalco 2026" width="600" height="800" loading="lazy">
         <div class="pcard-ov">
           <span class="ptag">
@@ -1299,81 +1305,6 @@ const MARKUP = `<!-- Progress bar -->
   </div>
 </div>
 
-<!-- Modal Artículo 1 · Gastronomía -->
-<div class="hiw-overlay" id="m-art1" role="dialog" aria-modal="true" aria-labelledby="art1-title" hidden>
-  <div class="hiw-box">
-    <button type="button" class="hiw-close" aria-label="Cerrar">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-    </button>
-    <img class="art-modal-img" src="/img/articulos/01-gastronomia.webp" alt="Ruta gastronómica en Malinalco">
-    <p class="hiw-eyebrow">Gastronomía</p>
-    <h3 class="hiw-title" id="art1-title">La ruta del sabor: 7 lugares imperdibles para comer en Malinalco</h3>
-    <p class="art-meta">12 May 2026 · <b>6 min de lectura</b></p>
-    <div class="doc-body">
-      <p>En Malinalco se come con calma y con historia. Aquí la cocina no presume: se hereda. Esta es una ruta honesta por los sabores que definen al pueblo, del mercado a los rincones que solo los de aquí conocemos.</p>
-      <h4>1. El mercado, el corazón de todo</h4>
-      <p>Empieza temprano en el mercado municipal. Antojitos recién hechos, quesadillas de flor de calabaza, tamales y aguas del día. Es el mejor termómetro del pueblo: si algo está bueno aquí, lo está en todos lados.</p>
-      <h4>2. La trucha de la sierra</h4>
-      <p>Del criadero a tu plato: trucha fresca a las brasas, al ajillo o empapelada, entre montañas y aire limpio. Un imperdible si vienes en fin de semana.</p>
-      <h4>3. Cocina de autor con raíz</h4>
-      <p>Un par de restaurantes reinterpretan lo local con técnica y respeto. Ideal para una comida larga con vista al valle.</p>
-      <h4>4. Los tacos de la esquina que no se anuncian</h4>
-      <p>No tienen letrero ni redes. Se llenan de locales al caer la tarde. Pregunta: la gente del pueblo te dirá dónde.</p>
-      <h4>5. Dulces típicos y pan de la región</h4>
-      <p>Cierra con algo dulce: conservas, palanquetas y pan artesanal para el camino de regreso.</p>
-      <p><strong>Tip local:</strong> ven con hambre y sin prisa. Malinalco se saborea despacio.</p>
-    </div>
-  </div>
-</div>
-
-<!-- Modal Artículo 2 · Historia -->
-<div class="hiw-overlay" id="m-art2" role="dialog" aria-modal="true" aria-labelledby="art2-title" hidden>
-  <div class="hiw-box">
-    <button type="button" class="hiw-close" aria-label="Cerrar">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-    </button>
-    <img class="art-modal-img" src="/img/articulos/02-zona-arqueologica.webp" alt="Zona arqueológica de Malinalco">
-    <p class="hiw-eyebrow">Historia</p>
-    <h3 class="hiw-title" id="art2-title">La zona arqueológica: todo lo que debes saber antes de visitar</h3>
-    <p class="art-meta">5 May 2026 · <b>8 min de lectura</b></p>
-    <div class="doc-body">
-      <p>Coronando el cerro de los Ídolos, Malinalco guarda uno de los tesoros más singulares de México: un templo tallado directamente en la roca viva de la montaña. No se construyó con piedras encimadas, se esculpió excavando el cerro. Único en su tipo.</p>
-      <h4>Qué vas a ver</h4>
-      <p>La Casa de las Águilas y los Jaguares, un recinto ceremonial mexica ligado a los guerreros más importantes del imperio. Bajorrelieves de águilas y felinos, y una vista que explica por qué eligieron este lugar sagrado.</p>
-      <h4>Cómo llegar arriba</h4>
-      <p>Se sube por una escalinata de varios cientos de escalones desde el centro del pueblo. Toma con calma: hay descansos y sombra, y el camino ya es parte de la experiencia.</p>
-      <h4>Antes de ir</h4>
-      <p>Lleva agua, calzado cómodo y protección para el sol. Ve temprano para evitar el calor y disfrutar el sitio con tranquilidad. Consulta horarios y acceso el día de tu visita, pueden cambiar.</p>
-      <p><strong>Vale la pena:</strong> pocas veces se camina, literalmente, dentro de la historia.</p>
-    </div>
-  </div>
-</div>
-
-<!-- Modal Artículo 3 · Itinerarios -->
-<div class="hiw-overlay" id="m-art3" role="dialog" aria-modal="true" aria-labelledby="art3-title" hidden>
-  <div class="hiw-box">
-    <button type="button" class="hiw-close" aria-label="Cerrar">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-    </button>
-    <img class="art-modal-img" src="/img/articulos/03-fin-de-semana.webp" alt="Fin de semana perfecto en Malinalco">
-    <p class="hiw-eyebrow">Itinerarios</p>
-    <h3 class="hiw-title" id="art3-title">48 horas perfectas en Malinalco: el itinerario definitivo</h3>
-    <p class="art-meta">28 Abr 2026 · <b>5 min de lectura</b></p>
-    <div class="doc-body">
-      <p>¿Solo tienes un fin de semana? Suficiente para enamorarte del pueblo. Este es el plan de dos días que recomendamos los que vivimos aquí, sin prisas y sin perderte lo esencial.</p>
-      <h4>Sábado por la mañana</h4>
-      <p>Sube temprano a la zona arqueológica, cuando el clima ayuda y hay poca gente. Baja a desayunar al centro y recorre el mercado y la Parroquia del Divino Salvador.</p>
-      <h4>Sábado por la tarde</h4>
-      <p>Visita el Museo Mario Schneider o el museo de los bichos, y date tiempo para un café tranquilo. Al atardecer, cena local con calma.</p>
-      <h4>Domingo</h4>
-      <p>Día de naturaleza: el criadero de truchas, un paseo entre montañas o una escapada a Chalma. Cierra con una buena comida antes de volver.</p>
-      <h4>Dónde dormir</h4>
-      <p>Hay desde hoteles boutique hasta casas y cabañas entre montañas. Revisa la sección de hospedaje del directorio y reserva con anticipación en temporada alta.</p>
-      <p><strong>El secreto:</strong> no lo llenes todo. Deja huecos para perderte por las calles empedradas. Ahí está la magia.</p>
-    </div>
-  </div>
-</div>
-
 <!-- ═══════════════════════ ARTÍCULOS ═══════════════════════ -->
 <section class="sec art-sec" id="articulos">
   <div class="inner">
@@ -1383,51 +1314,70 @@ const MARKUP = `<!-- Progress bar -->
 
     <div class="art-grid">
 
-      <article class="acard rv" data-modal="m-art1" role="button" tabindex="0" aria-label="Leer: La ruta del sabor">
+      <a href="/historias/10-restaurantes-malinalco" class="acard rv" aria-label="Leer: 10 restaurantes en Malinalco">
         <div class="acard-img">
           <img src="/img/articulos/01-gastronomia.webp" alt="Ruta gastronómica en Malinalco" width="600" height="338" loading="lazy">
         </div>
         <div class="acard-body">
           <div class="atag">Gastronomía</div>
-          <h3 class="atitle">La ruta del sabor: 7 lugares imperdibles para comer en Malinalco</h3>
-          <p class="aexc">Desde el mercado hasta los restaurantes ocultos, una guía honesta con los mejores platillos del pueblo.</p>
+          <h3 class="atitle">10 restaurantes en Malinalco que un local te recomendaría (y 3 que no)</h3>
+          <p class="aexc">La lista honesta, sin patrocinios: qué pedir, cuánto cuesta y para qué ocasión es cada lugar.</p>
           <div class="afoot">
-            <span class="adate">12 May 2026 · 6 min</span>
+            <span class="adate">12 May 2026 · 7 min</span>
             <span class="aread">Leer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
           </div>
         </div>
-      </article>
+      </a>
 
-      <article class="acard rv rv-d1" data-modal="m-art2" role="button" tabindex="0" aria-label="Leer: La zona arqueológica">
+      <a href="/historias/malinalco-pueblo-magico-historia" class="acard rv rv-d1" aria-label="Leer: Por qué Malinalco es Pueblo Mágico">
+        <div class="acard-img">
+          <img src="/img/categorias/06-cultura.webp" alt="Malinalco, Pueblo Mágico" width="600" height="338" loading="lazy">
+        </div>
+        <div class="acard-body">
+          <div class="atag">Historia</div>
+          <h3 class="atitle">¿Por qué Malinalco es Pueblo Mágico? La historia que nadie te cuenta</h3>
+          <p class="aexc">3,500 años de historia, 7 razones que lo hacen único y cómo se compara con Tepoztlán y Valle de Bravo.</p>
+          <div class="afoot">
+            <span class="adate">27 Abr 2026 · 8 min</span>
+            <span class="aread">Leer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="/historias/casa-de-las-aguilas" class="acard rv rv-d2" aria-label="Leer: La Casa de las Águilas">
         <div class="acard-img">
           <img src="/img/articulos/02-zona-arqueologica.webp" alt="Zona arqueológica de Malinalco" width="600" height="338" loading="lazy">
         </div>
         <div class="acard-body">
-          <div class="atag">Historia</div>
-          <h3 class="atitle">La zona arqueológica: todo lo que debes saber antes de visitar</h3>
-          <p class="aexc">El único templo azteca tallado en roca viva. Su historia, cómo llegar y qué no te puedes perder.</p>
+          <div class="atag">Mali Prehispánico</div>
+          <h3 class="atitle">La Casa de las Águilas: el templo azteca tallado en la montaña</h3>
+          <p class="aexc">El único templo monolítico de América. Cómo lo tallaron, qué guarda dentro y cómo visitarlo.</p>
           <div class="afoot">
-            <span class="adate">5 May 2026 · 8 min</span>
+            <span class="adate">25 Abr 2026 · 7 min</span>
             <span class="aread">Leer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
           </div>
         </div>
-      </article>
+      </a>
 
-      <article class="acard rv rv-d2" data-modal="m-art3" role="button" tabindex="0" aria-label="Leer: 48 horas perfectas en Malinalco">
+      <a href="/historias/48-horas-malinalco" class="acard rv rv-d3" aria-label="Leer: 48 horas en Malinalco">
         <div class="acard-img">
           <img src="/img/articulos/03-fin-de-semana.webp" alt="Fin de semana perfecto en Malinalco" width="600" height="338" loading="lazy">
         </div>
         <div class="acard-body">
-          <div class="atag">Itinerarios</div>
-          <h3 class="atitle">48 horas perfectas en Malinalco: el itinerario definitivo</h3>
-          <p class="aexc">Qué hacer, dónde comer y dónde dormir si solo tienes un fin de semana para descubrir el pueblo mágico.</p>
+          <div class="atag">Tu Finde en Mali</div>
+          <h3 class="atitle">48 horas en Malinalco: el itinerario que no desperdicia ni un minuto</h3>
+          <p class="aexc">Arqueología, mezcal, gastronomía de autor y naturaleza en dos días, hora por hora.</p>
           <div class="afoot">
-            <span class="adate">28 Abr 2026 · 5 min</span>
+            <span class="adate">5 Jun 2026 · 9 min</span>
             <span class="aread">Leer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
           </div>
         </div>
-      </article>
+      </a>
 
+    </div>
+
+    <div class="art-all rv">
+      <a href="/historias">Ver todas las historias <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
     </div>
   </div>
 </section>
@@ -1813,7 +1763,7 @@ export default function Home() {
         }
 
         // ── Modales del footer (Contacto / Privacidad / Términos) ──
-        const docModals = ['m-ingresar', 'm-contacto', 'm-privacidad', 'm-terminos', 'm-art1', 'm-art2', 'm-art3'];
+        const docModals = ['m-ingresar', 'm-contacto', 'm-privacidad', 'm-terminos'];
         const closeOv = (ov, opener) => {
           ov.hidden = true;
           if (!document.querySelector('.hiw-overlay:not([hidden])')) document.body.classList.remove('hiw-open');
