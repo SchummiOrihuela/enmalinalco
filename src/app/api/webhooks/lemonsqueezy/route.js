@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import crypto from "crypto";
+import { enviarBienvenida } from "@/lib/email";
 
 // Mapeo variant ID → tier
 const VARIANT_TO_TIER = {
@@ -41,6 +42,17 @@ export async function POST(req) {
       .eq("email", email)
       .select();
     console.log("LS update →", { email, isActive, tier, count: data?.length, error });
+
+    // Correo de bienvenida: solo en el ALTA nueva y activa (no en renovaciones
+    // ni en updates). No bloquea la respuesta 200 al webhook si Resend falla.
+    if (eventName === "subscription_created" && isActive && !error && data?.length) {
+      try {
+        await enviarBienvenida({ email, negocio: data[0].name, tier });
+        console.log("Bienvenida enviada →", email);
+      } catch (e) {
+        console.error("Error enviando bienvenida:", e);
+      }
+    }
   }
   return new Response("OK", { status: 200 });
 }
