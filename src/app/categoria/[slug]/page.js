@@ -5,6 +5,7 @@ import { getPriority, getBadge } from '@/lib/plans'
 import { CATEGORIA_POR_SLUG } from '@/lib/categorias'
 import PublicShell from '@/app/components/PublicShell'
 import { BrandTile } from '@/app/components/BrandIcon'
+import { applyVisible } from '@/lib/visibility'
 
 // Siempre renderizar en el servidor con datos frescos (sin caché estática).
 // Evita que fotos/negocios recién publicados aparezcan solo en unos dispositivos.
@@ -44,11 +45,11 @@ export default async function CategoriaPage({ params }) {
   const { slug } = await params
   const supabase = await createClient()
 
-  // Traer todos los negocios activos y filtrar por slug de categoría en código
-  const { data: all } = await supabase
-    .from('businesses')
-    .select('*')
-    .eq('is_active', true)
+  // Traer todos los negocios visibles (activos o en periodo de gracia) y
+  // filtrar por slug de categoría en código
+  const { data: all } = await applyVisible(
+    supabase.from('businesses').select('*')
+  )
 
   const businesses = (all || []).filter((b) => toSlug(b.category) === slug)
     .sort((a, b) => getPriority(b.plan) - getPriority(a.plan))

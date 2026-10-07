@@ -8,6 +8,7 @@ import ReviewForm from '@/app/dashboard/ReviewForm'
 import { toSlug } from '@/lib/slug'
 import { CATEGORIA_POR_SLUG } from '@/lib/categorias'
 import { BrandTile } from '@/app/components/BrandIcon'
+import { applyVisible } from '@/lib/visibility'
 import PublicShell from '@/app/components/PublicShell'
 import PhotoGallery from '@/app/components/PhotoGallery'
 
@@ -23,12 +24,12 @@ const SITE_URL = 'https://enmalinalco.com'
 export async function generateMetadata({ params }) {
   const { slug } = await params
   const supabase = await createClient()
-  const { data: b } = await supabase
-    .from('businesses')
-    .select('name, category, description, address')
-    .eq('slug', slug)
-    .eq('is_active', true)
-    .maybeSingle()
+  const { data: b } = await applyVisible(
+    supabase
+      .from('businesses')
+      .select('name, category, description, address')
+      .eq('slug', slug)
+  ).maybeSingle()
 
   if (!b) {
     return { title: 'Negocio no encontrado — En Malinalco' }
@@ -73,13 +74,10 @@ export default async function NegocioPage({ params }) {
   const { slug } = await params
   const supabase = await createClient()
 
-  // Traer el negocio por slug (solo activos y visibles al público)
-  const { data: business } = await supabase
-    .from('businesses')
-    .select('*')
-    .eq('slug', slug)
-    .eq('is_active', true)
-    .maybeSingle()
+  // Traer el negocio por slug (visible: activo o en periodo de gracia)
+  const { data: business } = await applyVisible(
+    supabase.from('businesses').select('*').eq('slug', slug)
+  ).maybeSingle()
 
   if (!business) notFound()
 

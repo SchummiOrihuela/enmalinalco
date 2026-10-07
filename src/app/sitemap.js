@@ -4,6 +4,7 @@
 import { createServerClient } from '@supabase/ssr'
 import { CATEGORIAS } from '@/lib/categorias'
 import { ARTICULOS } from '@/lib/articulos'
+import { applyVisible } from '@/lib/visibility'
 
 const SITE = 'https://enmalinalco.com'
 
@@ -47,10 +48,9 @@ export default async function sitemap() {
   let businessPages = []
   try {
     const supabase = readClient()
-    const { data } = await supabase
-      .from('businesses')
-      .select('slug, updated_at')
-      .eq('is_active', true)
+    const { data } = await applyVisible(
+      supabase.from('businesses').select('slug, updated_at')
+    )
 
     businessPages = (data || [])
       .filter((b) => b.slug)
