@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { headers } from 'next/headers'
 import { createClient } from '@/lib/supabaseServer'
-import { FOUNDERS, PLANS } from '@/lib/plans'
+import { FOUNDERS, PLANS, getPriority } from '@/lib/plans'
 import BusinessForm from './BusinessForm'
 import HoursForm from './HoursForm'
 import ClosuresForm from './ClosuresForm'
@@ -64,6 +64,21 @@ export default async function DashboardPage({ searchParams }) {
       .eq('business_id', business.id)
       .order('sort_order')
     photos = p || []
+  }
+
+  // Comparativa vs. categoría (beneficio de inteligencia: Cuāuhtli en adelante).
+  // Promedio de vistas de los negocios activos de la misma categoría.
+  let catAvg = null
+  if (business && getPriority(business.plan) >= 2 && business.category) {
+    const { data: peers } = await supabase
+      .from('businesses')
+      .select('view_count')
+      .eq('is_active', true)
+      .eq('category', business.category)
+    if (peers && peers.length >= 3) {
+      const avg = peers.reduce((a, b) => a + (b.view_count || 0), 0) / peers.length
+      catAvg = { n: peers.length, views: avg }
+    }
   }
 
   return (
@@ -185,12 +200,30 @@ export default async function DashboardPage({ searchParams }) {
           </div>
 
           {business && (() => {
+            const tier = getPriority(business.plan)
+            // Básico (todos los planes): vistas + contactos directos.
             const stats = [
               { brand: 'views', label: 'vistas de tu ficha', total: business.view_count, last: business.views_last_month },
               { brand: 'whatsapp', label: 'contactos por WhatsApp', total: business.whatsapp_clicks, last: business.whatsapp_clicks_last_month },
               { brand: 'phone', label: 'llamadas', total: business.phone_clicks, last: business.phone_clicks_last_month },
               { brand: 'maps', label: 'pidieron cómo llegar', total: business.maps_clicks, last: business.maps_clicks_last_month },
             ]
+            // Inteligencia de redes (Cuāuhtli en adelante).
+            if (tier >= 2) {
+              stats.push(
+                { brand: 'instagram', label: 'clics a tu Instagram', total: business.instagram_clicks, last: business.instagram_clicks_last_month },
+                { brand: 'facebook', label: 'clics a tu Facebook', total: business.facebook_clicks, last: business.facebook_clicks_last_month },
+              )
+            }
+            // Comparativa vs. categoría (Cuāuhtli en adelante).
+            let compara = null
+            if (tier >= 2 && catAvg && catAvg.views > 0) {
+              const pct = Math.round(((business.view_count || 0) - catAvg.views) / catAvg.views * 100)
+              const cat = business.category
+              if (pct >= 5) compara = { tone: 'up', text: `Tu ficha recibe ${pct}% más vistas que el promedio de ${cat} en el pueblo.` }
+              else if (pct <= -5) compara = { tone: 'down', text: `Vas ${Math.abs(pct)}% por debajo del promedio de ${cat}. Sumar fotos o una mención suele ayudar.` }
+              else compara = { tone: 'even', text: `Vas en línea con el promedio de ${cat} en el pueblo.` }
+            }
             return (
               <div style={{ marginTop: '22px' }}>
                 <div style={{
@@ -233,9 +266,53 @@ export default async function DashboardPage({ searchParams }) {
                     )
                   })}
                 </div>
+
                 <p style={{ margin: '12px 0 0', fontSize: '13px', color: 'rgba(246,240,224,0.6)', lineHeight: 1.5 }}>
                   Esto es lo que tu presencia en En Malinalco te genera: cuánta gente descubre tu negocio y te contacta cada mes. El <strong style={{ color: 'var(--verde)' }}>▲</strong> es tu crecimiento vs. el mes pasado.
                 </p>
+
+                {/* Inteligencia comparativa (Cuāuhtli+) */}
+                {compara && (
+                  <div style={{
+                    marginTop: '12px', padding: '12px 16px', borderRadius: '12px',
+                    background: compara.tone === 'down' ? 'rgba(220,120,74,0.10)' : 'rgba(124,182,137,0.12)',
+                    border: `1px solid ${compara.tone === 'down' ? 'rgba(220,120,74,0.3)' : 'rgba(124,182,137,0.3)'}`,
+                    fontSize: '13.5px', color: 'var(--ink)', fontWeight: 600,
+                    display: 'flex', alignItems: 'center', gap: '8px',
+                  }}>
+                    <span aria-hidden="true">{compara.tone === 'down' ? '📉' : '📈'}</span>
+                    <span>{compara.text} <span style={{ fontWeight: 400, opacity: 0.7 }}>({catAvg.n} negocios en tu categoría)</span></span>
+                  </div>
+                )}
+
+                {/* Teasers de upsell según el plan */}
+                {tier === 1 && (
+                  <a href="#planes" style={{
+                    display: 'block', marginTop: '12px', padding: '12px 16px', borderRadius: '12px',
+                    background: 'rgba(220,178,74,0.10)', border: '1px dashed rgba(220,178,74,0.4)',
+                    textDecoration: 'none', color: 'var(--ink)', fontSize: '13.5px', lineHeight: 1.5,
+                  }}>
+                    🔒 <strong>Con Cuāuhtli</strong> mides también los clics a tus redes y ves <strong>cómo vas frente a tu categoría</strong>. <span style={{ color: 'var(--oro)', fontWeight: 700 }}>Mejorar mi plan →</span>
+                  </a>
+                )}
+                {tier === 2 && (
+                  <a href="#planes" style={{
+                    display: 'block', marginTop: '12px', padding: '12px 16px', borderRadius: '12px',
+                    background: 'rgba(220,178,74,0.10)', border: '1px dashed rgba(220,178,74,0.4)',
+                    textDecoration: 'none', color: 'var(--ink)', fontSize: '13.5px', lineHeight: 1.5,
+                  }}>
+                    🔒 <strong>Con Ocēlōtl</strong> recibes cada mes un <strong>reporte a tu correo</strong> con tus números y recomendaciones para crecer. <span style={{ color: 'var(--oro)', fontWeight: 700 }}>Mejorar mi plan →</span>
+                  </a>
+                )}
+                {tier >= 3 && (
+                  <div style={{
+                    marginTop: '12px', padding: '12px 16px', borderRadius: '12px',
+                    background: 'rgba(124,182,137,0.10)', border: '1px solid rgba(124,182,137,0.28)',
+                    fontSize: '13.5px', color: 'var(--ink)', lineHeight: 1.5,
+                  }}>
+                    🐆 Como <strong>Ocēlōtl</strong>, cada mes te enviamos este resumen a tu correo con recomendaciones para crecer.
+                  </div>
+                )}
               </div>
             )
           })()}

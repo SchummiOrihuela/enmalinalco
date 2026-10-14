@@ -21,14 +21,19 @@ alter table public.businesses
   add column if not exists views_last_month integer;
 
 -- 2) Columnas de CONTACTOS: totales acumulados + su corte mensual
---    (para la insignia "▲ +N vs. mes pasado").
+--    (para la insignia "▲ +N vs. mes pasado"). Incluye redes (IG/FB), que
+--    se miden desde el plan Cuāuhtli en adelante.
 alter table public.businesses
-  add column if not exists whatsapp_clicks            integer not null default 0,
-  add column if not exists phone_clicks               integer not null default 0,
-  add column if not exists maps_clicks                integer not null default 0,
-  add column if not exists whatsapp_clicks_last_month integer,
-  add column if not exists phone_clicks_last_month    integer,
-  add column if not exists maps_clicks_last_month     integer;
+  add column if not exists whatsapp_clicks             integer not null default 0,
+  add column if not exists phone_clicks                integer not null default 0,
+  add column if not exists maps_clicks                 integer not null default 0,
+  add column if not exists instagram_clicks            integer not null default 0,
+  add column if not exists facebook_clicks             integer not null default 0,
+  add column if not exists whatsapp_clicks_last_month  integer,
+  add column if not exists phone_clicks_last_month     integer,
+  add column if not exists maps_clicks_last_month      integer,
+  add column if not exists instagram_clicks_last_month integer,
+  add column if not exists facebook_clicks_last_month  integer;
 
 -- 3) Función que suma UNA vista (si aún no existía).
 create or replace function public.increment_business_view(bid uuid)
@@ -53,13 +58,15 @@ security definer
 set search_path = public
 as $$
 begin
-  if kind not in ('whatsapp', 'phone', 'maps') then
+  if kind not in ('whatsapp', 'phone', 'maps', 'instagram', 'facebook') then
     return;
   end if;
   update public.businesses
-     set whatsapp_clicks = coalesce(whatsapp_clicks, 0) + (case when kind = 'whatsapp' then 1 else 0 end),
-         phone_clicks    = coalesce(phone_clicks, 0)    + (case when kind = 'phone'    then 1 else 0 end),
-         maps_clicks     = coalesce(maps_clicks, 0)     + (case when kind = 'maps'     then 1 else 0 end)
+     set whatsapp_clicks  = coalesce(whatsapp_clicks, 0)  + (case when kind = 'whatsapp'  then 1 else 0 end),
+         phone_clicks     = coalesce(phone_clicks, 0)     + (case when kind = 'phone'     then 1 else 0 end),
+         maps_clicks      = coalesce(maps_clicks, 0)      + (case when kind = 'maps'      then 1 else 0 end),
+         instagram_clicks = coalesce(instagram_clicks, 0) + (case when kind = 'instagram' then 1 else 0 end),
+         facebook_clicks  = coalesce(facebook_clicks, 0)  + (case when kind = 'facebook'  then 1 else 0 end)
    where id = bid
      and is_active = true;
 end;
@@ -77,19 +84,23 @@ security definer
 set search_path = public
 as $$
   update public.businesses
-     set views_last_month           = coalesce(view_count, 0),
-         whatsapp_clicks_last_month = coalesce(whatsapp_clicks, 0),
-         phone_clicks_last_month    = coalesce(phone_clicks, 0),
-         maps_clicks_last_month     = coalesce(maps_clicks, 0);
+     set views_last_month            = coalesce(view_count, 0),
+         whatsapp_clicks_last_month  = coalesce(whatsapp_clicks, 0),
+         phone_clicks_last_month     = coalesce(phone_clicks, 0),
+         maps_clicks_last_month      = coalesce(maps_clicks, 0),
+         instagram_clicks_last_month = coalesce(instagram_clicks, 0),
+         facebook_clicks_last_month  = coalesce(facebook_clicks, 0);
 $$;
 
 -- 6) Siembra el primer corte AHORA, para que la insignia "este mes" funcione ya,
 --    en vez de esperar al próximo día 1.
 update public.businesses
-   set views_last_month           = coalesce(view_count, 0),
-       whatsapp_clicks_last_month = coalesce(whatsapp_clicks, 0),
-       phone_clicks_last_month    = coalesce(phone_clicks, 0),
-       maps_clicks_last_month     = coalesce(maps_clicks, 0);
+   set views_last_month            = coalesce(view_count, 0),
+       whatsapp_clicks_last_month  = coalesce(whatsapp_clicks, 0),
+       phone_clicks_last_month     = coalesce(phone_clicks, 0),
+       maps_clicks_last_month      = coalesce(maps_clicks, 0),
+       instagram_clicks_last_month = coalesce(instagram_clicks, 0),
+       facebook_clicks_last_month  = coalesce(facebook_clicks, 0);
 
 -- 7) (Opcional) Programar el corte automático cada día 1 a las 00:00 UTC.
 --    Descomenta si quieres que pg_cron reinicie el "▲ vs. mes pasado" solo.
