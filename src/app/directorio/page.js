@@ -110,13 +110,22 @@ export default async function DirectorioPage() {
             background:rgba(242,237,227,.06);color:rgba(242,237,227,.3)}
         `}</style>
 
-        <Link href="/#categorias" style={{
-          display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 24,
-          fontSize: 14, fontWeight: 600, color: '#DCB24A', textDecoration: 'none',
-        }}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
-          Explorar por categoría
-        </Link>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 18, flexWrap: 'wrap', marginBottom: 24 }}>
+          <Link href="/#categorias" style={{
+            display: 'inline-flex', alignItems: 'center', gap: 8,
+            fontSize: 14, fontWeight: 600, color: '#DCB24A', textDecoration: 'none',
+          }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+            Explorar por categoría
+          </Link>
+          <Link href="/mapa" style={{
+            display: 'inline-flex', alignItems: 'center', gap: 8,
+            fontSize: 14, fontWeight: 700, color: '#25201A', textDecoration: 'none',
+            background: 'linear-gradient(180deg,#E7C86A,#DCB24A)', padding: '8px 16px', borderRadius: 9999,
+          }}>
+            🗺️ Ver en el mapa
+          </Link>
+        </div>
 
         <h1 style={{
           margin: '0 0 8px',
