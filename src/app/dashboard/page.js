@@ -226,16 +226,16 @@ export default async function DashboardPage({ searchParams }) {
             const tier = getPriority(business.plan)
             // Básico (todos los planes): vistas + contactos directos.
             const stats = [
-              { brand: 'views', label: 'vistas de tu ficha', total: business.view_count, last: business.views_last_month },
-              { brand: 'whatsapp', label: 'contactos por WhatsApp', total: business.whatsapp_clicks, last: business.whatsapp_clicks_last_month },
-              { brand: 'phone', label: 'llamadas', total: business.phone_clicks, last: business.phone_clicks_last_month },
-              { brand: 'maps', label: 'pidieron cómo llegar', total: business.maps_clicks, last: business.maps_clicks_last_month },
+              { brand: 'views', label: 'Vistas de tu ficha', total: business.view_count, last: business.views_last_month },
+              { brand: 'whatsapp', label: 'Contactos por Whats', total: business.whatsapp_clicks, last: business.whatsapp_clicks_last_month },
+              { brand: 'phone', label: 'Llamadas', total: business.phone_clicks, last: business.phone_clicks_last_month },
+              { brand: 'maps', label: 'Vieron tu ubicación', total: business.maps_clicks, last: business.maps_clicks_last_month },
             ]
             // Inteligencia de redes (Cuāuhtli en adelante).
             if (tier >= 2) {
               stats.push(
-                { brand: 'instagram', label: 'clics a tu Instagram', total: business.instagram_clicks, last: business.instagram_clicks_last_month },
-                { brand: 'facebook', label: 'clics a tu Facebook', total: business.facebook_clicks, last: business.facebook_clicks_last_month },
+                { brand: 'instagram', label: 'Clics en IG', total: business.instagram_clicks, last: business.instagram_clicks_last_month },
+                { brand: 'facebook', label: 'Clics en FB', total: business.facebook_clicks, last: business.facebook_clicks_last_month },
               )
             }
             // Comparativa vs. categoría (Cuāuhtli en adelante).
@@ -262,9 +262,9 @@ export default async function DashboardPage({ searchParams }) {
                       <div key={s.brand}
                         className="stat-card stat-pulse"
                         style={{
-                        display: 'flex', alignItems: 'center', gap: '14px',
+                        display: 'flex', flexDirection: 'column', gap: '12px',
                         padding: '18px 20px',
-                        minHeight: '92px',
+                        minHeight: '116px',
                         background: isViews
                           ? 'linear-gradient(135deg, rgba(220,178,74,0.18), rgba(28,59,40,0.25))'
                           : 'linear-gradient(135deg, rgba(220,178,74,0.08), rgba(28,59,40,0.25))',
@@ -272,26 +272,31 @@ export default async function DashboardPage({ searchParams }) {
                         borderRadius: '16px',
                         boxShadow: '0 4px 16px rgba(0,0,0,0.14)',
                       }}>
-                        <BrandTile brand={s.brand} size={44} />
-                        <div style={{ minWidth: 0 }}>
-                          <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
-                            <strong style={{
-                              fontFamily: "'Fraunces', Georgia, serif",
-                              fontSize: '32px', fontWeight: 600, color: '#F6F0E0', lineHeight: 1,
-                              letterSpacing: '-0.01em', fontVariantNumeric: 'tabular-nums lining-nums',
-                            }}>{Number(total).toLocaleString('es-MX')}</strong>
-                            {d !== null && d > 0 && (
-                              <span style={{
-                                display: 'inline-flex', alignItems: 'center', gap: '2px',
-                                fontSize: '12px', fontWeight: 800, color: '#0E2C17',
-                                background: '#5FB874', padding: '2px 8px', borderRadius: '9999px',
-                                boxShadow: '0 1px 6px rgba(95,184,116,0.45)',
-                              }}>▲ {d}</span>
-                            )}
-                          </div>
-                          <div style={{ fontSize: '12.5px', color: 'rgba(246,240,224,0.66)', marginTop: '4px', lineHeight: 1.3 }}>
-                            {s.label}
-                          </div>
+                        {/* Fila: icono + número + crecimiento */}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                          <BrandTile brand={s.brand} size={42} />
+                          <strong style={{
+                            fontFamily: "'Fraunces', Georgia, serif",
+                            fontSize: '32px', fontWeight: 600, color: '#F6F0E0', lineHeight: 1,
+                            letterSpacing: '-0.01em', fontVariantNumeric: 'tabular-nums lining-nums',
+                          }}>{Number(total).toLocaleString('es-MX')}</strong>
+                          {d !== null && d > 0 && (
+                            <span style={{
+                              display: 'inline-flex', alignItems: 'center', gap: '2px',
+                              marginLeft: 'auto',
+                              fontSize: '12px', fontWeight: 800, color: '#0E2C17',
+                              background: '#5FB874', padding: '2px 8px', borderRadius: '9999px',
+                              boxShadow: '0 1px 6px rgba(95,184,116,0.45)',
+                            }}>▲ {d}</span>
+                          )}
+                        </div>
+                        {/* Label estirado, una sola línea */}
+                        <div style={{
+                          fontSize: '13px', color: 'rgba(246,240,224,0.72)', lineHeight: 1.3,
+                          whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+                          letterSpacing: '0.01em',
+                        }}>
+                          {s.label}
                         </div>
                       </div>
                     )
