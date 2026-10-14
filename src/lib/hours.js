@@ -63,8 +63,9 @@ export function estadoHorario(hours, now = ahoraEnMalinalco()) {
       }
     }
     // Cerrado pero quizá abre más tarde hoy (antes de la hora de apertura, o en el break).
-    if (minutes < o) return { open: false, soon: false, label: `Abre a las ${fmt12(hoy.open_time)}` }
-    if (bs != null && be != null && minutes >= bs && minutes < be) return { open: false, soon: false, label: `Abre a las ${fmt12(hoy.break_end)}` }
+    // "Abre pronto" = abre en 60 min o menos (para el semáforo naranja del mapa).
+    if (minutes < o) return { open: false, soon: false, opensSoon: (o - minutes) <= 60, label: `Abre a las ${fmt12(hoy.open_time)}` }
+    if (bs != null && be != null && minutes >= bs && minutes < be) return { open: false, soon: false, opensSoon: (be - minutes) <= 60, label: `Abre a las ${fmt12(hoy.break_end)}` }
   }
 
   // Cerrado hoy: busca el próximo día con horario.
@@ -73,8 +74,8 @@ export function estadoHorario(hours, now = ahoraEnMalinalco()) {
     const row = hours.find((h) => h.day_of_week === d && !h.is_closed && h.open_time != null)
     if (row) {
       const cuando = i === 1 ? 'mañana' : DIAS_CORTO[d]
-      return { open: false, soon: false, label: `Abre ${cuando} a las ${fmt12(row.open_time)}` }
+      return { open: false, soon: false, opensSoon: false, label: `Abre ${cuando} a las ${fmt12(row.open_time)}` }
     }
   }
-  return { open: false, soon: false, label: 'Cerrado' }
+  return { open: false, soon: false, opensSoon: false, label: 'Cerrado' }
 }

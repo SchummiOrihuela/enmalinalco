@@ -316,6 +316,16 @@ export default async function DashboardPage({ searchParams }) {
               </div>
             )
           })()}
+
+          {business && (business.lat == null || business.lng == null) && (
+            <div style={{
+              marginTop: '16px', padding: '14px 16px', borderRadius: '12px',
+              background: 'rgba(220,178,74,0.12)', border: '1px dashed rgba(220,178,74,0.45)',
+              color: 'var(--ink)', fontSize: '13.5px', lineHeight: 1.5,
+            }}>
+              📍 <strong>Agrega tu ubicación</strong> para aparecer en el <a href="/mapa" style={{ color: 'var(--oro)', fontWeight: 700 }}>mapa del pueblo</a>. Es de lo primero que busca el turista para decidir a dónde ir. Captúrala abajo, en <strong>Contacto y ubicación</strong>.
+            </div>
+          )}
         </div>
 
         {/* Secciones — cada tarjeta envuelve un componente hijo */}
