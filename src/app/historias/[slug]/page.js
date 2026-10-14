@@ -20,8 +20,12 @@ export async function generateMetadata({ params }) {
   const a = getArticulo(slug)
   if (!a) return { title: 'Historia no encontrada — En Malinalco' }
 
-  const title = `${a.titulo} — En Malinalco`
-  const description = a.excerpt
+  // seoTitle/seoDescription: texto optimizado para la SERP (corto, con gancho
+  // y palabra clave al frente) SIN cambiar el H1 visible del artículo. Si no se
+  // define, se usa el patrón por defecto. Clave para subir el CTR en móvil,
+  // donde Google trunca el título a ~60 caracteres.
+  const title = a.seoTitle || `${a.titulo} — En Malinalco`
+  const description = a.seoDescription || a.excerpt
   const url = `${SITE_URL}/historias/${slug}`
 
   return {

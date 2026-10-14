@@ -16,6 +16,10 @@
 //                     (ej. "restaurantes" → /categoria/restaurantes). Opcional.
 // - grupo           → agrupación del hub /historias (una de las 4 secciones)
 // - titulo, subtitulo, excerpt
+// - seoTitle        → (opcional) título para la SERP de Google, corto y con la
+//                     palabra clave al frente (~60 caracteres). NO cambia el H1
+//                     visible; solo el <title>. Sube el CTR, sobre todo en móvil.
+// - seoDescription  → (opcional) meta description con gancho (~150 caracteres).
 // - fechaISO        → para <time> y Schema (YYYY-MM-DD)
 // - fechaDisplay    → cómo se lee ("12 de mayo de 2026")
 // - autor, lectura
@@ -54,6 +58,8 @@ export const ARTICULOS = [
   // ─────────────────────────────── GASTRONOMÍA ───────────────────────────────
   {
     slug: '10-restaurantes-malinalco',
+    seoTitle: 'Los 10 mejores restaurantes de Malinalco (guía local)',
+    seoDescription: 'Dónde comer en Malinalco según un local: 10 restaurantes que valen el viaje, qué pedir y precios. Guía honesta, sin patrocinios ni filtros.',
     categoria: 'Gastronomía',
     categoriaDirSlug: 'restaurantes',
     grupo: 'gastronomia',
@@ -114,6 +120,8 @@ export const ARTICULOS = [
 
   {
     slug: 'donde-desayunar-malinalco',
+    seoTitle: 'Dónde desayunar en Malinalco: los 6 mejores lugares',
+    seoDescription: 'Los 6 mejores lugares para desayunar en Malinalco: café de especialidad, brunch con vista y opciones económicas. Con horarios y tips de local.',
     categoria: 'Gastronomía',
     categoriaDirSlug: 'restaurantes',
     grupo: 'gastronomia',
@@ -267,6 +275,8 @@ export const ARTICULOS = [
 
   {
     slug: 'malinalco-pueblo-magico-historia',
+    seoTitle: 'Malinalco, Pueblo Mágico: historia y por qué visitarlo',
+    seoDescription: 'La historia de Malinalco: su origen prehispánico, el convento del siglo XVI y por qué es Pueblo Mágico. Todo lo que debes saber antes de visitarlo.',
     categoria: 'Historia',
     categoriaDirSlug: 'cultura',
     grupo: 'historia',
@@ -327,6 +337,8 @@ export const ARTICULOS = [
 
   {
     slug: 'barrios-de-malinalco',
+    seoTitle: 'Los barrios de Malinalco: guía para recorrer el pueblo',
+    seoDescription: 'Los barrios de Malinalco, sus capillas y tradiciones: una guía para recorrer el pueblo a pie y entender su corazón. Mapa, rutas y qué ver en cada uno.',
     categoria: 'Historia',
     categoriaDirSlug: 'cultura',
     grupo: 'historia',
@@ -384,6 +396,8 @@ export const ARTICULOS = [
   // ─────────────────────────── MALI PREHISPÁNICO ───────────────────────────
   {
     slug: 'casa-de-las-aguilas',
+    seoTitle: 'Casa de las Águilas, Malinalco: qué es y cómo visitarla',
+    seoDescription: 'La Casa de las Águilas de Malinalco: el único templo monolítico de América, tallado en la roca. Qué es, su historia azteca, horarios y cómo visitarla.',
     categoria: 'Mali Prehispánico',
     categoriaDirSlug: 'cultura',
     grupo: 'prehispanico',
@@ -444,6 +458,8 @@ export const ARTICULOS = [
 
   {
     slug: 'guerreros-aguila-jaguar',
+    seoTitle: 'Guerreros Águila y Jaguar: los soldados aztecas de Mali',
+    seoDescription: 'Quiénes eran los guerreros Águila y Jaguar, las élites del ejército azteca que se forjaban en Malinalco. Su historia, su templo y cómo conocerlos hoy.',
     categoria: 'Mali Prehispánico',
     categoriaDirSlug: 'cultura',
     grupo: 'prehispanico',
@@ -494,6 +510,8 @@ export const ARTICULOS = [
 
   {
     slug: 'subida-cerro-idolos',
+    seoTitle: 'Subir al Cerro de los Ídolos, Malinalco: guía y horarios',
+    seoDescription: 'Cómo subir a la zona arqueológica del Cerro de los Ídolos en Malinalco: cuántos escalones son, horarios, costo, dificultad y qué verás arriba.',
     categoria: 'Mali Prehispánico',
     categoriaDirSlug: 'cultura',
     grupo: 'prehispanico',
@@ -559,6 +577,8 @@ export const ARTICULOS = [
   // ─────────────────────────── TU FINDE EN MALI ───────────────────────────
   {
     slug: '48-horas-malinalco',
+    seoTitle: 'Qué hacer en Malinalco en 48 horas: itinerario de finde',
+    seoDescription: 'Itinerario de 48 horas en Malinalco: qué hacer, dónde comer y qué ver en un fin de semana, hora por hora. El plan listo para aprovechar el pueblo.',
     categoria: 'Tu Finde en Mali',
     grupo: 'finde',
     titulo: '48 horas en Malinalco: el itinerario que no desperdicia ni un minuto',
@@ -611,6 +631,8 @@ export const ARTICULOS = [
 
   {
     slug: 'fin-de-semana-malinalco-cdmx',
+    seoTitle: 'Malinalco desde CDMX: escapada de fin de semana',
+    seoDescription: 'Escápate a Malinalco desde CDMX: cómo llegar, cuánto tarda, qué hacer y dónde comer y dormir en un fin de semana. La guía para tu finde perfecto.',
     categoria: 'Tu Finde en Mali',
     grupo: 'finde',
     titulo: 'Fin de semana en Malinalco desde CDMX: el itinerario express',
@@ -932,6 +954,8 @@ export const ARTICULOS = [
 
   {
     slug: 'festival-cultural-malinalco',
+    seoTitle: 'Festival Cultural de Malinalco 2026: fechas y programa',
+    seoDescription: 'Festival Cultural de Malinalco 2026 (16–18 oct): +50 actividades gratis en 11 sedes, programa día por día y consejos para vivirlo. Entrada libre.',
     categoria: 'Tu Finde en Mali',
     grupo: 'finde',
     titulo: 'Festival Cultural de Malinalco 2026: el regreso que el pueblo esperó 8 años',
@@ -998,6 +1022,8 @@ export const ARTICULOS = [
   // ─────────────────────────────── HOSPEDAJE ───────────────────────────────
   {
     slug: 'donde-hospedarte-malinalco',
+    seoTitle: 'Dónde hospedarte en Malinalco: hoteles, cabañas y casas',
+    seoDescription: 'Dónde dormir en Malinalco: hoteles boutique, cabañas y casas con alberca. En qué zona quedarte, precios y cuándo reservar. Guía directa para elegir bien.',
     categoria: 'Tu Finde en Mali',
     categoriaDirSlug: 'hospedaje',
     grupo: 'finde',
@@ -1063,6 +1089,8 @@ export const ARTICULOS = [
   // ─────────────────────── TEMPORADA: DÍA DE MUERTOS ───────────────────────
   {
     slug: 'dia-de-muertos-malinalco',
+    seoTitle: 'Día de Muertos en Malinalco 2026: qué hacer y dónde',
+    seoDescription: 'Día de Muertos en Malinalco 2026 (31 oct–2 nov): ofrendas, panteón, qué hacer, cuándo llegar y dónde hospedarte. Guía para vivirlo en el Pueblo Mágico.',
     categoria: 'Tu Finde en Mali',
     categoriaDirSlug: 'cultura',
     grupo: 'finde',
@@ -1114,6 +1142,8 @@ export const ARTICULOS = [
   // ─────────────────────── TEMPORADA: POSADAS / NAVIDAD ───────────────────────
   {
     slug: 'posadas-navidenas-malinalco',
+    seoTitle: 'Posadas y Navidad en Malinalco: guía de diciembre',
+    seoDescription: 'Posadas en Malinalco (16–24 dic): tradiciones, qué hacer, clima y dónde hospedarte en diciembre. Vive la Navidad en el Pueblo Mágico.',
     categoria: 'Tu Finde en Mali',
     categoriaDirSlug: 'cultura',
     grupo: 'finde',
