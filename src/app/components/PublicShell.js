@@ -61,9 +61,17 @@ export default function PublicShell({ children }) {
             en<em style={{ color: '#A8D6B0', fontStyle: 'italic' }}>malinalco</em>
           </span>
         </Link>
-        <Link href="/directorio" style={{ fontSize: 13, fontWeight: 600, color: 'rgba(242,237,227,0.8)', textDecoration: 'none' }}>
-          Directorio
-        </Link>
+        <nav style={{ display: 'flex', alignItems: 'center', gap: 'clamp(14px, 4vw, 26px)' }}>
+          <Link href="/historias" style={{ fontSize: 13, fontWeight: 600, color: 'rgba(242,237,227,0.8)', textDecoration: 'none' }}>
+            Historias
+          </Link>
+          <Link href="/directorio" style={{ fontSize: 13, fontWeight: 600, color: 'rgba(242,237,227,0.8)', textDecoration: 'none' }}>
+            Directorio
+          </Link>
+          <Link href="/mapa" style={{ fontSize: 13, fontWeight: 600, color: 'rgba(242,237,227,0.8)', textDecoration: 'none' }}>
+            Mapa
+          </Link>
+        </nav>
       </header>
 
       {/* Contenido */}
