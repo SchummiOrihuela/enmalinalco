@@ -248,7 +248,7 @@ export default async function DashboardPage({ searchParams }) {
                           <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
                             <strong style={{
                               fontFamily: "'Cormorant Garamond', Georgia, serif",
-                              fontSize: '30px', fontWeight: 600, color: 'var(--ink)', lineHeight: 1,
+                              fontSize: '30px', fontWeight: 600, color: '#F6F0E0', lineHeight: 1,
                             }}>{total}</strong>
                             {d !== null && d > 0 && (
                               <span style={{
