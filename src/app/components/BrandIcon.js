@@ -46,6 +46,15 @@ const BRANDS = {
       </>
     ),
   },
+  // Vistas de ficha: ojo en tile dorado (estadísticas del panel).
+  views: {
+    bg: 'linear-gradient(135deg,#E7C86A,#B0863A)',
+    svg: (
+      <>
+        <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" /><circle cx="12" cy="12" r="3" />
+      </>
+    ),
+  },
 }
 
 export function BrandTile({ brand, size = 40 }) {
