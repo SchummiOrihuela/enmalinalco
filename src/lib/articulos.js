@@ -1191,6 +1191,59 @@ export const ARTICULOS = [
     ],
     relacionados: ['escapada-romantica-malinalco', 'malinalco-con-familia', 'donde-hospedarte-malinalco'],
   },
+
+  // ─────────────────────────────── BALNEARIOS ───────────────────────────────
+  {
+    slug: 'balnearios-malinalco',
+    seoTitle: 'Balnearios y albercas en Malinalco: dónde refrescarte',
+    seoDescription: 'Sí hay balnearios y albercas en Malinalco: estas son las opciones para un día de agua con la familia, qué llevar y cómo elegir. Confirma horarios antes de ir.',
+    categoria: 'Tu Finde en Mali',
+    categoriaDirSlug: 'balnearios',
+    grupo: 'finde',
+    titulo: 'Balnearios y albercas en Malinalco: dónde refrescarte',
+    subtitulo:
+      'El clima templado-cálido del pueblo pide agua casi todo el año. Buenas noticias: sí hay dónde. Esta es la guía rápida de balnearios y albercas para un día en familia.',
+    excerpt:
+      'Sí, hay balnearios y albercas en Malinalco para un día de agua en familia. Estas son las opciones más conocidas, qué llevar y cómo elegir. Guía rápida del Pueblo Mágico.',
+    fechaISO: '2026-10-14',
+    fechaDisplay: '14 de octubre de 2026',
+    autor: 'Equipo En Malinalco',
+    lectura: '4 min',
+    imagen: '/img/categorias/balnearios.webp',
+    imagenAlt: 'Alberca al aire libre rodeada de vegetación en Malinalco',
+    cuerpo: [
+      { t: 'p', html: 'La respuesta corta: <strong>sí, en Malinalco y sus alrededores hay varios balnearios y albercas</strong> para pasar el día. Con su clima templado-cálido, un chapuzón se disfruta buena parte del año, y es uno de los planes favoritos para ir en familia o con amigos. No vamos a complicarte: aquí tienes las opciones más conocidas para que elijas y confirmes antes de ir.' },
+      { t: 'p', html: 'Si quieres ver la lista completa y actualizada, está en la categoría <a href="/categoria/balnearios">Balnearios del directorio</a>.' },
+      { t: 'h2', id: 'opciones', text: 'Algunas opciones en Malinalco' },
+      { t: 'ul', items: [
+        '<strong>Cocos Rumberos</strong> — balneario con albercas y ambiente para pasar el día; una de las opciones que más suena entre visitantes.',
+        '<strong>Balneario El Molino</strong> — rumbo a Las Truchas; albercas, áreas verdes y espacio para familias.',
+        '<strong>AcuaPark La Virgen</strong> — parque acuático con albercas, palapas y jardines, pensado para ir con niños.',
+        '<strong>Balneario Los Tulipanes</strong> — opción tradicional con albercas y espacio para pasar el día.',
+        '<strong>Balneario Los Cocodrilos</strong> — otra alternativa conocida para refrescarte sin salir de la zona.',
+      ] },
+      { t: 'p', html: 'Y muy cerca, rumbo a <strong>Chalma</strong>, hay más balnearios (como Las Guitarras) si quieres combinar tu visita con el santuario. Las opciones cambian de temporada, así que vale la pena confirmar cuáles están abiertas.' },
+      { t: 'callout', titulo: 'Antes de ir', items: [
+        'Confirma horarios y costos por teléfono o redes: cambian por temporada.',
+        'Fines de semana, puentes y Semana Santa se llenan; llega temprano.',
+        'Lleva efectivo: no todos aceptan tarjeta.',
+        'Lleva tus cosas: toalla, sandalias, bloqueador biodegradable y bolsa para basura.',
+        'Si vas con niños, revisa que haya alberca poco profunda o chapoteadero.',
+      ] },
+      { t: 'h2', id: 'tu-propia-alberca', text: '¿Prefieres tu propia alberca?' },
+      { t: 'p', html: 'Si buscas la tranquilidad de nadar sin multitudes, muchas <a href="/categoria/hospedaje">casas y hoteles del pueblo tienen alberca</a>. Es la opción ideal para un fin de semana relajado: revisa nuestra <a href="/historias/donde-hospedarte-malinalco">guía para elegir dónde hospedarte</a> y asegura una con alberca para disfrutar el agua a tu ritmo.' },
+      CTA_EXPERIENCIA,
+      { t: 'p', html: 'Y si quieres cambiar el agua por monte, complementa con un día de <a href="/categoria/ecoturismo">ecoturismo</a> o <a href="/historias/subida-cerro-idolos">subir al Cerro de los Ídolos</a>.' },
+    ],
+    faq: [
+      { q: '¿Hay balnearios en Malinalco?', a: 'Sí. Malinalco y sus alrededores tienen varios balnearios y albercas para pasar el día, como Cocos Rumberos, El Molino, AcuaPark La Virgen, Los Tulipanes y Los Cocodrilos, además de más opciones rumbo a Chalma. Puedes ver la lista en la categoría Balnearios del directorio.' },
+      { q: '¿Cuánto cuesta entrar a un balneario en Malinalco?', a: 'El costo varía según el balneario y la temporada, y suele ser accesible por persona, con tarifas distintas para adultos y niños. Como los precios cambian, conviene confirmar por teléfono o redes sociales antes de ir y llevar efectivo.' },
+      { q: '¿Hay albercas para niños?', a: 'Sí. Varios balnearios cuentan con albercas poco profundas o chapoteaderos y áreas verdes pensadas para familias. Revisa cuál tiene zona para niños antes de elegir.' },
+      { q: '¿Están abiertos entre semana?', a: 'Algunos abren toda la semana y otros solo fines de semana y periodos vacacionales, y los horarios cambian por temporada. Lo mejor es confirmar directamente con el balneario el día que planeas ir.' },
+      { q: '¿Puedo hospedarme en una casa con alberca en Malinalco?', a: 'Sí. Muchas casas y hoteles del pueblo tienen alberca, ideal si prefieres nadar sin multitudes. Puedes verlas en la categoría Hospedaje del directorio.' },
+    ],
+    relacionados: ['malinalco-con-familia', 'donde-hospedarte-malinalco', 'subida-cerro-idolos'],
+  },
 ]
 
 // Índice rápido por slug.
