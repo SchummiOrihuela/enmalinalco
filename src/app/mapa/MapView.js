@@ -14,12 +14,14 @@ function pinIcon(code) {
   const c = COLOR[code]
   return L.divIcon({
     className: 'mp-pin',
-    html: `<span style="
-      display:block;width:26px;height:26px;border-radius:50% 50% 50% 0;
-      transform:rotate(-45deg);background:${c};
-      border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.4)">
-      <span style="position:absolute;top:7px;left:7px;width:8px;height:8px;border-radius:50%;background:#fff;transform:rotate(45deg)"></span>
-    </span>`,
+    html: `
+      <span class="mp-pulse" style="background:${c}"></span>
+      <span style="
+        position:relative;z-index:2;display:block;width:26px;height:26px;border-radius:50% 50% 50% 0;
+        transform:rotate(-45deg);background:${c};
+        border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.4)">
+        <span style="position:absolute;top:7px;left:7px;width:8px;height:8px;border-radius:50%;background:#fff;transform:rotate(45deg)"></span>
+      </span>`,
     iconSize: [26, 26],
     iconAnchor: [13, 26],
     popupAnchor: [0, -24],
@@ -108,6 +110,21 @@ export default function MapView({ items, categorias }) {
 
   return (
     <div>
+      {/* Halo que late en el color del estado (verde/naranja/rojo). */}
+      <style>{`
+        .mp-pin { overflow: visible; }
+        .mp-pulse {
+          position: absolute; left: 50%; bottom: 0;
+          width: 14px; height: 14px; margin-left: -7px;
+          border-radius: 50%; z-index: 1; pointer-events: none;
+          animation: mpPulse 2s ease-out infinite;
+        }
+        @keyframes mpPulse {
+          0%   { transform: scale(0.6); opacity: 0.55; }
+          100% { transform: scale(3.4); opacity: 0; }
+        }
+        @media (prefers-reduced-motion: reduce) { .mp-pulse { animation: none; opacity: 0; } }
+      `}</style>
       <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 14 }}>
         <select value={cat} onChange={(e) => setCat(e.target.value)} aria-label="Categoría" style={selStyle}>
           <option value="all">Todas las categorías</option>
