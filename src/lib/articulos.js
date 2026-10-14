@@ -1108,8 +1108,8 @@ export const ARTICULOS = [
     fechaDisplay: '14 de octubre de 2026',
     autor: 'Equipo En Malinalco',
     lectura: '6 min',
-    imagen: '/img/destacados/02-parroquia.webp',
-    imagenAlt: 'Parroquia de Malinalco iluminada en Día de Muertos',
+    imagen: '/img/articulos/dia-de-muertos-malinalco.webp',
+    imagenAlt: 'Calle de Malinalco adornada con guerreros de Día de Muertos, cempasúchil y papel picado',
     cuerpo: [
       { t: 'p', html: 'El Día de Muertos en Malinalco se vive del <strong>31 de octubre al 2 de noviembre</strong>. En esas fechas el Pueblo Mágico se transforma: calles empedradas alfombradas de cempasúchil, altares en casas y comercios, veladoras en el panteón y el aroma a copal y pan de muerto por todos lados. Es una de las mejores temporadas para visitarlo, y aquí te decimos cómo vivirlo bien.' },
       { t: 'callout', titulo: 'Datos clave', items: [
@@ -1161,8 +1161,8 @@ export const ARTICULOS = [
     fechaDisplay: '14 de octubre de 2026',
     autor: 'Equipo En Malinalco',
     lectura: '6 min',
-    imagen: '/img/hero/portada.webp',
-    imagenAlt: 'Malinalco iluminado durante las fiestas decembrinas',
+    imagen: '/img/articulos/posadas-navidenas-malinalco.webp',
+    imagenAlt: 'Nacimiento y árbol de Navidad iluminado durante las posadas en Malinalco',
     cuerpo: [
       { t: 'p', html: 'Las <strong>posadas en Malinalco</strong> van del <strong>16 al 24 de diciembre</strong>: nueve noches de piñatas, ponche caliente, villancicos y procesiones que recorren calles y barrios pidiendo posada. Diciembre es, para muchos, la temporada más entrañable para visitar el Pueblo Mágico —el clima fresco, el pueblo iluminado y el ambiente de fiesta lo hacen inolvidable—. Aquí tienes la guía para vivirlo.' },
       { t: 'callout', titulo: 'Datos clave', items: [
