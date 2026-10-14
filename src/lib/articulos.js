@@ -53,6 +53,11 @@ const CTA_NEGOCIO = {
   titulo: '¿Tienes un negocio en Malinalco?',
   html: 'Cada historia atrae al visitante que busca qué ver, dónde comer y dónde dormir en el pueblo. Estar en En Malinalco significa aparecer con fotos, ubicación y horarios cuando más importa —y los planes superiores salen primero en su categoría, con insignia “Recomendado” y su propia historia contada.',
 }
+const CTA_BALNEARIO = {
+  t: 'ctaNegocio',
+  titulo: '¿Tienes un balneario o alberca en Malinalco?',
+  html: 'Esta guía es lo primero que lee quien busca “balnearios en Malinalco” antes de decidir a dónde ir con su familia. Si tu balneario está en En Malinalco, apareces con fotos, ubicación y horarios justo en ese momento —y los planes superiores salen en los primeros lugares de la categoría, con insignia “Recomendado”. Registra tu balneario gratis y empieza a recibir visitantes.',
+}
 
 export const ARTICULOS = [
   // ─────────────────────────────── GASTRONOMÍA ───────────────────────────────
@@ -1223,6 +1228,8 @@ export const ARTICULOS = [
         '<strong>Balneario Los Cocodrilos</strong> — otra alternativa conocida para refrescarte sin salir de la zona.',
       ] },
       { t: 'p', html: 'Y muy cerca, rumbo a <strong>Chalma</strong>, hay más balnearios (como Las Guitarras) si quieres combinar tu visita con el santuario. Las opciones cambian de temporada, así que vale la pena confirmar cuáles están abiertas.' },
+      { t: 'p', html: '¿Falta tu balneario favorito en esta guía? Si eres dueño o lo conoces, <a href="/#negocios">invítalo a registrarse en En Malinalco</a>: así aparece con su ficha, fotos y horarios cuando la gente busca dónde refrescarse.' },
+      CTA_BALNEARIO,
       { t: 'callout', titulo: 'Antes de ir', items: [
         'Confirma horarios y costos por teléfono o redes: cambian por temporada.',
         'Fines de semana, puentes y Semana Santa se llenan; llega temprano.',
@@ -1232,7 +1239,6 @@ export const ARTICULOS = [
       ] },
       { t: 'h2', id: 'tu-propia-alberca', text: '¿Prefieres tu propia alberca?' },
       { t: 'p', html: 'Si buscas la tranquilidad de nadar sin multitudes, muchas <a href="/categoria/hospedaje">casas y hoteles del pueblo tienen alberca</a>. Es la opción ideal para un fin de semana relajado: revisa nuestra <a href="/historias/donde-hospedarte-malinalco">guía para elegir dónde hospedarte</a> y asegura una con alberca para disfrutar el agua a tu ritmo.' },
-      CTA_EXPERIENCIA,
       { t: 'p', html: 'Y si quieres cambiar el agua por monte, complementa con un día de <a href="/categoria/ecoturismo">ecoturismo</a> o <a href="/historias/subida-cerro-idolos">subir al Cerro de los Ídolos</a>.' },
     ],
     faq: [
