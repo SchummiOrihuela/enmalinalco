@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import PublicShell from '@/app/components/PublicShell'
 import BackToTop from '@/app/components/BackToTop'
+import SubscribeForm from '@/app/components/SubscribeForm'
 import ScrollSpy from './ScrollSpy'
 import { GRUPOS, getArticulosPorGrupo } from '@/lib/articulos'
 
@@ -125,6 +126,8 @@ export default function HistoriasIndex() {
             </section>
           )
         })}
+
+        <SubscribeForm source="historias" />
       </div>
       <ScrollSpy />
       <BackToTop />
