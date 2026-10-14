@@ -28,6 +28,7 @@ export const PLANS = {
     badge: null,
     benefits: [
       "10 fotos de tu negocio",
+      "Contacto, ubicación y todas tus redes sociales",
       "Apareces en los primeros lugares de tu categoría",
       'Insignia "Recomendado"',
       "1 mención al mes en nuestras redes",
