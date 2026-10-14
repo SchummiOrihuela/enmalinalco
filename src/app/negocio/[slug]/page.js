@@ -5,6 +5,7 @@ import Link from 'next/link'
 import ReviewsList from '@/app/dashboard/ReviewsList'
 import { getBadge, getPriority } from '@/lib/plans'
 import ReviewForm from '@/app/dashboard/ReviewForm'
+import TrackedLink from './TrackedLink'
 import { toSlug } from '@/lib/slug'
 import { CATEGORIA_POR_SLUG } from '@/lib/categorias'
 import { BrandTile } from '@/app/components/BrandIcon'
@@ -224,26 +225,29 @@ export default async function NegocioPage({ params }) {
             {business.phone && business.phone !== '0' && (
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
                 <BrandTile brand="phone" size={40} />
-                <a href={`tel:${business.phone}`} style={{ fontSize: 15, color: 'rgba(240,232,212,0.9)', textDecoration: 'none' }}>{business.phone}</a>
+                <TrackedLink bid={business.id} kind="phone" href={`tel:${business.phone}`} style={{ fontSize: 15, color: 'rgba(240,232,212,0.9)', textDecoration: 'none' }}>{business.phone}</TrackedLink>
               </div>
             )}
             {chips.length > 0 && (
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 4 }}>
-                {chips.map((c) => (
-                  <a key={c.brand} href={c.href} target="_blank" rel="noopener noreferrer"
-                    style={{
-                      display: 'inline-flex', alignItems: 'center', gap: 9,
-                      padding: '8px 16px 8px 8px',
-                      background: 'rgba(240,232,212,0.06)',
-                      border: '1px solid rgba(240,232,212,0.14)',
-                      borderRadius: 9999,
-                      textDecoration: 'none',
-                      color: '#F0E8D4', fontSize: 14, fontWeight: 600,
-                    }}>
-                    <BrandTile brand={c.brand} size={30} />
-                    {c.label}
-                  </a>
-                ))}
+                {chips.map((c) => {
+                  const chipStyle = {
+                    display: 'inline-flex', alignItems: 'center', gap: 9,
+                    padding: '8px 16px 8px 8px',
+                    background: 'rgba(240,232,212,0.06)',
+                    border: '1px solid rgba(240,232,212,0.14)',
+                    borderRadius: 9999,
+                    textDecoration: 'none',
+                    color: '#F0E8D4', fontSize: 14, fontWeight: 600,
+                  }
+                  // Solo WhatsApp y "Cómo llegar" (mapa) cuentan como contacto.
+                  const trackKind = c.brand === 'whatsapp' ? 'whatsapp' : (c.brand === 'maps' ? 'maps' : null)
+                  const common = { href: c.href, target: '_blank', rel: 'noopener noreferrer', style: chipStyle }
+                  const inner = (<><BrandTile brand={c.brand} size={30} />{c.label}</>)
+                  return trackKind
+                    ? <TrackedLink key={c.brand} bid={business.id} kind={trackKind} {...common}>{inner}</TrackedLink>
+                    : <a key={c.brand} {...common}>{inner}</a>
+                })}
               </div>
             )}
           </div>
