@@ -74,7 +74,7 @@ export default function HistoriasIndex() {
 
         <nav className="hx-nav" aria-label="Secciones de Historias del pueblo">
           <div className="hx-nav-track">
-            <Link href="/#categorias" className="hx-chip hx-chip-dir">
+            <Link href="/directorio" className="hx-chip hx-chip-dir">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
               Directorio
             </Link>
