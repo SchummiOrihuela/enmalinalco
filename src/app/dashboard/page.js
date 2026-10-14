@@ -263,20 +263,21 @@ export default async function DashboardPage({ searchParams }) {
                         className="stat-card stat-pulse"
                         style={{
                         display: 'flex', alignItems: 'center', gap: '14px',
-                        padding: isViews ? '18px 20px' : '16px 18px',
+                        padding: '18px 20px',
+                        minHeight: '92px',
                         background: isViews
-                          ? 'linear-gradient(135deg, rgba(220,178,74,0.20), rgba(28,59,40,0.25))'
+                          ? 'linear-gradient(135deg, rgba(220,178,74,0.18), rgba(28,59,40,0.25))'
                           : 'linear-gradient(135deg, rgba(220,178,74,0.08), rgba(28,59,40,0.25))',
-                        border: isViews ? '1.5px solid rgba(220,178,74,0.55)' : '1px solid rgba(220,178,74,0.22)',
+                        border: isViews ? '1px solid rgba(220,178,74,0.5)' : '1px solid rgba(220,178,74,0.22)',
                         borderRadius: '16px',
                         boxShadow: '0 4px 16px rgba(0,0,0,0.14)',
                       }}>
-                        <BrandTile brand={s.brand} size={isViews ? 50 : 44} />
+                        <BrandTile brand={s.brand} size={44} />
                         <div style={{ minWidth: 0 }}>
                           <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
                             <strong style={{
                               fontFamily: "'Fraunces', Georgia, serif",
-                              fontSize: isViews ? '34px' : '32px', fontWeight: 600, color: '#F6F0E0', lineHeight: 1,
+                              fontSize: '32px', fontWeight: 600, color: '#F6F0E0', lineHeight: 1,
                               letterSpacing: '-0.01em', fontVariantNumeric: 'tabular-nums lining-nums',
                             }}>{Number(total).toLocaleString('es-MX')}</strong>
                             {d !== null && d > 0 && (

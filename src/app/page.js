@@ -535,6 +535,28 @@ nav.dnav a:hover::after{transform:scaleX(1)}
 .plan-feats svg{width:11px;height:11px;flex-shrink:0;margin-top:2px;color:var(--verde-lt)}
 .pcrd.star .plan-feats li{color:rgba(242,237,227,.78)}
 
+/* Pulsos elegantes de la landing (card popular, CTA y "Malinalco" del título) */
+@keyframes starGlow{
+  0%,100%{box-shadow:0 0 0 0 rgba(130,201,148,0)}
+  50%{box-shadow:0 0 0 4px rgba(130,201,148,.18),0 12px 36px rgba(58,107,71,.28)}
+}
+.pcrd.star{animation:starGlow 3s ease-in-out infinite}
+.pcrd.star:hover{animation:none}
+@keyframes ctaGlow{
+  0%,100%{box-shadow:0 0 0 0 rgba(58,107,71,0)}
+  50%{box-shadow:0 0 0 4px rgba(130,201,148,.22),0 10px 30px rgba(58,107,71,.35)}
+}
+.b2b-cta{animation:ctaGlow 2.6s ease-in-out infinite}
+.b2b-cta:hover{animation:none}
+@keyframes maliGlow{
+  0%,100%{text-shadow:0 0 0 rgba(130,201,148,0)}
+  50%{text-shadow:0 0 18px rgba(130,201,148,.55)}
+}
+.mali-pulse{animation:maliGlow 3s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){
+  .pcrd.star,.b2b-cta,.mali-pulse{animation:none}
+}
+
 /* Banner Fundadores (gancho de lanzamiento) */
 .founders{display:flex;gap:var(--s4);align-items:flex-start;
   background:linear-gradient(135deg,rgba(200,150,60,.14),rgba(58,107,71,.14));
@@ -1072,7 +1094,7 @@ const MARKUP = `<!-- Progress bar -->
     <!-- Text side -->
     <div class="b2b-text">
       <p class="eyebrow rv">Para dueños de negocio</p>
-      <h2 class="sec-h rv rv-d1">¿Tienes un negocio en <em style="color:var(--verde-lt)">Malinalco</em>?</h2>
+      <h2 class="sec-h rv rv-d1">¿Tienes un negocio en <em class="mali-pulse" style="color:var(--verde-lt)">Malinalco</em>?</h2>
       <p class="sec-p rv rv-d2">
         Miles de turistas visitan <em style="color:var(--verde-lt);font-style:normal;font-weight:600">Malinalco</em> cada fin de semana buscando dónde comer, dónde hospedarse y qué hacer. Anúnciate en <span style="white-space:nowrap;font-weight:600;color:rgba(242,237,227,.85)">enmalinalco.com</span> y te encontrarán a ti primero.
       </p>
