@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { createClient } from '@/lib/supabaseBrowser'
 import { BrandTile } from '@/app/components/BrandIcon'
+import { coordsFromText } from '@/lib/geo'
 
 const h2Style = {
   fontFamily: "'Cormorant Garamond', Georgia, serif",
@@ -63,10 +64,45 @@ export default function ContactForm({ business }) {
     lng: business?.lng ?? '',
   })
   const [msg, setMsg] = useState(null)
+  const [geoMsg, setGeoMsg] = useState(null)
+  const [geoBusy, setGeoBusy] = useState(false)
   const supabase = createClient()
 
   function set(key, val) {
     setForm((f) => ({ ...f, [key]: val }))
+  }
+
+  // Saca lat/lng del enlace de Google Maps para evitar que el dueño
+  // tenga que copiarlas a mano. Primero intenta en el navegador (enlaces
+  // completos); si no, pide al servidor que resuelva el enlace corto.
+  async function autolocalizar() {
+    const url = (form.maps_url || '').trim()
+    if (!url) {
+      setGeoMsg('Primero pega tu enlace de Google Maps en el campo de arriba.')
+      return
+    }
+    setGeoBusy(true)
+    setGeoMsg('Buscando tu ubicación…')
+    let coords = coordsFromText(url)
+    if (!coords) {
+      try {
+        const r = await fetch('/api/geo/from-maps', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url }),
+        })
+        const data = await r.json()
+        if (r.ok && data.lat != null && data.lng != null) coords = data
+        else setGeoMsg(data.error || 'No pudimos leer ese enlace. Captura las coordenadas a mano.')
+      } catch {
+        setGeoMsg('No pudimos leer ese enlace. Captura las coordenadas a mano.')
+      }
+    }
+    if (coords) {
+      setForm((f) => ({ ...f, lat: coords.lat, lng: coords.lng }))
+      setGeoMsg('¡Listo! Encontramos tu ubicación. Revísala y guarda.')
+    }
+    setGeoBusy(false)
   }
 
   async function handleSave() {
@@ -149,11 +185,41 @@ export default function ContactForm({ business }) {
           los visitantes buscan a dónde ir según dónde están. Sin ellas, no salimos en el mapa.
           <br />
           <span style={{ opacity: 0.85 }}>
-            <strong>Cómo obtenerlas:</strong> abre Google Maps en tu negocio, mantén presionado el punto
-            exacto (o haz clic derecho en la compu). Aparecen dos números como <em>18.9487, -99.4939</em> —
-            el primero es la latitud y el segundo la longitud. Cópialos aquí.
+            <strong>La forma fácil:</strong> pega tu enlace de Google Maps en el campo de arriba y toca
+            <strong> «Sacar del enlace de Maps»</strong>. Nosotros ponemos la latitud y longitud por ti.
           </span>
         </p>
+
+        <button
+          type="button"
+          onClick={autolocalizar}
+          disabled={geoBusy}
+          style={{
+            display: 'inline-flex', alignItems: 'center', gap: '8px',
+            padding: '10px 18px', fontSize: '14px', fontWeight: 700, fontFamily: 'inherit',
+            color: 'var(--ink)', background: 'rgba(220,178,74,0.9)',
+            border: 'none', borderRadius: '9999px',
+            cursor: geoBusy ? 'wait' : 'pointer', opacity: geoBusy ? 0.7 : 1,
+            marginBottom: '12px',
+          }}
+        >
+          📍 {geoBusy ? 'Buscando…' : 'Sacar del enlace de Maps'}
+        </button>
+        {geoMsg && (
+          <p style={{
+            fontSize: '12.5px', margin: '0 0 12px', lineHeight: 1.5,
+            color: geoMsg.startsWith('¡Listo') ? 'var(--verde)' : 'var(--terra)',
+          }}>
+            {geoMsg}
+          </p>
+        )}
+
+        <p style={{ fontSize: '12px', lineHeight: 1.55, color: 'var(--ink)', opacity: 0.55, margin: '0 0 10px' }}>
+          ¿Prefieres a mano? En Google Maps mantén presionado el punto de tu negocio (o clic derecho en
+          la compu): aparecen dos números como <em>18.9487, -99.4939</em>. El primero es la latitud y el
+          segundo la longitud.
+        </p>
+
         <div style={{ display: 'flex', gap: '11px', flexWrap: 'wrap' }}>
           <div style={{ flex: '1 1 140px' }}>
             <label style={labelStyle}>Latitud</label>

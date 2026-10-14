@@ -248,8 +248,9 @@ export default async function DashboardPage({ searchParams }) {
                           <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
                             <strong style={{
                               fontFamily: "'Cormorant Garamond', Georgia, serif",
-                              fontSize: '30px', fontWeight: 600, color: '#F6F0E0', lineHeight: 1,
-                            }}>{total}</strong>
+                              fontSize: '40px', fontWeight: 700, color: '#F6F0E0', lineHeight: 1,
+                              letterSpacing: '-0.02em',
+                            }}>{Number(total).toLocaleString('es-MX')}</strong>
                             {d !== null && d > 0 && (
                               <span style={{
                                 display: 'inline-flex', alignItems: 'center', gap: '2px',
