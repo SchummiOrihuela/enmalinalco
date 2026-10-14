@@ -34,6 +34,7 @@ export const GRUPOS = [
   { id: 'gastronomia', nombre: 'Gastronomía', descripcion: 'Dónde y qué comer en Malinalco, sin filtros.' },
   { id: 'historia', nombre: 'Historia', descripcion: 'El pasado vivo del pueblo: conventos, barrios y por qué es Pueblo Mágico.' },
   { id: 'prehispanico', nombre: 'Mali Prehispánico', descripcion: 'El único templo monolítico de América y los guerreros que se forjaron aquí.' },
+  { id: 'fiestas', nombre: 'Fiestas y Festivales', descripcion: 'Día de Muertos, posadas, el Festival Cultural y las tradiciones que dan vida al pueblo todo el año.' },
   { id: 'finde', nombre: 'Tu Finde en Mali', descripcion: 'Itinerarios listos para aprovechar el pueblo al máximo.' },
 ]
 
@@ -961,8 +962,8 @@ export const ARTICULOS = [
     slug: 'festival-cultural-malinalco',
     seoTitle: 'Festival Cultural de Malinalco 2026: fechas y programa',
     seoDescription: 'Festival Cultural de Malinalco 2026 (16–18 oct): +50 actividades gratis en 11 sedes, programa día por día y consejos para vivirlo. Entrada libre.',
-    categoria: 'Tu Finde en Mali',
-    grupo: 'finde',
+    categoria: 'Fiestas y Festivales',
+    grupo: 'fiestas',
     titulo: 'Festival Cultural de Malinalco 2026: el regreso que el pueblo esperó 8 años',
     subtitulo:
       'Del 16 al 18 de octubre, el pueblo entero se vuelve escenario: +50 actividades gratuitas en 11 sedes. El escenario no es un recinto, es Malinalco.',
@@ -1096,9 +1097,9 @@ export const ARTICULOS = [
     slug: 'dia-de-muertos-malinalco',
     seoTitle: 'Día de Muertos en Malinalco 2026: qué hacer y dónde',
     seoDescription: 'Día de Muertos en Malinalco 2026 (31 oct–2 nov): ofrendas, panteón, qué hacer, cuándo llegar y dónde hospedarte. Guía para vivirlo en el Pueblo Mágico.',
-    categoria: 'Tu Finde en Mali',
+    categoria: 'Fiestas y Festivales',
     categoriaDirSlug: 'cultura',
-    grupo: 'finde',
+    grupo: 'fiestas',
     titulo: 'Día de Muertos en Malinalco 2026: qué hacer, dónde y cómo vivirlo',
     subtitulo:
       'Entre el 31 de octubre y el 2 de noviembre, el Pueblo Mágico se llena de cempasúchil, ofrendas y veladoras. Esta es la guía para vivirlo con respeto y aprovecharlo al máximo.',
@@ -1149,9 +1150,9 @@ export const ARTICULOS = [
     slug: 'posadas-navidenas-malinalco',
     seoTitle: 'Posadas y Navidad en Malinalco: guía de diciembre',
     seoDescription: 'Posadas en Malinalco (16–24 dic): tradiciones, qué hacer, clima y dónde hospedarte en diciembre. Vive la Navidad en el Pueblo Mágico.',
-    categoria: 'Tu Finde en Mali',
+    categoria: 'Fiestas y Festivales',
     categoriaDirSlug: 'cultura',
-    grupo: 'finde',
+    grupo: 'fiestas',
     titulo: 'Posadas y Navidad en Malinalco: la guía para vivir diciembre en el pueblo',
     subtitulo:
       'Del 16 al 24 de diciembre llegan las posadas: piñatas, ponche, villancicos y el pueblo iluminado. Esta es la guía para vivir la Navidad en Malinalco como se debe.',

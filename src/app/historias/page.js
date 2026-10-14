@@ -31,7 +31,21 @@ export default function HistoriasIndex() {
         .hx-h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(36px,7vw,56px);font-weight:500;color:#F6F0E0;line-height:1.04;text-align:center;margin:0}
         .hx-h1 em{color:#A8D6B0;font-style:italic}
         .hx-sub{text-align:center;color:rgba(242,237,227,.72);font-size:17px;max-width:56ch;margin:16px auto 0;line-height:1.55}
-        .hx-sec{margin-top:52px}
+
+        /* Selector de secciones: sticky para que el lector no se pierda al hacer scroll */
+        .hx-nav{position:sticky;top:0;z-index:20;margin:28px -24px 0;padding:14px 24px;background:rgba(23,45,33,.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(220,178,74,.18)}
+        .hx-nav-track{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+        .hx-chip{display:inline-flex;align-items:center;gap:7px;background:#F58529;color:#241A10;font-size:14px;font-weight:700;padding:9px 16px;border-radius:9999px;text-decoration:none;white-space:nowrap;box-shadow:0 4px 12px rgba(245,133,41,.25);transition:transform .18s ease,box-shadow .18s ease,background .18s ease}
+        .hx-chip:hover{background:#FF9A3D;transform:translateY(-2px);box-shadow:0 8px 20px rgba(245,133,41,.4)}
+        .hx-chip-n{font-size:12px;font-weight:800;opacity:.7}
+        .hx-chip-dir{background:transparent;color:#EBC66A;border:1px solid rgba(220,178,74,.5);box-shadow:none}
+        .hx-chip-dir:hover{background:rgba(220,178,74,.12);color:#F4D98A;transform:translateY(-2px);box-shadow:none}
+        @media (max-width:640px){
+          .hx-nav-track{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+          .hx-nav-track::-webkit-scrollbar{display:none}
+        }
+
+        .hx-sec{margin-top:52px;scroll-margin-top:84px}
         .hx-sec-h{font-family:'Cormorant Garamond',Georgia,serif;font-size:32px;font-weight:500;color:#F6F0E0;margin:0;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
         .hx-sec-n{font-size:13px;font-weight:600;color:#DCB24A;letter-spacing:.03em}
         .hx-sec-p{color:rgba(242,237,227,.6);font-size:15px;margin:6px 0 0}
@@ -55,11 +69,30 @@ export default function HistoriasIndex() {
         <h1 className="hx-h1">Historias <em>del pueblo</em></h1>
         <p className="hx-sub">Rutas, gastronomía, festividades y los secretos que hacen único a Malinalco. Guías honestas, escritas por quienes vivimos aquí.</p>
 
+        <nav className="hx-nav" aria-label="Secciones de Historias del pueblo">
+          <div className="hx-nav-track">
+            <Link href="/#categorias" className="hx-chip hx-chip-dir">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+              Directorio
+            </Link>
+            {GRUPOS.map((g) => {
+              const n = getArticulosPorGrupo(g.id).length
+              if (n === 0) return null
+              return (
+                <a key={g.id} href={`#${g.id}`} className="hx-chip">
+                  {g.nombre}
+                  <span className="hx-chip-n">{n}</span>
+                </a>
+              )
+            })}
+          </div>
+        </nav>
+
         {GRUPOS.map((g) => {
           const arts = getArticulosPorGrupo(g.id)
           if (arts.length === 0) return null
           return (
-            <section key={g.id} className="hx-sec">
+            <section key={g.id} id={g.id} className="hx-sec">
               <h2 className="hx-sec-h">{g.nombre} <span className="hx-sec-n">{arts.length} {arts.length === 1 ? 'artículo' : 'artículos'}</span></h2>
               <p className="hx-sec-p">{g.descripcion}</p>
               <hr className="hx-sec-hr" />
