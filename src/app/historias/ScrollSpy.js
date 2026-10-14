@@ -14,10 +14,21 @@ export default function ScrollSpy() {
 
     const visible = new Map() // id -> intersectionRatio
 
+    let activeId = null
     const setActive = (id) => {
+      if (id === activeId) return
+      activeId = id
       document.querySelectorAll('.hx-chip.is-active').forEach((c) => c.classList.remove('is-active'))
       const chip = id && chipFor(id)
-      if (chip) chip.classList.add('is-active')
+      if (!chip) return
+      chip.classList.add('is-active')
+      // En móvil el selector es scroll horizontal: desliza para centrar el
+      // chip activo (no-op en desktop, donde los chips se acomodan en varias filas).
+      const track = chip.closest('.hx-nav-track')
+      if (track && track.scrollWidth > track.clientWidth) {
+        const left = chip.offsetLeft - track.clientWidth / 2 + chip.clientWidth / 2
+        track.scrollTo({ left: Math.max(0, left), behavior: 'smooth' })
+      }
     }
 
     const io = new IntersectionObserver(
