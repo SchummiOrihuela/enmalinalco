@@ -188,10 +188,23 @@ export default async function DashboardPage({ searchParams }) {
               0%, 100% { box-shadow: 0 0 0 0 rgba(220,178,74,0); transform: scale(1); }
               50%      { box-shadow: 0 0 14px 2px rgba(220,178,74,0.5); transform: scale(1.04); }
             }
+            @keyframes statPulse {
+              0%, 100% { box-shadow: 0 4px 16px rgba(0,0,0,0.14); }
+              50%      { box-shadow: 0 4px 16px rgba(0,0,0,0.14), 0 0 0 3px rgba(220,178,74,0.22); }
+            }
+            @keyframes statPulseStrong {
+              0%, 100% { box-shadow: 0 6px 20px rgba(0,0,0,0.18); }
+              50%      { box-shadow: 0 8px 26px rgba(0,0,0,0.22), 0 0 0 6px rgba(220,178,74,0.48); }
+            }
             .dash-title-pulse { animation: dashTitlePulse 3s ease-in-out infinite; }
             .dash-badge-pulse { animation: dashBadgePulse 2.6s ease-in-out infinite; }
+            .stat-card { transition: transform .22s cubic-bezier(.2,.7,.3,1); }
+            .stat-card:hover { transform: translateY(-4px) scale(1.04); z-index: 2; }
+            .stat-pulse { animation: statPulse 2.8s ease-in-out infinite; }
+            .stat-pulse-strong { animation: statPulseStrong 2.1s ease-in-out infinite; }
             @media (prefers-reduced-motion: reduce) {
-              .dash-title-pulse, .dash-badge-pulse { animation: none; }
+              .dash-title-pulse, .dash-badge-pulse, .stat-pulse, .stat-pulse-strong { animation: none; }
+              .stat-card:hover { transform: none; }
             }
           `}</style>
           <h1 className={business ? 'dash-title-pulse' : undefined} style={{
@@ -249,28 +262,34 @@ export default async function DashboardPage({ searchParams }) {
                   {stats.map((s) => {
                     const total = s.total || 0
                     const d = (s.last !== null && s.last !== undefined) ? total - s.last : null
+                    const isViews = s.brand === 'views'
                     return (
-                      <div key={s.brand} style={{
+                      <div key={s.brand}
+                        className={`stat-card ${isViews ? 'stat-pulse-strong' : 'stat-pulse'}`}
+                        style={{
                         display: 'flex', alignItems: 'center', gap: '14px',
-                        padding: '16px 18px',
-                        background: 'linear-gradient(135deg, rgba(220,178,74,0.08), rgba(28,59,40,0.25))',
-                        border: '1px solid rgba(220,178,74,0.22)',
+                        padding: isViews ? '18px 20px' : '16px 18px',
+                        background: isViews
+                          ? 'linear-gradient(135deg, rgba(220,178,74,0.20), rgba(28,59,40,0.25))'
+                          : 'linear-gradient(135deg, rgba(220,178,74,0.08), rgba(28,59,40,0.25))',
+                        border: isViews ? '1.5px solid rgba(220,178,74,0.55)' : '1px solid rgba(220,178,74,0.22)',
                         borderRadius: '16px',
                         boxShadow: '0 4px 16px rgba(0,0,0,0.14)',
                       }}>
-                        <BrandTile brand={s.brand} size={44} />
+                        <BrandTile brand={s.brand} size={isViews ? 50 : 44} />
                         <div style={{ minWidth: 0 }}>
                           <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
                             <strong style={{
-                              fontFamily: "'Cormorant Garamond', Georgia, serif",
-                              fontSize: '40px', fontWeight: 700, color: '#F6F0E0', lineHeight: 1,
-                              letterSpacing: '-0.02em',
+                              fontFamily: "'Fraunces', Georgia, serif",
+                              fontSize: isViews ? '48px' : '40px', fontWeight: 600, color: '#F6F0E0', lineHeight: 1,
+                              letterSpacing: '-0.01em', fontVariantNumeric: 'tabular-nums lining-nums',
                             }}>{Number(total).toLocaleString('es-MX')}</strong>
                             {d !== null && d > 0 && (
                               <span style={{
                                 display: 'inline-flex', alignItems: 'center', gap: '2px',
-                                fontSize: '12px', fontWeight: 700, color: 'var(--verde)',
-                                background: 'rgba(124,182,137,0.14)', padding: '2px 7px', borderRadius: '9999px',
+                                fontSize: '12px', fontWeight: 800, color: '#0E2C17',
+                                background: '#5FB874', padding: '2px 8px', borderRadius: '9999px',
+                                boxShadow: '0 1px 6px rgba(95,184,116,0.45)',
                               }}>▲ {d}</span>
                             )}
                           </div>
@@ -283,8 +302,12 @@ export default async function DashboardPage({ searchParams }) {
                   })}
                 </div>
 
-                <p style={{ margin: '12px 0 0', fontSize: '13px', color: 'rgba(246,240,224,0.6)', lineHeight: 1.5 }}>
-                  Esto es lo que tu presencia en En Malinalco te genera: cuánta gente descubre tu negocio y te contacta cada mes. El <strong style={{ color: 'var(--verde)' }}>▲</strong> es tu crecimiento vs. el mes pasado.
+                <p style={{
+                  margin: '16px 0 0', padding: '14px 18px', borderRadius: '12px',
+                  background: 'rgba(220,178,74,0.10)', borderLeft: '4px solid var(--oro)',
+                  fontSize: '14px', color: 'rgba(246,240,224,0.92)', lineHeight: 1.6,
+                }}>
+                  Esto es lo que tu presencia en En Malinalco te genera: <strong>cuánta gente descubre tu negocio y te contacta cada mes</strong> — la razón de ser de tu plan. El <strong style={{ color: '#5FB874' }}>▲</strong> es tu crecimiento vs. el mes pasado.
                 </p>
 
                 {/* Inteligencia comparativa (Cuāuhtli+) */}
