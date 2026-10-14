@@ -33,6 +33,20 @@ const inputBase = {
   outline: 'none',
 }
 
+// Campos de coordenadas: solo lectura, en gris (se llenan con el botón).
+const coordInputStyle = {
+  width: '100%',
+  padding: '12px 14px',
+  fontSize: '15px',
+  fontFamily: 'inherit',
+  color: 'rgba(60,60,60,0.75)',
+  background: 'rgba(128,128,128,0.12)',
+  border: '1.5px solid rgba(128,128,128,0.22)',
+  borderRadius: '10px',
+  outline: 'none',
+  cursor: 'not-allowed',
+}
+
 const btnStyle = {
   padding: '12px 28px',
   fontSize: '15px',
@@ -181,11 +195,12 @@ export default function ContactForm({ business }) {
           <span style={{ fontSize: '15px', fontWeight: 700, color: 'var(--ink)' }}>Tu punto en el Mapa de Malinalco</span>
         </div>
         <p style={{ fontSize: '13px', lineHeight: 1.6, color: 'var(--ink)', opacity: 0.75, margin: '0 0 12px' }}>
-          Con tus coordenadas, tu negocio aparece como un pin en el <strong>mapa del pueblo</strong>, donde
-          los visitantes buscan a dónde ir según dónde están. Sin ellas, no salimos en el mapa.
+          Te sugerimos agregar tu ubicación para que tu negocio aparezca como un pin en el
+          <strong> mapa dinámico de Malinalco</strong>, donde los visitantes te encuentran sin salir
+          del Directorio.
           <br />
           <span style={{ opacity: 0.85 }}>
-            <strong>La forma fácil:</strong> pega tu enlace de Google Maps en el campo de arriba y toca
+            Es muy fácil: pega tu enlace de Google Maps en el campo de arriba y toca
             <strong> «Sacar del enlace de Maps»</strong>. Nosotros ponemos la latitud y longitud por ti.
           </span>
         </p>
@@ -214,34 +229,31 @@ export default function ContactForm({ business }) {
           </p>
         )}
 
-        <p style={{ fontSize: '12px', lineHeight: 1.55, color: 'var(--ink)', opacity: 0.55, margin: '0 0 10px' }}>
-          ¿Prefieres a mano? En Google Maps mantén presionado el punto de tu negocio (o clic derecho en
-          la compu): aparecen dos números como <em>18.9487, -99.4939</em>. El primero es la latitud y el
-          segundo la longitud.
-        </p>
-
         <div style={{ display: 'flex', gap: '11px', flexWrap: 'wrap' }}>
           <div style={{ flex: '1 1 140px' }}>
             <label style={labelStyle}>Latitud</label>
             <input
               value={form.lat}
-              onChange={(e) => set('lat', e.target.value)}
-              placeholder="18.9487"
-              inputMode="decimal"
-              style={inputBase}
+              readOnly
+              tabIndex={-1}
+              placeholder="Se llena solo"
+              style={coordInputStyle}
             />
           </div>
           <div style={{ flex: '1 1 140px' }}>
             <label style={labelStyle}>Longitud</label>
             <input
               value={form.lng}
-              onChange={(e) => set('lng', e.target.value)}
-              placeholder="-99.4939"
-              inputMode="decimal"
-              style={inputBase}
+              readOnly
+              tabIndex={-1}
+              placeholder="Se llena solo"
+              style={coordInputStyle}
             />
           </div>
         </div>
+        <p style={{ fontSize: '11.5px', lineHeight: 1.5, color: 'var(--ink)', opacity: 0.5, margin: '8px 0 0' }}>
+          Estos campos se llenan automáticamente con el botón de arriba.
+        </p>
       </div>
 
       <button onClick={handleSave} style={btnStyle}>
