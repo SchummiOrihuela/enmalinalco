@@ -6,7 +6,7 @@ import ScrollProgress from '@/app/components/ScrollProgress'
 // Componente de servidor, sin estado.
 export default function PublicShell({ children }) {
   return (
-    <div style={{ minHeight: '100dvh', position: 'relative', overflow: 'hidden', background: '#213A26' }}>
+    <div style={{ minHeight: '100dvh', position: 'relative', overflowX: 'clip', background: '#213A26' }}>
       <ScrollProgress />
       {/* Fondo: degradado + destellos de color (mismo verde que el nav, sin costura) */}
       <div aria-hidden style={{
