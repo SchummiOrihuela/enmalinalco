@@ -179,7 +179,22 @@ export default async function DashboardPage({ searchParams }) {
           }}>
             Panel de control
           </p>
-          <h1 style={{
+          <style>{`
+            @keyframes dashTitlePulse {
+              0%, 100% { text-shadow: 0 0 0 rgba(231,200,106,0); }
+              50%      { text-shadow: 0 0 18px rgba(231,200,106,0.45); }
+            }
+            @keyframes dashBadgePulse {
+              0%, 100% { box-shadow: 0 0 0 0 rgba(220,178,74,0); transform: scale(1); }
+              50%      { box-shadow: 0 0 14px 2px rgba(220,178,74,0.5); transform: scale(1.04); }
+            }
+            .dash-title-pulse { animation: dashTitlePulse 3s ease-in-out infinite; }
+            .dash-badge-pulse { animation: dashBadgePulse 2.6s ease-in-out infinite; }
+            @media (prefers-reduced-motion: reduce) {
+              .dash-title-pulse, .dash-badge-pulse { animation: none; }
+            }
+          `}</style>
+          <h1 className={business ? 'dash-title-pulse' : undefined} style={{
             fontFamily: "'Cormorant Garamond', Georgia, serif",
             fontSize: '40px',
             fontWeight: 500,
@@ -402,7 +417,7 @@ function TierNav({ plan, isActive }) {
   const nextKey = NEXT[plan]
   // Ocēlōtl (o cualquiera sin siguiente): solo mención del nivel.
   if (!nextKey) {
-    return <span style={goldPill}>★ Nivel {cur.name}</span>
+    return <span className="dash-badge-pulse" style={goldPill}>★ Nivel {cur.name}</span>
   }
 
   // Malinalli / Cuāuhtli: mención + upsell con argumento corto.
