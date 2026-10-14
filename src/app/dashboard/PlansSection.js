@@ -41,7 +41,7 @@ export default function PlansSection({ businessId, currentPlan, isActive }) {
         body: JSON.stringify({ tier, businessId }),
       })
       const data = await res.json()
-      if (data.url) { window.location.href = data.url }
+      if (data.url) { window.location.assign(data.url) }
       else { alert(data.error || 'Error al iniciar el checkout'); setLoading(null) }
     } catch (err) {
       alert('Error de conexión. Intenta de nuevo.'); setLoading(null)
@@ -52,6 +52,15 @@ export default function PlansSection({ businessId, currentPlan, isActive }) {
 
   return (
     <div>
+      {/* Pulso tenue para el plan activo (se detiene al pasar el cursor). */}
+      <style>{`
+        @keyframes planPulse {
+          0%, 100% { box-shadow: 0 0 0 3px rgba(220,178,74,0.08), 0 10px 30px rgba(220,178,74,0.10); }
+          50%      { box-shadow: 0 0 0 7px rgba(220,178,74,0.20), 0 12px 34px rgba(220,178,74,0.18); }
+        }
+        .plan-pulse { animation: planPulse 2.8s ease-in-out infinite; }
+        @media (prefers-reduced-motion: reduce) { .plan-pulse { animation: none; } }
+      `}</style>
       <h2 style={h2Style}>Tu suscripción</h2>
       <p style={{ fontSize: '15px', color: 'var(--ink)', opacity: 0.75, marginBottom: '22px' }}>
         {currentName
@@ -77,6 +86,7 @@ export default function PlansSection({ businessId, currentPlan, isActive }) {
           const isHover = hovered === tier
           return (
             <div key={tier}
+              className={isCurrent && !isHover ? 'plan-pulse' : undefined}
               onMouseEnter={() => setHovered(tier)}
               onMouseLeave={() => setHovered(null)}
               style={{
