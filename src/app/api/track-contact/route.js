@@ -7,7 +7,7 @@ import { createServerClient } from '@supabase/ssr'
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
-const KINDS = new Set(['whatsapp', 'phone', 'maps'])
+const KINDS = new Set(['whatsapp', 'phone', 'maps', 'instagram', 'facebook'])
 // UUID v4-ish: valida formato antes de tocar la base.
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 

@@ -240,8 +240,8 @@ export default async function NegocioPage({ params }) {
                     textDecoration: 'none',
                     color: '#F0E8D4', fontSize: 14, fontWeight: 600,
                   }
-                  // Solo WhatsApp y "Cómo llegar" (mapa) cuentan como contacto.
-                  const trackKind = c.brand === 'whatsapp' ? 'whatsapp' : (c.brand === 'maps' ? 'maps' : null)
+                  // WhatsApp, mapa y redes (IG/FB) cuentan como interacción.
+                  const trackKind = ['whatsapp', 'maps', 'instagram', 'facebook'].includes(c.brand) ? c.brand : null
                   const common = { href: c.href, target: '_blank', rel: 'noopener noreferrer', style: chipStyle }
                   const inner = (<><BrandTile brand={c.brand} size={30} />{c.label}</>)
                   return trackKind
