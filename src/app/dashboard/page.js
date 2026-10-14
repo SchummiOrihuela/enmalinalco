@@ -290,7 +290,7 @@ export default async function DashboardPage({ searchParams }) {
                   <a href="#planes" style={{
                     display: 'block', marginTop: '12px', padding: '12px 16px', borderRadius: '12px',
                     background: 'rgba(220,178,74,0.10)', border: '1px dashed rgba(220,178,74,0.4)',
-                    textDecoration: 'none', color: 'var(--ink)', fontSize: '13.5px', lineHeight: 1.5,
+                    textDecoration: 'none', color: '#F6F0E0', fontSize: '13.5px', lineHeight: 1.5,
                   }}>
                     🔒 <strong>Con Cuāuhtli</strong> mides también los clics a tus redes y ves <strong>cómo vas frente a tu categoría</strong>. <span style={{ color: 'var(--oro)', fontWeight: 700 }}>Mejorar mi plan →</span>
                   </a>
@@ -299,7 +299,7 @@ export default async function DashboardPage({ searchParams }) {
                   <a href="#planes" style={{
                     display: 'block', marginTop: '12px', padding: '12px 16px', borderRadius: '12px',
                     background: 'rgba(220,178,74,0.10)', border: '1px dashed rgba(220,178,74,0.4)',
-                    textDecoration: 'none', color: 'var(--ink)', fontSize: '13.5px', lineHeight: 1.5,
+                    textDecoration: 'none', color: '#F6F0E0', fontSize: '13.5px', lineHeight: 1.5,
                   }}>
                     🔒 <strong>Con Ocēlōtl</strong> recibes cada mes un <strong>reporte a tu correo</strong> con tus números y recomendaciones para crecer. <span style={{ color: 'var(--oro)', fontWeight: 700 }}>Mejorar mi plan →</span>
                   </a>
@@ -308,7 +308,7 @@ export default async function DashboardPage({ searchParams }) {
                   <div style={{
                     marginTop: '12px', padding: '12px 16px', borderRadius: '12px',
                     background: 'rgba(124,182,137,0.10)', border: '1px solid rgba(124,182,137,0.28)',
-                    fontSize: '13.5px', color: 'var(--ink)', lineHeight: 1.5,
+                    fontSize: '13.5px', color: '#F6F0E0', lineHeight: 1.5,
                   }}>
                     🐆 Como <strong>Ocēlōtl</strong>, cada mes te enviamos este resumen a tu correo con recomendaciones para crecer.
                   </div>
@@ -321,7 +321,7 @@ export default async function DashboardPage({ searchParams }) {
             <div style={{
               marginTop: '16px', padding: '14px 16px', borderRadius: '12px',
               background: 'rgba(220,178,74,0.12)', border: '1px dashed rgba(220,178,74,0.45)',
-              color: 'var(--ink)', fontSize: '13.5px', lineHeight: 1.5,
+              color: '#F6F0E0', fontSize: '13.5px', lineHeight: 1.5,
             }}>
               📍 <strong>Agrega tu ubicación</strong> para aparecer en el <a href="/mapa" style={{ color: 'var(--oro)', fontWeight: 700 }}>mapa del pueblo</a>. Es de lo primero que busca el turista para decidir a dónde ir. Captúrala abajo, en <strong>Contacto y ubicación</strong>.
             </div>
