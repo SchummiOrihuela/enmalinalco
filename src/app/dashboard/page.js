@@ -14,6 +14,7 @@ import BackToTop from './BackToTop'
 import ContactForm from './ContactForm'
 import PreviewSpace from './PreviewSpace'
 import FeedbackButton from './FeedbackButton'
+import { BrandTile } from '@/app/components/BrandIcon'
 import ScrollProgress from '@/app/components/ScrollProgress'
 
 export default async function DashboardPage({ searchParams }) {
@@ -181,73 +182,63 @@ export default async function DashboardPage({ searchParams }) {
             fontSize: '14px',
           }}>
             <span style={{ color: 'rgba(246,240,224,0.72)' }}>Sesión activa: {user.email}</span>
-            {business && (() => {
-              const views = business.view_count || 0
-              const lastMonth = business.views_last_month
-              const delta = (lastMonth !== null && lastMonth !== undefined) ? views - lastMonth : null
-              return (
-                <span style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  padding: '5px 12px',
-                  background: 'var(--surf)',
-                  border: '1px solid rgba(220,178,74,0.22)',
-                  borderRadius: '9999px',
-                  fontSize: '13px',
-                  color: 'var(--ink)',
-                }}>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
-                    👁️ <strong>{views}</strong> vistas
-                  </span>
-                  {delta !== null && delta > 0 && (
-                    <span style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '3px',
-                      fontWeight: 700,
-                      color: 'var(--verde)',
-                    }}>
-                      ▲ +{delta} vs. mes pasado
-                    </span>
-                  )}
-                </span>
-              )
-            })()}
-            {business && [
-              { icon: '💬', label: 'WhatsApp', total: business.whatsapp_clicks, last: business.whatsapp_clicks_last_month },
-              { icon: '📞', label: 'llamadas', total: business.phone_clicks, last: business.phone_clicks_last_month },
-              { icon: '📍', label: 'cómo llegar', total: business.maps_clicks, last: business.maps_clicks_last_month },
-            ].map((s) => {
-              const total = s.total || 0
-              const d = (s.last !== null && s.last !== undefined) ? total - s.last : null
-              return (
-                <span key={s.label} style={{
-                  display: 'inline-flex', alignItems: 'center', gap: '8px',
-                  padding: '5px 12px',
-                  background: 'var(--surf)',
-                  border: '1px solid rgba(220,178,74,0.22)',
-                  borderRadius: '9999px',
-                  fontSize: '13px',
-                  color: 'var(--ink)',
-                }}>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
-                    {s.icon} <strong>{total}</strong> {s.label}
-                  </span>
-                  {d !== null && d > 0 && (
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', fontWeight: 700, color: 'var(--verde)' }}>
-                      ▲ +{d}
-                    </span>
-                  )}
-                </span>
-              )
-            })}
           </div>
-          {business && (
-            <p style={{ margin: '12px 0 0', fontSize: '13px', color: 'rgba(246,240,224,0.6)', lineHeight: 1.5 }}>
-              Así interactúan los visitantes con tu ficha dentro de En Malinalco: cuántos vieron tu perfil y cuántos te contactaron por WhatsApp, teléfono o pidieron cómo llegar.
-            </p>
-          )}
+
+          {business && (() => {
+            const stats = [
+              { brand: 'views', label: 'vistas de tu ficha', total: business.view_count, last: business.views_last_month },
+              { brand: 'whatsapp', label: 'contactos por WhatsApp', total: business.whatsapp_clicks, last: business.whatsapp_clicks_last_month },
+              { brand: 'phone', label: 'llamadas', total: business.phone_clicks, last: business.phone_clicks_last_month },
+              { brand: 'maps', label: 'pidieron cómo llegar', total: business.maps_clicks, last: business.maps_clicks_last_month },
+            ]
+            return (
+              <div style={{ marginTop: '22px' }}>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))',
+                  gap: '14px',
+                }}>
+                  {stats.map((s) => {
+                    const total = s.total || 0
+                    const d = (s.last !== null && s.last !== undefined) ? total - s.last : null
+                    return (
+                      <div key={s.brand} style={{
+                        display: 'flex', alignItems: 'center', gap: '14px',
+                        padding: '16px 18px',
+                        background: 'linear-gradient(135deg, rgba(220,178,74,0.08), rgba(28,59,40,0.25))',
+                        border: '1px solid rgba(220,178,74,0.22)',
+                        borderRadius: '16px',
+                        boxShadow: '0 4px 16px rgba(0,0,0,0.14)',
+                      }}>
+                        <BrandTile brand={s.brand} size={44} />
+                        <div style={{ minWidth: 0 }}>
+                          <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
+                            <strong style={{
+                              fontFamily: "'Cormorant Garamond', Georgia, serif",
+                              fontSize: '30px', fontWeight: 600, color: 'var(--ink)', lineHeight: 1,
+                            }}>{total}</strong>
+                            {d !== null && d > 0 && (
+                              <span style={{
+                                display: 'inline-flex', alignItems: 'center', gap: '2px',
+                                fontSize: '12px', fontWeight: 700, color: 'var(--verde)',
+                                background: 'rgba(124,182,137,0.14)', padding: '2px 7px', borderRadius: '9999px',
+                              }}>▲ {d}</span>
+                            )}
+                          </div>
+                          <div style={{ fontSize: '12.5px', color: 'rgba(246,240,224,0.66)', marginTop: '4px', lineHeight: 1.3 }}>
+                            {s.label}
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+                <p style={{ margin: '12px 0 0', fontSize: '13px', color: 'rgba(246,240,224,0.6)', lineHeight: 1.5 }}>
+                  Esto es lo que tu presencia en En Malinalco te genera: cuánta gente descubre tu negocio y te contacta cada mes. El <strong style={{ color: 'var(--verde)' }}>▲</strong> es tu crecimiento vs. el mes pasado.
+                </p>
+              </div>
+            )
+          })()}
         </div>
 
         {/* Secciones — cada tarjeta envuelve un componente hijo */}
