@@ -59,6 +59,8 @@ export default function ContactForm({ business }) {
     instagram: business?.instagram || '',
     facebook: business?.facebook || '',
     maps_url: business?.maps_url || '',
+    lat: business?.lat ?? '',
+    lng: business?.lng ?? '',
   })
   const [msg, setMsg] = useState(null)
   const supabase = createClient()
@@ -68,10 +70,22 @@ export default function ContactForm({ business }) {
   }
 
   async function handleSave() {
+    // Coordenadas: texto vacío -> null; de lo contrario número válido.
+    const toCoord = (v) => {
+      if (v === '' || v == null) return null
+      const n = Number(String(v).trim())
+      return isFinite(n) ? n : null
+    }
+    if ((form.lat !== '' && toCoord(form.lat) === null) ||
+        (form.lng !== '' && toCoord(form.lng) === null)) {
+      setMsg('Error: latitud y longitud deben ser números (ej. 18.9487 y -99.4939).')
+      return
+    }
     setMsg('Guardando...')
+    const payload = { ...form, lat: toCoord(form.lat), lng: toCoord(form.lng) }
     const { error } = await supabase
       .from('businesses')
-      .update(form)
+      .update(payload)
       .eq('id', business.id)
     if (error) setMsg('Error: ' + error.message)
     else setMsg('Datos guardados.')
@@ -116,6 +130,53 @@ export default function ContactForm({ business }) {
           )}
         </div>
       ))}
+
+      {/* Ubicación en el mapa (coordenadas) */}
+      <div style={{
+        marginTop: '6px',
+        marginBottom: '18px',
+        padding: '16px 18px',
+        background: 'rgba(28,59,40,0.05)',
+        border: '1.5px solid rgba(220,178,74,0.35)',
+        borderRadius: '12px',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '9px', marginBottom: '8px' }}>
+          <BrandTile brand="maps" />
+          <span style={{ fontSize: '15px', fontWeight: 700, color: 'var(--ink)' }}>Tu punto en el Mapa de Malinalco</span>
+        </div>
+        <p style={{ fontSize: '13px', lineHeight: 1.6, color: 'var(--ink)', opacity: 0.75, margin: '0 0 12px' }}>
+          Con tus coordenadas, tu negocio aparece como un pin en el <strong>mapa del pueblo</strong>, donde
+          los visitantes buscan a dónde ir según dónde están. Sin ellas, no salimos en el mapa.
+          <br />
+          <span style={{ opacity: 0.85 }}>
+            <strong>Cómo obtenerlas:</strong> abre Google Maps en tu negocio, mantén presionado el punto
+            exacto (o haz clic derecho en la compu). Aparecen dos números como <em>18.9487, -99.4939</em> —
+            el primero es la latitud y el segundo la longitud. Cópialos aquí.
+          </span>
+        </p>
+        <div style={{ display: 'flex', gap: '11px', flexWrap: 'wrap' }}>
+          <div style={{ flex: '1 1 140px' }}>
+            <label style={labelStyle}>Latitud</label>
+            <input
+              value={form.lat}
+              onChange={(e) => set('lat', e.target.value)}
+              placeholder="18.9487"
+              inputMode="decimal"
+              style={inputBase}
+            />
+          </div>
+          <div style={{ flex: '1 1 140px' }}>
+            <label style={labelStyle}>Longitud</label>
+            <input
+              value={form.lng}
+              onChange={(e) => set('lng', e.target.value)}
+              placeholder="-99.4939"
+              inputMode="decimal"
+              style={inputBase}
+            />
+          </div>
+        </div>
+      </div>
 
       <button onClick={handleSave} style={btnStyle}>
         Guardar datos
