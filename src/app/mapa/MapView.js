@@ -6,7 +6,7 @@ import 'leaflet/dist/leaflet.css'
 // Centro del pueblo de Malinalco.
 const CENTRO = [18.9487, -99.4939]
 
-const COLOR = { open: '#3A8C4E', soon: '#E0803A', closed: '#9A8E7C' }
+const COLOR = { open: '#3A8C4E', soon: '#E0803A', closed: '#C0392B' }
 const codeOf = (e) => (e?.open ? 'open' : (e?.opensSoon ? 'soon' : 'closed'))
 
 // Pin "semáforo": gota de color con punto blanco.
@@ -70,8 +70,8 @@ export default function MapView({ items, categorias }) {
   useEffect(() => {
     if (mapRef.current || !elRef.current) return
     const map = L.map(elRef.current, { scrollWheelZoom: true }).setView(CENTRO, 15)
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; OpenStreetMap &copy; CARTO',
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap',
       maxZoom: 19,
     }).addTo(map)
     layerRef.current = L.layerGroup().addTo(map)
@@ -117,7 +117,7 @@ export default function MapView({ items, categorias }) {
           <option value="todos">Cualquier horario</option>
           <option value="abierto">🟢 Abierto ahora</option>
           <option value="pronto">🟠 Abre pronto</option>
-          <option value="cerrado">⚪ Cerrado</option>
+          <option value="cerrado">🔴 Cerrado</option>
         </select>
         <span style={{ display: 'inline-flex', alignItems: 'center', color: 'rgba(242,237,227,.6)', fontSize: 13, fontWeight: 600 }}>
           {filtered.length} {filtered.length === 1 ? 'lugar' : 'lugares'}
