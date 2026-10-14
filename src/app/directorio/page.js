@@ -6,6 +6,7 @@ import { getPriority, getBadge } from '@/lib/plans'
 import { applyVisible } from '@/lib/visibility'
 import { toSlug } from '@/lib/slug'
 import { estadoHorario } from '@/lib/hours'
+import SubscribeForm from '@/app/components/SubscribeForm'
 import DirectoryBrowser from './DirectoryBrowser'
 
 const SITE_URL = 'https://enmalinalco.com'
@@ -139,6 +140,8 @@ export default async function DirectorioPage() {
         </p>
 
         <DirectoryBrowser businesses={items} categorias={categorias} />
+
+        <SubscribeForm source="directorio" />
       </div>
     </PublicShell>
   )
