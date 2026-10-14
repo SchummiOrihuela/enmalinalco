@@ -839,6 +839,7 @@ const MARKUP = `<!-- Progress bar -->
 
     <nav class="dnav" aria-label="Navegación principal">
       <a href="#categorias">Directorio</a>
+      <a href="/mapa">Mapa</a>
       <a href="#destacados">Destacados</a>
       <a href="#negocios">Para negocios</a>
       <a href="#articulos">Historias del pueblo</a>
@@ -860,6 +861,7 @@ const MARKUP = `<!-- Progress bar -->
 <!-- Mobile nav -->
 <nav class="mnav" id="mnav" aria-label="Menú móvil">
   <a href="#categorias">Directorio <span>→</span></a>
+  <a href="/mapa">Mapa <span>→</span></a>
   <a href="#destacados">Destacados <span>→</span></a>
   <a href="#negocios">Para negocios <span>→</span></a>
   <a href="#articulos">Historias del pueblo <span>→</span></a>
