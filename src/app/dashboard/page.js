@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { headers } from 'next/headers'
 import { createClient } from '@/lib/supabaseServer'
@@ -101,7 +102,7 @@ export default async function DashboardPage({ searchParams }) {
         flexWrap: 'wrap',
         borderBottom: '1px solid rgba(220,178,74,0.18)',
       }}>
-        <a href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '11px', textDecoration: 'none' }}>
+        <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '11px', textDecoration: 'none' }}>
           <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M2,16 C3,8.5 9,3.5 16,3.5 C23,3.5 29,8.5 30,16 Z" fill="#3F6B4B"/>
             <path d="M8,18.4 L24,18.4 L28,26.6 L4,26.6 Z" fill="#CBBBA0"/>
@@ -123,7 +124,7 @@ export default async function DashboardPage({ searchParams }) {
           }}>
             en<em style={{ color: 'var(--verde-lt)', fontStyle: 'italic' }}>malinalco</em>
           </span>
-        </a>
+        </Link>
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
           {business && <TierNav plan={business.plan} isActive={business.is_active} />}
           {business && <PreviewSpace slug={business.slug} />}
@@ -213,7 +214,40 @@ export default async function DashboardPage({ searchParams }) {
                 </span>
               )
             })()}
+            {business && [
+              { icon: '💬', label: 'WhatsApp', total: business.whatsapp_clicks, last: business.whatsapp_clicks_last_month },
+              { icon: '📞', label: 'llamadas', total: business.phone_clicks, last: business.phone_clicks_last_month },
+              { icon: '📍', label: 'cómo llegar', total: business.maps_clicks, last: business.maps_clicks_last_month },
+            ].map((s) => {
+              const total = s.total || 0
+              const d = (s.last !== null && s.last !== undefined) ? total - s.last : null
+              return (
+                <span key={s.label} style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '8px',
+                  padding: '5px 12px',
+                  background: 'var(--surf)',
+                  border: '1px solid rgba(220,178,74,0.22)',
+                  borderRadius: '9999px',
+                  fontSize: '13px',
+                  color: 'var(--ink)',
+                }}>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+                    {s.icon} <strong>{total}</strong> {s.label}
+                  </span>
+                  {d !== null && d > 0 && (
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', fontWeight: 700, color: 'var(--verde)' }}>
+                      ▲ +{d}
+                    </span>
+                  )}
+                </span>
+              )
+            })}
           </div>
+          {business && (
+            <p style={{ margin: '12px 0 0', fontSize: '13px', color: 'rgba(246,240,224,0.6)', lineHeight: 1.5 }}>
+              Así interactúan los visitantes con tu ficha dentro de En Malinalco: cuántos vieron tu perfil y cuántos te contactaron por WhatsApp, teléfono o pidieron cómo llegar.
+            </p>
+          )}
         </div>
 
         {/* Secciones — cada tarjeta envuelve un componente hijo */}
