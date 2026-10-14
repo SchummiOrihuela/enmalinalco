@@ -284,9 +284,9 @@ export default async function DashboardPage({ searchParams }) {
                             <span style={{
                               display: 'inline-flex', alignItems: 'center', gap: '2px',
                               marginLeft: 'auto',
-                              fontSize: '12px', fontWeight: 800, color: '#0E2C17',
-                              background: '#5FB874', padding: '2px 8px', borderRadius: '9999px',
-                              boxShadow: '0 1px 6px rgba(95,184,116,0.45)',
+                              fontSize: '12px', fontWeight: 800, color: '#FFFFFF',
+                              background: '#3E9E59', padding: '2px 8px', borderRadius: '9999px',
+                              boxShadow: '0 1px 6px rgba(62,158,89,0.5)',
                             }}>▲ {d}</span>
                           )}
                         </div>
