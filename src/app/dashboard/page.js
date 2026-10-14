@@ -185,15 +185,16 @@ export default async function DashboardPage({ searchParams }) {
               50%      { text-shadow: 0 0 18px rgba(231,200,106,0.45); }
             }
             @keyframes dashBadgePulse {
-              0%, 100% { box-shadow: 0 0 0 0 rgba(220,178,74,0); transform: scale(1); }
-              50%      { box-shadow: 0 0 14px 2px rgba(220,178,74,0.5); transform: scale(1.04); }
+              0%   { box-shadow: 0 0 0 0 rgba(220,178,74,0.65); transform: scale(1); }
+              60%  { box-shadow: 0 0 0 16px rgba(220,178,74,0); transform: scale(1.05); }
+              100% { box-shadow: 0 0 0 0 rgba(220,178,74,0); transform: scale(1); }
             }
             @keyframes statPulse {
               0%, 100% { box-shadow: 0 4px 16px rgba(0,0,0,0.14); }
               50%      { box-shadow: 0 4px 16px rgba(0,0,0,0.14), 0 0 0 3px rgba(220,178,74,0.22); }
             }
             .dash-title-pulse { animation: dashTitlePulse 3s ease-in-out infinite; }
-            .dash-badge-pulse { animation: dashBadgePulse 2.6s ease-in-out infinite; }
+            .dash-badge-pulse { animation: dashBadgePulse 1.9s ease-out infinite; }
             .stat-card { transition: transform .22s cubic-bezier(.2,.7,.3,1); }
             .stat-card:hover { transform: translateY(-4px) scale(1.04); z-index: 2; }
             .stat-pulse { animation: statPulse 2.8s ease-in-out infinite; }
