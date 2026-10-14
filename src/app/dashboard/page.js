@@ -192,18 +192,13 @@ export default async function DashboardPage({ searchParams }) {
               0%, 100% { box-shadow: 0 4px 16px rgba(0,0,0,0.14); }
               50%      { box-shadow: 0 4px 16px rgba(0,0,0,0.14), 0 0 0 3px rgba(220,178,74,0.22); }
             }
-            @keyframes statPulseStrong {
-              0%, 100% { box-shadow: 0 6px 20px rgba(0,0,0,0.18); }
-              50%      { box-shadow: 0 8px 26px rgba(0,0,0,0.22), 0 0 0 6px rgba(220,178,74,0.48); }
-            }
             .dash-title-pulse { animation: dashTitlePulse 3s ease-in-out infinite; }
             .dash-badge-pulse { animation: dashBadgePulse 2.6s ease-in-out infinite; }
             .stat-card { transition: transform .22s cubic-bezier(.2,.7,.3,1); }
             .stat-card:hover { transform: translateY(-4px) scale(1.04); z-index: 2; }
             .stat-pulse { animation: statPulse 2.8s ease-in-out infinite; }
-            .stat-pulse-strong { animation: statPulseStrong 2.1s ease-in-out infinite; }
             @media (prefers-reduced-motion: reduce) {
-              .dash-title-pulse, .dash-badge-pulse, .stat-pulse, .stat-pulse-strong { animation: none; }
+              .dash-title-pulse, .dash-badge-pulse, .stat-pulse { animation: none; }
               .stat-card:hover { transform: none; }
             }
           `}</style>
@@ -265,7 +260,7 @@ export default async function DashboardPage({ searchParams }) {
                     const isViews = s.brand === 'views'
                     return (
                       <div key={s.brand}
-                        className={`stat-card ${isViews ? 'stat-pulse-strong' : 'stat-pulse'}`}
+                        className="stat-card stat-pulse"
                         style={{
                         display: 'flex', alignItems: 'center', gap: '14px',
                         padding: isViews ? '18px 20px' : '16px 18px',
@@ -281,7 +276,7 @@ export default async function DashboardPage({ searchParams }) {
                           <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
                             <strong style={{
                               fontFamily: "'Fraunces', Georgia, serif",
-                              fontSize: isViews ? '48px' : '40px', fontWeight: 600, color: '#F6F0E0', lineHeight: 1,
+                              fontSize: isViews ? '34px' : '32px', fontWeight: 600, color: '#F6F0E0', lineHeight: 1,
                               letterSpacing: '-0.01em', fontVariantNumeric: 'tabular-nums lining-nums',
                             }}>{Number(total).toLocaleString('es-MX')}</strong>
                             {d !== null && d > 0 && (
