@@ -234,8 +234,8 @@ export default async function DashboardPage({ searchParams }) {
             // Inteligencia de redes (Cuāuhtli en adelante).
             if (tier >= 2) {
               stats.push(
-                { brand: 'instagram', label: 'Clics en IG', total: business.instagram_clicks, last: business.instagram_clicks_last_month },
-                { brand: 'facebook', label: 'Clics en FB', total: business.facebook_clicks, last: business.facebook_clicks_last_month },
+                { brand: 'instagram', label: 'Clics en Instagram', total: business.instagram_clicks, last: business.instagram_clicks_last_month },
+                { brand: 'facebook', label: 'Clics en Facebook', total: business.facebook_clicks, last: business.facebook_clicks_last_month },
               )
             }
             // Comparativa vs. categoría (Cuāuhtli en adelante).
