@@ -6,6 +6,8 @@ import ReviewsList from '@/app/dashboard/ReviewsList'
 import { getBadge, getPriority } from '@/lib/plans'
 import ReviewForm from '@/app/dashboard/ReviewForm'
 import TrackedLink from './TrackedLink'
+import OpenBadge from '@/app/components/OpenBadge'
+import { estadoHorario } from '@/lib/hours'
 import { toSlug } from '@/lib/slug'
 import { CATEGORIA_POR_SLUG } from '@/lib/categorias'
 import { BrandTile } from '@/app/components/BrandIcon'
@@ -254,7 +256,10 @@ export default async function NegocioPage({ params }) {
         )
       })()}
 
-      <h2 style={{ marginTop: 36, marginBottom: 12 }}>Horarios</h2>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', marginTop: 36, marginBottom: 12 }}>
+        <h2 style={{ margin: 0 }}>Horarios</h2>
+        <OpenBadge estado={estadoHorario(hours)} />
+      </div>
       {(hours || []).length === 0 ? (
         <p style={{ color: 'rgba(240,232,212,0.55)' }}>Sin horarios publicados.</p>
       ) : (

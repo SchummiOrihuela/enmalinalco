@@ -6,6 +6,8 @@ import { CATEGORIA_POR_SLUG } from '@/lib/categorias'
 import PublicShell from '@/app/components/PublicShell'
 import { BrandTile } from '@/app/components/BrandIcon'
 import { applyVisible } from '@/lib/visibility'
+import OpenBadge from '@/app/components/OpenBadge'
+import { estadoHorario } from '@/lib/hours'
 
 // Siempre renderizar en el servidor con datos frescos (sin caché estática).
 // Evita que fotos/negocios recién publicados aparezcan solo en unos dispositivos.
@@ -68,6 +70,16 @@ export default async function CategoriaPage({ params }) {
     for (const p of photos || []) {
       if (firstPhoto[p.business_id] === undefined) firstPhoto[p.business_id] = p.url
     }
+  }
+
+  // Horarios por negocio, para el indicador "abierto ahora".
+  const hoursByBiz = {}
+  if (ids.length) {
+    const { data: hrs } = await supabase
+      .from('business_hours')
+      .select('business_id,day_of_week,open_time,close_time,break_start,break_end,is_closed')
+      .in('business_id', ids)
+    for (const h of hrs || []) (hoursByBiz[h.business_id] ||= []).push(h)
   }
 
   // Metadatos de la categoría (fuente única de verdad)
@@ -177,6 +189,10 @@ export default async function CategoriaPage({ params }) {
                   {getBadge(b.plan)}
                 </span>
               )}
+              {(() => {
+                const e = estadoHorario(hoursByBiz[b.id] || [])
+                return e.label ? <div style={{ marginTop: 6 }}><OpenBadge estado={e} size="sm" /></div> : null
+              })()}
               {b.address && (
                 <div style={{ color: 'rgba(242,237,227,.55)', fontSize: 14, marginTop: 4 }}>📍 {b.address}</div>
               )}
