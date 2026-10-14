@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import PublicShell from '@/app/components/PublicShell'
+import BackToTop from '@/app/components/BackToTop'
 import { getArticulo, getTodosLosSlugs, ARTICULO_POR_SLUG } from '@/lib/articulos'
 import { CATEGORIA_POR_SLUG } from '@/lib/categorias'
 
@@ -343,6 +344,7 @@ export default async function HistoriaPage({ params }) {
           </Link>
         </div>
       </article>
+      <BackToTop />
     </PublicShell>
   )
 }

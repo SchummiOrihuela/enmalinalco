@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import PublicShell from '@/app/components/PublicShell'
+import BackToTop from '@/app/components/BackToTop'
+import ScrollSpy from './ScrollSpy'
 import { GRUPOS, getArticulosPorGrupo } from '@/lib/articulos'
 
 const SITE_URL = 'https://enmalinalco.com'
@@ -40,6 +42,7 @@ export default function HistoriasIndex() {
         .hx-chip-n{font-size:12px;font-weight:800;opacity:.7}
         .hx-chip-dir{background:transparent;color:#EBC66A;border:1px solid rgba(220,178,74,.5);box-shadow:none}
         .hx-chip-dir:hover{background:rgba(220,178,74,.12);color:#F4D98A;transform:translateY(-2px);box-shadow:none}
+        .hx-chip.is-active{background:#FF9A3D;box-shadow:0 0 0 2px rgba(246,240,224,.9),0 8px 20px rgba(245,133,41,.4);transform:translateY(-1px)}
         @media (max-width:640px){
           .hx-nav-track{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}
           .hx-nav-track::-webkit-scrollbar{display:none}
@@ -123,6 +126,8 @@ export default function HistoriasIndex() {
           )
         })}
       </div>
+      <ScrollSpy />
+      <BackToTop />
     </PublicShell>
   )
 }
