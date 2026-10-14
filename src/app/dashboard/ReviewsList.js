@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { createClient } from "@/lib/supabaseBrowser";
 
 const h3Style = {
@@ -12,7 +12,7 @@ const h3Style = {
 
 // Estrella en SVG: nítida, con relleno parcial para medias estrellas.
 function Star({ fill = 1, size = 18 }) {
-  const id = `g${Math.random().toString(36).slice(2)}`;
+  const id = `star${useId().replace(/:/g, "")}`;
   const pct = Math.max(0, Math.min(1, fill)) * 100;
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: "block" }}>
@@ -121,19 +121,19 @@ export default function ReviewsList({ businessId }) {
               }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px", marginBottom: r.comment ? "8px" : 0 }}>
                   <Stars value={r.rating} size={15} />
-                  <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--ink)", opacity: 0.75 }}>
+                  <span style={{ fontSize: "14px", fontWeight: 600, color: "var(--ink)", opacity: 0.85 }}>
                     {r.author_name || "Anónimo"}
                   </span>
                 </div>
                 {r.comment && (
                   <p style={{
                     fontFamily: "'Cormorant Garamond', Georgia, serif",
-                    fontSize: "17px",
-                    fontStyle: "italic",
+                    fontSize: "20px",
+                    fontWeight: 500,
                     color: "var(--ink)",
-                    opacity: 0.85,
+                    opacity: 0.95,
                     margin: 0,
-                    lineHeight: 1.5,
+                    lineHeight: 1.65,
                   }}>
                     “{r.comment}”
                   </p>
