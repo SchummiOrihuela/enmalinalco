@@ -5,6 +5,7 @@ import { CATEGORIAS } from '@/lib/categorias'
 import { getPriority, getBadge } from '@/lib/plans'
 import { applyVisible } from '@/lib/visibility'
 import { toSlug } from '@/lib/slug'
+import { estadoHorario } from '@/lib/hours'
 import DirectoryBrowser from './DirectoryBrowser'
 
 const SITE_URL = 'https://enmalinalco.com'
@@ -51,6 +52,16 @@ export default async function DirectorioPage() {
     }
   }
 
+  // Horarios por negocio, para calcular "abierto ahora".
+  const hoursByBiz = {}
+  if (ids.length) {
+    const { data: hrs } = await supabase
+      .from('business_hours')
+      .select('business_id,day_of_week,open_time,close_time,break_start,break_end,is_closed')
+      .in('business_id', ids)
+    for (const h of hrs || []) (hoursByBiz[h.business_id] ||= []).push(h)
+  }
+
   // Serializa solo lo que el buscador necesita (nada de datos sensibles).
   const items = businesses.map((b) => {
     const social = getPriority(b.plan) >= 2
@@ -69,6 +80,10 @@ export default async function DirectorioPage() {
       badge: getBadge(b.plan) || null,
       brands,
       photo: firstPhoto[b.id] || null,
+      estado: (() => {
+        const e = estadoHorario(hoursByBiz[b.id] || [])
+        return e.label ? { open: e.open, label: e.label, soon: e.soon } : null
+      })(),
       // Texto plano para la búsqueda (no se muestra).
       haystack: [b.name, b.category, b.address, b.description].filter(Boolean).join(' '),
     }

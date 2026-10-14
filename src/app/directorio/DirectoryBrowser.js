@@ -2,6 +2,7 @@
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { BrandTile } from '@/app/components/BrandIcon'
+import OpenBadge from '@/app/components/OpenBadge'
 
 // Quita acentos y pasa a minúsculas para una búsqueda tolerante.
 const norm = (s) =>
@@ -10,6 +11,7 @@ const norm = (s) =>
 export default function DirectoryBrowser({ businesses, categorias }) {
   const [q, setQ] = useState('')
   const [cat, setCat] = useState('all')
+  const [openOnly, setOpenOnly] = useState(false)
 
   // Conteo por categoría (para las fichas de filtro).
   const counts = useMemo(() => {
@@ -22,10 +24,13 @@ export default function DirectoryBrowser({ businesses, categorias }) {
     const needle = norm(q.trim())
     return businesses.filter((b) => {
       if (cat !== 'all' && b.categorySlug !== cat) return false
+      if (openOnly && !(b.estado && b.estado.open)) return false
       if (!needle) return true
       return norm(b.haystack).includes(needle)
     })
-  }, [businesses, q, cat])
+  }, [businesses, q, cat, openOnly])
+
+  const openCount = useMemo(() => businesses.filter((b) => b.estado && b.estado.open).length, [businesses])
 
   // Solo categorías que tienen al menos un negocio.
   const cats = categorias.filter((c) => counts[c.slug])
@@ -54,6 +59,26 @@ export default function DirectoryBrowser({ businesses, categorias }) {
         />
       </div>
 
+      {openCount > 0 && (
+        <button
+          type="button"
+          onClick={() => setOpenOnly((v) => !v)}
+          aria-pressed={openOnly}
+          style={{
+            display: 'inline-flex', alignItems: 'center', gap: 8, cursor: 'pointer',
+            padding: '9px 15px', borderRadius: 9999, marginBottom: 14,
+            fontSize: 14, fontWeight: 700,
+            border: openOnly ? '1px solid #3A8C4E' : '1px solid rgba(58,140,78,.5)',
+            background: openOnly ? '#3A8C4E' : 'rgba(58,140,78,.12)',
+            color: openOnly ? '#fff' : '#7CC98A',
+          }}
+        >
+          <span style={{ width: 8, height: 8, borderRadius: '50%', background: openOnly ? '#fff' : '#3A8C4E' }} />
+          Abierto ahora
+          <span style={{ fontSize: 12, fontWeight: 800, opacity: 0.75 }}>{openCount}</span>
+        </button>
+      )}
+
       <div style={{ display: 'flex', gap: 8, overflowX: 'auto', paddingBottom: 6, marginBottom: 20 }}>
         <Chip active={cat === 'all'} onClick={() => setCat('all')} label="Todos" n={businesses.length} />
         {cats.map((c) => (
@@ -81,6 +106,9 @@ export default function DirectoryBrowser({ businesses, categorias }) {
                   </span>
                 )}
                 <div style={{ color: 'rgba(242,237,227,.55)', fontSize: 13, marginTop: 4 }}>{b.category}</div>
+                {b.estado && (
+                  <div style={{ marginTop: 8 }}><OpenBadge estado={b.estado} size="sm" /></div>
+                )}
                 {b.address && (
                   <div style={{ color: 'rgba(242,237,227,.55)', fontSize: 14, marginTop: 4 }}>📍 {b.address}</div>
                 )}
