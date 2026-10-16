@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { PLANS } from '@/lib/plans'
+import { PLANS, BILLING, GUARANTEE, getMonthlyEquivalent, getAnnualSavings } from '@/lib/plans'
 
 const ORDER = ['malinalli', 'cuauhtli', 'ocelotl']
 
@@ -25,6 +25,7 @@ function Check() {
 export default function PlansSection({ businessId, currentPlan, isActive }) {
   const [loading, setLoading] = useState(null)
   const [hovered, setHovered] = useState(null)
+  const [billing, setBilling] = useState('mensual') // 'mensual' | 'anual'
 
   // Un plan solo cuenta como "actual" si el negocio pagó (is_active).
   // Sin pago, el negocio no tiene plan activo aunque la columna `plan`
@@ -38,7 +39,7 @@ export default function PlansSection({ businessId, currentPlan, isActive }) {
       const res = await fetch('/api/stripe/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tier, businessId }),
+        body: JSON.stringify({ tier, businessId, billing }),
       })
       const data = await res.json()
       if (data.url) { window.location.assign(data.url) }
@@ -79,6 +80,38 @@ export default function PlansSection({ businessId, currentPlan, isActive }) {
                 color: 'var(--oro)',
               }}>Sin plan activo</strong>. Elige el que mejor le quede a tu negocio.</>}
       </p>
+
+      {/* Toggle de ciclo: mensual vs. anual (2 meses gratis) */}
+      <div style={{
+        display: 'inline-flex', alignItems: 'center', gap: '4px',
+        padding: '4px', marginBottom: '20px', borderRadius: '9999px',
+        background: 'rgba(37,32,26,0.06)', border: '1px solid rgba(128,128,128,0.18)',
+      }}>
+        {['mensual', 'anual'].map((b) => {
+          const on = billing === b
+          return (
+            <button key={b} type="button" onClick={() => setBilling(b)}
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '7px',
+                padding: '7px 16px', borderRadius: '9999px', border: 'none',
+                cursor: 'pointer', fontFamily: 'inherit', fontSize: '13.5px', fontWeight: 700,
+                background: on ? 'var(--ink)' : 'transparent',
+                color: on ? 'var(--parch)' : 'var(--ink)',
+                transition: 'background .2s ease, color .2s ease',
+              }}>
+              {BILLING[b].label}
+              {b === 'anual' && (
+                <span style={{
+                  fontSize: '10.5px', fontWeight: 800, textTransform: 'uppercase',
+                  letterSpacing: '0.04em', padding: '2px 7px', borderRadius: '9999px',
+                  background: on ? 'var(--verde-lt)' : 'rgba(58,107,71,0.16)',
+                  color: on ? '#1C3B28' : 'var(--verde)',
+                }}>2 meses gratis</span>
+              )}
+            </button>
+          )
+        })}
+      </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: '16px', alignItems: 'stretch' }}>
         {ORDER.map((tier) => {
@@ -132,10 +165,19 @@ export default function PlansSection({ businessId, currentPlan, isActive }) {
                 {p.tagline}
               </div>
 
-              {/* Precio */}
-              <div style={{ marginBottom: '18px' }}>
-                <span style={{ fontSize: '30px', fontWeight: 700, color: 'var(--ink)' }}>${p.price}</span>
-                <span style={{ fontSize: '12px', fontWeight: 400, color: 'var(--ink)', opacity: 0.5 }}> /mes MXN</span>
+              {/* Precio (según ciclo) */}
+              <div style={{ marginBottom: '18px', minHeight: '58px' }}>
+                <span style={{ fontSize: '30px', fontWeight: 700, color: 'var(--ink)' }}>
+                  ${(billing === 'anual' ? p.priceAnual : p.price).toLocaleString('es-MX')}
+                </span>
+                <span style={{ fontSize: '12px', fontWeight: 400, color: 'var(--ink)', opacity: 0.5 }}>
+                  {' '}{billing === 'anual' ? '/año' : '/mes'} MXN
+                </span>
+                {billing === 'anual' && (
+                  <div style={{ fontSize: '12px', color: 'var(--verde)', fontWeight: 600, marginTop: '4px' }}>
+                    ≈ ${getMonthlyEquivalent(tier).toLocaleString('es-MX')}/mes · ahorras ${getAnnualSavings(tier).toLocaleString('es-MX')} al año
+                  </div>
+                )}
               </div>
 
               {/* Beneficios */}
@@ -174,6 +216,25 @@ export default function PlansSection({ businessId, currentPlan, isActive }) {
           )
         })}
       </div>
+
+      {/* Garantía + sin permanencia: quita el miedo al pago recurrente. */}
+      {GUARANTEE.active && (
+        <div style={{
+          display: 'flex', alignItems: 'flex-start', gap: '12px',
+          marginTop: '20px', padding: '16px 18px', borderRadius: '14px',
+          background: 'rgba(58,107,71,0.10)', border: '1px solid rgba(58,107,71,0.28)',
+        }}>
+          <span aria-hidden="true" style={{ fontSize: '20px', lineHeight: 1.1 }}>🛡️</span>
+          <div>
+            <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--verde)', marginBottom: '2px' }}>
+              {GUARANTEE.short} · sin permanencia
+            </div>
+            <div style={{ fontSize: '13px', color: 'var(--ink)', opacity: 0.8, lineHeight: 1.5 }}>
+              {GUARANTEE.copy} Cancela cuando quieras, desde aquí mismo.
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

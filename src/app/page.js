@@ -569,6 +569,28 @@ nav.dnav a:hover::after{transform:scaleX(1)}
 .founders-copy{font-size:var(--t-2xs);color:rgba(242,237,227,.72);line-height:1.45}
 .founders-copy strong{color:#F2EDE3;font-weight:600}
 
+/* Toggle de ciclo: mensual / anual (landing, solo informativo) */
+.bill-toggle{display:inline-flex;align-items:center;gap:4px;padding:4px;
+  margin-bottom:var(--s4);border-radius:var(--r-full);
+  background:rgba(242,237,227,.06);border:1px solid rgba(242,237,227,.12)}
+.bill-opt{display:inline-flex;align-items:center;gap:7px;padding:7px 16px;
+  border-radius:var(--r-full);font-size:var(--t-xs);font-weight:700;
+  color:rgba(242,237,227,.7);transition:background var(--dur),color var(--dur)}
+.bill-opt.on{background:var(--parch);color:var(--ink)}
+.bill-save{font-size:.62rem;font-weight:800;text-transform:uppercase;
+  letter-spacing:.04em;padding:2px 7px;border-radius:var(--r-full);
+  background:rgba(130,201,148,.16);color:var(--verde-lt)}
+.bill-opt.on .bill-save{background:var(--verde-lt);color:#1C3B28}
+.plan-eq{font-size:var(--t-2xs);color:var(--verde-lt);font-weight:600;margin-top:3px}
+/* Línea de garantía bajo los precios */
+.guarantee{display:flex;align-items:flex-start;gap:10px;margin-top:var(--s4);
+  padding:14px 16px;border-radius:var(--r-lg);
+  background:rgba(58,107,71,.16);border:1px solid rgba(130,201,148,.28)}
+.guarantee-mark{flex-shrink:0;font-size:1.1rem;line-height:1.2}
+.guarantee-t{font-size:var(--t-2xs);font-weight:800;color:var(--verde-lt);
+  text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.guarantee-c{font-size:var(--t-2xs);color:rgba(242,237,227,.75);line-height:1.5}
+
 /* ─── Modal "Cómo funciona" ─── */
 .hiw-overlay{position:fixed;inset:0;z-index:600;display:none;align-items:center;justify-content:center;
   padding:var(--s5);background:rgba(10,12,8,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
@@ -1135,6 +1157,11 @@ const MARKUP = `<!-- Progress bar -->
         </div>
       </div>
 
+      <div class="bill-toggle" id="bill-toggle" role="group" aria-label="Elegir ciclo de cobro">
+        <button type="button" class="bill-opt on" data-bill="mensual">Mensual</button>
+        <button type="button" class="bill-opt" data-bill="anual">Anual <span class="bill-save">2 meses gratis</span></button>
+      </div>
+
       <div class="pcrd" tabindex="0" data-tier="malinalli">
         <div>
           <div class="plan-name">Malinalli</div>
@@ -1144,13 +1171,14 @@ const MARKUP = `<!-- Progress bar -->
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Contacto, ubicación y horarios</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Apareces en el directorio y el buscador</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Comparte tu ficha por WhatsApp</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Tus números del mes: vistas y contactos</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Tus clientes potenciales del mes: vistas y contactos</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Siempre visible, todo el año</li>
           </ul>
         </div>
         <div class="plan-price">
-          <div class="plan-amt">$99</div>
-          <div class="plan-per">/mes MXN</div>
+          <div class="plan-amt" data-mes="$99" data-anio="$990">$99</div>
+          <div class="plan-per" data-mes="/mes MXN" data-anio="/año MXN">/mes MXN</div>
+          <div class="plan-eq" data-eq="≈ $83/mes · ahorras $198" hidden></div>
         </div>
       </div>
 
@@ -1169,8 +1197,9 @@ const MARKUP = `<!-- Progress bar -->
           </ul>
         </div>
         <div class="plan-price">
-          <div class="plan-amt">$249</div>
-          <div class="plan-per">/mes MXN</div>
+          <div class="plan-amt" data-mes="$249" data-anio="$2,490">$249</div>
+          <div class="plan-per" data-mes="/mes MXN" data-anio="/año MXN">/mes MXN</div>
+          <div class="plan-eq" data-eq="≈ $208/mes · ahorras $498" hidden></div>
         </div>
       </div>
 
@@ -1188,14 +1217,19 @@ const MARKUP = `<!-- Progress bar -->
           </ul>
         </div>
         <div class="plan-price">
-          <div class="plan-amt">$449</div>
-          <div class="plan-per">/mes MXN</div>
+          <div class="plan-amt" data-mes="$449" data-anio="$4,490">$449</div>
+          <div class="plan-per" data-mes="/mes MXN" data-anio="/año MXN">/mes MXN</div>
+          <div class="plan-eq" data-eq="≈ $374/mes · ahorras $898" hidden></div>
         </div>
       </div>
 
-      <p style="font-size:var(--t-sm);color:rgba(242,237,227,.6);text-align:center;margin-top:var(--s3);letter-spacing:.01em">
-        Sin contratos de permanencia · Cancela cuando quieras
-      </p>
+      <div class="guarantee">
+        <span class="guarantee-mark" aria-hidden="true">🛡️</span>
+        <div>
+          <div class="guarantee-t">Garantía de 30 días · sin permanencia</div>
+          <div class="guarantee-c">Si en tu primer mes no recibes ni un solo contacto desde enmalinalco.com, el siguiente mes corre por nuestra cuenta. Cancela cuando quieras, sin letras chiquitas.</div>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -1795,6 +1829,28 @@ export default function Home() {
             window.location.href = '/login';
           });
         });
+
+        // ── Toggle mensual/anual (solo informa el precio; el cobro se elige en el panel) ──
+        const billToggle = document.getElementById('bill-toggle');
+        if (billToggle) {
+          const setBill = (bill) => {
+            billToggle.querySelectorAll('.bill-opt').forEach(o =>
+              o.classList.toggle('on', o.getAttribute('data-bill') === bill));
+            const anual = bill === 'anual';
+            document.querySelectorAll('.plan-amt[data-mes]').forEach(el => {
+              el.textContent = el.getAttribute(anual ? 'data-anio' : 'data-mes');
+            });
+            document.querySelectorAll('.plan-per[data-mes]').forEach(el => {
+              el.textContent = el.getAttribute(anual ? 'data-anio' : 'data-mes');
+            });
+            document.querySelectorAll('.plan-eq[data-eq]').forEach(el => {
+              el.textContent = el.getAttribute('data-eq');
+              el.hidden = !anual;
+            });
+          };
+          billToggle.querySelectorAll('.bill-opt').forEach(o =>
+            o.addEventListener('click', () => setBill(o.getAttribute('data-bill'))));
+        }
 
         // ── Modal "¿Cómo funciona?" ──
         const hiw = document.getElementById('hiw');

@@ -5,9 +5,18 @@ import { FOUNDERS } from '@/lib/plans';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const PRICE_MAP = {
-  malinalli: process.env.STRIPE_PRICE_MALINALLI,
-  cuauhtli: process.env.STRIPE_PRICE_CUAUHTLI,
-  ocelotl: process.env.STRIPE_PRICE_OCELOTL,
+  mensual: {
+    malinalli: process.env.STRIPE_PRICE_MALINALLI,
+    cuauhtli: process.env.STRIPE_PRICE_CUAUHTLI,
+    ocelotl: process.env.STRIPE_PRICE_OCELOTL,
+  },
+  // Precios anuales (2 meses gratis). Crea estos precios en Stripe con
+  // intervalo anual y pon sus IDs en estas variables de entorno.
+  anual: {
+    malinalli: process.env.STRIPE_PRICE_MALINALLI_ANUAL,
+    cuauhtli: process.env.STRIPE_PRICE_CUAUHTLI_ANUAL,
+    ocelotl: process.env.STRIPE_PRICE_OCELOTL_ANUAL,
+  },
 };
 
 // ¿Queda cupo Fundador? Consulta el conteo real con el service role.
@@ -37,20 +46,40 @@ async function founderSpotAvailable() {
 
 export async function POST(request) {
   try {
-    const { tier, businessId } = await request.json();
+    const { tier, businessId, billing: billingRaw } = await request.json();
 
-    const price = PRICE_MAP[tier];
+    // Ciclo de cobro: mensual (default) o anual (2 meses gratis).
+    const billing = billingRaw === 'anual' ? 'anual' : 'mensual';
+
+    const price = PRICE_MAP[billing]?.[tier];
     if (!price) {
+      // Si piden anual pero aún no existe el precio en Stripe, dilo claro en
+      // vez de cobrar en silencio el ciclo equivocado.
+      if (billing === 'anual') {
+        return NextResponse.json(
+          { error: 'La facturación anual aún no está disponible. Elige el cobro mensual.' },
+          { status: 400 }
+        );
+      }
       return NextResponse.json({ error: 'Tier inválido' }, { status: 400 });
     }
 
     const origin = request.headers.get('origin') || 'http://localhost:3000';
 
-    // Elegibilidad Fundador: solo tiers elegibles y si aún hay cupo.
+    // Elegibilidad Fundador: solo tiers elegibles, con cupo y SOLO en mensual.
+    // El cupón Fundador es "30% off 3 meses", pensado para el ciclo mensual;
+    // en el plan anual el beneficio ya son los 2 meses gratis.
     const isFounder =
-      FOUNDERS.tiers.includes(tier) && (await founderSpotAvailable());
+      billing === 'mensual' &&
+      FOUNDERS.tiers.includes(tier) &&
+      (await founderSpotAvailable());
 
-    const meta = { businessId: businessId || '', tier, founder: isFounder ? 'pending' : '' };
+    const meta = {
+      businessId: businessId || '',
+      tier,
+      billing,
+      founder: isFounder ? 'pending' : '',
+    };
 
     const sessionParams = {
       mode: 'subscription',

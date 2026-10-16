@@ -4,6 +4,8 @@ export const PLANS = {
   malinalli: {
     name: "Malinalli",
     price: 99,
+    // Precio anual: pagas 10 meses, te llevas 12 (2 meses gratis).
+    priceAnual: 990,
     label: "Básico",
     // Promesa de una línea: qué logra este tier para el dueño.
     tagline: "Que te encuentren en el pueblo",
@@ -15,13 +17,14 @@ export const PLANS = {
       "Contacto, ubicación y horarios",
       "Apareces en el directorio y el buscador",
       "Comparte tu ficha por WhatsApp",
-      "Tus números del mes: vistas y contactos",
+      "Tus clientes potenciales del mes: vistas y contactos",
       "Siempre visible, todo el año",
     ],
   },
   cuauhtli: {
     name: "Cuāuhtli",
     price: 249,
+    priceAnual: 2490,
     label: "⭐ Más popular",
     tagline: "Que te elijan primero",
     maxPhotos: 10,
@@ -39,6 +42,7 @@ export const PLANS = {
   ocelotl: {
     name: "Ocēlōtl",
     price: 449,
+    priceAnual: 4490,
     label: "Élite",
     tagline: "El referente del pueblo, con consultor incluido",
     maxPhotos: 30,
@@ -74,6 +78,45 @@ export const FOUNDERS = {
     "Accedes a una tarifa preferente —30% menos durante tus primeros 3 meses, en el plan que elijas— " +
     "y aseguras tu presencia en el directorio del pueblo desde el primer día. Sin permanencia.",
 };
+// ── Facturación: mensual (default) o anual (2 meses gratis) ──────────────
+// El precio anual es 10 × mensual, así que el dueño se ahorra 2 meses al año.
+// La elección real de ciclo ocurre en el panel; la landing solo informa.
+export const BILLING = {
+  mensual: { key: "mensual", label: "Mensual", per: "/mes" },
+  anual: { key: "anual", label: "Anual", per: "/año", nota: "2 meses gratis" },
+};
+
+// Garantía para bajar el miedo al pago recurrente. Es una promesa que el host
+// honra: si el negocio no recibe NI UN contacto en su primer mes, el siguiente
+// corre por cuenta de la casa. Ajusta el copy a tu gusto; el espíritu es
+// quitarle al locatario el riesgo de "¿y si no me sirve?".
+export const GUARANTEE = {
+  active: true,
+  dias: 30,
+  short: "Garantía de 30 días",
+  copy:
+    "Si en tu primer mes no recibes ni un solo contacto desde En Malinalco, " +
+    "el siguiente mes corre por nuestra cuenta. Sin letras chiquitas.",
+};
+
+// Helper: precio según el ciclo de facturación.
+export function getPrice(plan, billing = "mensual") {
+  const p = PLANS[plan] || PLANS[DEFAULT_PLAN];
+  return billing === "anual" ? p.priceAnual : p.price;
+}
+
+// Helper: lo que cuesta al mes un plan anual (para mostrar "equivale a $X/mes").
+export function getMonthlyEquivalent(plan) {
+  const p = PLANS[plan] || PLANS[DEFAULT_PLAN];
+  return Math.round(p.priceAnual / 12);
+}
+
+// Helper: cuánto se ahorra al año pagando anual en vez de 12 mensualidades.
+export function getAnnualSavings(plan) {
+  const p = PLANS[plan] || PLANS[DEFAULT_PLAN];
+  return p.price * 12 - p.priceAnual;
+}
+
 // Helper: devuelve el límite de fotos según el plan del negocio.
 export function getMaxPhotos(plan) {
   const key = plan || DEFAULT_PLAN;

@@ -250,6 +250,21 @@ export default async function DashboardPage({ searchParams }) {
                 { brand: 'facebook', label: 'Clics en Facebook', total: business.facebook_clicks, last: business.facebook_clicks_last_month },
               )
             }
+            // ── Clientes potenciales: traduce los números a la "moneda" del
+            // dueño. Un contacto directo (WhatsApp, llamada o "cómo llegar") es
+            // alguien que dio el paso de buscarte: lo más cerca de una venta.
+            const leadFields = [
+              ['whatsapp_clicks', 'whatsapp_clicks_last_month'],
+              ['phone_clicks', 'phone_clicks_last_month'],
+              ['maps_clicks', 'maps_clicks_last_month'],
+            ]
+            const leadsTotal = leadFields.reduce((a, [t]) => a + (business[t] || 0), 0)
+            const leadsMonth = leadFields.reduce((a, [t, l]) => {
+              const cur = business[t] || 0
+              const prev = (business[l] !== null && business[l] !== undefined) ? business[l] : null
+              return a + (prev !== null ? Math.max(0, cur - prev) : 0)
+            }, 0)
+
             // Comparativa vs. categoría (Cuāuhtli en adelante).
             let compara = null
             if (tier >= 2 && catAvg && catAvg.views > 0) {
@@ -261,6 +276,35 @@ export default async function DashboardPage({ searchParams }) {
             }
             return (
               <div style={{ marginTop: '22px' }}>
+                {/* Clientes potenciales: el número que sí se siente en el bolsillo */}
+                <div style={{
+                  marginBottom: '18px', padding: '20px 22px', borderRadius: '18px',
+                  background: 'linear-gradient(135deg, rgba(62,158,89,0.22), rgba(28,59,40,0.30))',
+                  border: '1px solid rgba(95,184,116,0.42)',
+                  boxShadow: '0 6px 24px rgba(0,0,0,0.16)',
+                }}>
+                  <div style={{
+                    fontSize: '11px', fontWeight: 700, textTransform: 'uppercase',
+                    letterSpacing: '0.12em', color: '#9FE0B0', marginBottom: '6px',
+                  }}>
+                    Clientes potenciales este mes
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', flexWrap: 'wrap' }}>
+                    <strong style={{
+                      fontFamily: "'Fraunces', Georgia, serif",
+                      fontSize: '44px', fontWeight: 600, color: '#F6F0E0', lineHeight: 1,
+                      letterSpacing: '-0.01em', fontVariantNumeric: 'tabular-nums lining-nums',
+                    }}>{leadsMonth.toLocaleString('es-MX')}</strong>
+                    <span style={{ fontSize: '14px', color: 'rgba(246,240,224,0.82)', lineHeight: 1.4 }}>
+                      {leadsMonth === 1 ? 'persona quiso' : 'personas quisieron'} contactarte o llegar a tu negocio
+                    </span>
+                  </div>
+                  <p style={{ margin: '10px 0 0', fontSize: '13px', color: 'rgba(246,240,224,0.72)', lineHeight: 1.55 }}>
+                    Cada uno es alguien que dio el paso de buscarte: un cliente que no tenías.
+                    {leadsTotal > leadsMonth && <> Llevas <strong style={{ color: '#9FE0B0' }}>{leadsTotal.toLocaleString('es-MX')}</strong> en total desde que estás en En Malinalco.</>}
+                    {' '}Multiplícalos por lo que gastaría un cliente contigo y tienes lo que te deja tu ficha.
+                  </p>
+                </div>
                 <div style={{
                   display: 'grid',
                   gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))',
