@@ -28,6 +28,9 @@ export const CATEGORIAS = [
     hint: 'Dónde dormir',
     descripcion:
       'Hoteles, cabañas, quintas y hospedaje boutique. También lo que encuentras en Airbnb, Booking y Expedia.',
+    seoTitle: 'Hospedaje en Malinalco — Hoteles, Cabañas y Casas',
+    seoDescription:
+      'Dónde hospedarte en Malinalco: hoteles boutique, cabañas, quintas y casas para tu escapada de fin de semana. Ubicación, fotos y contacto directo.',
     sinonimos: ['hotel', 'airbnb', 'booking', 'expedia', 'quinta', 'cabaña', 'cabana', 'hospedaje', 'dormir', 'hostal', 'posada', 'boutique'],
     color: '#1C2E3B',
     foto: '/img/categorias/02-hospedaje.webp',
@@ -72,6 +75,9 @@ export const CATEGORIAS = [
     hint: 'Agua y albercas',
     descripcion:
       'Balnearios, albercas y parques acuáticos para refrescarte en familia.',
+    seoTitle: 'Balnearios en Malinalco — Albercas y Aguas Termales',
+    seoDescription:
+      'Los mejores balnearios de Malinalco: albercas, aguas termales y parques acuáticos para refrescarte en familia. Ubicación, horarios y cómo llegar.',
     sinonimos: ['balneario', 'alberca', 'albercas', 'acuatico', 'acuático', 'agua', 'piscina', 'chapoteadero', 'parque acuático', 'nadar', 'aguas termales'],
     color: '#152A33',
     foto: '/img/categorias/balnearios.webp',
