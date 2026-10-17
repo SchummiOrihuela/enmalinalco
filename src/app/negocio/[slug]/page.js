@@ -5,7 +5,7 @@ import Link from 'next/link'
 import ReviewsList from '@/app/dashboard/ReviewsList'
 import { getBadge, getPriority } from '@/lib/plans'
 import ReviewForm from '@/app/dashboard/ReviewForm'
-import TrackedLink from './TrackedLink'
+import TrackedLink from '@/app/components/TrackedLink'
 import OpenBadge from '@/app/components/OpenBadge'
 import { estadoHorario } from '@/lib/hours'
 import { toSlug } from '@/lib/slug'
@@ -172,7 +172,7 @@ export default async function NegocioPage({ params }) {
         <h1 style={{
           margin: 0,
           fontFamily: "'Cormorant Garamond', Georgia, serif",
-          fontSize: 46, fontWeight: 500, color: '#F6F0E0', lineHeight: 1.04,
+          fontSize: 'clamp(32px, 7vw, 46px)', fontWeight: 500, color: '#F6F0E0', lineHeight: 1.06,
         }}>
           {business.name}
         </h1>
