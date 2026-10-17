@@ -9,22 +9,17 @@ const CENTRO = [18.9487, -99.4939]
 const COLOR = { open: '#3A8C4E', soon: '#E0803A', closed: '#C0392B' }
 const codeOf = (e) => (e?.open ? 'open' : (e?.opensSoon ? 'soon' : 'closed'))
 
-// Pin "semáforo": gota de color con punto blanco.
+// Punto "semáforo": círculo de color que late (sin gota/pin).
 function pinIcon(code) {
   const c = COLOR[code]
   return L.divIcon({
     className: 'mp-pin',
     html: `
       <span class="mp-pulse" style="background:${c}"></span>
-      <span style="
-        position:relative;z-index:2;display:block;width:26px;height:26px;border-radius:50% 50% 50% 0;
-        transform:rotate(-45deg);background:${c};
-        border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.4)">
-        <span style="position:absolute;top:7px;left:7px;width:8px;height:8px;border-radius:50%;background:#fff;transform:rotate(45deg)"></span>
-      </span>`,
-    iconSize: [26, 26],
-    iconAnchor: [13, 26],
-    popupAnchor: [0, -24],
+      <span class="mp-dot" style="background:${c}"></span>`,
+    iconSize: [18, 18],
+    iconAnchor: [9, 9],
+    popupAnchor: [0, -11],
   })
 }
 
@@ -113,15 +108,21 @@ export default function MapView({ items, categorias }) {
       {/* Halo que late en el color del estado (verde/naranja/rojo). */}
       <style>{`
         .mp-pin { overflow: visible; }
+        .mp-dot {
+          position: absolute; top: 50%; left: 50%;
+          width: 16px; height: 16px; margin: -8px 0 0 -8px;
+          border-radius: 50%; z-index: 2; pointer-events: auto;
+          border: 2.5px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.45);
+        }
         .mp-pulse {
-          position: absolute; left: 50%; bottom: 0;
-          width: 14px; height: 14px; margin-left: -7px;
+          position: absolute; top: 50%; left: 50%;
+          width: 16px; height: 16px; margin: -8px 0 0 -8px;
           border-radius: 50%; z-index: 1; pointer-events: none;
           animation: mpPulse 2s ease-out infinite;
         }
         @keyframes mpPulse {
-          0%   { transform: scale(0.6); opacity: 0.55; }
-          100% { transform: scale(3.4); opacity: 0; }
+          0%   { transform: scale(0.7); opacity: 0.55; }
+          100% { transform: scale(3); opacity: 0; }
         }
         @media (prefers-reduced-motion: reduce) { .mp-pulse { animation: none; opacity: 0; } }
       `}</style>
