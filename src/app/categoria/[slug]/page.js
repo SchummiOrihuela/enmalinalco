@@ -7,6 +7,7 @@ import PublicShell from '@/app/components/PublicShell'
 import { BrandTile } from '@/app/components/BrandIcon'
 import { applyVisible } from '@/lib/visibility'
 import OpenBadge from '@/app/components/OpenBadge'
+import TrackedLink from '@/app/components/TrackedLink'
 import { estadoHorario } from '@/lib/hours'
 
 // Siempre renderizar en el servidor con datos frescos (sin caché estática).
@@ -176,7 +177,7 @@ export default async function CategoriaPage({ params }) {
         <h1 style={{
           margin: 0,
           fontFamily: "'Cormorant Garamond', Georgia, serif",
-          fontSize: 44, fontWeight: 500, color: '#F6F0E0', lineHeight: 1.05,
+          fontSize: 'clamp(30px, 7vw, 44px)', fontWeight: 500, color: '#F6F0E0', lineHeight: 1.08,
         }}>
           {categoryName}
         </h1>
@@ -199,14 +200,16 @@ export default async function CategoriaPage({ params }) {
             <p className="direct-cta-title">¿Buscas hospedaje con encanto en Malinalco?</p>
             <p className="direct-cta-sub">Casas y estancias boutique con atención personal y el mejor precio reservando directo —sin intermediarios.</p>
           </div>
-          <a
+          <TrackedLink
             className="direct-cta-btn"
             href="https://canteraycalma.com/?utm_source=enmalinalco&utm_medium=referral&utm_campaign=hospedaje_directorio"
             target="_blank"
             rel="noopener"
+            event="reserva_directa_click"
+            eventParams={{ origen: 'categoria_hospedaje' }}
           >
             Ver y reservar →
-          </a>
+          </TrackedLink>
         </div>
       )}
 
