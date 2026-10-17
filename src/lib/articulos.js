@@ -1148,8 +1148,8 @@ export const ARTICULOS = [
   // ─────────────────────── TEMPORADA: POSADAS / NAVIDAD ───────────────────────
   {
     slug: 'posadas-navidenas-malinalco',
-    seoTitle: 'Posadas y Navidad en Malinalco: guía de diciembre',
-    seoDescription: 'Posadas en Malinalco (16–24 dic): tradiciones, qué hacer, clima y dónde hospedarte en diciembre. Vive la Navidad en el Pueblo Mágico.',
+    seoTitle: 'Posadas en Malinalco 2026: Guía de Navidad y Diciembre',
+    seoDescription: 'Posadas en Malinalco 2026 (16–24 dic): fechas, qué hacer, tradiciones, clima y dónde hospedarte. Vive la Navidad en el Pueblo Mágico del Edomex.',
     categoria: 'Fiestas y Festivales',
     categoriaDirSlug: 'cultura',
     grupo: 'fiestas',

@@ -21,8 +21,11 @@ export async function generateMetadata({ params }) {
   const { slug } = await params
   const meta = CATEGORIA_POR_SLUG[slug]
   const nombre = meta?.nombre || slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
-  const title = `${nombre} en Malinalco — Guía y Directorio`
+  // Si la categoría define un título/descripción optimizados para la SERP
+  // (ver src/lib/categorias.js), se usan tal cual; si no, se arma uno por defecto.
+  const title = meta?.seoTitle || `${nombre} en Malinalco — Guía y Directorio`
   const description =
+    meta?.seoDescription ||
     meta?.descripcion ||
     `${nombre} en Malinalco, Pueblo Mágico del Estado de México. Encuéntralos en la guía En Malinalco.`
   const url = `${SITE_URL}/categoria/${slug}`
@@ -136,6 +139,20 @@ export default async function CategoriaPage({ params }) {
         .cat-thumb-ph{flex:none;width:96px;height:96px;border-radius:10px;
           display:flex;align-items:center;justify-content:center;font-size:26px;
           background:rgba(242,237,227,.06);color:rgba(242,237,227,.3)}
+        .direct-cta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+          margin:24px 0 4px;padding:18px 20px;border-radius:16px;
+          background:linear-gradient(135deg,rgba(28,46,59,.55),rgba(220,178,74,.12));
+          border:1px solid rgba(220,178,74,.32)}
+        .direct-cta-body{flex:1;min-width:200px}
+        .direct-cta-eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;
+          text-transform:uppercase;color:#DCB24A;margin:0 0 4px}
+        .direct-cta-title{font-size:15px;font-weight:700;color:#F6F0E0;margin:0 0 3px;line-height:1.25}
+        .direct-cta-sub{font-size:13px;color:rgba(242,237,227,.68);margin:0;line-height:1.5}
+        .direct-cta-btn{flex:none;display:inline-flex;align-items:center;gap:8px;
+          background:#DCB24A;color:#1C2E3B;font-weight:800;font-size:13.5px;
+          padding:11px 20px;border-radius:9999px;text-decoration:none;white-space:nowrap;
+          transition:transform .2s ease,box-shadow .2s ease}
+        .direct-cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(220,178,74,.3)}
       `}</style>
 
       <Link href="/#categorias" className="cat-back">
@@ -172,6 +189,26 @@ export default async function CategoriaPage({ params }) {
       <p style={{ color: '#DCB24A', margin: 0, fontSize: 13, fontWeight: 600, letterSpacing: '0.04em' }}>
         {businesses.length} {businesses.length === 1 ? 'negocio' : 'negocios'}
       </p>
+
+      {/* CTA de reserva directa: solo en Hospedaje (alta intención de compra).
+          El enlace lleva UTMs para que GA4 atribuya las visitas a canteraycalma.com. */}
+      {slug === 'hospedaje' && (
+        <div className="direct-cta">
+          <div className="direct-cta-body">
+            <p className="direct-cta-eyebrow">Reserva directa</p>
+            <p className="direct-cta-title">¿Buscas hospedaje con encanto en Malinalco?</p>
+            <p className="direct-cta-sub">Casas y estancias boutique con atención personal y el mejor precio reservando directo —sin intermediarios.</p>
+          </div>
+          <a
+            className="direct-cta-btn"
+            href="https://canteraycalma.com/?utm_source=enmalinalco&utm_medium=referral&utm_campaign=hospedaje_directorio"
+            target="_blank"
+            rel="noopener"
+          >
+            Ver y reservar →
+          </a>
+        </div>
+      )}
 
       {businesses.length === 0 && (
         <p style={{ color: 'rgba(242,237,227,.5)', marginTop: 24 }}>
