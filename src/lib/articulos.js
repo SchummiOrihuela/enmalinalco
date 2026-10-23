@@ -15,6 +15,10 @@
 // - categoriaDirSlug→ slug de la categoría del DIRECTORIO para las migas
 //                     (ej. "restaurantes" → /categoria/restaurantes). Opcional.
 // - grupo           → agrupación del hub /historias (una de las 4 secciones)
+//
+// Tipos de bloque del cuerpo: p | h2 | h3 | ul | callout | rest | ctaNegocio
+//   (invita a dueños a registrarse) | ctaReserva (manda al VIAJERO a reservar
+//   directo en canteraycalma.com; convierte lectores en reservas propias).
 // - titulo, subtitulo, excerpt
 // - seoTitle        → (opcional) título para la SERP de Google, corto y con la
 //                     palabra clave al frente (~60 caracteres). NO cambia el H1
@@ -59,6 +63,19 @@ const CTA_BALNEARIO = {
   titulo: '¿Tienes un balneario o alberca en Malinalco?',
   html: 'Esta guía es lo primero que lee quien busca “balnearios en Malinalco” antes de decidir a dónde ir con su familia. Si tu balneario está en En Malinalco, apareces con fotos, ubicación y horarios justo en ese momento —y los planes superiores salen en los primeros lugares de la categoría, con insignia “Recomendado”. Registra tu balneario gratis y empieza a recibir visitantes.',
 }
+
+// CTA de RESERVA DIRECTA dirigido al VIAJERO (no al dueño de negocio): lo lleva
+// a reservar directo con el anfitrión en canteraycalma.com. Es la pieza que
+// convierte el tráfico del blog en reservas propias —el objetivo de negocio:
+// menos dependencia de plataformas, más reserva directa—. El clic se mide en
+// GA4 con el evento 'reserva_directa_click' (ver TrackedLink) y el enlace lleva
+// UTMs para atribuir la visita a canteraycalma.com. `origen` identifica desde
+// qué historia salió el clic (en el evento y en utm_campaign).
+const ctaReserva = (origen = 'historia', extra = {}) => ({
+  t: 'ctaReserva',
+  origen,
+  ...extra,
+})
 
 export const ARTICULOS = [
   // ─────────────────────────────── GASTRONOMÍA ───────────────────────────────
@@ -1015,6 +1032,7 @@ export const ARTICULOS = [
         'Lleva calzado cómodo y una chamarra ligera para la noche de octubre.',
         'Elige 3–4 actividades prioritarias en vez de intentar las 50.',
       ] },
+      ctaReserva('festival_cultural', { titulo: '¿Vienes al Festival Cultural?', html: 'Se esperan hasta 40,000 visitantes y el hospedaje se agota. Reserva directo con el anfitrión en <strong>Cantera y Calma</strong>: casas y estancias boutique con alberca, atención personal y el mejor precio —sin comisiones de intermediarios.' }),
     ],
     faq: [
       { q: '¿Cuándo es el Festival Cultural de Malinalco 2026?', a: 'Del 16 al 18 de octubre de 2026, de viernes a domingo.' },
@@ -1082,6 +1100,7 @@ export const ARTICULOS = [
         'Cuando puedas, reserva directo con el anfitrión: mejor trato y sin comisiones de plataformas.',
       ] },
       { t: 'p', html: 'Cuando tengas tu lugar, arma el resto del plan: <a href="/historias/48-horas-malinalco">qué hacer en 48 horas</a>, <a href="/historias/10-restaurantes-malinalco">dónde comer</a> y <a href="/historias/donde-desayunar-malinalco">dónde desayunar</a>.' },
+      ctaReserva('donde_hospedarte'),
     ],
     faq: [
       { q: '¿Dónde conviene hospedarse en Malinalco?', a: 'Si es tu primera vez o no llevas coche, quédate en el centro histórico: tienes a pie el mercado, los restaurantes, la parroquia y el convento. Si buscas tranquilidad y vistas, elige cabañas u hoteles en los barrios altos; y si viajan en grupo o familia, una casa completa con alberca en las orillas del pueblo rinde más.' },
@@ -1135,6 +1154,7 @@ export const ARTICULOS = [
       CTA_EXPERIENCIA,
       { t: 'h2', id: 'donde-dormir', text: 'Dónde hospedarte para estas fechas' },
       { t: 'p', html: 'Día de Muertos es temporada alta: la disponibilidad se agota rápido. Si vienes en estas fechas, asegura tu lugar cuanto antes en la categoría <a href="/categoria/hospedaje">Hospedaje</a> o consulta nuestra <a href="/historias/donde-hospedarte-malinalco">guía para elegir dónde dormir</a>. Para grupos y familias, una casa completa con alberca es la opción más cómoda.' },
+      ctaReserva('dia_de_muertos', { titulo: '¿Vienes a Malinalco en Día de Muertos?', html: 'Es temporada alta y la disponibilidad se agota. Reserva directo con el anfitrión en <strong>Cantera y Calma</strong>: casas y estancias boutique con alberca, atención personal y el mejor precio —sin comisiones de intermediarios.' }),
     ],
     faq: [
       { q: '¿Cuándo es el Día de Muertos en Malinalco 2026?', a: 'Se vive del 31 de octubre al 2 de noviembre de 2026. La noche más intensa, con veladoras en el panteón, es la del 1 al 2 de noviembre.' },
@@ -1188,6 +1208,7 @@ export const ARTICULOS = [
       CTA_EXPERIENCIA,
       { t: 'h2', id: 'donde-dormir', text: 'Dónde hospedarte en diciembre' },
       { t: 'p', html: 'Diciembre —y en especial Nochebuena, Navidad y Año Nuevo— es de las temporadas más demandadas del año en Malinalco. Reserva cuanto antes en la categoría <a href="/categoria/hospedaje">Hospedaje</a> o revisa nuestra <a href="/historias/donde-hospedarte-malinalco">guía para elegir dónde dormir</a>. Para pasar las fiestas en familia, una casa completa con alberca y chimenea es la mejor apuesta.' },
+      ctaReserva('posadas', { titulo: '¿Pasas las fiestas en Malinalco?', html: 'Diciembre se llena rápido. Reserva directo con el anfitrión en <strong>Cantera y Calma</strong>: casas completas con alberca y chimenea para la familia, atención personal y el mejor precio —sin comisiones de intermediarios.' }),
     ],
     faq: [
       { q: '¿Cuándo son las posadas en Malinalco?', a: 'Las posadas tradicionales se celebran del 16 al 24 de diciembre, nueve noches seguidas que culminan en Nochebuena. En Malinalco se viven en los barrios y capillas, con procesiones, piñatas, ponche y villancicos.' },
@@ -1202,8 +1223,8 @@ export const ARTICULOS = [
   // ─────────────────────────────── BALNEARIOS ───────────────────────────────
   {
     slug: 'balnearios-malinalco',
-    seoTitle: 'Balnearios y albercas en Malinalco: dónde refrescarte',
-    seoDescription: 'Sí hay balnearios y albercas en Malinalco: estas son las opciones para un día de agua con la familia, qué llevar y cómo elegir. Confirma horarios antes de ir.',
+    seoTitle: 'Balnearios en Malinalco: albercas y aguas termales 2026',
+    seoDescription: 'Guía 2026 de balnearios en Malinalco: albercas, parques acuáticos y aguas termales para un día de agua en familia. Opciones, precios, qué llevar y cómo elegir.',
     categoria: 'Tu Finde en Mali',
     categoriaDirSlug: 'balnearios',
     grupo: 'finde',
@@ -1242,6 +1263,7 @@ export const ARTICULOS = [
       { t: 'h2', id: 'tu-propia-alberca', text: '¿Prefieres tu propia alberca?' },
       { t: 'p', html: 'Si buscas la tranquilidad de nadar sin multitudes, muchas <a href="/categoria/hospedaje">casas y hoteles del pueblo tienen alberca</a>. Es la opción ideal para un fin de semana relajado: revisa nuestra <a href="/historias/donde-hospedarte-malinalco">guía para elegir dónde hospedarte</a> y asegura una con alberca para disfrutar el agua a tu ritmo.' },
       { t: 'p', html: 'Y si quieres cambiar el agua por monte, complementa con un día de <a href="/categoria/ecoturismo">ecoturismo</a> o <a href="/historias/subida-cerro-idolos">subir al Cerro de los Ídolos</a>.' },
+      ctaReserva('balnearios', { titulo: '¿Prefieres tu propia alberca, sin multitudes?', html: 'Reserva directo con el anfitrión en <strong>Cantera y Calma</strong>: casas y estancias boutique con alberca para disfrutar el agua a tu ritmo, atención personal y el mejor precio —sin comisiones de intermediarios.' }),
     ],
     faq: [
       { q: '¿Hay balnearios en Malinalco?', a: 'Sí. Malinalco y sus alrededores tienen varios balnearios y albercas para pasar el día, como Cocos Rumberos, El Molino, AcuaPark La Virgen, Los Tulipanes y Los Cocodrilos, además de más opciones rumbo a Chalma. Puedes ver la lista en la categoría Balnearios del directorio.' },

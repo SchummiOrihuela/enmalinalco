@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import PublicShell from '@/app/components/PublicShell'
 import BackToTop from '@/app/components/BackToTop'
+import TrackedLink from '@/app/components/TrackedLink'
 import { getArticulo, getTodosLosSlugs, ARTICULO_POR_SLUG } from '@/lib/articulos'
 import { CATEGORIA_POR_SLUG } from '@/lib/categorias'
 
@@ -107,6 +108,39 @@ function Bloque({ b }) {
           </Link>
         </aside>
       )
+    case 'ctaReserva': {
+      // CTA de reserva directa para el VIAJERO → canteraycalma.com. El clic se
+      // registra en GA4 como 'reserva_directa_click' (ver TrackedLink), con
+      // `origen` para saber desde qué historia salió. El mismo valor va en
+      // utm_campaign para atribuir la visita en el GA4 de canteraycalma.com.
+      const origen = b.origen || 'historia'
+      const href = `https://canteraycalma.com/?utm_source=enmalinalco&utm_medium=referral&utm_campaign=${origen}`
+      return (
+        <aside className="art-cta-res">
+          <p className="art-cta-res-eyebrow">Reserva directa</p>
+          <h3 className="art-cta-res-h">{b.titulo || '¿Ya tienes dónde quedarte en Malinalco?'}</h3>
+          <p
+            className="art-cta-res-p"
+            dangerouslySetInnerHTML={{
+              __html:
+                b.html ||
+                'Reserva directo con el anfitrión en <strong>Cantera y Calma</strong>: casas y estancias boutique con alberca, atención personal y el mejor precio —sin comisiones de intermediarios.',
+            }}
+          />
+          <TrackedLink
+            className="art-cta-res-btn"
+            href={href}
+            target="_blank"
+            rel="noopener"
+            event="reserva_directa_click"
+            eventParams={{ origen }}
+          >
+            Ver casas y reservar
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </TrackedLink>
+        </aside>
+      )
+    }
     default:
       return null
   }
@@ -223,6 +257,16 @@ export default async function HistoriaPage({ params }) {
         .art-cta-neg-p{font-size:15.5px;line-height:1.6;color:rgba(242,237,227,.82);margin:0 auto 20px;max-width:52ch}
         .art-cta-neg-btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(180deg,#E7C86A,#DCB24A);color:#25201A;font-weight:700;font-size:15px;padding:12px 24px;border-radius:9999px;text-decoration:none;transition:transform .2s ease,box-shadow .2s ease}
         .art-cta-neg-btn:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(220,178,74,.3)}
+
+        /* CTA de RESERVA DIRECTA (viajero → canteraycalma.com). Tono cálido y
+           de alta intención, distinto del CTA verde para dueños de negocio. */
+        .art-cta-res{background:linear-gradient(135deg,rgba(28,46,59,.6),rgba(220,178,74,.14));border:1px solid rgba(220,178,74,.38);border-radius:18px;padding:28px;margin:34px 0;text-align:center}
+        .art-cta-res-eyebrow{color:#EBC66A;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin:0 0 8px}
+        .art-cta-res-h{font-family:'Cormorant Garamond',Georgia,serif;font-size:26px;font-weight:500;color:#F6F0E0;margin:0 0 10px}
+        .art-cta-res-p{font-size:15.5px;line-height:1.6;color:rgba(242,237,227,.84);margin:0 auto 20px;max-width:54ch}
+        .art-cta-res-p strong{color:#F4D98A}
+        .art-cta-res-btn{display:inline-flex;align-items:center;gap:8px;background:#DCB24A;color:#1C2E3B;font-weight:800;font-size:15px;padding:12px 26px;border-radius:9999px;text-decoration:none;transition:transform .2s ease,box-shadow .2s ease}
+        .art-cta-res-btn:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(220,178,74,.35)}
 
         /* FAQ */
         .art-faq{margin-top:48px}
