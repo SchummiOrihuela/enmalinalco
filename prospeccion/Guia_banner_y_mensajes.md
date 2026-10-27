@@ -5,6 +5,18 @@ Gancho único en todos los canales: **Programa Fundadores — 50 cupos, 30% de d
 Archivos del banner (en `prospeccion/banners/`):
 - `banner_instagram_1080.png` — 1080×1080, para post / DM de Instagram y Facebook.
 - `banner_correo_facebook_1200x628.png` — 1200×628, para encabezado de correo y para compartir link en Facebook.
+- `qr_fundadores.png` — el QR suelto por si lo quieres usar en flyer impreso, lona o tarjeta.
+
+### El QR y el link (cómo accede el negocio)
+Ambos banners ya traen **código QR** que lleva directo a la sección "Para negocios" del sitio:
+`https://enmalinalco.com/?utm_source=banner&utm_medium=qr&utm_campaign=fundadores#negocios`
+Los parámetros UTM te dejan **medir en GA4** cuántos registros vienen del banner.
+
+Ojo con cada canal (el QR no reemplaza al link, se complementan):
+- **Instagram:** el link NO es clicable en posts ni en imágenes. Ahí mandan el **QR** (lo escanean desde otro teléfono o impreso) + pones "link en la bio". En **DM sí** puedes pegar el link clicable.
+- **Facebook:** el link SÍ es clicable en el texto del post/mensaje; el QR es el refuerzo.
+- **Correo:** **hipervincula la imagen del banner** a la URL (que al dar clic abra el sitio) y además deja el QR para quien lo lea impreso o en otra pantalla.
+- **Impreso / lona / tarjeta en el mostrador:** aquí el QR es el héroe.
 
 ---
 

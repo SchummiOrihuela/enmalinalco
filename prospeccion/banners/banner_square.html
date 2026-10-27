@@ -50,15 +50,23 @@
   }
   .ribbon .dot{width:10px;height:10px;border-radius:50%;background:#231a06;opacity:.55;}
   .cta{
-    margin-top:40px;display:flex;align-items:center;justify-content:space-between;
+    margin-top:38px;display:flex;align-items:center;justify-content:space-between;gap:30px;
     border-top:1px solid rgba(255,255,255,.18);padding-top:34px;
   }
-  .cta .url{font-family:'Fraunces','Georgia',serif;font-size:42px;font-weight:600;color:#fff;}
+  .cta .left2{display:flex;flex-direction:column;gap:14px;}
+  .cta .url{font-family:'Fraunces','Georgia',serif;font-size:44px;font-weight:600;color:#fff;line-height:1;}
   .cta .url b{color:var(--oro-lt);font-weight:700;}
   .cta .pill{
-    background:var(--terra);color:#fff;font-weight:700;font-size:26px;
-    padding:18px 34px;border-radius:999px;box-shadow:0 10px 24px rgba(191,80,40,.4);
+    align-self:flex-start;background:var(--terra);color:#fff;font-weight:700;font-size:25px;
+    padding:16px 30px;border-radius:999px;box-shadow:0 10px 24px rgba(191,80,40,.4);
   }
+  .qrcard{
+    background:#fff;border-radius:22px;padding:22px 22px 16px;display:flex;flex-direction:column;
+    align-items:center;gap:10px;box-shadow:0 16px 34px rgba(0,0,0,.3);flex:0 0 auto;
+    border:3px solid var(--oro-lt);
+  }
+  .qrcard img{width:212px;height:212px;display:block;border-radius:6px;}
+  .qrcard .lbl{font-size:20px;font-weight:700;color:var(--selva);letter-spacing:.2px;}
 </style>
 </head>
 <body>
@@ -96,8 +104,14 @@
       </div>
 
       <div class="cta">
-        <div class="url">en<b>malinalco</b>.com</div>
-        <div class="pill">Anúnciate hoy →</div>
+        <div class="left2">
+          <div class="url">en<b>malinalco</b>.com</div>
+          <div class="pill">Anúnciate hoy →</div>
+        </div>
+        <div class="qrcard">
+          <img src="qr_fundadores.png" alt="QR">
+          <div class="lbl">Escanea y registra tu negocio</div>
+        </div>
       </div>
     </div>
   </div>
