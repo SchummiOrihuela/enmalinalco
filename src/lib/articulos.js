@@ -1144,13 +1144,14 @@ export const ARTICULOS = [
         '<strong>Recorrer las ofrendas y altares</strong> del centro, el jardín y los comercios, cada uno con su estilo y sus flores.',
         '<strong>Visitar el panteón por la noche:</strong> familias limpian y adornan las tumbas con velas y cempasúchil; se vive con respeto y en silencio.',
         '<strong>Caminar los <a href="/historias/barrios-de-malinalco">barrios del pueblo</a></strong>, donde las capillas se iluminan y cada barrio pone su sello.',
-        '<strong>Probar el pan de muerto y el chocolate</strong> de las panaderías y cafés locales.',
+        '<strong>Probar el pan de muerto y el chocolate</strong> de las panaderías y cafés locales (si buscas dónde comer, mira <a href="/historias/10-restaurantes-malinalco">los 10 mejores restaurantes del pueblo</a>).',
         '<strong>Subir a la <a href="/historias/subida-cerro-idolos">zona arqueológica</a></strong> de día para combinar historia prehispánica y tradición viva.',
       ] },
       { t: 'h2', id: 'cuando-llegar', text: 'Cuándo llegar y cómo moverte' },
       { t: 'p', html: 'La noche más intensa es la del <strong>1 al 2 de noviembre</strong>. Si puedes, llega desde el 31 de octubre o el 1 por la mañana: el pueblo se llena y el estacionamiento del centro se satura. Lo mejor es dejar el coche en el hospedaje y moverte a pie —casi todo está a distancia caminable— y llevar una chamarra ligera para la noche.' },
       { t: 'h2', id: 'respeto', text: 'Vívelo con respeto' },
       { t: 'p', html: 'El Día de Muertos no es un disfraz ni un espectáculo: es una tradición viva. En el panteón, baja la voz, no uses flash sin permiso y no te subas ni te apoyes en las tumbas. Pregunta antes de fotografiar a las personas. Esa es la diferencia entre ser un visitante y ser un buen visitante.' },
+      { t: 'p', html: '¿Te quedas con ganas de más pueblo? En diciembre vuelve la magia con las <a href="/historias/posadas-navidenas-malinalco">posadas y la Navidad en Malinalco</a>: nueve noches de piñatas, ponche y el pueblo iluminado. Es la otra gran temporada para visitarlo.' },
       CTA_EXPERIENCIA,
       { t: 'h2', id: 'donde-dormir', text: 'Dónde hospedarte para estas fechas' },
       { t: 'p', html: 'Día de Muertos es temporada alta: la disponibilidad se agota rápido. Si vienes en estas fechas, asegura tu lugar cuanto antes en la categoría <a href="/categoria/hospedaje">Hospedaje</a> o consulta nuestra <a href="/historias/donde-hospedarte-malinalco">guía para elegir dónde dormir</a>. Para grupos y familias, una casa completa con alberca es la opción más cómoda.' },
@@ -1163,7 +1164,7 @@ export const ARTICULOS = [
       { q: '¿Conviene reservar hospedaje para Día de Muertos?', a: 'Sí. Es una de las temporadas de mayor afluencia en Malinalco y la disponibilidad se agota rápido; conviene reservar con varias semanas de anticipación, sobre todo si buscas casa completa o cabaña para grupo.' },
       { q: '¿Cómo visitar el panteón con respeto?', a: 'Baja la voz, no uses flash sin permiso, no te subas ni te apoyes en las tumbas y pide permiso antes de fotografiar a las personas. Es una tradición viva y familiar, no un espectáculo.' },
     ],
-    relacionados: ['festival-cultural-malinalco', 'donde-hospedarte-malinalco', 'malinalco-pueblo-magico-historia'],
+    relacionados: ['posadas-navidenas-malinalco', 'donde-hospedarte-malinalco', '10-restaurantes-malinalco', 'festival-cultural-malinalco'],
   },
 
   // ─────────────────────── TEMPORADA: POSADAS / NAVIDAD ───────────────────────
@@ -1224,7 +1225,7 @@ export const ARTICULOS = [
   {
     slug: 'balnearios-malinalco',
     seoTitle: 'Balnearios en Malinalco: albercas y aguas termales 2026',
-    seoDescription: 'Guía 2026 de balnearios en Malinalco: albercas, parques acuáticos y aguas termales para un día de agua en familia. Opciones, precios, qué llevar y cómo elegir.',
+    seoDescription: 'Los mejores balnearios de Malinalco 2026: albercas, aguas termales y parques acuáticos para un día en familia. Precios, horarios, qué llevar y cuál elegir.',
     categoria: 'Tu Finde en Mali',
     categoriaDirSlug: 'balnearios',
     grupo: 'finde',
@@ -1411,7 +1412,7 @@ export const ARTICULOS = [
   {
     slug: 'chalma-desde-malinalco',
     seoTitle: 'Chalma desde Malinalco: guía del santuario',
-    seoDescription: 'Cómo visitar Chalma desde Malinalco: el santuario del Señor de Chalma, el ahuehuete, cómo llegar, cuándo ir y qué ver. Guía práctica de local.',
+    seoDescription: 'Chalma desde Malinalco en 2026: cómo llegar en ~40 min, el ahuehuete milagroso, cuándo ir sin multitudes y qué ver en el santuario. Guía práctica de un local.',
     categoria: 'Tu Finde en Mali',
     grupo: 'finde',
     titulo: 'Chalma desde Malinalco: guía del santuario más visitado de la región',
@@ -1573,7 +1574,7 @@ export const ARTICULOS = [
   {
     slug: 'zona-arqueologica-malinalco',
     seoTitle: 'Zona arqueológica de Malinalco: horarios y precios',
-    seoDescription: 'Zona arqueológica de Malinalco: horarios, costo de entrada, cómo llegar, qué verás y reglas de visita. Guía práctica para subir al Cerro de los Ídolos.',
+    seoDescription: 'Zona arqueológica de Malinalco: precio (~$85), horarios, los 428 escalones y qué verás arriba. Todo para visitar el único templo monolítico de América.',
     categoria: 'Mali Prehispánico',
     categoriaDirSlug: 'cultura',
     grupo: 'prehispanico',
