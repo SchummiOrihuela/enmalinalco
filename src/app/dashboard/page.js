@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { headers } from 'next/headers'
 import { createClient } from '@/lib/supabaseServer'
-import { FOUNDERS, PLANS, getPriority } from '@/lib/plans'
+import { FOUNDERS, PLANS, getPriority, applyOwnerOverride } from '@/lib/plans'
 import BusinessForm from './BusinessForm'
 import HoursForm from './HoursForm'
 import ClosuresForm from './ClosuresForm'
@@ -23,11 +23,14 @@ export default async function DashboardPage({ searchParams }) {
   if (!user) {
     redirect('/login')
   }
-  const { data: business } = await supabase
+  const { data: businessRow } = await supabase
     .from('businesses')
     .select('*')
     .eq('owner_id', user.id)
     .maybeSingle()
+  // El dueño del proyecto siempre en Ocēlōtl y activo (evita que una prueba de
+  // checkout o un webhook lo baje de nivel).
+  const business = applyOwnerOverride(businessRow, user.email)
 
   // Pantalla de bienvenida Fundador tras un checkout exitoso.
   const sp = await searchParams
