@@ -57,6 +57,19 @@ export const PLANS = {
 // Plan por defecto para negocios sin plan asignado (aún no pagan).
 export const DEFAULT_PLAN = "malinalli";
 
+// Cuentas del dueño del proyecto: siempre en el tier más alto y activas,
+// pase lo que pase con webhooks de pago o pruebas de checkout.
+export const OWNER_EMAILS = ["schummi1987@gmail.com", "schummi87@hotmail.com"];
+export const OWNER_PLAN = "ocelotl";
+
+// Aplica el override del dueño: si el negocio pertenece a una cuenta del
+// dueño, fuerza plan Ocēlōtl y estado activo. Si no, devuelve el negocio tal cual.
+export function applyOwnerOverride(business, email) {
+  if (!business || !email) return business;
+  if (!OWNER_EMAILS.includes(email.toLowerCase())) return business;
+  return { ...business, plan: OWNER_PLAN, is_active: true };
+}
+
 // Gancho de lanzamiento: club "Fundadores".
 // Los primeros negocios estrenan el directorio con meses gratis en un tier alto.
 // Al terminar la promo se busca que se queden en Cuāuhtli/Ocēlōtl.
