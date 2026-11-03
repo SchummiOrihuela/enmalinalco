@@ -1370,7 +1370,8 @@ export const ARTICULOS = [
     autor: 'Equipo En Malinalco',
     lectura: '6 min',
     imagen: '/img/articulos/como-llegar-malinalco.webp',
-    imagenAlt: 'Carretera de montaña que desciende hacia el valle de Malinalco',
+    imagenAlt: 'Calle empedrada del centro de Malinalco con las montañas al fondo',
+    imagenCredito: 'Foto: Joaogabriel vía <a href="https://commons.wikimedia.org/wiki/File:Malinalco,_centro_urbano,_carretera_de_Morelos.JPG" target="_blank" rel="noopener nofollow">Wikimedia Commons</a> · CC BY-SA 3.0',
     cuerpo: [
       { t: 'p', html: 'Malinalco está más cerca de lo que crees: a poco más de dos horas de la Ciudad de México y a hora y media de Toluca. No hay autobús directo desde CDMX, así que la mayoría llega en coche —y la buena noticia es que el camino, aunque tiene su tramo de curvas al final, es parte de la experiencia: bajas por la montaña y de pronto aparece el valle. Aquí todas las formas de llegar, con tiempos reales y sin rodeos.' },
       { t: 'h2', id: 'desde-cdmx', text: 'Desde la Ciudad de México (en coche)' },
@@ -1502,7 +1503,8 @@ export const ARTICULOS = [
     autor: 'Equipo En Malinalco',
     lectura: '6 min',
     imagen: '/img/articulos/chalma-desde-malinalco.webp',
-    imagenAlt: 'Santuario de Chalma entre las montañas, cerca de Malinalco',
+    imagenAlt: 'Interior dorado del Santuario del Señor de Chalma lleno de peregrinos',
+    imagenCredito: 'Foto: GABIEGUIN vía <a href="https://commons.wikimedia.org/wiki/File:Santuario_Chalma.JPG" target="_blank" rel="noopener nofollow">Wikimedia Commons</a> · CC BY-SA 3.0',
     cuerpo: [
       { t: 'p', html: 'A menos de media hora de Malinalco está Chalma, el segundo santuario más visitado de México después de la Basílica de Guadalupe. Cada año llegan millones de peregrinos al Señor de Chalma, pero no hace falta ser devoto para que valga el viaje: la historia, el entorno de montaña y el famoso ahuehuete junto a su manantial son una experiencia en sí misma. Si vas a pasar el fin en el pueblo, es la escapada cercana más natural.' },
       { t: 'h2', id: 'historia', text: 'La historia detrás del Señor de Chalma' },
@@ -1551,7 +1553,8 @@ export const ARTICULOS = [
     autor: 'Equipo En Malinalco',
     lectura: '6 min',
     imagen: '/img/articulos/temazcal-malinalco.webp',
-    imagenAlt: 'Entrada de un temazcal tradicional entre la vegetación de Malinalco',
+    imagenAlt: 'Entrada de un temazcal tradicional de barro entre la vegetación',
+    imagenCredito: 'Foto: Jassonfoto vía <a href="https://commons.wikimedia.org/wiki/File:Temazcal_Comalteco.jpg" target="_blank" rel="noopener nofollow">Wikimedia Commons</a> · CC BY-SA 4.0',
     cuerpo: [
       { t: 'p', html: 'Si hay una experiencia que resume el espíritu de Malinalco —pueblo de energía, montaña y tradición viva— es el temazcal. Este baño de vapor ceremonial se practica en México desde la época prehispánica, y aquí, entre cerros y manantiales, encuentra un escenario perfecto. Es una de las vivencias de bienestar más buscadas por quien llega al pueblo, y con razón: se sale otra persona.' },
       { t: 'h2', id: 'que-es', text: '¿Qué es un temazcal?' },

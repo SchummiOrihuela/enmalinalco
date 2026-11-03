@@ -224,8 +224,11 @@ export default async function HistoriaPage({ params }) {
         .art-meta{display:flex;flex-wrap:wrap;gap:8px 14px;margin:20px 0 0;font-size:13px;color:rgba(242,237,227,.5)}
         .art-meta span{display:inline-flex;align-items:center;gap:6px}
 
-        .art-hero{margin:28px 0 8px;border-radius:18px;overflow:hidden;aspect-ratio:16/9;background:#1C3B28}
+        .art-figure{margin:28px 0 8px}
+        .art-hero{border-radius:18px;overflow:hidden;aspect-ratio:16/9;background:#1C3B28}
         .art-hero img{width:100%;height:100%;object-fit:cover;display:block}
+        .art-hero-credito{margin:6px 2px 0;font-size:12px;line-height:1.4;color:#6B7A6E;text-align:right}
+        .art-hero-credito a{color:inherit;text-decoration:underline}
 
         .art-body{margin-top:28px}
         .art-p{font-size:17px;line-height:1.72;color:rgba(242,237,227,.9);margin:0 0 20px}
@@ -336,10 +339,18 @@ export default async function HistoriaPage({ params }) {
         </header>
 
         {a.imagen && (
-          <div className="art-hero">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={a.imagen} alt={a.imagenAlt || a.titulo} width="1280" height="720" />
-          </div>
+          <figure className="art-figure">
+            <div className="art-hero">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={a.imagen} alt={a.imagenAlt || a.titulo} width="1280" height="720" />
+            </div>
+            {a.imagenCredito && (
+              <figcaption
+                className="art-hero-credito"
+                dangerouslySetInnerHTML={{ __html: a.imagenCredito }}
+              />
+            )}
+          </figure>
         )}
 
         <div className="art-body">
