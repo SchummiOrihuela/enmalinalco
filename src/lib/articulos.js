@@ -1054,7 +1054,91 @@ export const ARTICULOS = [
   },
 
   {
+    slug: 'trail-nocturno-malinalco',
+    seoTitle: 'Trail Nocturno Malinalco 2026: 10K de montaña el 19 de diciembre',
+    seoDescription: 'Trail Nocturno Malinalco 2026 (sáb 19 dic): carrera de montaña 10K con lámpara, El Sendero Oscuro de Malinalxóchitl. Horarios, equipo, cupo y registro.',
+    categoria: 'Fiestas y Festivales',
+    grupo: 'fiestas',
+    categoriaDirSlug: 'ecoturismo',
+    titulo: 'Trail Nocturno Malinalco 2026: la primera carrera de montaña a la luz de la lámpara',
+    subtitulo:
+      'El sábado 19 de diciembre, 200 corredores suben al monte de noche. 10 km de sendero técnico, ceremonia prehispánica y fogata final: así nace El Sendero Oscuro de Malinalxóchitl.',
+    excerpt:
+      'La primera edición del trail nocturno de Malinalco: 10K de montaña con lámpara el 19 de diciembre de 2026. Horarios, equipo obligatorio, cupo, precio y cómo registrarte.',
+    fechaISO: '2026-11-09',
+    fechaDisplay: '9 de noviembre de 2026',
+    autor: 'Equipo En Malinalco',
+    lectura: '5 min',
+    imagen: '/img/articulos/trail-nocturno-malinalco.webp',
+    imagenAlt: 'Corredores de montaña con lámpara frontal en el trail nocturno de Malinalco',
+    cuerpo: [
+      { t: 'p', html: 'Malinalco estrena uno de los eventos más distintos de su calendario: un <strong>trail nocturno de montaña</strong>. El sábado 19 de diciembre de 2026, 200 corredores arrancan de noche, con lámpara frontal, para recorrer 10 kilómetros de sendero técnico bajo las estrellas. Se llama <em>El Sendero Oscuro de Malinalxóchitl</em>, en honor a la hechicera que, según la leyenda, fundó el pueblo.' },
+      { t: 'callout', titulo: 'Datos clave', items: [
+        'Fecha: sábado 19 de diciembre de 2026.',
+        'Distancia única: 10K nocturno, ~+250 m de desnivel.',
+        'Arranque oficial: 19:00 h, en Campamento Huixtla.',
+        'Cupo limitado: 200 corredores. Mayores de 18.',
+        'Inscripción: $499 (fase regular) · $450 para locales.',
+      ] },
+      { t: 'h2', id: 'que-es', text: '¿Qué es El Sendero Oscuro de Malinalxóchitl?' },
+      { t: 'p', html: 'Es la primera edición de un trail nocturno organizado por el Ayuntamiento de Malinalco a través del IMCUFIDE, junto con Wild Trail Malinalco y JP Trailrunning. No es una carrera de calle: se corre de noche, sobre roca y <em>single track</em>, por lo que pide experiencia básica de montaña. Cerca del 80% del recorrido es vereda de una sola persona, con terreno técnico y hasta dos cruces de río según el clima del día. El lema de los organizadores lo resume: “la oscuridad no apaga tu fuerza… la revela”.' },
+      { t: 'h2', id: 'horarios', text: 'Horarios del día' },
+      { t: 'ul', items: [
+        '<strong>13:00–17:30 · Entrega de paquetes</strong> en Campamento Huixtla (con identificación, comprobante de registro y carta de exoneración firmada).',
+        '<strong>18:15 · Apertura del corral</strong> y chequeo de lámparas.',
+        '<strong>18:30 · Ceremonia de bendición prehispánica.</strong>',
+        '<strong>19:00 · Arranque oficial del 10K.</strong>',
+        '<strong>21:30 · Cierre de meta</strong> (tiempo límite de ruta: 2 h 30 min).',
+        '<strong>21:40 · Premiación y fogata.</strong>',
+      ] },
+      { t: 'h2', id: 'equipo', text: 'Equipo obligatorio' },
+      { t: 'p', html: 'Hay revisión estricta antes de la salida: si falta algún elemento, no se puede arrancar. Malinalco enfría bastante de noche en diciembre, así que conviene preparar todo con tiempo.' },
+      { t: 'ul', items: [
+        'Lámpara frontal funcional, mínimo 300 lúmenes, más pilas de repuesto o power bank.',
+        'Silbato de emergencia y manta térmica.',
+        'Sistema de hidratación (chaleco o mochila).',
+        'Vaso o recipiente reutilizable: es un evento <strong>Zero Waste</strong> y tirar basura en el monte es descalificación.',
+        'Celular cargado con un número de emergencia guardado, y número visible al frente.',
+        'Recomendado: tenis de trail con buen agarre, rompevientos y guantes ligeros.',
+      ] },
+      { t: 'h2', id: 'incluye', text: 'Qué incluye tu inscripción' },
+      { t: 'ul', items: [
+        'Playera conmemorativa oficial y número de corredor.',
+        'Medalla de finalista (dentro del tiempo límite).',
+        'Abastecimiento en el km 5 y en la meta.',
+        'Marcaje reflejante y señalización especial nocturna.',
+        'Guardarropa, sanitarios y asistencia médica con Protección Civil.',
+        'Ritual de bendición, fogata y convivencia final.',
+      ] },
+      { t: 'callout', titulo: 'Premios', items: [
+        'Trofeo y premio en efectivo para los primeros 3 lugares de cada rama (femenil y varonil).',
+        'Categoría única libre 18+, con divisiones femenil y varonil.',
+      ] },
+      { t: 'h2', id: 'registro', text: 'Precio y registro' },
+      { t: 'ul', items: [
+        '<strong>Fase regular:</strong> $499 MXN, del 1 de noviembre al 18 de diciembre, o hasta agotar los 200 lugares.',
+        '<strong>Promo local:</strong> $450 MXN para habitantes de Malinalco y comunidades cercanas, con registro presencial en el IMCUFIDE.',
+        '<strong>Promo de grupo:</strong> se inscriben 10 y una inscripción es de regalo.',
+        'Registro en línea a través de Carreras México. Al ser primera edición y con cupo de 200, es muy probable que se agote antes de la fecha límite.',
+        'Dudas de la carrera: Wild Trail Malinalco (WhatsApp 55 3113 5058, Instagram @wildtrailmalinalco).',
+      ] },
+      CTA_EXPERIENCIA,
+      { t: 'p', html: 'La carrera termina cerca de las 21:40. Si vienes de la CDMX, Toluca o Cuernavaca, lo más sensato es quedarte a dormir en el pueblo y no manejar de noche: aprovecha para subir al día siguiente a la <a href="/categoria/cultura">zona arqueológica</a> o recorrer el <a href="/categoria/ecoturismo">ecoturismo</a> de montaña.' },
+      ctaReserva('trail_nocturno', { titulo: '¿Corres el trail nocturno?', html: 'La carrera cierra de noche y manejar de regreso no es buena idea. Quédate a dormir en el pueblo: reserva directo con el anfitrión en <strong>Cantera y Calma</strong>, a unos 10 minutos del Campamento Huixtla —casas y estancias boutique con alberca, atención personal y el mejor precio, sin comisiones de intermediarios.' }),
+    ],
+    faq: [
+      { q: '¿Cuándo es el trail nocturno de Malinalco 2026?', a: 'El sábado 19 de diciembre de 2026. El arranque oficial del 10K es a las 19:00 h, con entrega de paquetes de 13:00 a 17:30 y ceremonia de bendición prehispánica a las 18:30, todo en Campamento Huixtla.' },
+      { q: '¿Qué distancia tiene la carrera?', a: 'Una sola distancia: 10 kilómetros nocturnos, con unos +250 m de desnivel y cerca del 80% en sendero de montaña (single track). Pide experiencia básica de montaña.' },
+      { q: '¿Cuánto cuesta y cómo me inscribo?', a: 'La fase regular cuesta $499 MXN (del 1 de noviembre al 18 de diciembre o hasta agotar 200 lugares). Hay promo local de $450 para habitantes de Malinalco en el IMCUFIDE, y promo de grupo (se inscriben 10 y una va de regalo). El registro en línea es por Carreras México.' },
+      { q: '¿Qué equipo necesito?', a: 'Es obligatorio y hay revisión antes de salir: lámpara frontal de mínimo 300 lúmenes con repuesto, silbato, manta térmica, sistema de hidratación, vaso reutilizable (evento Zero Waste), celular cargado y número visible. Se recomiendan tenis de trail y ropa de abrigo: en diciembre el monte enfría de noche.' },
+      { q: '¿Hay cupo limitado?', a: 'Sí, solo 200 corredores por el entorno natural, categoría única libre para mayores de 18. Al ser la primera edición es muy probable que se agote antes de la fecha límite.' },
+    ],
+    relacionados: ['subida-cerro-idolos', 'posadas-navidenas-malinalco', 'mejor-epoca-visitar-malinalco'],
+  },
+
+  {
     slug: 'festival-cultural-malinalco',
+    oculto: true, // Evento pasado: oculto del listado, la página sigue viva.
     seoTitle: 'Festival Cultural de Malinalco 2026: fechas y programa',
     seoDescription: 'Festival Cultural de Malinalco 2026 (16–18 oct): +50 actividades gratis en 11 sedes, programa día por día y consejos para vivirlo. Entrada libre.',
     categoria: 'Fiestas y Festivales',
@@ -1193,6 +1277,7 @@ export const ARTICULOS = [
   // ─────────────────────── TEMPORADA: DÍA DE MUERTOS ───────────────────────
   {
     slug: 'dia-de-muertos-malinalco',
+    oculto: true, // Evento pasado: oculto del listado, la página sigue viva.
     seoTitle: 'Día de Muertos en Malinalco 2026: qué hacer y dónde',
     seoDescription: 'Día de Muertos en Malinalco 2026 (31 oct–2 nov): ofrendas, panteón, qué hacer, cuándo llegar y dónde hospedarte. Guía para vivirlo en el Pueblo Mágico.',
     categoria: 'Fiestas y Festivales',
@@ -1718,6 +1803,8 @@ export function getTodosLosSlugs() {
 }
 
 // Artículos de un grupo, en el orden en que aparecen en ARTICULOS.
+// Los marcados con `oculto: true` no se listan (p. ej. eventos que ya pasaron),
+// pero su página /historias/<slug> sigue viva para no romper enlaces ni SEO.
 export function getArticulosPorGrupo(grupoId) {
-  return ARTICULOS.filter((a) => a.grupo === grupoId)
+  return ARTICULOS.filter((a) => a.grupo === grupoId && !a.oculto)
 }

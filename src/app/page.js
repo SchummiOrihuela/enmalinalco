@@ -1008,20 +1008,20 @@ const MARKUP = `<!-- Progress bar -->
     <div class="feat-grid">
 
       <!-- BIG CARD -->
-      <div class="pcard pcard-big rv">
-        <img src="/img/destacados/big-zona-arqueologica.webp" alt="Cerro de los Ídolos — zona arqueológica de Malinalco" width="600" height="800" loading="lazy">
+      <a href="/historias/trail-nocturno-malinalco" class="pcard pcard-big rv">
+        <img src="/img/destacados/big-trail-nocturno.webp" alt="Trail Nocturno Malinalco — El Sendero Oscuro de Malinalxóchitl 10K" width="600" height="800" loading="lazy">
         <div class="pcard-ov">
           <span class="ptag">
-            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            Zona Arqueológica
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0 0 14 7 7 0 0 1 0-14z"/></svg>
+            Evento · Diciembre
           </span>
-          <h3 class="pname">Cerro de los Ídolos</h3>
-          <p class="pdesc">El templo monolítico tallado en la roca viva, único en Mesoamérica. Subir sus escalones es asomarse al Malinalco prehispánico.</p>
+          <h3 class="pname">Trail Nocturno: El Sendero Oscuro de Malinalxóchitl</h3>
+          <p class="pdesc">Carrera de montaña 10K a la luz de la lámpara, el sábado 19 de diciembre. Senderos técnicos, ceremonia prehispánica y fogata final.</p>
           <div class="pmeta">
-            <span class="prev">Zona INAH · Guía disponible</span>
+            <span class="prev">19 dic 2026 · 10K nocturno · 200 lugares</span>
           </div>
         </div>
-      </div>
+      </a>
 
       <!-- Small cards column -->
       <div style="display:flex;flex-direction:column;gap:var(--s4)">
