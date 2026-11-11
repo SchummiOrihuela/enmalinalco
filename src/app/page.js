@@ -1026,6 +1026,17 @@ const MARKUP = `<!-- Progress bar -->
       <!-- Small cards column -->
       <div style="display:flex;flex-direction:column;gap:var(--s4)">
 
+        <a href="/historias/posadas-navidenas-malinalco" class="pcard-sm rv rv-d1" style="text-decoration:none;color:inherit">
+          <div class="pcard-sm-img">
+            <img src="/img/articulos/posadas-navidenas-malinalco.webp" alt="Posadas y Navidad en Malinalco — del 16 al 24 de diciembre" width="260" height="200" loading="lazy">
+          </div>
+          <div class="pcard-sm-body">
+            <div class="pcard-sm-cat">Evento · Diciembre</div>
+            <div class="pcard-sm-name">Posadas y Navidad</div>
+            <div class="pcard-sm-sub">Del 16 al 24 de diciembre: ponche, piñatas y el pueblo iluminado</div>
+          </div>
+        </a>
+
         <div class="pcard-sm rv rv-d1">
           <div class="pcard-sm-img">
             <img src="/img/destacados/01-mercado-artesanal.webp" alt="Mercado Artesanal de Malinalco" width="260" height="200" loading="lazy">
