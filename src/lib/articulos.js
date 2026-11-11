@@ -1317,6 +1317,7 @@ export const ARTICULOS = [
       CTA_EXPERIENCIA,
       { t: 'h2', id: 'donde-dormir', text: 'Dónde hospedarte para estas fechas' },
       { t: 'p', html: 'Día de Muertos es temporada alta: la disponibilidad se agota rápido. Si vienes en estas fechas, asegura tu lugar cuanto antes en la categoría <a href="/categoria/hospedaje">Hospedaje</a> o consulta nuestra <a href="/historias/donde-hospedarte-malinalco">guía para elegir dónde dormir</a>. Para grupos y familias, una casa completa con alberca es la opción más cómoda.' },
+      { t: 'p', html: '¿Te perdiste el Día de Muertos o quieres volver pronto? La siguiente gran temporada del pueblo es diciembre: vive las <a href="/historias/posadas-navidenas-malinalco">posadas y la Navidad en Malinalco</a> (16–24 de diciembre) y, si corres, el <a href="/historias/trail-nocturno-malinalco">Trail Nocturno del 19 de diciembre</a>.' },
       ctaReserva('dia_de_muertos', { titulo: '¿Vienes a Malinalco en Día de Muertos?', html: 'Es temporada alta y la disponibilidad se agota. Reserva directo con el anfitrión en <strong>Cantera y Calma</strong>: casas y estancias boutique con alberca, atención personal y el mejor precio —sin comisiones de intermediarios.' }),
     ],
     faq: [
@@ -1326,7 +1327,7 @@ export const ARTICULOS = [
       { q: '¿Conviene reservar hospedaje para Día de Muertos?', a: 'Sí. Es una de las temporadas de mayor afluencia en Malinalco y la disponibilidad se agota rápido; conviene reservar con varias semanas de anticipación, sobre todo si buscas casa completa o cabaña para grupo.' },
       { q: '¿Cómo visitar el panteón con respeto?', a: 'Baja la voz, no uses flash sin permiso, no te subas ni te apoyes en las tumbas y pide permiso antes de fotografiar a las personas. Es una tradición viva y familiar, no un espectáculo.' },
     ],
-    relacionados: ['festival-cultural-malinalco', 'donde-hospedarte-malinalco', 'malinalco-pueblo-magico-historia'],
+    relacionados: ['posadas-navidenas-malinalco', 'trail-nocturno-malinalco', 'donde-hospedarte-malinalco'],
   },
 
   // ─────────────────────── TEMPORADA: POSADAS / NAVIDAD ───────────────────────
@@ -1441,8 +1442,8 @@ export const ARTICULOS = [
   // ─────────────────────────────── LOGÍSTICA / FINDE ───────────────────────────────
   {
     slug: 'como-llegar-malinalco',
-    seoTitle: 'Cómo llegar a Malinalco desde CDMX y Toluca',
-    seoDescription: 'Cómo llegar a Malinalco en coche o transporte desde CDMX, Toluca y Cuernavaca: rutas, tiempos, estado de la carretera, estacionamiento y tips de local.',
+    seoTitle: 'Cómo llegar a Malinalco desde CDMX: 2.5 h, ruta y casetas',
+    seoDescription: 'Cómo llegar a Malinalco desde CDMX en 2.5 h (1.5 h desde Toluca): la ruta exacta, costo de casetas, estacionamiento y transporte público. Tips de local 2026.',
     categoria: 'Tu Finde en Mali',
     grupo: 'finde',
     titulo: 'Cómo llegar a Malinalco desde CDMX, Toluca y Cuernavaca',
