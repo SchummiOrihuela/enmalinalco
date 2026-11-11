@@ -74,7 +74,7 @@ export function renderInvitacion({ negocio, contacto, personalizado, cupos, url 
     .replaceAll("{{CUPOS}}", cuposTexto)
     .replaceAll("{{URL}}", destino);
 
-  const subject = `${nombreNegocio}, te guardé un lugar en el directorio del pueblo 🌿`;
+  const subject = `${nombreNegocio}, aquí te buscan quienes vienen a Malinalco 🌿`;
   return { html, subject, nombreNegocio };
 }
 
