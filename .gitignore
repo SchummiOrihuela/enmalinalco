@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# lista real de prospectos (datos personales — nunca al repo)
+/supabase/invitados.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
