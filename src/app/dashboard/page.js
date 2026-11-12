@@ -104,17 +104,20 @@ export default async function DashboardPage({ searchParams }) {
     const ranking = tierP >= 2 ? rankingCategoria(peersCat, business.view_count) : null
     const roi = tierP >= 2 ? roiEstimado(business) : null
     const ctx = contextoRecos({ business, salud, tasa })
+    // Reparto por tier (Ojo de Jaguar en todos, seccionado):
+    //  - Malinalli (1): salud, tasa, vistas y 1 acción (asómate al poder de tus datos).
+    //  - Cuāuhtli (2): + Lectura del Consultor (IA), ranking, Top 3 recos/red, alertas, meta.
+    //  - Ocēlōtl (3): + Fase 2 (tendencia, heatmap, geo, atribución) y exportar.
     const recosPorRed = tierP >= 2 ? recomendacionesPorRed(ctx, 3) : null
-    // Lectura del Consultor + las 3 acciones de la semana (diferenciador BI).
-    const lectura = lecturaConsultor({ business, salud, tasa, roi, ranking })
-    const acciones = recomendaciones(ctx, 3)
+    const lectura = tierP >= 2 ? lecturaConsultor({ business, salud, tasa, roi, ranking }) : null
+    const acciones = recomendaciones(ctx, tierP >= 2 ? 3 : 1)
     const avisos = tierP >= 2 ? alertas(ctx) : null
     const meta = tierP >= 2 ? metaProgreso(business) : null
     const mom = mesVsMes(business)
 
-    // Fase 2: eventos de los últimos 90 días (el dueño lee solo los suyos por RLS).
+    // Fase 2: eventos de los últimos 90 días (solo Ocēlōtl; RLS filtra por dueño).
     let fase2 = null
-    if (tierP >= 2) {
+    if (tierP >= 3) {
       const desde = new Date(Date.now() - 90 * 864e5).toISOString()
       const { data: evRows } = await supabase
         .from('events')
@@ -369,7 +372,7 @@ export default async function DashboardPage({ searchParams }) {
                   })}
                 </div>
 
-                <div style={{
+                <div className="oj-zoom" style={{
                   margin: '16px 0 0', padding: '14px 18px', borderRadius: '12px',
                   background: 'rgba(220,178,74,0.10)', borderLeft: '4px solid var(--oro)',
                 }}>
@@ -405,25 +408,25 @@ export default async function DashboardPage({ searchParams }) {
 
                 {/* Teasers de upsell según el plan */}
                 {tier === 1 && (
-                  <a href="#planes" style={{
+                  <a href="#planes" className="oj-zoom" style={{
                     display: 'block', marginTop: '12px', padding: '12px 16px', borderRadius: '12px',
                     background: 'rgba(220,178,74,0.10)', border: '1px dashed rgba(220,178,74,0.4)',
                     textDecoration: 'none', color: '#F6F0E0', fontSize: '13.5px', lineHeight: 1.5,
                   }}>
-                    🔒 <strong>Con Cuāuhtli</strong> mides también los clics a tus redes y ves <strong>cómo vas frente a tu categoría</strong>. <span style={{ color: 'var(--oro)', fontWeight: 700 }}>Mejorar mi plan →</span>
+                    🔒 <strong>Con Cuāuhtli</strong> desbloqueas tu <strong>Consultor con IA</strong>: qué hacer esta semana, tus Top 3 recomendaciones por red, ranking, alertas y metas. <span style={{ color: 'var(--oro)', fontWeight: 700 }}>Mejorar mi plan →</span>
                   </a>
                 )}
                 {tier === 2 && (
-                  <a href="#planes" style={{
+                  <a href="#planes" className="oj-zoom" style={{
                     display: 'block', marginTop: '12px', padding: '12px 16px', borderRadius: '12px',
                     background: 'rgba(220,178,74,0.10)', border: '1px dashed rgba(220,178,74,0.4)',
                     textDecoration: 'none', color: '#F6F0E0', fontSize: '13.5px', lineHeight: 1.5,
                   }}>
-                    🔒 <strong>Con Ocēlōtl</strong> recibes cada mes un <strong>reporte a tu correo</strong> con tus números y recomendaciones para crecer. <span style={{ color: 'var(--oro)', fontWeight: 700 }}>Mejorar mi plan →</span>
+                    🔒 <strong>Con Ocēlōtl</strong> ves <strong>de dónde viene cada cliente</strong> (historias y eventos), a qué hora te buscan, de qué estados, y <strong>exportas tu reporte</strong>. <span style={{ color: 'var(--oro)', fontWeight: 700 }}>Mejorar mi plan →</span>
                   </a>
                 )}
                 {tier >= 3 && (
-                  <div style={{
+                  <div className="oj-zoom" style={{
                     marginTop: '12px', padding: '12px 16px', borderRadius: '12px',
                     background: 'rgba(124,182,137,0.10)', border: '1px solid rgba(124,182,137,0.28)',
                     fontSize: '13.5px', color: '#F6F0E0', lineHeight: 1.5,

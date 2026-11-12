@@ -216,7 +216,7 @@ function wrapText(x, text, px, py, maxW, lh) {
 export default function InsightsDrawer({ insights }) {
   const [open, setOpen] = useState(false)
   const [red, setRed] = useState(null)
-  const { salud, tasa, ranking, recosPorRed, fase2, lectura, acciones, avisos, mom, negocio, negocioId } = insights
+  const { tier, salud, tasa, ranking, recosPorRed, fase2, lectura, acciones, avisos, mom, negocio, negocioId } = insights
   const [meta, setMeta] = useState(insights.meta)
   const [metaInput, setMetaInput] = useState('')
   const [editMeta, setEditMeta] = useState(false)
@@ -283,7 +283,7 @@ export default function InsightsDrawer({ insights }) {
           0%, 100% { border-color: rgba(124,182,137,0.28); box-shadow: 0 0 0 0 rgba(143,211,160,0); }
           50%      { border-color: rgba(143,211,160,0.65); box-shadow: 0 0 20px -2px rgba(143,211,160,0.35); }
         }
-        .ojo-btn:hover { filter: brightness(1.08); }
+        .ojo-btn:hover { filter: brightness(1.1); animation-play-state: paused; transform: scale(1.025); }
       `}</style>
 
       {/* Botón de acceso premium — palpita e invita con el gancho de IA */}
@@ -295,15 +295,15 @@ export default function InsightsDrawer({ insights }) {
         color: '#F6F0E0', fontSize: '16px', fontWeight: 800, fontFamily: 'inherit',
         letterSpacing: '0.01em', animation: 'ojoLatido 2.2s ease-in-out infinite',
       }}>
-        <span style={{ fontSize: '21px' }}>🐆</span>
+        <span style={{ fontSize: '30px', lineHeight: 1, filter: 'drop-shadow(0 2px 6px rgba(220,178,74,0.4))' }}>🐆</span>
         <span>Ojo de Jaguar</span>
         <span style={{
           fontSize: '11px', fontWeight: 800, letterSpacing: '0.08em', color: '#25201A',
           background: 'linear-gradient(180deg,#E7C86A,#DCB24A)', padding: '3px 9px', borderRadius: '9999px',
           animation: 'ojoChip 1.8s ease-in-out infinite',
-        }}>✨ CON IA</span>
+        }}>✨ IA + DATOS</span>
         <span style={{ width: '100%', textAlign: 'center', fontSize: '12.5px', fontWeight: 500, opacity: 0.82 }}>
-          Tu consultor con IA · lo que Google, ni en sueños
+          Google cuenta. Nosotros entendemos. Tú vendes.
         </span>
       </button>
 
@@ -327,7 +327,7 @@ export default function InsightsDrawer({ insights }) {
               display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px',
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                <div style={{ fontSize: '34px', lineHeight: 1, filter: 'drop-shadow(0 2px 6px rgba(220,178,74,0.4))' }}>🐆</div>
+                <div style={{ fontSize: '46px', lineHeight: 1, filter: 'drop-shadow(0 3px 8px rgba(220,178,74,0.45))' }}>🐆</div>
                 <div>
                   <div style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '23px', fontWeight: 600, letterSpacing: '-0.01em' }}>Ojo de Jaguar</div>
                   <div style={{ fontSize: '11.5px', color: ORO, fontWeight: 700, letterSpacing: '0.04em' }}>Lo que Google, ni en sueños te daría</div>
@@ -335,14 +335,18 @@ export default function InsightsDrawer({ insights }) {
                 </div>
               </div>
               <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                <button onClick={() => descargarImagen(insights)} title="Descargar imagen para compartir" style={{
-                  cursor: 'pointer', padding: '9px 14px', borderRadius: '9999px', fontSize: '13px', fontWeight: 700, fontFamily: 'inherit',
-                  border: '1px solid rgba(220,178,74,0.5)', background: 'rgba(220,178,74,0.14)', color: '#F6F0E0',
-                }}>🖼 Imagen</button>
-                <button onClick={() => exportarReporte(insights)} title="Descargar / imprimir (PDF)" style={{
-                  cursor: 'pointer', padding: '9px 14px', borderRadius: '9999px', fontSize: '13px', fontWeight: 700, fontFamily: 'inherit',
-                  border: '1px solid rgba(220,178,74,0.5)', background: 'rgba(220,178,74,0.14)', color: '#F6F0E0',
-                }}>⬇ PDF</button>
+                {tier >= 3 && (
+                  <>
+                    <button onClick={() => descargarImagen(insights)} title="Descargar imagen para compartir" style={{
+                      cursor: 'pointer', padding: '9px 14px', borderRadius: '9999px', fontSize: '13px', fontWeight: 700, fontFamily: 'inherit',
+                      border: '1px solid rgba(220,178,74,0.5)', background: 'rgba(220,178,74,0.14)', color: '#F6F0E0',
+                    }}>🖼 Imagen</button>
+                    <button onClick={() => exportarReporte(insights)} title="Descargar / imprimir (PDF)" style={{
+                      cursor: 'pointer', padding: '9px 14px', borderRadius: '9999px', fontSize: '13px', fontWeight: 700, fontFamily: 'inherit',
+                      border: '1px solid rgba(220,178,74,0.5)', background: 'rgba(220,178,74,0.14)', color: '#F6F0E0',
+                    }}>⬇ PDF</button>
+                  </>
+                )}
                 <button onClick={() => setOpen(false)} aria-label="Cerrar" style={{
                   cursor: 'pointer', width: '38px', height: '38px', borderRadius: '50%',
                   border: '1px solid rgba(246,240,224,0.25)', background: 'rgba(0,0,0,0.25)', color: '#F6F0E0', fontSize: '18px',
@@ -376,7 +380,7 @@ export default function InsightsDrawer({ insights }) {
                   animation: 'ojoGlow 2.8s ease-in-out infinite',
                 }}>
                   <div style={{ fontSize: '11.5px', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#8FD3A0', fontWeight: 800, marginBottom: '8px' }}>
-                    🔎 La lectura de tu consultor · con IA
+                    🔎 La lectura de tu consultor · IA + datos
                   </div>
                   <p style={{ margin: '0 0 8px', fontSize: '13px', color: 'rgba(243,238,226,0.75)', lineHeight: 1.5 }}>
                     Cruzamos tus números con Inteligencia Artificial para decirte no solo qué pasó, sino <strong>qué hacer esta semana</strong> para vender más.
@@ -533,6 +537,26 @@ export default function InsightsDrawer({ insights }) {
                     </div>
                   ) : <Vacio>Cuando una de nuestras historias o eventos te mande visitas, aquí verás exactamente cuántas — la prueba de que lo que hacemos por el pueblo te llega a la caja.</Vacio>}
                 </>
+              )}
+
+              {/* UPSELL por tier — desbloquea la siguiente capa de inteligencia */}
+              {tier === 1 && (
+                <a href="#planes" onClick={() => setOpen(false)} style={{
+                  display: 'block', marginTop: '22px', padding: '16px 18px', borderRadius: '16px', textDecoration: 'none',
+                  background: 'linear-gradient(135deg, rgba(220,178,74,0.16), rgba(16,28,18,0.4))', border: '1px dashed rgba(220,178,74,0.5)', color: '#F6F0E0',
+                }}>
+                  <div style={{ fontWeight: 800, fontSize: '14.5px', marginBottom: '4px' }}>🔒 Con <span style={{ color: ORO }}>Cuāuhtli</span> desbloqueas tu Consultor con IA</div>
+                  <div style={{ fontSize: '13px', opacity: 0.85, lineHeight: 1.5 }}>Te dice <strong>qué hacer esta semana</strong>, tus Top 3 recomendaciones por red social, tu ranking en el pueblo, alertas y metas. <span style={{ color: ORO, fontWeight: 700 }}>Mejorar mi plan →</span></div>
+                </a>
+              )}
+              {tier === 2 && (
+                <a href="#planes" onClick={() => setOpen(false)} style={{
+                  display: 'block', marginTop: '22px', padding: '16px 18px', borderRadius: '16px', textDecoration: 'none',
+                  background: 'linear-gradient(135deg, rgba(124,182,137,0.14), rgba(16,28,18,0.4))', border: '1px dashed rgba(124,182,137,0.5)', color: '#F6F0E0',
+                }}>
+                  <div style={{ fontWeight: 800, fontSize: '14.5px', marginBottom: '4px' }}>🔒 Con <span style={{ color: '#8FD3A0' }}>Ocēlōtl</span> ves de dónde viene cada cliente</div>
+                  <div style={{ fontSize: '13px', opacity: 0.85, lineHeight: 1.5 }}>Qué <strong>historia o evento</strong> te trajo clientes, <strong>a qué hora</strong> te buscan, de qué estados, y <strong>exportas tu reporte</strong> para presumirlo. <span style={{ color: '#8FD3A0', fontWeight: 700 }}>Mejorar mi plan →</span></div>
+                </a>
               )}
 
               {/* SELLO VS GOOGLE */}
