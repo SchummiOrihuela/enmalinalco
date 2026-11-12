@@ -353,6 +353,62 @@ export function lecturaConsultor({ business, salud, tasa, roi, ranking }) {
   return frases.join(' ')
 }
 
+// ── 5c) Alertas proactivas ──────────────────────────────────────────────────
+// Detecta lo urgente del mes y lo pone al frente. Tono 'alta' = atender ya.
+export function alertas(ctx, max = 3) {
+  const c = ctx
+  const out = []
+  const push = (prio, tono, icon, text) => out.push({ prio, tono, icon, text })
+
+  const caida = (mes, base, nombre, consejo) => {
+    if (base >= 8 && mes < 0 && Math.abs(mes) / base >= 0.25) {
+      const pct = Math.round((Math.abs(mes) / base) * 100)
+      push(90, 'alta', '⚠️', `Tus ${nombre} cayeron ${pct}% vs. el mes pasado. ${consejo}`)
+    }
+  }
+  caida(c.igMes, (c.b.instagram_clicks_last_month || 0), 'clics a Instagram', 'Sube 1 reel esta semana para recuperar alcance.')
+  caida(c.fbMes, (c.b.facebook_clicks_last_month || 0), 'clics a Facebook', 'Publica en 2–3 grupos de escapadas de la región.')
+  caida(c.waMes, (c.b.whatsapp_clicks_last_month || 0), 'contactos por WhatsApp', 'Revisa que tu botón y tu número estén visibles y responde rápido.')
+
+  if (!c.hasWA) push(95, 'alta', '📵', 'No tienes WhatsApp en tu ficha: es tu canal de venta #1. Agrégalo hoy.')
+  if (c.tasa && c.tasa.pct !== null && c.tasa.vistas >= 20 && c.tasa.pct < 4) {
+    push(80, 'alta', '🪫', `Te ven mucho pero casi nadie te contacta (${c.tasa.pct}%). Atiende tu foto principal y agrega precios.`)
+  }
+  if (c.salud && c.salud.score < 50) {
+    push(70, 'media', '🧩', `Tu ficha está a medias (${c.salud.score}/100). Completarla es lo que más rápido sube tus contactos.`)
+  }
+
+  return out.sort((a, b) => b.prio - a.prio).slice(0, max)
+}
+
+// ── 5d) Meta del mes ────────────────────────────────────────────────────────
+// Progreso de contactos del mes contra la meta que fija el dueño. Sin meta,
+// sugiere una (el mes pasado +20%, mínimo 5).
+export function metaProgreso(business) {
+  const actual = contactosMes(business)
+  const meta = business.meta_contactos || null
+  const prevMes =
+    (business.whatsapp_clicks_last_month || 0) + (business.phone_clicks_last_month || 0) + (business.maps_clicks_last_month || 0)
+  // No podemos reconstruir los contactos del mes pasado (solo el corte), así que
+  // la sugerencia se basa en el total del mes actual proyectado.
+  const sugerida = Math.max(5, Math.round((actual || prevMes || 5) * 1.2))
+  if (!meta) return { meta: null, actual, sugerida, pct: null }
+  return { meta, actual, sugerida, pct: Math.min(100, Math.round((actual / meta) * 100)) }
+}
+
+// ── 5e) Mes vs. mes ─────────────────────────────────────────────────────────
+export function mesVsMes(business) {
+  const vMes = delta(business.view_count, business.views_last_month)
+  const cMes = contactosMes(business)
+  const vBase = business.views_last_month || 0
+  const cBase =
+    (business.whatsapp_clicks_last_month || 0) + (business.phone_clicks_last_month || 0) + (business.maps_clicks_last_month || 0)
+  return {
+    vistas: { mes: vMes, pct: vBase > 0 ? Math.round((vMes / vBase) * 100) : null },
+    contactos: { mes: cMes, pct: cBase > 0 ? Math.round((cMes / cBase) * 100) : null },
+  }
+}
+
 // ── 6) Agregadores de Fase 2 (sobre la tabla `events`) ──────────────────────
 // Reciben el arreglo crudo de eventos del negocio y devuelven vistas listas.
 // Cada evento: { kind, ref, country, region, created_at }. Puras, sin red.

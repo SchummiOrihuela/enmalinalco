@@ -9,6 +9,7 @@
 //   - Sello vs. Google y exportar el reporte para presumirlo / usarlo en ventas.
 // El jaguar (Ocēlōtl) ve en la oscuridad lo que nadie ve: justo lo que Google no da.
 import { useState, useEffect, Fragment } from 'react'
+import { createClient } from '@/lib/supabaseBrowser'
 
 const pesos = (n) =>
   new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 }).format(n || 0)
@@ -95,6 +96,22 @@ function Heatmap({ hm }) {
   )
 }
 
+// Chip de comparación mes vs. mes.
+function MoMChip({ label, pct }) {
+  const up = pct > 0, flat = pct === 0
+  const color = up ? '#3E9E59' : flat ? 'rgba(246,240,224,0.5)' : '#BF5028'
+  return (
+    <span style={{
+      display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '7px 13px', borderRadius: '9999px',
+      background: 'rgba(246,240,224,0.06)', border: '1px solid rgba(246,240,224,0.14)', color: '#F6F0E0', fontWeight: 600,
+    }}>
+      {label}
+      <strong style={{ color }}>{up ? '▲' : flat ? '■' : '▼'} {Math.abs(pct)}%</strong>
+      <span style={{ opacity: 0.55, fontSize: '11px' }}>vs mes pasado</span>
+    </span>
+  )
+}
+
 const Vacio = ({ children }) => (
   <p style={{ margin: 0, fontSize: '13px', color: 'rgba(246,240,224,0.6)', lineHeight: 1.5 }}>{children}</p>
 )
@@ -144,10 +161,97 @@ function exportarReporte({ negocio, lectura, acciones, salud, tasa, ranking, roi
   w.document.open(); w.document.write(html); w.document.close()
 }
 
+// Genera una imagen PNG lista para compartir (WhatsApp/IG) con los números clave.
+function descargarImagen({ negocio, salud, tasa, ranking, roi, lectura }) {
+  const W = 1080, H = 1080
+  const cv = document.createElement('canvas')
+  cv.width = W; cv.height = H
+  const x = cv.getContext('2d')
+  // Fondo obsidiana con halo oro.
+  const g = x.createLinearGradient(0, 0, 0, H)
+  g.addColorStop(0, '#1E3322'); g.addColorStop(1, '#101E14')
+  x.fillStyle = g; x.fillRect(0, 0, W, H)
+  const halo = x.createRadialGradient(170, -40, 40, 170, -40, 700)
+  halo.addColorStop(0, 'rgba(220,178,74,0.30)'); halo.addColorStop(1, 'rgba(220,178,74,0)')
+  x.fillStyle = halo; x.fillRect(0, 0, W, H)
+
+  x.textBaseline = 'top'
+  x.fillText('🐆', 84, 76); x.font = '64px sans-serif'; x.fillText('🐆', 84, 70)
+  x.fillStyle = '#DCB24A'; x.font = '700 26px Georgia, serif'
+  x.fillText('OJO DE JAGUAR · EN MALINALCO', 170, 92)
+  x.fillStyle = '#F6F0E0'; x.font = '600 58px Georgia, serif'
+  x.fillText((negocio || 'Mi negocio').slice(0, 26), 84, 170)
+  x.fillStyle = 'rgba(246,240,224,0.7)'; x.font = 'italic 24px sans-serif'
+  x.fillText('Lo que Google Maps no te puede decir', 84, 240)
+
+  // Tarjetas KPI (2×2).
+  const cards = [
+    salud ? ['Salud de ficha', `${salud.score}/100`] : null,
+    tasa && tasa.pct !== null ? ['Tasa de contacto', `${tasa.pct}%`] : null,
+    ranking ? ['Lugar en categoría', `#${ranking.pos} de ${ranking.n}`] : null,
+    roi && roi.contactos > 0 ? ['Valor estimado', pesos(roi.ingreso)] : null,
+  ].filter(Boolean)
+  const cw = 440, ch = 180, gx = 84, gy = 320, gap = 32
+  cards.slice(0, 4).forEach((c, i) => {
+    const cx = gx + (i % 2) * (cw + gap), cy = gy + Math.floor(i / 2) * (ch + gap)
+    x.fillStyle = 'rgba(220,178,74,0.12)'; roundRect(x, cx, cy, cw, ch, 20); x.fill()
+    x.fillStyle = '#DCB24A'; x.fillRect(cx, cy, 6, ch)
+    x.fillStyle = 'rgba(246,240,224,0.7)'; x.font = '600 22px sans-serif'; x.fillText(c[0].toUpperCase(), cx + 34, cy + 30)
+    x.fillStyle = '#F6F0E0'; x.font = '700 62px Georgia, serif'; x.fillText(c[1], cx + 34, cy + 72)
+  })
+
+  // Lectura del consultor (primera frase).
+  if (lectura) {
+    const frase = lectura.split('. ')[0] + '.'
+    x.fillStyle = 'rgba(143,211,160,0.95)'; x.font = '700 22px sans-serif'
+    x.fillText('🔎 LA LECTURA DE TU CONSULTOR', 84, 760)
+    x.fillStyle = '#F3EEE2'; x.font = '30px sans-serif'
+    wrapText(x, frase, 84, 800, W - 168, 42)
+  }
+  x.fillStyle = 'rgba(246,240,224,0.5)'; x.font = '22px sans-serif'
+  x.fillText('en Malinalco · El directorio del Pueblo Mágico', 84, 1010)
+
+  const a = document.createElement('a')
+  a.download = `ojo-de-jaguar-${(negocio || 'negocio').toLowerCase().replace(/[^a-z0-9]+/g, '-')}.png`
+  a.href = cv.toDataURL('image/png'); a.click()
+}
+function roundRect(x, px, py, w, h, r) {
+  x.beginPath(); x.moveTo(px + r, py)
+  x.arcTo(px + w, py, px + w, py + h, r); x.arcTo(px + w, py + h, px, py + h, r)
+  x.arcTo(px, py + h, px, py, r); x.arcTo(px, py, px + w, py, r); x.closePath()
+}
+function wrapText(x, text, px, py, maxW, lh) {
+  const words = text.split(' '); let line = '', yy = py
+  for (const w of words) {
+    const test = line + w + ' '
+    if (x.measureText(test).width > maxW && line) { x.fillText(line.trim(), px, yy); line = w + ' '; yy += lh }
+    else line = test
+  }
+  x.fillText(line.trim(), px, yy)
+}
+
 export default function InsightsDrawer({ insights }) {
   const [open, setOpen] = useState(false)
   const [red, setRed] = useState(null)
-  const { salud, tasa, ranking, roi, recosPorRed, fase2, lectura, acciones, negocio } = insights
+  const { salud, tasa, ranking, roi, recosPorRed, fase2, lectura, acciones, avisos, mom, negocio, negocioId } = insights
+  const [meta, setMeta] = useState(insights.meta)
+  const [metaInput, setMetaInput] = useState('')
+  const [editMeta, setEditMeta] = useState(false)
+  const [savingMeta, setSavingMeta] = useState(false)
+
+  async function guardarMeta() {
+    const n = parseInt(metaInput, 10)
+    if (!n || n < 1) return
+    setSavingMeta(true)
+    const supabase = createClient()
+    const { error } = await supabase.from('businesses').update({ meta_contactos: n }).eq('id', negocioId)
+    setSavingMeta(false)
+    if (!error) {
+      const actual = meta?.actual || 0
+      setMeta({ meta: n, actual, sugerida: meta?.sugerida, pct: Math.min(100, Math.round((actual / n) * 100)) })
+      setEditMeta(false)
+    }
+  }
 
   useEffect(() => {
     if (!open) return
@@ -204,10 +308,14 @@ export default function InsightsDrawer({ insights }) {
                 </div>
               </div>
               <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                <button onClick={() => exportarReporte(insights)} title="Descargar / imprimir" style={{
+                <button onClick={() => descargarImagen(insights)} title="Descargar imagen para compartir" style={{
                   cursor: 'pointer', padding: '9px 14px', borderRadius: '9999px', fontSize: '13px', fontWeight: 700, fontFamily: 'inherit',
                   border: '1px solid rgba(220,178,74,0.5)', background: 'rgba(220,178,74,0.14)', color: '#F6F0E0',
-                }}>⬇ Exportar</button>
+                }}>🖼 Imagen</button>
+                <button onClick={() => exportarReporte(insights)} title="Descargar / imprimir (PDF)" style={{
+                  cursor: 'pointer', padding: '9px 14px', borderRadius: '9999px', fontSize: '13px', fontWeight: 700, fontFamily: 'inherit',
+                  border: '1px solid rgba(220,178,74,0.5)', background: 'rgba(220,178,74,0.14)', color: '#F6F0E0',
+                }}>⬇ PDF</button>
                 <button onClick={() => setOpen(false)} aria-label="Cerrar" style={{
                   cursor: 'pointer', width: '38px', height: '38px', borderRadius: '50%',
                   border: '1px solid rgba(246,240,224,0.25)', background: 'rgba(0,0,0,0.25)', color: '#F6F0E0', fontSize: '18px',
@@ -216,6 +324,22 @@ export default function InsightsDrawer({ insights }) {
             </div>
 
             <div style={{ padding: '20px 24px 28px' }}>
+              {/* ALERTAS PROACTIVAS */}
+              {avisos && avisos.length > 0 && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '16px' }}>
+                  {avisos.map((a, i) => (
+                    <div key={i} style={{
+                      display: 'flex', gap: '10px', alignItems: 'center', padding: '12px 15px', borderRadius: '13px',
+                      background: a.tono === 'alta' ? 'rgba(191,80,40,0.16)' : 'rgba(220,178,74,0.12)',
+                      border: `1px solid ${a.tono === 'alta' ? 'rgba(220,120,74,0.45)' : 'rgba(220,178,74,0.3)'}`,
+                      fontSize: '13.5px', lineHeight: 1.45, fontWeight: 600,
+                    }}>
+                      <span style={{ fontSize: '17px' }}>{a.icon}</span><span>{a.text}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
               {/* LECTURA DEL CONSULTOR */}
               {lectura && (
                 <div style={{
@@ -271,6 +395,48 @@ export default function InsightsDrawer({ insights }) {
                     sub={`${roi.contactos} contactos × ${roi.cierreTexto} × ${pesos(roi.ticket)}${roi.retorno >= 1 ? ` · ${roi.retorno}× tu plan` : ''}`} />
                 )}
               </div>
+
+              {/* MES VS MES */}
+              {mom && (mom.vistas.pct !== null || mom.contactos.pct !== null) && (
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginTop: '12px', fontSize: '13px' }}>
+                  {mom.vistas.pct !== null && <MoMChip label="Vistas" pct={mom.vistas.pct} />}
+                  {mom.contactos.pct !== null && <MoMChip label="Contactos" pct={mom.contactos.pct} />}
+                </div>
+              )}
+
+              {/* META DEL MES */}
+              {meta && (
+                <>
+                  <H2>Meta del mes</H2>
+                  {meta.meta ? (
+                    <div style={{ padding: '14px 16px', borderRadius: '14px', background: 'rgba(124,182,137,0.10)', border: '1px solid rgba(124,182,137,0.25)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '8px' }}>
+                        <span style={{ fontSize: '14px' }}><strong>{meta.actual}</strong> de <strong>{meta.meta}</strong> contactos</span>
+                        <button onClick={() => { setMetaInput(String(meta.meta)); setEditMeta(true) }} style={{ cursor: 'pointer', background: 'none', border: 'none', color: ORO, fontSize: '12px', fontWeight: 700 }}>Editar</button>
+                      </div>
+                      <div style={{ height: '12px', borderRadius: '9999px', background: 'rgba(0,0,0,0.25)', overflow: 'hidden' }}>
+                        <div style={{ width: `${meta.pct}%`, height: '100%', background: meta.pct >= 100 ? 'linear-gradient(90deg,#6FB880,#3E9E59)' : 'linear-gradient(90deg,#E7C86A,#B98A16)' }} />
+                      </div>
+                      <div style={{ fontSize: '12px', opacity: 0.8, marginTop: '6px' }}>
+                        {meta.pct >= 100 ? '🎉 ¡Meta cumplida este mes!' : `Vas al ${meta.pct}%. ¡Tú puedes!`}
+                      </div>
+                    </div>
+                  ) : editMeta ? null : (
+                    <div style={{ padding: '14px 16px', borderRadius: '14px', background: 'rgba(220,178,74,0.08)', border: '1px dashed rgba(220,178,74,0.4)', fontSize: '13.5px' }}>
+                      Fíjate una meta de contactos para este mes y mide tu avance.{' '}
+                      <button onClick={() => { setMetaInput(String(meta.sugerida || 10)); setEditMeta(true) }} style={{ cursor: 'pointer', background: 'none', border: 'none', color: ORO, fontWeight: 700, fontSize: '13.5px' }}>Poner meta (sugerida: {meta.sugerida}) →</button>
+                    </div>
+                  )}
+                  {editMeta && (
+                    <div style={{ display: 'flex', gap: '8px', marginTop: '10px', alignItems: 'center' }}>
+                      <input type="number" min="1" value={metaInput} onChange={(e) => setMetaInput(e.target.value)} placeholder="Ej. 20"
+                        style={{ width: '110px', padding: '9px 12px', borderRadius: '10px', border: '1px solid rgba(220,178,74,0.4)', background: 'rgba(0,0,0,0.25)', color: '#F6F0E0', fontSize: '14px' }} />
+                      <button onClick={guardarMeta} disabled={savingMeta} style={{ cursor: 'pointer', padding: '9px 16px', borderRadius: '10px', border: 'none', background: 'linear-gradient(180deg,#E7C86A,#DCB24A)', color: '#25201A', fontWeight: 700, fontSize: '14px' }}>{savingMeta ? 'Guardando…' : 'Guardar'}</button>
+                      <button onClick={() => setEditMeta(false)} style={{ cursor: 'pointer', background: 'none', border: 'none', color: 'rgba(246,240,224,0.6)', fontSize: '13px' }}>Cancelar</button>
+                    </div>
+                  )}
+                </>
+              )}
 
               {/* RECOMENDACIONES POR RED */}
               {redes.length > 0 && (
