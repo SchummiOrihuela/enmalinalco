@@ -143,13 +143,22 @@ export default function PlansSection({ businessId, currentPlan, isActive }) {
               <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 22px', display: 'flex', flexDirection: 'column', gap: '9px' }}>
                 {p.benefits.map((b, i) => {
                   const esOjo = b.includes('Ojo de Jaguar')
+                  const ci = esOjo ? b.indexOf(':') : -1
+                  const ojoLabel = ci >= 0 ? b.slice(0, ci) : b
+                  const ojoDesc = ci >= 0 ? b.slice(ci + 1).trim() : ''
                   return (
                     <li key={i} style={{
-                      display: 'flex', gap: '8px', fontSize: '13px', lineHeight: 1.4,
-                      color: esOjo ? '#8A5E16' : 'var(--ink)', opacity: esOjo ? 1 : 0.82,
-                      fontWeight: esOjo ? 700 : 400,
+                      display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '13px', lineHeight: 1.45,
+                      color: esOjo ? '#6E4A0E' : 'var(--ink)', opacity: esOjo ? 1 : 0.82,
+                      fontWeight: esOjo ? 600 : 400,
                     }}>
-                      {esOjo ? <OjoJaguar size={16} style={{ flexShrink: 0, marginTop: '1px' }} /> : <Check />}{b}
+                      {esOjo ? <OjoJaguar size={17} style={{ flexShrink: 0, marginTop: '1px' }} /> : <Check />}
+                      {esOjo ? (
+                        <span style={{ minWidth: 0 }}>
+                          <strong style={{ fontWeight: 800, color: '#8A5E16' }}>{ojoLabel}</strong>
+                          {ojoDesc && <span style={{ fontWeight: 400, color: 'var(--ink)', opacity: 0.85 }}>{' — ' + ojoDesc}</span>}
+                        </span>
+                      ) : b}
                     </li>
                   )
                 })}
