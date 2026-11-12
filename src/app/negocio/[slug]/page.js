@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabaseServer'
 import { notFound } from 'next/navigation'
 import { after } from 'next/server'
+import { headers } from 'next/headers'
 import Link from 'next/link'
 import ReviewsList from '@/app/dashboard/ReviewsList'
 import { getBadge, getPriority } from '@/lib/plans'
@@ -73,8 +74,9 @@ function to12h(t) {
 }
 const DIAS = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
 
-export default async function NegocioPage({ params }) {
+export default async function NegocioPage({ params, searchParams }) {
   const { slug } = await params
+  const sp = (await searchParams) || {}
   const supabase = await createClient()
 
   // Traer el negocio por slug (visible: activo o en periodo de gracia)
@@ -84,14 +86,23 @@ export default async function NegocioPage({ params }) {
 
   if (!business) notFound()
 
-  // Contar la vista de ficha (métrica "vistas" del negocio).
-  // Se ejecuta DESPUÉS de responder (no bloquea el render) y no cuenta
-  // las visitas del propio dueño a su ficha. El incremento va por una
-  // función SECURITY DEFINER para no exponer UPDATE directo sobre businesses.
+  // Origen (atribución) y geografía aproximada para el evento. El `ref` llega en
+  // la URL desde historias/eventos (p. ej. ?ref=historia:dia-de-muertos); la geo
+  // la da el edge de Vercel por cabeceras (sin IP, sin dato personal).
+  const hdrs = await headers()
+  const ref = typeof sp.ref === 'string' ? sp.ref.slice(0, 80) : null
+  const country = hdrs.get('x-vercel-ip-country') || null
+  const region = hdrs.get('x-vercel-ip-country-region') || hdrs.get('x-vercel-ip-city') || null
+
+  // Contar la vista de ficha (métrica "vistas" del negocio) y auditar el evento.
+  // Se ejecuta DESPUÉS de responder (no bloquea el render) y no cuenta las
+  // visitas del propio dueño. track_view suma el contador y guarda el evento.
   after(async () => {
     const { data: { user } } = await supabase.auth.getUser()
     if (user?.id === business.owner_id) return
-    await supabase.rpc('increment_business_view', { bid: business.id })
+    await supabase.rpc('track_view', {
+      bid: business.id, p_ref: ref, p_country: country, p_region: region,
+    })
   })
 
   // Traer fotos y horarios

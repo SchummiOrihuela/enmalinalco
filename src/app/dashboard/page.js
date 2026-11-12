@@ -13,9 +13,13 @@ import FoundersWelcome from './FoundersWelcome'
 import BackToTop from './BackToTop'
 import ContactForm from './ContactForm'
 import PreviewSpace from './PreviewSpace'
-import InsightsPanel from './InsightsPanel'
+import InsightsDrawer from './InsightsDrawer'
 import FeedbackButton from './FeedbackButton'
-import { saludFicha, tasaContacto, rankingCategoria, roiEstimado, recomendaciones } from '@/lib/insights'
+import {
+  saludFicha, tasaContacto, rankingCategoria, roiEstimado,
+  contextoRecos, recomendacionesPorRed,
+  heatmap, atribucion, origenGeografico, serieTiempo,
+} from '@/lib/insights'
 import { BrandTile } from '@/app/components/BrandIcon'
 import ScrollProgress from '@/app/components/ScrollProgress'
 
@@ -88,9 +92,9 @@ export default async function DashboardPage({ searchParams }) {
     }
   }
 
-  // ── Inteligencia Fase 1 (sobre los contadores actuales) ───────────────────
-  // Salud y tasa de contacto: todos los planes. Ranking, ROI y recomendaciones:
-  // Cuāuhtli en adelante (coherente con el reparto por plan).
+  // ── Inteligencia Fase 1 + Fase 2 ──────────────────────────────────────────
+  // Salud y tasa: todos los planes. Ranking, ROI, recomendaciones por red y los
+  // insights de eventos (Fase 2): Cuāuhtli en adelante.
   let insights = null
   if (business) {
     const tierP = getPriority(business.plan)
@@ -98,8 +102,30 @@ export default async function DashboardPage({ searchParams }) {
     const tasa = tasaContacto(business)
     const ranking = tierP >= 2 ? rankingCategoria(peersCat, business.view_count) : null
     const roi = tierP >= 2 ? roiEstimado(business) : null
-    const recs = tierP >= 2 ? recomendaciones({ business, salud, tasa }, 3) : null
-    insights = { salud, tasa, ranking, roi, recs }
+    const ctx = contextoRecos({ business, salud, tasa })
+    const recosPorRed = tierP >= 2 ? recomendacionesPorRed(ctx) : null
+
+    // Fase 2: eventos de los últimos 90 días (el dueño lee solo los suyos por RLS).
+    let fase2 = null
+    if (tierP >= 2) {
+      const desde = new Date(Date.now() - 90 * 864e5).toISOString()
+      const { data: evRows } = await supabase
+        .from('events')
+        .select('kind,ref,country,region,created_at')
+        .eq('business_id', business.id)
+        .gte('created_at', desde)
+        .order('created_at', { ascending: false })
+        .limit(5000)
+      const ev = evRows || []
+      fase2 = {
+        total: ev.length,
+        serie: serieTiempo(ev, 30),
+        heatmap: heatmap(ev),
+        atribucion: atribucion(ev),
+        geo: origenGeografico(ev),
+      }
+    }
+    insights = { tier: tierP, salud, tasa, ranking, roi, recosPorRed, fase2, categoria: business.category }
   }
 
   return (
@@ -366,16 +392,9 @@ export default async function DashboardPage({ searchParams }) {
                   </div>
                 )}
 
-                {/* Inteligencia Fase 1: salud, tasa, ranking, ROI y recomendaciones */}
-                {insights && (
-                  <InsightsPanel
-                    salud={insights.salud}
-                    tasa={insights.tasa}
-                    ranking={insights.ranking}
-                    roi={insights.roi}
-                    recs={insights.recs}
-                  />
-                )}
+                {/* Inteligencia completa en ventana flotante (salud, tasa, ranking,
+                    ROI, recomendaciones por red y Fase 2: tendencia/heatmap/geo). */}
+                {insights && <InsightsDrawer insights={insights} />}
 
                 {/* Teasers de upsell según el plan */}
                 {tier === 1 && (
