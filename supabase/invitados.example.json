@@ -1,14 +1,4 @@
 [
-  {
-    "email": "contacto@fondalaherradura.com",
-    "negocio": "Fonda La Herradura",
-    "contacto": "Doña Lupita",
-    "personalizado": "Tus memelas son de las más buscadas del centro."
-  },
-  {
-    "email": "hola@cabanasmalinalco.mx",
-    "negocio": "Cabañas El Mirador",
-    "contacto": "Jorge",
-    "personalizado": "Tu vista al valle es de las mejores para quien viene a descansar."
-  }
+  { "email": "contacto@fondalaherradura.com", "negocio": "Fonda La Herradura" },
+  { "email": "hola@cabanasmalinalco.mx", "negocio": "Cabañas El Mirador" }
 ]
