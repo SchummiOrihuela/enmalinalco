@@ -167,7 +167,7 @@ export default async function DashboardPage({ searchParams }) {
       {/* Barra superior de marca */}
       <header style={{
         background: 'linear-gradient(180deg, #1C3B28 0%, #213A26 100%)',
-        padding: '16px 40px',
+        padding: 'clamp(13px, 3.5vw, 16px) clamp(16px, 5vw, 40px)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -222,7 +222,7 @@ export default async function DashboardPage({ searchParams }) {
       <main style={{
         maxWidth: '820px',
         margin: '0 auto',
-        padding: '40px 24px 80px',
+        padding: 'clamp(24px, 6vw, 40px) clamp(16px, 5vw, 24px) 80px',
       }}>
         {/* Encabezado del panel */}
         <div style={{ marginBottom: '32px' }}>
@@ -269,7 +269,7 @@ export default async function DashboardPage({ searchParams }) {
           `}</style>
           <h1 className={business ? 'dash-title-pulse' : undefined} style={{
             fontFamily: "'Cormorant Garamond', Georgia, serif",
-            fontSize: '40px',
+            fontSize: 'clamp(30px, 8vw, 40px)',
             fontWeight: 500,
             color: '#F6F0E0',
             lineHeight: 1.08,
@@ -316,8 +316,8 @@ export default async function DashboardPage({ searchParams }) {
               <div style={{ marginTop: '22px' }}>
                 <div style={{
                   display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))',
-                  gap: '14px',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(155px, 1fr))',
+                  gap: 'clamp(10px, 3vw, 14px)',
                 }}>
                   {stats.map((s) => {
                     const total = s.total || 0
@@ -328,7 +328,7 @@ export default async function DashboardPage({ searchParams }) {
                         className="stat-card stat-pulse"
                         style={{
                         display: 'flex', flexDirection: 'column', gap: '12px',
-                        padding: '18px 20px',
+                        padding: 'clamp(14px, 4vw, 18px) clamp(15px, 4vw, 20px)',
                         minHeight: '116px',
                         background: isViews
                           ? 'linear-gradient(135deg, rgba(220,178,74,0.18), rgba(28,59,40,0.25))'
@@ -338,12 +338,13 @@ export default async function DashboardPage({ searchParams }) {
                         boxShadow: '0 4px 16px rgba(0,0,0,0.14)',
                       }}>
                         {/* Fila: icono + número + crecimiento */}
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(9px, 3vw, 12px)', minWidth: 0 }}>
                           <BrandTile brand={s.brand} size={42} />
                           <strong style={{
                             fontFamily: "'Fraunces', Georgia, serif",
-                            fontSize: '32px', fontWeight: 600, color: '#F6F0E0', lineHeight: 1,
+                            fontSize: 'clamp(26px, 7vw, 32px)', fontWeight: 600, color: '#F6F0E0', lineHeight: 1,
                             letterSpacing: '-0.01em', fontVariantNumeric: 'tabular-nums lining-nums',
+                            minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis',
                           }}>{Number(total).toLocaleString('es-MX')}</strong>
                           {d !== null && d > 0 && (
                             <span style={{

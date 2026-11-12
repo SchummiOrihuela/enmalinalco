@@ -386,19 +386,19 @@ export default function InsightsDrawer({ insights }) {
             {/* HERO — no sticky: en móvil ocupa menos y se va al hacer scroll */}
             <div style={{
               borderRadius: '22px 22px 0 0',
-              padding: '18px 22px', borderBottom: '1px solid rgba(220,178,74,0.2)',
+              padding: 'clamp(16px, 4.5vw, 20px) clamp(16px, 4.5vw, 22px)', borderBottom: '1px solid rgba(220,178,74,0.2)',
               background: 'radial-gradient(600px 180px at 10% -40%, rgba(220,178,74,0.22), transparent 70%), linear-gradient(180deg,#17301E,#1E3322)',
-              display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px',
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap',
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                <div style={{ fontSize: '46px', lineHeight: 1, filter: 'drop-shadow(0 3px 8px rgba(220,178,74,0.45))' }}>🐆</div>
-                <div>
-                  <div style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '23px', fontWeight: 600, letterSpacing: '-0.01em' }}>Ojo de Jaguar</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(11px, 3vw, 14px)', minWidth: 0 }}>
+                <div style={{ fontSize: 'clamp(38px, 11vw, 46px)', lineHeight: 1, filter: 'drop-shadow(0 3px 8px rgba(220,178,74,0.45))' }}>🐆</div>
+                <div style={{ minWidth: 0 }}>
+                  <div style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: 'clamp(20px, 5.5vw, 23px)', fontWeight: 600, letterSpacing: '-0.01em' }}>Ojo de Jaguar</div>
                   <div style={{ fontSize: '11.5px', color: ORO, fontWeight: 700, letterSpacing: '0.04em' }}>Lo que Google, ni en sueños te daría</div>
                   {negocio && <div style={{ fontSize: '12px', opacity: 0.7, marginTop: '2px' }}>{negocio}</div>}
                 </div>
               </div>
-              <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
                 {tier >= 3 && (
                   <>
                     <button onClick={() => descargarImagen(insights)} title="Descargar imagen para compartir" style={{
@@ -411,14 +411,10 @@ export default function InsightsDrawer({ insights }) {
                     }}><IconDescarga /> PDF</button>
                   </>
                 )}
-                <button onClick={() => setOpen(false)} aria-label="Cerrar" style={{
-                  cursor: 'pointer', width: '38px', height: '38px', borderRadius: '50%',
-                  border: '1px solid rgba(246,240,224,0.25)', background: 'rgba(0,0,0,0.25)', color: '#F6F0E0', fontSize: '18px',
-                }}>✕</button>
               </div>
             </div>
 
-            <div style={{ padding: '20px 24px 28px' }}>
+            <div style={{ padding: 'clamp(16px, 4.5vw, 24px) clamp(16px, 4.5vw, 24px) 28px' }}>
               {/* ALERTAS PROACTIVAS */}
               {avisos && avisos.length > 0 && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '16px' }}>
