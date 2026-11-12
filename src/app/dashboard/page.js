@@ -338,24 +338,24 @@ export default async function DashboardPage({ searchParams }) {
                         boxShadow: '0 4px 16px rgba(0,0,0,0.14)',
                       }}>
                         {/* Fila: icono + número + crecimiento */}
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(9px, 3vw, 12px)', minWidth: 0 }}>
-                          <BrandTile brand={s.brand} size={42} />
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(8px, 2.5vw, 11px)', minWidth: 0 }}>
+                          <BrandTile brand={s.brand} size={38} />
                           <strong style={{
                             fontFamily: "'Fraunces', Georgia, serif",
-                            fontSize: 'clamp(26px, 7vw, 32px)', fontWeight: 600, color: '#F6F0E0', lineHeight: 1,
-                            letterSpacing: '-0.01em', fontVariantNumeric: 'tabular-nums lining-nums',
-                            minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis',
+                            fontSize: 'clamp(22px, 6vw, 30px)', fontWeight: 600, color: '#F6F0E0', lineHeight: 1,
+                            letterSpacing: '-0.015em', fontVariantNumeric: 'tabular-nums lining-nums',
+                            minWidth: 0, whiteSpace: 'nowrap',
                           }}>{Number(total).toLocaleString('es-MX')}</strong>
                           {d !== null && d > 0 && (
                             <span style={{
                               display: 'inline-flex', alignItems: 'center', gap: '3px',
                               marginLeft: 'auto', flexShrink: 0, whiteSpace: 'nowrap',
-                              fontSize: '12px', fontWeight: 800, color: '#FFFFFF',
-                              background: '#3E9E59', padding: '3px 9px', borderRadius: '9999px',
+                              fontSize: '11px', fontWeight: 800, color: '#FFFFFF',
+                              background: '#3E9E59', padding: '3px 8px', borderRadius: '9999px',
                               boxShadow: '0 1px 6px rgba(62,158,89,0.5)',
                               fontVariantNumeric: 'tabular-nums lining-nums', lineHeight: 1,
                             }}>
-                              <svg width="8" height="8" viewBox="0 0 10 10" aria-hidden="true" style={{ display: 'block' }}>
+                              <svg width="7" height="7" viewBox="0 0 10 10" aria-hidden="true" style={{ display: 'block' }}>
                                 <path d="M5 1 L9 8 L1 8 Z" fill="currentColor" />
                               </svg>
                               {d}

@@ -66,15 +66,21 @@ function BrandIcon({ red, size = 17 }) {
   )
 }
 
-// — Iconos premium para exportar —
-const IconImagen = ({ size = 15 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ display: 'block' }}>
-    <rect x="3" y="4" width="18" height="16" rx="2.5" /><circle cx="8.5" cy="9.5" r="1.6" /><path d="M21 16l-4.5-4.5L7 20" />
+// — Iconos premium para exportar (duotono) —
+const IconImagen = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" style={{ display: 'block' }}>
+    <rect x="2.5" y="4.5" width="19" height="15" rx="3" fill={ORO} opacity="0.2" />
+    <rect x="2.5" y="4.5" width="19" height="15" rx="3" fill="none" stroke="currentColor" strokeWidth="1.6" />
+    <circle cx="8" cy="9.5" r="1.9" fill={ORO} />
+    <path d="M3.5 18l5-5 3.2 3.2L15.5 12l5 5.2" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
-const IconDescarga = ({ size = 15 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ display: 'block' }}>
-    <path d="M12 3v12M7 10l5 5 5-5M5 21h14" />
+const IconDescarga = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" style={{ display: 'block' }}>
+    <path d="M6 2.5h8.5L19 7v13.5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1Z" fill={ORO} opacity="0.2" />
+    <path d="M6 2.5h8.5L19 7v13.5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+    <path d="M14 2.5V7h4.5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+    <path d="M12 10.5v6M9.5 14l2.5 2.5L14.5 14" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
 
@@ -341,6 +347,17 @@ export default function InsightsDrawer({ insights }) {
           50%      { border-color: rgba(143,211,160,0.65); box-shadow: 0 0 20px -2px rgba(143,211,160,0.35); }
         }
         .ojo-btn:hover { filter: brightness(1.1); animation-play-state: paused; transform: scale(1.025); }
+        @keyframes ventajaShine { 0% { background-position: -140% 0; } 100% { background-position: 240% 0; } }
+        @keyframes ventajaGlow {
+          0%, 100% { box-shadow: 0 14px 44px rgba(0,0,0,0.35), 0 0 0 0 rgba(220,178,74,0); }
+          50%      { box-shadow: 0 14px 44px rgba(0,0,0,0.35), 0 0 34px -4px rgba(220,178,74,0.45); }
+        }
+        .ventaja-card { animation: ventajaGlow 3.4s ease-in-out infinite; }
+        .ventaja-top { background: linear-gradient(90deg, transparent, #E7C86A, #DCB24A, #E7C86A, transparent); background-size: 220% 100%; animation: ventajaShine 3.2s linear infinite; }
+        .ventaja-title {
+          background: linear-gradient(92deg, #F6EBC7 0%, #E7C86A 45%, #DCB24A 70%, #F6EBC7 100%);
+          -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+        }
       `}</style>
 
       {/* Botón de acceso premium — palpita e invita con el gancho de IA */}
@@ -646,22 +663,27 @@ export default function InsightsDrawer({ insights }) {
               )}
 
               {/* SELLO VS GOOGLE — "La ventaja del Jaguar" */}
-              <div style={{
-                marginTop: '26px', borderRadius: '20px', overflow: 'hidden',
-                border: '1px solid rgba(220,178,74,0.4)',
-                background: 'radial-gradient(520px 200px at 85% -30%, rgba(220,178,74,0.22), transparent 70%), linear-gradient(160deg, #1B3020 0%, #12201528 100%)',
-                boxShadow: '0 14px 44px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04)',
+              <div className="ventaja-card" style={{
+                marginTop: '26px', borderRadius: '20px', overflow: 'hidden', position: 'relative',
+                border: '1px solid rgba(220,178,74,0.55)',
+                background: 'radial-gradient(560px 220px at 85% -20%, rgba(220,178,74,0.28), transparent 68%), linear-gradient(160deg, #203A26 0%, #10190F 100%)',
               }}>
+                {/* Barra superior dorada con brillo que recorre */}
+                <div className="ventaja-top" style={{ height: '4px', width: '100%' }} />
                 <div style={{ padding: '20px 22px 8px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <span style={{ fontSize: '26px', lineHeight: 1, filter: 'drop-shadow(0 2px 6px rgba(220,178,74,0.5))' }}>🐆</span>
-                    <div>
-                      <div style={{ fontSize: '10.5px', letterSpacing: '0.16em', textTransform: 'uppercase', color: ORO, fontWeight: 800 }}>La ventaja del Jaguar</div>
-                      <div style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '18px', fontWeight: 600, color: '#F6F0E0', letterSpacing: '-0.01em' }}>Lo que Google jamás te dará</div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <span style={{ fontSize: '32px', lineHeight: 1, filter: 'drop-shadow(0 3px 10px rgba(220,178,74,0.6))' }}>🐆</span>
+                    <div style={{ minWidth: 0 }}>
+                      <div style={{
+                        display: 'inline-block', fontSize: '10px', letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 800,
+                        color: '#1F1A12', background: 'linear-gradient(180deg,#F0D77A,#DCB24A)', padding: '3px 10px', borderRadius: '9999px',
+                        boxShadow: '0 2px 8px rgba(220,178,74,0.4)', marginBottom: '6px',
+                      }}>La ventaja del Jaguar</div>
+                      <div className="ventaja-title" style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: 'clamp(19px, 5.2vw, 23px)', fontWeight: 700, letterSpacing: '-0.015em', lineHeight: 1.1 }}>Lo que Google jamás te dará</div>
                     </div>
                   </div>
                 </div>
-                <div style={{ padding: '6px 14px 18px' }}>
+                <div style={{ padding: '8px 14px 18px' }}>
                   {VS_GOOGLE.map((t, i) => (
                     <div key={i} style={{
                       display: 'flex', gap: '12px', alignItems: 'center', padding: '11px 10px',
