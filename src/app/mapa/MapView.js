@@ -38,7 +38,7 @@ function popupHtml(b) {
     <div style="font-weight:800;font-size:15px;color:#1C3B28;line-height:1.2">${b.name}</div>
     <div style="font-size:12px;color:#8A6D2F;margin:2px 0 6px">${b.category || ''}</div>
     ${badge}
-    <a href="/negocio/${b.slug}" style="display:block;margin-top:10px;text-align:center;background:#1C3B28;color:#F6F0E0;font-weight:700;font-size:13px;padding:8px;border-radius:9999px;text-decoration:none">Ver ficha →</a>
+    <a href="/negocio/${b.slug}?ref=mapa" style="display:block;margin-top:10px;text-align:center;background:#1C3B28;color:#F6F0E0;font-weight:700;font-size:13px;padding:8px;border-radius:9999px;text-decoration:none">Ver ficha →</a>
   </div>`
 }
 

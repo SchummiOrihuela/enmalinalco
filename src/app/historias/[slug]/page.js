@@ -54,12 +54,23 @@ export async function generateMetadata({ params }) {
   }
 }
 
+// Atribución automática: a todo enlace a una ficha (/negocio/<slug>) dentro del
+// artículo le añade ?ref=historia:<slug-del-artículo>. Así, cuando el lector
+// abre esa ficha, track_view registra de qué historia vino (ver supabase/
+// sql/events.sql y el panel "Mi inteligencia"). No duplica el ref si ya existe.
+function conRef(html, articleSlug) {
+  if (!html || !articleSlug) return html
+  const ref = `historia:${articleSlug}`
+  return html.replace(/href="(\/negocio\/[a-z0-9-]+)"(?![^>]*\?ref=)/gi, `href="$1?ref=${ref}"`)
+}
+
 // ── Renderer de bloques ──────────────────────────────────────────────
 // El cuerpo del artículo es un array de bloques tipados (ver lib/articulos.js).
-function Bloque({ b }) {
+// `slug` es el slug del artículo, para la atribución automática de los enlaces.
+function Bloque({ b, slug }) {
   switch (b.t) {
     case 'p':
-      return <p className="art-p" dangerouslySetInnerHTML={{ __html: b.html }} />
+      return <p className="art-p" dangerouslySetInnerHTML={{ __html: conRef(b.html, slug) }} />
     case 'h2':
       return <h2 id={b.id} className="art-h2">{b.text}</h2>
     case 'h3':
@@ -68,7 +79,7 @@ function Bloque({ b }) {
       return (
         <ul className="art-ul">
           {b.items.map((it, i) => (
-            <li key={i} dangerouslySetInnerHTML={{ __html: it }} />
+            <li key={i} dangerouslySetInnerHTML={{ __html: conRef(it, slug) }} />
           ))}
         </ul>
       )
@@ -78,25 +89,32 @@ function Bloque({ b }) {
           {b.titulo && <div className="art-callout-h">{b.titulo}</div>}
           <ul className="art-ul">
             {b.items.map((it, i) => (
-              <li key={i} dangerouslySetInnerHTML={{ __html: it }} />
+              <li key={i} dangerouslySetInnerHTML={{ __html: conRef(it, slug) }} />
             ))}
           </ul>
         </aside>
       )
-    case 'rest':
+    case 'rest': {
+      // Si la tarjeta trae `slug` del negocio, su nombre enlaza a la ficha con
+      // atribución a esta historia (y se muestra "Ver ficha →").
+      const fichaHref = b.slug ? `/negocio/${b.slug}?ref=historia:${slug}` : null
       return (
         <div className="art-rest">
           <span className="art-rest-n">{b.n}</span>
           <div className="art-rest-body">
             <h3 className="art-rest-name">
-              {b.nombre}
+              {fichaHref ? <Link href={fichaHref}>{b.nombre}</Link> : b.nombre}
               {b.tipo && <span className="art-rest-type"> — {b.tipo}</span>}
             </h3>
-            <p className="art-rest-txt" dangerouslySetInnerHTML={{ __html: b.html }} />
+            <p className="art-rest-txt" dangerouslySetInnerHTML={{ __html: conRef(b.html, slug) }} />
             {b.precio && <span className="art-rest-price">{b.precio}</span>}
+            {fichaHref && (
+              <Link href={fichaHref} className="art-rest-ficha">Ver ficha en el directorio →</Link>
+            )}
           </div>
         </div>
       )
+    }
     case 'ctaNegocio':
       return (
         <aside className="art-cta-neg">
@@ -245,9 +263,13 @@ export default async function HistoriaPage({ params }) {
         .art-rest-n{flex:0 0 auto;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(180deg,#E7C86A,#DCB24A);color:#25201A;font-weight:800;font-size:16px}
         .art-rest-body{min-width:0}
         .art-rest-name{margin:3px 0 0;font-size:19px;font-weight:700;color:#2A2016;line-height:1.25}
+        .art-rest-name a{color:inherit;text-decoration:none}
+        .art-rest-name a:hover{text-decoration:underline;text-decoration-color:#8A6D2F}
         .art-rest-type{font-weight:600;color:#8A6D2F}
         .art-rest-txt{margin:8px 0 0;font-size:15px;line-height:1.6;color:#4A4034}
         .art-rest-price{display:inline-block;margin-top:10px;font-size:12px;font-weight:700;color:#8A6D2F;background:rgba(138,109,47,.1);padding:4px 10px;border-radius:9999px}
+        .art-rest-ficha{display:inline-block;margin:10px 0 0 10px;font-size:12px;font-weight:700;color:#1C3B28;text-decoration:none}
+        .art-rest-ficha:hover{text-decoration:underline}
 
         /* Callout de tips */
         .art-callout{background:rgba(220,178,74,.08);border:1px solid rgba(220,178,74,.28);border-radius:16px;padding:22px 24px;margin:26px 0}
@@ -354,7 +376,7 @@ export default async function HistoriaPage({ params }) {
         )}
 
         <div className="art-body">
-          {a.cuerpo.map((b, i) => <Bloque key={i} b={b} />)}
+          {a.cuerpo.map((b, i) => <Bloque key={i} b={b} slug={slug} />)}
         </div>
 
         {a.faq && a.faq.length > 0 && (

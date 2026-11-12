@@ -24,7 +24,7 @@ export function renderCampaña(data, unsubUrl) {
   const abiertos = (data.abiertos || []).slice(0, 6).map((b) =>
     `<tr>
       <td style="padding:7px 0;border-bottom:1px solid #EADFC6">
-        <a href="${SITE}/negocio/${b.slug}" style="color:#1C3B28;font-weight:700;font-size:15px;text-decoration:none">${b.name}</a>
+        <a href="${SITE}/negocio/${b.slug}?ref=newsletter" style="color:#1C3B28;font-weight:700;font-size:15px;text-decoration:none">${b.name}</a>
         <span style="color:#8A6D2F;font-size:12px"> · ${b.category}</span>
       </td>
       <td style="padding:7px 0;border-bottom:1px solid #EADFC6;text-align:right;white-space:nowrap">
@@ -40,7 +40,7 @@ export function renderCampaña(data, unsubUrl) {
 
   const destacado = data.destacado
     ? card(`<p style="margin:0 0 4px;color:#B0863A;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Negocio destacado</p>
-       <a href="${SITE}/negocio/${data.destacado.slug}" style="color:#1C3B28;font-weight:800;font-size:17px;text-decoration:none">${data.destacado.name}</a>
+       <a href="${SITE}/negocio/${data.destacado.slug}?ref=newsletter" style="color:#1C3B28;font-weight:800;font-size:17px;text-decoration:none">${data.destacado.name}</a>
        <p style="margin:4px 0 0;color:#8A6D2F;font-size:13px">${data.destacado.category || ''}</p>`)
     : ''
 
