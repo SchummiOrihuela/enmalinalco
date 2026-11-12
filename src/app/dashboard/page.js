@@ -10,6 +10,7 @@ import PhotosForm from './PhotosForm'
 import ReviewsList from './ReviewsList'
 import PlansSection from './PlansSection'
 import FoundersWelcome from './FoundersWelcome'
+import OjoJaguar from '@/app/components/OjoJaguar'
 import BackToTop from './BackToTop'
 import ContactForm from './ContactForm'
 import PreviewSpace from './PreviewSpace'
@@ -165,7 +166,7 @@ export default async function DashboardPage({ searchParams }) {
       {foundersWelcome && <FoundersWelcome {...foundersWelcome} />}
 
       {/* Barra superior de marca */}
-      <header style={{
+      <header className="dash-header" style={{
         background: 'linear-gradient(180deg, #1C3B28 0%, #213A26 100%)',
         padding: 'clamp(13px, 3.5vw, 16px) clamp(16px, 5vw, 40px)',
         display: 'flex',
@@ -198,13 +199,14 @@ export default async function DashboardPage({ searchParams }) {
             en<em style={{ color: 'var(--verde-lt)', fontStyle: 'italic' }}>malinalco</em>
           </span>
         </Link>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
+        <div className="dash-topbar-actions" style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
           {business && <TierNav plan={business.plan} isActive={business.is_active} />}
           {business && <PreviewSpace slug={business.slug} />}
           <a
             href="/"
             target="_blank"
             rel="noopener noreferrer"
+            className="dash-versitio"
             style={{
               fontSize: '13px',
               fontWeight: 600,
@@ -265,6 +267,18 @@ export default async function DashboardPage({ searchParams }) {
             @media (prefers-reduced-motion: reduce) {
               .dash-title-pulse, .dash-badge-pulse, .stat-pulse { animation: none; }
               .stat-card:hover { transform: none; }
+            }
+            /* Barra superior — distribución en móvil */
+            @media (max-width: 600px) {
+              .dash-header { flex-direction: column; align-items: stretch; gap: 14px; }
+              .dash-topbar-actions { width: 100%; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 10px; }
+              .dash-topbar-actions > * { max-width: 100%; }
+              .preview-cta { order: 2; flex: 1 1 100%; justify-content: center; padding: 13px 18px; font-size: 14px; }
+              .dash-versitio {
+                order: 1;
+                padding: 8px 14px; border-radius: 9999px;
+                background: rgba(246,240,224,0.08); border: 1px solid rgba(246,240,224,0.18);
+              }
             }
           `}</style>
           <h1 className={business ? 'dash-title-pulse' : undefined} style={{
@@ -436,7 +450,7 @@ export default async function DashboardPage({ searchParams }) {
                     background: 'rgba(124,182,137,0.10)', border: '1px solid rgba(124,182,137,0.28)',
                     fontSize: '13.5px', color: '#F6F0E0', lineHeight: 1.5,
                   }}>
-                    🐆 Como <strong>Ocēlōtl</strong>, cada mes te enviamos este resumen a tu correo con recomendaciones para crecer.
+                    <OjoJaguar size={18} style={{ display: 'inline-block', verticalAlign: '-4px', marginRight: '5px' }} /> Como <strong>Ocēlōtl</strong>, cada mes te enviamos este resumen a tu correo con recomendaciones para crecer.
                   </div>
                 )}
               </div>

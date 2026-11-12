@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { PLANS } from '@/lib/plans'
+import OjoJaguar from '@/app/components/OjoJaguar'
 
 const ORDER = ['malinalli', 'cuauhtli', 'ocelotl']
 
@@ -148,7 +149,7 @@ export default function PlansSection({ businessId, currentPlan, isActive }) {
                       color: esOjo ? '#8A5E16' : 'var(--ink)', opacity: esOjo ? 1 : 0.82,
                       fontWeight: esOjo ? 700 : 400,
                     }}>
-                      <Check />{b}
+                      {esOjo ? <OjoJaguar size={16} style={{ flexShrink: 0, marginTop: '1px' }} /> : <Check />}{b}
                     </li>
                   )
                 })}

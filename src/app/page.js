@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { CATEGORIAS, buscarCategoria } from "@/lib/categorias";
 import { createClient } from "@/lib/supabaseBrowser";
+import { ojoJaguarSVG } from "@/app/components/OjoJaguar";
 
 // Tarjetas de categoría del inicio, generadas desde la fuente única de verdad.
 const CAT_CARDS = CATEGORIAS.map((c, i) => `
@@ -1120,7 +1121,7 @@ const MARKUP = `<!-- Progress bar -->
       </p>
 
       <p class="b2b-power rv rv-d2">
-        🐆 Y con <strong>Ojo de Jaguar</strong>, tu consultor con IA: <strong>Google cuenta las vistas; nosotros te decimos qué hacer para vender más</strong> —de dónde viene cada cliente, a qué hora te buscan y tu próxima acción de la semana.
+        ${ojoJaguarSVG(20, 'ojp1')} Y con <strong>Ojo de Jaguar</strong>, tu consultor con IA: <strong>Google cuenta las vistas; nosotros te decimos qué hacer para vender más</strong> —de dónde viene cada cliente, a qué hora te buscan y tu próxima acción de la semana.
       </p>
 
       <div class="trust-row rv rv-d2">
@@ -1142,7 +1143,7 @@ const MARKUP = `<!-- Progress bar -->
         </span>
         <span class="tchip">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          🐆 Ojo de Jaguar: tu consultor con IA
+          ${ojoJaguarSVG(24, 'ojp2')} Ojo de Jaguar: tu consultor con IA
         </span>
       </div>
 
@@ -1172,7 +1173,7 @@ const MARKUP = `<!-- Progress bar -->
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Contacto, ubicación y horarios</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Apareces en el directorio y el buscador</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Comparte tu ficha por WhatsApp</li>
-            <li class="oj-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>🐆 <strong>Ojo de Jaguar</strong>: salud de ficha, conversión y vistas</li>
+            <li class="oj-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>${ojoJaguarSVG(17, 'ojp3')} <strong>Ojo de Jaguar</strong>: salud de ficha, conversión y vistas</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Siempre visible, todo el año</li>
           </ul>
         </div>
@@ -1193,7 +1194,7 @@ const MARKUP = `<!-- Progress bar -->
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Apareces en los primeros lugares de tu categoría</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Insignia "Recomendado"</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>1 mención al mes en nuestras redes</li>
-            <li class="oj-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>🐆 <strong>Ojo de Jaguar con IA</strong>: recomendaciones por red, ranking, alertas y metas</li>
+            <li class="oj-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>${ojoJaguarSVG(17, 'ojp4')} <strong>Ojo de Jaguar con IA</strong>: recomendaciones por red, ranking, alertas y metas</li>
           </ul>
         </div>
         <div class="plan-price">
@@ -1211,7 +1212,7 @@ const MARKUP = `<!-- Progress bar -->
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Primer lugar en tu categoría y en la portada</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Tu historia contada: artículo editorial propio</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>En temporada alta, apareces en el Top 3</li>
-            <li class="oj-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>🐆 <strong>Ojo de Jaguar total</strong>: origen de cada cliente, mejores horas y reporte exportable</li>
+            <li class="oj-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>${ojoJaguarSVG(17, 'ojp5')} <strong>Ojo de Jaguar total</strong>: origen de cada cliente, mejores horas y reporte exportable</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Atención personalizada, directa con nosotros</li>
           </ul>
         </div>
@@ -1242,7 +1243,7 @@ const MARKUP = `<!-- Progress bar -->
       <li><span class="hiw-num">2</span><div><strong>Elige tu paquete</strong><span>Escoge el plan que más te acomode. Si eres de los primeros, aprovecha el <b class="hiw-hl">Programa Fundadores: 30% de descuento durante tus 3 primeros meses</b>, sin permanencia.</span></div></li>
       <li><span class="hiw-num">3</span><div><strong>Paga seguro y regresa solo</strong><span>El pago es seguro. Al terminar, <b class="hiw-hl">vuelves automáticamente al sitio</b> para continuar; no tienes que hacer nada más.</span></div></li>
       <li><span class="hiw-num">4</span><div><strong>Llena tu ficha a tu gusto</strong><span>Datos, fotos, horarios y todo lo de tu negocio. Actualízalo cuando quieras, desde tu celular o laptop. El espacio es tuyo.</span></div></li>
-      <li><span class="hiw-num">5</span><div><strong>Listo, estás arriba</strong><span>Visible y fácil de encontrar en el directorio del pueblo. Y con 🐆 <b class="hiw-hl">Ojo de Jaguar</b>, tu consultor con IA, mides todo y sabes qué hacer cada semana para recibir más clientes.</span></div></li>
+      <li><span class="hiw-num">5</span><div><strong>Listo, estás arriba</strong><span>Visible y fácil de encontrar en el directorio del pueblo. Y con ${ojoJaguarSVG(16, 'ojp6')} <b class="hiw-hl">Ojo de Jaguar</b>, tu consultor con IA, mides todo y sabes qué hacer cada semana para recibir más clientes.</span></div></li>
     </ol>
     <a href="mailto:soporte@enmalinalco.com?subject=Quiero%20anunciar%20mi%20negocio%20en%20enmalinalco.com" class="hiw-cta">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
@@ -1470,7 +1471,7 @@ const MARKUP = `<!-- Progress bar -->
         <summary>¿Qué incluye cada plan?
           <svg class="faq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
         </summary>
-        <div class="faq-a">Malinalli te da 3 fotos, contacto, ubicación y horarios visibles toda la semana, y tu lugar en el directorio del pueblo. Cuāuhtli suma 10 fotos, aparecer en los primeros lugares de tu categoría, insignia "Recomendado", una mención al mes en redes y reporte de cuánta gente te ve. Ocēlōtl llega hasta 30 fotos, primer lugar en tu categoría, tu historia contada, aparición en portada y atención personalizada. Además, todos incluyen 🐆 <strong>Ojo de Jaguar</strong> (tu panel de inteligencia), con más alcance en cada plan. Puedes verlos a detalle en <a href="#negocios">Para negocios</a>.</div>
+        <div class="faq-a">Malinalli te da 3 fotos, contacto, ubicación y horarios visibles toda la semana, y tu lugar en el directorio del pueblo. Cuāuhtli suma 10 fotos, aparecer en los primeros lugares de tu categoría, insignia "Recomendado", una mención al mes en redes y reporte de cuánta gente te ve. Ocēlōtl llega hasta 30 fotos, primer lugar en tu categoría, tu historia contada, aparición en portada y atención personalizada. Además, todos incluyen ${ojoJaguarSVG(16, 'ojp7')} <strong>Ojo de Jaguar</strong> (tu panel de inteligencia), con más alcance en cada plan. Puedes verlos a detalle en <a href="#negocios">Para negocios</a>.</div>
       </details>
 
       <details class="faq-item">
