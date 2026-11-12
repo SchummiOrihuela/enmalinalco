@@ -345,10 +345,8 @@ export function lecturaConsultor({ business, salud, tasa, roi, ranking }) {
     else frases.push(`Vas #${ranking.pos} de ${ranking.n} en tu categoría: hay techo para subir, y las recomendaciones de abajo son tu camino.`)
   }
 
-  // 4) Cierre con el valor en pesos.
-  if (roi && roi.contactos > 0 && roi.retorno >= 1) {
-    frases.push(`En dinero: los ${roi.contactos} contactos de este mes valen alrededor de ${pesos(roi.ingreso)} en ventas potenciales —unas ${roi.retorno}× lo que pagas. Tu mensualidad ya se pagó sola.`)
-  }
+  // 4) Cierre accionable (sin estimaciones de dinero).
+  frases.push('Ataca lo de arriba esta semana y el próximo mes se nota. Yo te voy marcando el camino.')
 
   return frases.join(' ')
 }
