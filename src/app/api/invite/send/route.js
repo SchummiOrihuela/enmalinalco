@@ -1,9 +1,12 @@
 // Envío de invitaciones al Programa Fundadores (reclutamiento de negocios).
 // Protegido por secreto (NEWSLETTER_SECRET o, en su defecto, CRON_SECRET).
 //
-// La lista de prospectos vive en supabase/invitados.json (NO se sube al repo).
-// Formato: [{ email, negocio, contacto?, personalizado? }, ...]
-// Guíate por supabase/invitados.example.json.
+// La lista de prospectos se toma, en este orden:
+//   1) la variable de entorno INVITADOS_JSON (recomendado en Vercel: privado,
+//      no vive en el repo público), con el arreglo JSON como texto; o
+//   2) el archivo local supabase/invitados.json (solo para pruebas locales;
+//      está en .gitignore y NO se despliega).
+// Formato de cada contacto: { email, negocio }. Ver supabase/invitados.example.json.
 //
 // Uso manual desde el navegador o curl:
 //   ?key=SECRET                 → conteo de la lista y modo de uso (NO envía)
@@ -30,11 +33,16 @@ const DESTINO = 'https://enmalinalco.com/#negocios'
 // Cupos públicos: 50 reales (el corte interno incluye 2 compras de prueba).
 const CUPOS_PUBLICOS = Math.max(0, FOUNDERS.cupos - 2)
 
-// Lee la lista real de prospectos. Lanza si no existe o no es un arreglo.
+// Lee la lista real de prospectos (env var primero, archivo local de respaldo).
+// Lanza si no hay ninguna fuente o no es un arreglo válido.
 function leerInvitados() {
-  const ruta = path.join(process.cwd(), 'supabase/invitados.json')
-  const data = JSON.parse(readFileSync(ruta, 'utf8'))
-  if (!Array.isArray(data)) throw new Error('invitados.json debe ser un arreglo')
+  let crudo = process.env.INVITADOS_JSON
+  if (!crudo) {
+    const ruta = path.join(process.cwd(), 'supabase/invitados.json')
+    crudo = readFileSync(ruta, 'utf8') // lanza si no existe
+  }
+  const data = JSON.parse(crudo)
+  if (!Array.isArray(data)) throw new Error('la lista debe ser un arreglo JSON')
   return data.filter((c) => c && c.email)
 }
 
