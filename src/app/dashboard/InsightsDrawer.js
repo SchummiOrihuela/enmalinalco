@@ -10,6 +10,7 @@
 // El jaguar (Ocēlōtl) ve en la oscuridad lo que nadie ve: justo lo que Google no da.
 import { useState, useEffect, Fragment } from 'react'
 import { createClient } from '@/lib/supabaseBrowser'
+import OjoJaguar, { ojoJaguarSVG } from '@/app/components/OjoJaguar'
 
 const RED_META = {
   instagram: { label: 'Instagram' },
@@ -188,7 +189,7 @@ function exportarReporte({ negocio, lectura, acciones, salud, tasa, ranking, mom
   const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Ojo de Jaguar — ${negocio || 'Mi negocio'}</title></head>
   <body style="margin:0;background:#F6F0E0;font-family:Arial,Helvetica,sans-serif;color:#2A2016">
     <div style="max-width:720px;margin:0 auto;padding:36px 28px">
-      <div style="color:#B98A16;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase">🐆 Ojo de Jaguar · En Malinalco</div>
+      <div style="display:flex;align-items:center;gap:8px;color:#B98A16;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase">${ojoJaguarSVG(20, 'rep')} Ojo de Jaguar · En Malinalco</div>
       <h1 style="font-family:Georgia,serif;font-size:30px;color:#1C3B28;margin:6px 0 2px">${negocio || 'Mi negocio'}</h1>
       <div style="color:#6B6052;font-size:13px;margin-bottom:4px">Reporte de inteligencia · ${fecha}</div>
       <div style="color:#8A7A4F;font-size:12px;font-style:italic;margin-bottom:20px">Lo que Google Maps no te puede decir</div>
@@ -221,7 +222,7 @@ function descargarImagen({ negocio, salud, tasa, ranking, mom, lectura }) {
   x.fillStyle = halo; x.fillRect(0, 0, W, H)
 
   x.textBaseline = 'top'
-  x.fillText('🐆', 84, 76); x.font = '64px sans-serif'; x.fillText('🐆', 84, 70)
+  dibujarOjo(x, 116, 104, 32)
   x.fillStyle = '#DCB24A'; x.font = '700 26px Georgia, serif'
   x.fillText('OJO DE JAGUAR · EN MALINALCO', 170, 92)
   x.fillStyle = '#F6F0E0'; x.font = '600 58px Georgia, serif'
@@ -265,6 +266,38 @@ function roundRect(x, px, py, w, h, r) {
   x.beginPath(); x.moveTo(px + r, py)
   x.arcTo(px + w, py, px + w, py + h, r); x.arcTo(px + w, py + h, px, py + h, r)
   x.arcTo(px, py + h, px, py, r); x.arcTo(px, py, px + w, py, r); x.closePath()
+}
+// Dibuja el Ojo de Jaguar en canvas (para la imagen compartible).
+function dibujarOjo(x, cx, cy, r) {
+  const aw = r * 2.7, ah = r * 2.05
+  x.save()
+  // Almendra (párpados)
+  x.beginPath()
+  x.moveTo(cx - aw / 2, cy)
+  x.quadraticCurveTo(cx, cy - ah / 2, cx + aw / 2, cy)
+  x.quadraticCurveTo(cx, cy + ah / 2, cx - aw / 2, cy)
+  x.closePath()
+  x.fillStyle = '#08120B'; x.fill()
+  x.lineWidth = Math.max(2, r * 0.13); x.strokeStyle = '#DCB24A'; x.stroke()
+  // Iris encendido
+  const ig = x.createRadialGradient(cx, cy - r * 0.12, r * 0.2, cx, cy, r)
+  ig.addColorStop(0, '#FFF3C0'); ig.addColorStop(0.4, '#F0D77A'); ig.addColorStop(0.85, '#C79A32'); ig.addColorStop(1, '#6E4A0E')
+  x.beginPath(); x.arc(cx, cy, r, 0, Math.PI * 2); x.fillStyle = ig; x.fill()
+  // Fibras del iris
+  x.save(); x.beginPath(); x.arc(cx, cy, r * 0.94, 0, Math.PI * 2); x.clip()
+  x.strokeStyle = 'rgba(110,74,14,0.7)'; x.lineWidth = Math.max(1, r * 0.04)
+  for (let i = 0; i < 16; i++) {
+    const a = (i / 16) * Math.PI * 2
+    x.beginPath(); x.moveTo(cx, cy); x.lineTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r); x.stroke()
+  }
+  x.restore()
+  // Aro brillante
+  x.beginPath(); x.arc(cx, cy, r, 0, Math.PI * 2); x.lineWidth = r * 0.07; x.strokeStyle = 'rgba(255,243,192,0.8)'; x.stroke()
+  // Pupila vertical
+  x.beginPath(); x.ellipse(cx, cy, r * 0.25, r * 0.9, 0, 0, Math.PI * 2); x.fillStyle = '#06100A'; x.fill()
+  // Destello
+  x.beginPath(); x.arc(cx - r * 0.26, cy - r * 0.46, r * 0.15, 0, Math.PI * 2); x.fillStyle = '#FFFBEF'; x.fill()
+  x.restore()
 }
 function wrapText(x, text, px, py, maxW, lh) {
   const words = text.split(' '); let line = '', yy = py
@@ -369,7 +402,7 @@ export default function InsightsDrawer({ insights }) {
         color: '#F6F0E0', fontSize: '16px', fontWeight: 800, fontFamily: 'inherit',
         letterSpacing: '0.01em', animation: 'ojoLatido 2.2s ease-in-out infinite',
       }}>
-        <span style={{ fontSize: '30px', lineHeight: 1, filter: 'drop-shadow(0 2px 6px rgba(220,178,74,0.4))' }}>🐆</span>
+        <OjoJaguar size={30} style={{ filter: 'drop-shadow(0 2px 6px rgba(220,178,74,0.4))' }} />
         <span>Ojo de Jaguar</span>
         <span style={{
           fontSize: '11px', fontWeight: 800, letterSpacing: '0.08em', color: '#25201A',
@@ -408,7 +441,7 @@ export default function InsightsDrawer({ insights }) {
               display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap',
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(11px, 3vw, 14px)', minWidth: 0 }}>
-                <div style={{ fontSize: 'clamp(38px, 11vw, 46px)', lineHeight: 1, filter: 'drop-shadow(0 3px 8px rgba(220,178,74,0.45))' }}>🐆</div>
+                <OjoJaguar size={46} style={{ filter: 'drop-shadow(0 3px 8px rgba(220,178,74,0.45))', flexShrink: 0 }} />
                 <div style={{ minWidth: 0 }}>
                   <div style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: 'clamp(20px, 5.5vw, 23px)', fontWeight: 600, letterSpacing: '-0.01em' }}>Ojo de Jaguar</div>
                   <div style={{ fontSize: '11.5px', color: ORO, fontWeight: 700, letterSpacing: '0.04em' }}>Lo que Google, ni en sueños te daría</div>
@@ -672,7 +705,7 @@ export default function InsightsDrawer({ insights }) {
                 <div className="ventaja-top" style={{ height: '4px', width: '100%' }} />
                 <div style={{ padding: '20px 22px 8px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <span style={{ fontSize: '32px', lineHeight: 1, filter: 'drop-shadow(0 3px 10px rgba(220,178,74,0.6))' }}>🐆</span>
+                    <OjoJaguar size={34} style={{ filter: 'drop-shadow(0 3px 10px rgba(220,178,74,0.6))', flexShrink: 0 }} />
                     <div style={{ minWidth: 0 }}>
                       <div style={{
                         display: 'inline-block', fontSize: '10px', letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 800,

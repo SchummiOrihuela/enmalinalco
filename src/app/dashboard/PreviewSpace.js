@@ -16,6 +16,7 @@ export default function PreviewSpace({ slug }) {
       <button
         onClick={() => url && setOpen(true)}
         disabled={!url}
+        className="preview-cta"
         style={{
           display: 'inline-flex',
           alignItems: 'center',
