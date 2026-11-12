@@ -18,6 +18,7 @@ import FeedbackButton from './FeedbackButton'
 import {
   saludFicha, tasaContacto, rankingCategoria, roiEstimado,
   contextoRecos, recomendacionesPorRed, recomendaciones, lecturaConsultor,
+  alertas, metaProgreso, mesVsMes,
   heatmap, atribucion, origenGeografico, serieTiempo,
 } from '@/lib/insights'
 import { BrandTile } from '@/app/components/BrandIcon'
@@ -107,6 +108,9 @@ export default async function DashboardPage({ searchParams }) {
     // Lectura del Consultor + las 3 acciones de la semana (diferenciador BI).
     const lectura = lecturaConsultor({ business, salud, tasa, roi, ranking })
     const acciones = recomendaciones(ctx, 3)
+    const avisos = tierP >= 2 ? alertas(ctx) : null
+    const meta = tierP >= 2 ? metaProgreso(business) : null
+    const mom = mesVsMes(business)
 
     // Fase 2: eventos de los últimos 90 días (el dueño lee solo los suyos por RLS).
     let fase2 = null
@@ -128,7 +132,7 @@ export default async function DashboardPage({ searchParams }) {
         geo: origenGeografico(ev),
       }
     }
-    insights = { tier: tierP, salud, tasa, ranking, roi, recosPorRed, fase2, lectura, acciones, negocio: business.name, categoria: business.category }
+    insights = { tier: tierP, salud, tasa, ranking, roi, recosPorRed, fase2, lectura, acciones, avisos, meta, mom, negocioId: business.id, negocio: business.name, categoria: business.category }
   }
 
   return (
