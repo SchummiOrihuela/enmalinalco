@@ -104,7 +104,7 @@ export default async function DashboardPage({ searchParams }) {
     const ranking = tierP >= 2 ? rankingCategoria(peersCat, business.view_count) : null
     const roi = tierP >= 2 ? roiEstimado(business) : null
     const ctx = contextoRecos({ business, salud, tasa })
-    const recosPorRed = tierP >= 2 ? recomendacionesPorRed(ctx) : null
+    const recosPorRed = tierP >= 2 ? recomendacionesPorRed(ctx, 3) : null
     // Lectura del Consultor + las 3 acciones de la semana (diferenciador BI).
     const lectura = lecturaConsultor({ business, salud, tasa, roi, ranking })
     const acciones = recomendaciones(ctx, 3)

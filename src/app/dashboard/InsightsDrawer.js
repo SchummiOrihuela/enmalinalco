@@ -11,9 +11,6 @@
 import { useState, useEffect, Fragment } from 'react'
 import { createClient } from '@/lib/supabaseBrowser'
 
-const pesos = (n) =>
-  new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 }).format(n || 0)
-
 const RED_META = {
   instagram: { label: 'Instagram', icon: '📸' },
   facebook: { label: 'Facebook', icon: '👍' },
@@ -96,22 +93,6 @@ function Heatmap({ hm }) {
   )
 }
 
-// Chip de comparación mes vs. mes.
-function MoMChip({ label, pct }) {
-  const up = pct > 0, flat = pct === 0
-  const color = up ? '#3E9E59' : flat ? 'rgba(246,240,224,0.5)' : '#BF5028'
-  return (
-    <span style={{
-      display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '7px 13px', borderRadius: '9999px',
-      background: 'rgba(246,240,224,0.06)', border: '1px solid rgba(246,240,224,0.14)', color: '#F6F0E0', fontWeight: 600,
-    }}>
-      {label}
-      <strong style={{ color }}>{up ? '▲' : flat ? '■' : '▼'} {Math.abs(pct)}%</strong>
-      <span style={{ opacity: 0.55, fontSize: '11px' }}>vs mes pasado</span>
-    </span>
-  )
-}
-
 const Vacio = ({ children }) => (
   <p style={{ margin: 0, fontSize: '13px', color: 'rgba(246,240,224,0.6)', lineHeight: 1.5 }}>{children}</p>
 )
@@ -121,19 +102,20 @@ const VS_GOOGLE = [
   'Une Instagram, Facebook y WhatsApp en un solo tablero',
   'Te compara contra tu categoría en Malinalco, no contra todo México',
   'Te dice qué historia o evento te trajo cada cliente',
-  'Traduce tus contactos a pesos y retorno de tu mensualidad',
+  'Lee tus datos con IA y te dice qué hacer esta semana',
   'Te da recomendaciones accionables, no solo números',
 ]
 
 // Exporta el reporte a una ventana imprimible (el cliente guarda PDF o screenshot).
-function exportarReporte({ negocio, lectura, acciones, salud, tasa, ranking, roi, fase2 }) {
+function exportarReporte({ negocio, lectura, acciones, salud, tasa, ranking, mom, fase2 }) {
   const fecha = new Date().toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' })
   const kpi = (l, v) => `<div style="flex:1 1 150px;border:1px solid #E4D7B4;border-left:4px solid #B98A16;border-radius:12px;padding:12px 14px"><div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8A7A4F;font-weight:700">${l}</div><div style="font-family:Georgia,serif;font-size:24px;color:#1C3B28;font-weight:700;margin-top:2px">${v}</div></div>`
+  const vp = mom && mom.vistas.pct !== null ? mom.vistas.pct : null
   const kpis = [
     salud ? kpi('Salud de ficha', `${salud.score}/100`) : '',
     tasa && tasa.pct !== null ? kpi('Tasa de contacto', `${tasa.pct}%`) : '',
     ranking ? kpi('Lugar en categoría', `#${ranking.pos} de ${ranking.n}`) : '',
-    roi && roi.contactos > 0 ? kpi('Valor estimado', pesos(roi.ingreso)) : '',
+    vp !== null ? kpi('Vistas vs mes pasado', `${vp > 0 ? '▲' : vp < 0 ? '▼' : ''} ${Math.abs(vp)}%`) : '',
   ].join('')
   const accs = (acciones || []).map((a, i) => `<li style="margin:0 0 8px;font-size:14px;color:#2A2016">${a.icon} ${a.text}</li>`).join('')
   const geo = fase2 && fase2.geo && fase2.geo.total > 0
@@ -162,7 +144,7 @@ function exportarReporte({ negocio, lectura, acciones, salud, tasa, ranking, roi
 }
 
 // Genera una imagen PNG lista para compartir (WhatsApp/IG) con los números clave.
-function descargarImagen({ negocio, salud, tasa, ranking, roi, lectura }) {
+function descargarImagen({ negocio, salud, tasa, ranking, mom, lectura }) {
   const W = 1080, H = 1080
   const cv = document.createElement('canvas')
   cv.width = W; cv.height = H
@@ -185,11 +167,12 @@ function descargarImagen({ negocio, salud, tasa, ranking, roi, lectura }) {
   x.fillText('Lo que Google Maps no te puede decir', 84, 240)
 
   // Tarjetas KPI (2×2).
+  const vp = mom && mom.vistas.pct !== null ? mom.vistas.pct : null
   const cards = [
     salud ? ['Salud de ficha', `${salud.score}/100`] : null,
     tasa && tasa.pct !== null ? ['Tasa de contacto', `${tasa.pct}%`] : null,
     ranking ? ['Lugar en categoría', `#${ranking.pos} de ${ranking.n}`] : null,
-    roi && roi.contactos > 0 ? ['Valor estimado', pesos(roi.ingreso)] : null,
+    vp !== null ? ['Vistas vs mes pasado', `${vp > 0 ? '▲' : vp < 0 ? '▼' : ''} ${Math.abs(vp)}%`] : null,
   ].filter(Boolean)
   const cw = 440, ch = 180, gx = 84, gy = 320, gap = 32
   cards.slice(0, 4).forEach((c, i) => {
@@ -233,7 +216,7 @@ function wrapText(x, text, px, py, maxW, lh) {
 export default function InsightsDrawer({ insights }) {
   const [open, setOpen] = useState(false)
   const [red, setRed] = useState(null)
-  const { salud, tasa, ranking, roi, recosPorRed, fase2, lectura, acciones, avisos, mom, negocio, negocioId } = insights
+  const { salud, tasa, ranking, recosPorRed, fase2, lectura, acciones, avisos, mom, negocio, negocioId } = insights
   const [meta, setMeta] = useState(insights.meta)
   const [metaInput, setMetaInput] = useState('')
   const [editMeta, setEditMeta] = useState(false)
@@ -264,20 +247,64 @@ export default function InsightsDrawer({ insights }) {
   const redes = recosPorRed ? Object.keys(recosPorRed).filter((k) => recosPorRed[k]?.length) : []
   const redActiva = red && redes.includes(red) ? red : redes[0]
 
+  // Salud: enfoca el mensaje en aprovechar el plan que ya pagas.
+  const saludSub = salud
+    ? (salud.nFotos < salud.maxFotos
+        ? `Te falta subir ${salud.maxFotos - salud.nFotos} fotos: usas ${salud.nFotos} de las ${salud.maxFotos} de tu plan. Maximiza lo que ya pagas.`
+        : (salud.faltantes.length ? `Te falta: ${salud.faltantes.slice(0, 2).join(', ')}` : '¡Ficha completa!'))
+    : null
+
+  // Tasa: dolor + remedio con proyección honesta (al mismo ritmo de conversión).
+  const tasaSub = (() => {
+    if (!tasa || tasa.pct === null) return null
+    const conv = tasa.vistas > 0 ? tasa.contactos / tasa.vistas : 0
+    const extra = 150
+    const nuevos = Math.max(1, Math.round(extra * conv))
+    return `${tasa.contactos} contactos de ${tasa.vistas} vistas. Si sumas ~${extra} visitas más, al mismo ritmo serían ~${nuevos} contactos nuevos: súbele a redes.`
+  })()
+
+  // Vistas vs. mes pasado + a qué se debe.
+  const vPct = mom && mom.vistas.pct !== null ? mom.vistas.pct : null
+  const vistasRazon = vPct === null ? null
+    : vPct > 0 ? 'Subió: tus posts y nuestras historias te trajeron gente nueva.'
+    : vPct < 0 ? 'Bajó: súbele a redes esta semana (un reel, un post) para recuperar.'
+    : 'Estable respecto al mes pasado.'
+
   return (
     <>
-      {/* Botón de acceso premium */}
-      <button onClick={() => setOpen(true)} style={{
+      {/* Animaciones premium: latido del botón y glow de la lectura */}
+      <style>{`
+        @keyframes ojoLatido {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(220,178,74,0.0), 0 6px 22px rgba(0,0,0,0.22); transform: scale(1); }
+          50%      { box-shadow: 0 0 26px 3px rgba(220,178,74,0.5), 0 6px 22px rgba(0,0,0,0.22); transform: scale(1.012); }
+        }
+        @keyframes ojoChip { 0%,100% { opacity: .65 } 50% { opacity: 1 } }
+        @keyframes ojoGlow {
+          0%, 100% { border-color: rgba(124,182,137,0.28); box-shadow: 0 0 0 0 rgba(143,211,160,0); }
+          50%      { border-color: rgba(143,211,160,0.65); box-shadow: 0 0 20px -2px rgba(143,211,160,0.35); }
+        }
+        .ojo-btn:hover { filter: brightness(1.08); }
+      `}</style>
+
+      {/* Botón de acceso premium — palpita e invita con el gancho de IA */}
+      <button onClick={() => setOpen(true)} className="ojo-btn" style={{
         marginTop: '14px', width: '100%', cursor: 'pointer',
-        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px',
-        padding: '16px 18px', borderRadius: '16px', border: '1px solid rgba(220,178,74,0.5)',
-        background: 'linear-gradient(135deg, rgba(220,178,74,0.22), rgba(16,28,18,0.55))',
+        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', flexWrap: 'wrap',
+        padding: '17px 18px', borderRadius: '16px', border: '1px solid rgba(220,178,74,0.6)',
+        background: 'linear-gradient(135deg, rgba(220,178,74,0.26), rgba(16,28,18,0.6))',
         color: '#F6F0E0', fontSize: '16px', fontWeight: 800, fontFamily: 'inherit',
-        boxShadow: '0 6px 22px rgba(0,0,0,0.22)', letterSpacing: '0.01em',
+        letterSpacing: '0.01em', animation: 'ojoLatido 2.2s ease-in-out infinite',
       }}>
-        <span style={{ fontSize: '20px' }}>🐆</span>
-        Ojo de Jaguar
-        <span style={{ fontSize: '12px', fontWeight: 500, opacity: 0.78 }}>lo que Google Maps no te puede decir</span>
+        <span style={{ fontSize: '21px' }}>🐆</span>
+        <span>Ojo de Jaguar</span>
+        <span style={{
+          fontSize: '11px', fontWeight: 800, letterSpacing: '0.08em', color: '#25201A',
+          background: 'linear-gradient(180deg,#E7C86A,#DCB24A)', padding: '3px 9px', borderRadius: '9999px',
+          animation: 'ojoChip 1.8s ease-in-out infinite',
+        }}>✨ CON IA</span>
+        <span style={{ width: '100%', textAlign: 'center', fontSize: '12.5px', fontWeight: 500, opacity: 0.82 }}>
+          Tu consultor con IA · lo que Google, ni en sueños
+        </span>
       </button>
 
       {open && (
@@ -303,7 +330,7 @@ export default function InsightsDrawer({ insights }) {
                 <div style={{ fontSize: '34px', lineHeight: 1, filter: 'drop-shadow(0 2px 6px rgba(220,178,74,0.4))' }}>🐆</div>
                 <div>
                   <div style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '23px', fontWeight: 600, letterSpacing: '-0.01em' }}>Ojo de Jaguar</div>
-                  <div style={{ fontSize: '11.5px', color: ORO, fontWeight: 700, letterSpacing: '0.04em' }}>Lo que Google Maps no te puede decir</div>
+                  <div style={{ fontSize: '11.5px', color: ORO, fontWeight: 700, letterSpacing: '0.04em' }}>Lo que Google, ni en sueños te daría</div>
                   {negocio && <div style={{ fontSize: '12px', opacity: 0.7, marginTop: '2px' }}>{negocio}</div>}
                 </div>
               </div>
@@ -340,17 +367,21 @@ export default function InsightsDrawer({ insights }) {
                 </div>
               )}
 
-              {/* LECTURA DEL CONSULTOR */}
+              {/* LECTURA DEL CONSULTOR — palpita para llamar la atención */}
               {lectura && (
                 <div style={{
                   padding: '18px 20px', borderRadius: '16px',
-                  background: 'linear-gradient(135deg, rgba(124,182,137,0.14), rgba(16,28,18,0.4))',
+                  background: 'linear-gradient(135deg, rgba(124,182,137,0.16), rgba(16,28,18,0.4))',
                   border: '1px solid rgba(124,182,137,0.3)', borderLeft: '4px solid #6FB880',
+                  animation: 'ojoGlow 2.8s ease-in-out infinite',
                 }}>
                   <div style={{ fontSize: '11.5px', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#8FD3A0', fontWeight: 800, marginBottom: '8px' }}>
-                    🔎 La lectura de tu consultor
+                    🔎 La lectura de tu consultor · con IA
                   </div>
-                  <p style={{ margin: 0, fontSize: '15.5px', lineHeight: 1.65, color: '#F3EEE2' }}>{lectura}</p>
+                  <p style={{ margin: '0 0 8px', fontSize: '13px', color: 'rgba(243,238,226,0.75)', lineHeight: 1.5 }}>
+                    Cruzamos tus números con Inteligencia Artificial para decirte no solo qué pasó, sino <strong>qué hacer esta semana</strong> para vender más.
+                  </p>
+                  <p style={{ margin: 0, fontSize: '15.5px', lineHeight: 1.65, color: '#F3EEE2', fontWeight: 500 }}>{lectura}</p>
                   <div style={{ marginTop: '10px', fontSize: '12px', fontStyle: 'italic', opacity: 0.7 }}>— Tu consultor En Malinalco</div>
                 </div>
               )}
@@ -381,28 +412,24 @@ export default function InsightsDrawer({ insights }) {
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
                 {salud && (
                   <Kpi label="Salud de tu ficha" value={`${salud.score}/100`} accent={salud.score >= 85 ? '#3E9E59' : salud.score >= 60 ? ORO : '#BF5028'}
-                    sub={salud.faltantes.length ? `Te falta: ${salud.faltantes.slice(0, 2).join(', ')}` : '¡Ficha completa!'} />
+                    sub={saludSub} />
                 )}
                 {tasa && tasa.pct !== null && (
-                  <Kpi label="Tasa de contacto" value={`${tasa.pct}%`} sub={`${tasa.contactos} contactos de ${tasa.vistas} vistas`} />
+                  <Kpi label="Tasa de contacto" value={`${tasa.pct}%`} sub={tasaSub} />
                 )}
                 {ranking && (
                   <Kpi label="Tu lugar en la categoría" value={`#${ranking.pos} de ${ranking.n}`} accent={ranking.pos === 1 ? '#3E9E59' : ORO}
                     sub={ranking.pos === 1 ? '¡Primer lugar del pueblo!' : 'Por vistas en tu categoría'} />
                 )}
-                {roi && roi.contactos > 0 && (
-                  <Kpi label="Valor estimado del mes" value={pesos(roi.ingreso)} accent="#3E9E59"
-                    sub={`${roi.contactos} contactos × ${roi.cierreTexto} × ${pesos(roi.ticket)}${roi.retorno >= 1 ? ` · ${roi.retorno}× tu plan` : ''}`} />
+                {vPct !== null && (
+                  <Kpi
+                    label="Vistas"
+                    accent={vPct > 0 ? '#3E9E59' : vPct < 0 ? '#BF5028' : ORO}
+                    value={<span style={{ color: vPct > 0 ? '#5FB874' : vPct < 0 ? '#E08A5A' : '#F6F0E0' }}>{vPct > 0 ? '▲' : vPct < 0 ? '▼' : '■'} {Math.abs(vPct)}%</span>}
+                    sub={`vs. mes pasado — ${vistasRazon}`}
+                  />
                 )}
               </div>
-
-              {/* MES VS MES */}
-              {mom && (mom.vistas.pct !== null || mom.contactos.pct !== null) && (
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginTop: '12px', fontSize: '13px' }}>
-                  {mom.vistas.pct !== null && <MoMChip label="Vistas" pct={mom.vistas.pct} />}
-                  {mom.contactos.pct !== null && <MoMChip label="Contactos" pct={mom.contactos.pct} />}
-                </div>
-              )}
 
               {/* META DEL MES */}
               {meta && (
@@ -422,9 +449,9 @@ export default function InsightsDrawer({ insights }) {
                       </div>
                     </div>
                   ) : editMeta ? null : (
-                    <div style={{ padding: '14px 16px', borderRadius: '14px', background: 'rgba(220,178,74,0.08)', border: '1px dashed rgba(220,178,74,0.4)', fontSize: '13.5px' }}>
-                      Fíjate una meta de contactos para este mes y mide tu avance.{' '}
-                      <button onClick={() => { setMetaInput(String(meta.sugerida || 10)); setEditMeta(true) }} style={{ cursor: 'pointer', background: 'none', border: 'none', color: ORO, fontWeight: 700, fontSize: '13.5px' }}>Poner meta (sugerida: {meta.sugerida}) →</button>
+                    <div style={{ padding: '14px 16px', borderRadius: '14px', background: 'rgba(220,178,74,0.08)', border: '1px dashed rgba(220,178,74,0.4)', fontSize: '13.5px', lineHeight: 1.55 }}>
+                      Este mes tuviste <strong>{tasa?.vistas ?? 0} visitas</strong>. ¿Te pones una meta de contactos y ves tu avance cada vez que entras a tu perfil?{' '}
+                      <button onClick={() => { setMetaInput(String(meta.sugerida || 10)); setEditMeta(true) }} style={{ cursor: 'pointer', background: 'none', border: 'none', color: ORO, fontWeight: 700, fontSize: '13.5px' }}>Poner mi meta (sugerida: {meta.sugerida}) →</button>
                     </div>
                   )}
                   {editMeta && (
@@ -441,7 +468,7 @@ export default function InsightsDrawer({ insights }) {
               {/* RECOMENDACIONES POR RED */}
               {redes.length > 0 && (
                 <>
-                  <H2>Recomendaciones para tu caso</H2>
+                  <H2>Top 3 recomendaciones para tu negocio por red social</H2>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '12px' }}>
                     {redes.map((k) => (
                       <button key={k} onClick={() => setRed(k)} style={{
@@ -523,7 +550,7 @@ export default function InsightsDrawer({ insights }) {
               </div>
 
               <p style={{ margin: '22px 0 0', fontSize: '12px', color: 'rgba(246,240,224,0.55)', lineHeight: 1.5 }}>
-                Los valores de ingreso son estimados con supuestos conservadores por categoría. La geografía es aproximada y sin datos personales.
+                🌎 La geografía es aproximada y sin datos personales.
               </p>
             </div>
           </div>
