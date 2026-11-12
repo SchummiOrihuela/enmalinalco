@@ -221,7 +221,7 @@ export default async function CategoriaPage({ params }) {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginTop: 24 }}>
         {businesses.map((b) => (
-          <Link key={b.id} href={`/negocio/${b.slug}`} className="cat-card">
+          <Link key={b.id} href={`/negocio/${b.slug}?ref=categoria:${slug}`} className="cat-card">
             <div className="cat-card-info">
               <strong>{b.name}</strong>
               {getBadge(b.plan) && (
