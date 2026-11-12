@@ -764,10 +764,21 @@ footer{background:var(--espresso);padding-block:clamp(var(--s12),7vw,var(--s20))
 .faq-list{max-width:60ch;margin:var(--s10) auto 0;
   display:flex;flex-direction:column;gap:var(--s3)}
 .faq-item{border:1px solid var(--fog);border-radius:14px;
-  background:var(--surf);overflow:hidden;
-  transition:border-color var(--dur),background var(--dur),box-shadow var(--dur)}
+  background:var(--surf);overflow:hidden;transform-origin:center;
+  transition:border-color var(--dur),background var(--dur),box-shadow var(--dur),transform .28s cubic-bezier(.2,.7,.3,1)}
+.faq-item:hover{transform:scale(1.02);border-color:rgba(220,178,74,.55);
+  box-shadow:0 10px 28px rgba(0,0,0,.14)}
 .faq-item[open]{background:#F5ECD7;border-color:rgba(220,178,74,.72);
-  box-shadow:0 6px 24px rgba(0,0,0,.14)}
+  box-shadow:0 6px 24px rgba(0,0,0,.14);animation:faqGold 1s ease-out}
+.faq-item[open]:hover{transform:scale(1.015)}
+@keyframes faqGold{
+  0%{box-shadow:0 0 0 0 rgba(220,178,74,.6),0 6px 24px rgba(0,0,0,.14);border-color:rgba(220,178,74,1)}
+  55%{box-shadow:0 0 0 9px rgba(220,178,74,0),0 6px 24px rgba(0,0,0,.14);border-color:rgba(220,178,74,.72)}
+  70%{box-shadow:0 0 0 0 rgba(220,178,74,.35),0 6px 24px rgba(0,0,0,.14)}
+  100%{box-shadow:0 0 0 7px rgba(220,178,74,0),0 6px 24px rgba(0,0,0,.14);border-color:rgba(220,178,74,.72)}}
+@media (prefers-reduced-motion:reduce){
+  .faq-item:hover,.faq-item[open]:hover{transform:none}
+  .faq-item[open]{animation:none}}
 .faq-item[open] summary{color:#241C12}
 .faq-item[open] summary:hover{color:#8A5E16}
 .faq-item[open] summary .faq-ic{color:#B0842C}
