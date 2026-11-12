@@ -53,6 +53,59 @@ export async function enviarBienvenida({ email, negocio, tier }) {
   });
 }
 
+// ── Invitación: Programa Fundadores (reclutamiento de negocios) ───────
+// Envía el correo de invitación a un prospecto para que sume su negocio al
+// directorio. Devuelve el resultado de Resend; lanza si falla el envío.
+// data: { negocio, contacto?, personalizado?, cupos?, url? }
+// Devuelve { html, subject, nombreNegocio } listos para enviar o previsualizar.
+export function renderInvitacion({ negocio, contacto, personalizado, cupos, url }) {
+  const nombreNegocio = negocio?.trim() || "tu negocio";
+  const saludo = contacto?.trim() || "¡Hola!";
+  const frase =
+    personalizado?.trim() ||
+    "Conozco tu negocio y sé que tiene mucho que presumir.";
+  const cuposTexto = cupos?.trim() || "Los lugares son limitados";
+  const destino = url?.trim() || "https://enmalinalco.com/#negocios";
+
+  const html = leerPlantilla("invitacion-fundadores.html")
+    .replaceAll("{{CONTACTO}}", saludo)
+    .replaceAll("{{NEGOCIO}}", nombreNegocio)
+    .replaceAll("{{PERSONALIZADO}}", frase)
+    .replaceAll("{{CUPOS}}", cuposTexto)
+    .replaceAll("{{URL}}", destino);
+
+  const subject = `${nombreNegocio}, aquí te buscan quienes vienen a Malinalco 🌿`;
+  return { html, subject, nombreNegocio };
+}
+
+// data: { email, negocio, contacto?, personalizado?, cupos?, url? }
+export async function enviarInvitacion({
+  email,
+  negocio,
+  contacto,
+  personalizado,
+  cupos,
+  url,
+}) {
+  if (!process.env.RESEND_API_KEY) {
+    throw new Error("Falta RESEND_API_KEY");
+  }
+  if (!email) {
+    throw new Error("Falta el email del destinatario");
+  }
+
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  const { html, subject } = renderInvitacion({ negocio, contacto, personalizado, cupos, url });
+
+  return resend.emails.send({
+    from: FROM,
+    to: email,
+    subject,
+    html,
+    replyTo: "hola@enmalinalco.com",
+  });
+}
+
 // ── Reporte mensual (beneficio Ocēlōtl) ──────────────────────────────
 // Construye el HTML del reporte con los números del mes y lo envía.
 // stats: { vistas, contactos:[{label,total,mes}], comparativa?:string }
