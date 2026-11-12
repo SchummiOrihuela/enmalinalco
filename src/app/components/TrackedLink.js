@@ -38,7 +38,13 @@ export default function TrackedLink({ bid, kind, event, eventParams, children, .
     // 2) Beacon a la base (contador del dashboard del negocio). Solo para contactos.
     if (bid && kind) {
       try {
-        const payload = JSON.stringify({ id: bid, kind })
+        // Arrastra el ?ref= de la URL (si vino de una historia/evento) para atribuir.
+        let ref = null
+        try {
+          const p = new URLSearchParams(window.location.search).get('ref')
+          if (p) ref = p.slice(0, 80)
+        } catch { /* sin ref */ }
+        const payload = JSON.stringify(ref ? { id: bid, kind, ref } : { id: bid, kind })
         if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
           navigator.sendBeacon('/api/track-contact', new Blob([payload], { type: 'application/json' }))
         } else {

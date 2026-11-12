@@ -133,56 +133,237 @@ export function roiEstimado(business, { ticket, cierre } = {}) {
 }
 
 // ── 5) Motor de recomendaciones ─────────────────────────────────────────────
-// Reglas si-entonces sobre las métricas. Devuelve las `max` más relevantes para
-// ESA ficha este mes (prioridad mayor = más urgente/accionable).
-export function recomendaciones({ business, salud, tasa }, max = 3) {
+// Catálogo de recomendaciones ESPECÍFICAS por red y por ficha. Cada una lleva:
+//   - red:  'instagram' | 'facebook' | 'whatsapp' | 'ficha' | 'contenido'
+//   - prio: urgencia (mayor = antes)
+//   - test(ctx): decide si APLICA al caso real del negocio (personalización)
+//   - icon, text: el consejo accionable
+// La idea es que el cliente sienta un comentario de consultor para SU situación,
+// no un folleto genérico: solo se muestran las que su test aprueba.
+
+// Construye el contexto con todo lo que los tests necesitan.
+export function contextoRecos({ business, salud, tasa }) {
   const b = business
-  const recs = []
-  const push = (prio, icon, text) => recs.push({ prio, icon, text })
-
-  // Salud de ficha baja: lo primero, porque limita todo lo demás.
-  if (salud && salud.score < 70 && salud.faltantes.length) {
-    push(100, '🧩', `Completa tu ficha (${salud.score}/100): te falta ${salud.faltantes.slice(0, 2).join(' y ')}. Las fichas completas reciben hasta 3× más contactos.`)
-  }
-
-  // Te ven pero no te contactan.
-  if (tasa && tasa.vistas >= 20 && tasa.pct !== null && tasa.pct < 5) {
-    push(90, '🪝', `Te ven (${tasa.vistas}) pero pocos te contactan (${tasa.pct}%). Cambia tu foto principal y agrega precios: suele ser lo que frena el clic.`)
-  }
-
-  // Piden "cómo llegar" pero no escriben: falta empuje a WhatsApp.
-  const maps = b.maps_clicks || 0
   const wa = b.whatsapp_clicks || 0
-  if (maps >= 10 && wa < maps * 0.5) {
-    push(80, '💬', 'Muchos piden cómo llegar pero pocos escriben. Pon un botón de WhatsApp con "¿Hay lugar hoy?" y responde en menos de 1 hora.')
+  const phone = b.phone_clicks || 0
+  const maps = b.maps_clicks || 0
+  const ig = b.instagram_clicks || 0
+  const fb = b.facebook_clicks || 0
+  const totalContacto = wa + phone + maps
+  return {
+    b,
+    salud: salud || null,
+    tasa: tasa || null,
+    wa, phone, maps, ig, fb, totalContacto,
+    igMes: delta(b.instagram_clicks, b.instagram_clicks_last_month),
+    fbMes: delta(b.facebook_clicks, b.facebook_clicks_last_month),
+    waMes: delta(b.whatsapp_clicks, b.whatsapp_clicks_last_month),
+    hasIG: !!b.instagram,
+    hasFB: !!b.facebook,
+    hasWA: !!b.whatsapp,
+    hospedaje: b.category === 'Hospedaje',
+    restaurante: b.category === 'Restaurantes',
+    // Share WhatsApp entre los canales de contacto (0..1).
+    waShare: totalContacto > 0 ? wa / totalContacto : 0,
+    igShare: ig + fb > 0 ? ig / (ig + fb) : 0,
   }
+}
 
-  // Instagram a la baja (Cuāuhtli+).
-  const igMes = delta(b.instagram_clicks, b.instagram_clicks_last_month)
-  if (b.instagram && igMes < 0) {
-    push(70, '📸', 'Tus clics a Instagram bajaron este mes. Sube 1 reel esta semana: hoy es el formato con más alcance orgánico.')
+export const RECOS_CATALOGO = [
+  // ───────────── INSTAGRAM (15) ─────────────
+  { red: 'instagram', prio: 95, icon: '📸', test: (c) => !c.hasIG, text: 'Conecta tu Instagram a la ficha: es la vitrina #1 que revisa el turista de CDMX antes de decidir a dónde ir en Malinalco.' },
+  { red: 'instagram', prio: 90, icon: '📉', test: (c) => c.hasIG && c.igMes < 0, text: 'Tus clics a Instagram bajaron este mes. Sube 1 reel esta semana (recorrido, platillo o atardecer): hoy es el formato con más alcance orgánico.' },
+  { red: 'instagram', prio: 70, icon: '🎬', test: (c) => c.hasIG, text: 'Publica 1 reel por semana mostrando la experiencia real: Malinalco entra por los ojos. Los reels superan por mucho a la foto fija en alcance.' },
+  { red: 'instagram', prio: 68, icon: '📍', test: (c) => c.hasIG, text: 'Etiqueta la ubicación "Malinalco" en cada post y story: así te encuentran quienes buscan el pueblo por lugar.' },
+  { red: 'instagram', prio: 66, icon: '📖', test: (c) => c.hasIG, text: 'Sube stories diarias de lo cotidiano (apertura, cocina, huéspedes): mantienen tu perfil arriba en el feed de quien ya te sigue.' },
+  { red: 'instagram', prio: 64, icon: '✍️', test: (c) => c.hasIG, text: 'Cuida las primeras 2 líneas del pie: son las que deciden el clic. Arranca con un gancho, no con "Hola a todos".' },
+  { red: 'instagram', prio: 62, icon: '💬', test: (c) => c.hasIG, text: 'Responde todos los comentarios y DMs en menos de 1 hora: el algoritmo premia la conversación y el turista decide rápido.' },
+  { red: 'instagram', prio: 60, icon: '🤝', test: (c) => c.hasIG, text: 'Haz una colaboración (collab) con @enmalinalco y con otro negocio del pueblo: el post sale en ambos perfiles y duplica alcance.' },
+  { red: 'instagram', prio: 58, icon: '📌', test: (c) => c.hasIG, text: 'Arma Highlights fijos: "Menú/Precios", "Cómo llegar" y "Reseñas". Es lo primero que abre quien llega a tu perfil.' },
+  { red: 'instagram', prio: 56, icon: '🕗', test: (c) => c.hasIG, text: 'Publica en tu mejor horario (jueves a domingo, 6–9 pm): es cuando el visitante planea su escapada a Malinalco.' },
+  { red: 'instagram', prio: 54, icon: '👉', test: (c) => c.hasIG, text: 'Cierra cada post con un CTA claro: "Reserva por WhatsApp" o "Llámanos hoy". Sin llamada a la acción, el like no se vuelve cliente.' },
+  { red: 'instagram', prio: 52, icon: '🔁', test: (c) => c.hasIG, text: 'Repostea las fotos que suben tus clientes (UGC) y pídeles que te etiqueten: prueba social gratis y auténtica.' },
+  { red: 'instagram', prio: 50, icon: '💰', test: (c) => c.hasIG && c.restaurante, text: 'Pon tu menú y precios visibles en un reel o Highlight: el 70% abandona un perfil de restaurante si no ve cuánto cuesta.' },
+  { red: 'instagram', prio: 50, icon: '🛏️', test: (c) => c.hasIG && c.hospedaje, text: 'Muestra la habitación, el baño y la vista en un solo reel: el huésped quiere ver exactamente dónde va a dormir antes de escribirte.' },
+  { red: 'instagram', prio: 40, icon: '🏷️', test: (c) => c.hasIG, text: 'Usa 3–5 hashtags locales (#Malinalco #PuebloMagico #EdoMex) en lugar de 30 genéricos: pesan más para tu audiencia real.' },
+
+  // ───────────── FACEBOOK (13) ─────────────
+  { red: 'facebook', prio: 93, icon: '👍', test: (c) => !c.hasFB, text: 'Agrega tu Facebook a la ficha: ahí viven los grupos de "escapadas desde CDMX/Edomex" y "qué hacer en Malinalco" donde se decide el fin de semana.' },
+  { red: 'facebook', prio: 88, icon: '📉', test: (c) => c.hasFB && c.fbMes < 0, text: 'Tus clics a Facebook bajaron este mes. Publica en 2–3 grupos de la región con una foto fuerte y tu WhatsApp: es tráfico que convierte.' },
+  { red: 'facebook', prio: 70, icon: '📅', test: (c) => c.hasFB, text: 'Crea un Evento de Facebook por cada fecha fuerte de Malinalco (puente, Semana Santa, posadas): aparece a los locales y a quien busca planes.' },
+  { red: 'facebook', prio: 68, icon: '👥', test: (c) => c.hasFB, text: 'Publica 1–2 veces/semana en grupos de escapadas de CDMX y Edomex. No más: Facebook penaliza el spam.' },
+  { red: 'facebook', prio: 66, icon: '🔗', test: (c) => c.hasFB, text: 'Mantén horarios, WhatsApp y dirección idénticos a tu ficha de En Malinalco: la coherencia entre canales genera confianza y cierra ventas.' },
+  { red: 'facebook', prio: 64, icon: '🖼️', test: (c) => c.hasFB, text: 'Sube álbumes de fotos por temporada: Facebook todavía da buen alcance orgánico a los álbumes, más que a un post suelto.' },
+  { red: 'facebook', prio: 62, icon: '⭐', test: (c) => c.hasFB, text: 'Activa las recomendaciones/reseñas de tu página y responde cada una: son las que lee el visitante antes de escribirte.' },
+  { red: 'facebook', prio: 60, icon: '💬', test: (c) => c.hasFB, text: 'Pon el botón "Enviar WhatsApp" o "Reservar" en tu página y responde Messenger rápido: el badge "muy receptivo" sube la conversión.' },
+  { red: 'facebook', prio: 58, icon: '📰', test: (c) => c.hasFB, text: 'Comparte en tu página las historias de En Malinalco donde te mencionamos: doble alcance y refuerzas que eres referente del pueblo.' },
+  { red: 'facebook', prio: 56, icon: '📐', test: (c) => c.hasFB, text: 'Sube fotos verticales y horizontales: así se ven bien en el feed y en historias sin recortarse.' },
+  { red: 'facebook', prio: 54, icon: '🎯', test: (c) => c.hasFB, text: 'Si pruebas pauta, invierte poco ($100–150) segmentando a CDMX y Toluca, 25–55 años: es tu turista real de fin de semana.' },
+  { red: 'facebook', prio: 50, icon: '🍽️', test: (c) => c.hasFB && c.restaurante, text: 'Publica tu menú del fin de semana cada jueves: la gente de la ciudad arma su plan de comida en Malinalco con 2–3 días de anticipación.' },
+  { red: 'facebook', prio: 50, icon: '🏡', test: (c) => c.hasFB && c.hospedaje, text: 'Publica disponibilidad del próximo puente con fotos y precio: el huésped compara y reserva con semanas de anticipación.' },
+
+  // ───────────── WHATSAPP (13) ─────────────
+  { red: 'whatsapp', prio: 96, icon: '💬', test: (c) => !c.hasWA, text: 'Agrega tu WhatsApp a la ficha: es tu canal de venta #1. Sin él, el cliente interesado no tiene cómo cerrar contigo en el momento.' },
+  { red: 'whatsapp', prio: 85, icon: '📍', test: (c) => c.maps >= 10 && c.waShare < 0.4, text: 'Muchos piden "cómo llegar" pero pocos te escriben. Pon un botón de WhatsApp con "¿Hay lugar hoy?" y empuja el contacto antes de que lleguen.' },
+  { red: 'whatsapp', prio: 80, icon: '⚡', test: (c) => c.totalContacto >= 8 && c.waShare >= 0.55, text: `WhatsApp es tu canal fuerte. Usa WhatsApp Business con catálogo y respuestas rápidas: le exprimes el canal que tus clientes ya prefieren.` },
+  { red: 'whatsapp', prio: 72, icon: '🏪', test: (c) => c.hasWA, text: 'Cámbiate a WhatsApp Business (gratis): catálogo con precios, horario, dirección y perfil del negocio en un solo lugar.' },
+  { red: 'whatsapp', prio: 70, icon: '🤖', test: (c) => c.hasWA, text: 'Configura el mensaje de bienvenida automático: responde al instante aunque estés ocupado y no pierdes al cliente impaciente.' },
+  { red: 'whatsapp', prio: 68, icon: '⌨️', test: (c) => c.hasWA, text: 'Guarda respuestas rápidas para "precios", "disponibilidad" y "menú": contestas en segundos lo que preguntan 20 veces al día.' },
+  { red: 'whatsapp', prio: 66, icon: '📣', test: (c) => c.hasWA, text: 'Sube Estados de WhatsApp con la promo del fin: muchos clientes los ven y es gratis. Es tu "historia" directa a quien ya te escribió.' },
+  { red: 'whatsapp', prio: 64, icon: '🔗', test: (c) => c.hasWA, text: 'Usa un link wa.me con mensaje pre-llenado ("Hola, vi tu ficha en En Malinalco"): sabes de dónde viene cada contacto y arrancas la charla.' },
+  { red: 'whatsapp', prio: 62, icon: '⏱️', test: (c) => c.hasWA, text: 'Responde en menos de 1 hora: la velocidad es el factor #1 de cierre. El que tarda, pierde la reserva con el de al lado.' },
+  { red: 'whatsapp', prio: 58, icon: '🏷️', test: (c) => c.hasWA, text: 'Usa etiquetas para separar reservas, dudas y clientes frecuentes: das seguimiento ordenado y no se te cae ninguna venta.' },
+  { red: 'whatsapp', prio: 56, icon: '✅', test: (c) => c.hasWA && c.hospedaje, text: 'Confirma y recuerda la reserva por WhatsApp un día antes: baja los "no show" y el huésped llega tranquilo.' },
+  { red: 'whatsapp', prio: 54, icon: '⭐', test: (c) => c.hasWA, text: 'Pide la reseña por WhatsApp justo después de la visita, con el link directo: es cuando el cliente está más feliz y sí te la deja.' },
+  { red: 'whatsapp', prio: 50, icon: '💰', test: (c) => c.hasWA, text: 'Ten el catálogo con precios visible: evitas el "¿cuánto cuesta?" y filtras a quien sí va a comprar.' },
+
+  // ───────────── FICHA (conversión) ─────────────
+  { red: 'ficha', prio: 100, icon: '🧩', test: (c) => c.salud && c.salud.score < 70 && c.salud.faltantes.length > 0, text: null /* se arma dinámico abajo */ },
+  { red: 'ficha', prio: 92, icon: '🪝', test: (c) => c.tasa && c.tasa.vistas >= 20 && c.tasa.pct !== null && c.tasa.pct < 5, text: null },
+  { red: 'ficha', prio: 48, icon: '📸', test: (c) => c.salud && c.salud.nFotos < c.salud.maxFotos, text: null },
+
+  // ───────────── CONTENIDO / temporada (siempre hay algo) ─────────────
+  { red: 'contenido', prio: 25, icon: '🗓️', test: () => true, text: 'Mándanos 3 fotos nuevas para tu próxima mención en nuestras redes y para la temporada que viene en Malinalco.' },
+  { red: 'contenido', prio: 18, icon: '📝', test: () => true, text: 'Agrega precios y una descripción con gancho a tu ficha: lo que mejor convierte vista en contacto.' },
+]
+
+// Rellena los textos dinámicos (ficha) según el caso.
+function textoReco(item, c) {
+  if (item.text) return item.text
+  if (item.prio === 100) return `Completa tu ficha (${c.salud.score}/100): te falta ${c.salud.faltantes.slice(0, 2).join(' y ')}. Las fichas completas reciben hasta 3× más contactos.`
+  if (item.prio === 92) return `Te ven (${c.tasa.vistas}) pero pocos te contactan (${c.tasa.pct}%). Cambia tu foto principal y agrega precios: suele ser lo que frena el clic.`
+  if (item.prio === 48) return `Sube tus fotos faltantes (vas ${c.salud.nFotos}/${c.salud.maxFotos}): cada foto extra sube las vistas y el tiempo en tu ficha.`
+  return ''
+}
+
+// Devuelve las recomendaciones aplicables AGRUPADAS por red (para la vista de
+// detalle / solapa flotante). Cada red trae solo las que aplican a su caso.
+export function recomendacionesPorRed(ctx, maxPorRed = 8) {
+  const grupos = {}
+  for (const item of RECOS_CATALOGO) {
+    let aplica = false
+    try { aplica = item.test(ctx) } catch { aplica = false }
+    if (!aplica) continue
+    const g = (grupos[item.red] = grupos[item.red] || [])
+    g.push({ prio: item.prio, icon: item.icon, text: textoReco(item, ctx) })
   }
-
-  // Sin Instagram conectado.
-  if (!b.instagram) {
-    push(60, '📸', 'Conecta tu Instagram a la ficha: es la vitrina que más miran los turistas antes de decidir.')
+  for (const k of Object.keys(grupos)) {
+    grupos[k] = grupos[k].sort((a, b) => b.prio - a.prio).slice(0, maxPorRed)
   }
-  // Sin Facebook conectado.
-  if (!b.facebook) {
-    push(55, '👍', 'Agrega tu Facebook: ahí viven los grupos de escapadas de CDMX y Edomex que buscan Malinalco.')
+  return grupos
+}
+
+// Resumen plano: las `max` más relevantes, con diversidad (máx. 1 por red salvo
+// que falten). Para la tarjeta del panel y el correo.
+export function recomendaciones(input, max = 3) {
+  const ctx = input.wa !== undefined ? input : contextoRecos(input)
+  const grupos = recomendacionesPorRed(ctx)
+  const planas = []
+  for (const red of Object.keys(grupos)) {
+    for (const r of grupos[red]) planas.push({ ...r, red })
   }
-
-  // WhatsApp es su canal fuerte: aprovéchalo.
-  const total = wa + (b.phone_clicks || 0) + maps
-  if (total >= 10 && wa / total >= 0.6) {
-    push(50, '⚡', `El ${Math.round((wa / total) * 100)}% te contacta por WhatsApp. Usa WhatsApp Business con catálogo y respuestas rápidas para cerrar más.`)
+  planas.sort((a, b) => b.prio - a.prio)
+  // Primero una por red (diversidad), luego rellena por prioridad.
+  const vistos = new Set()
+  const top = []
+  for (const r of planas) {
+    if (top.length >= max) break
+    if (vistos.has(r.red)) continue
+    vistos.add(r.red)
+    top.push(r)
   }
+  for (const r of planas) {
+    if (top.length >= max) break
+    if (top.includes(r)) continue
+    top.push(r)
+  }
+  return top.slice(0, max).map(({ icon, text }) => ({ icon, text }))
+}
 
-  // Siempre hay una recomendación de fondo: contenido/temporada.
-  push(20, '🗓️', 'Mándanos 3 fotos nuevas para tu próxima mención en nuestras redes y para la temporada que viene en Malinalco.')
-  push(15, '⭐', 'Pide la reseña por WhatsApp justo después de la visita: sube tu reputación y tu posición en la categoría.')
+// ── 6) Agregadores de Fase 2 (sobre la tabla `events`) ──────────────────────
+// Reciben el arreglo crudo de eventos del negocio y devuelven vistas listas.
+// Cada evento: { kind, ref, country, region, created_at }. Puras, sin red.
 
-  return recs.sort((a, b) => b.prio - a.prio).slice(0, max)
+const DOW = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb']
+
+// Mapa de calor día (0=Dom..6=Sáb) × hora (0..23) de las interacciones.
+export function heatmap(events = []) {
+  const grid = Array.from({ length: 7 }, () => new Array(24).fill(0))
+  let max = 0
+  for (const e of events) {
+    const d = new Date(e.created_at)
+    if (isNaN(d)) continue
+    const dow = d.getDay()
+    const h = d.getHours()
+    grid[dow][h] += 1
+    if (grid[dow][h] > max) max = grid[dow][h]
+  }
+  // Mejor franja (día + bloque de 3h) para la recomendación.
+  let mejor = null
+  for (let dow = 0; dow < 7; dow++) {
+    for (let h = 0; h <= 21; h++) {
+      const suma = grid[dow][h] + grid[dow][h + 1] + grid[dow][h + 2]
+      if (!mejor || suma > mejor.suma) mejor = { dow, h, suma }
+    }
+  }
+  const mejorTexto = mejor && mejor.suma > 0
+    ? `${DOW[mejor.dow]} de ${mejor.h}:00 a ${mejor.h + 3}:00`
+    : null
+  return { grid, max, dias: DOW, mejorTexto }
+}
+
+// Atribución: cuántas interacciones trajo cada origen (historia/evento/etc).
+export function atribucion(events = []) {
+  const acc = {}
+  for (const e of events) {
+    const ref = e.ref
+    if (!ref) continue
+    const [tipo, ...resto] = String(ref).split(':')
+    const slug = resto.join(':')
+    const key = ref
+    acc[key] = acc[key] || { ref, tipo, slug, vistas: 0, contactos: 0 }
+    if (e.kind === 'view') acc[key].vistas += 1
+    else acc[key].contactos += 1
+  }
+  return Object.values(acc).sort((a, b) => (b.vistas + b.contactos) - (a.vistas + a.contactos))
+}
+
+// Origen geográfico aproximado (por región/estado). Top primero.
+export function origenGeografico(events = []) {
+  const acc = {}
+  let total = 0
+  for (const e of events) {
+    if (e.kind !== 'view') continue
+    const label = e.region || e.country || 'Desconocido'
+    acc[label] = (acc[label] || 0) + 1
+    total += 1
+  }
+  const filas = Object.entries(acc)
+    .map(([label, n]) => ({ label, n, pct: total > 0 ? Math.round((n / total) * 100) : 0 }))
+    .sort((a, b) => b.n - a.n)
+  return { total, filas: filas.slice(0, 6) }
+}
+
+// Serie de tiempo: interacciones por día (últimos `dias` días).
+export function serieTiempo(events = [], dias = 30) {
+  const hoy = new Date()
+  hoy.setHours(0, 0, 0, 0)
+  const buckets = []
+  const idx = {}
+  for (let i = dias - 1; i >= 0; i--) {
+    const d = new Date(hoy)
+    d.setDate(d.getDate() - i)
+    const key = d.toISOString().slice(0, 10)
+    idx[key] = buckets.length
+    buckets.push({ dia: key, vistas: 0, contactos: 0 })
+  }
+  for (const e of events) {
+    const key = new Date(e.created_at).toISOString().slice(0, 10)
+    if (idx[key] === undefined) continue
+    if (e.kind === 'view') buckets[idx[key]].vistas += 1
+    else buckets[idx[key]].contactos += 1
+  }
+  return buckets
 }
 
 // ── Formato de dinero (es-MX) ───────────────────────────────────────────────

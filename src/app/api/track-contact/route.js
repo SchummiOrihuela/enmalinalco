@@ -7,7 +7,7 @@ import { createServerClient } from '@supabase/ssr'
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
-const KINDS = new Set(['whatsapp', 'phone', 'maps', 'instagram', 'facebook'])
+const KINDS = new Set(['whatsapp', 'phone', 'maps', 'instagram', 'facebook', 'share'])
 // UUID v4-ish: valida formato antes de tocar la base.
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
@@ -25,13 +25,21 @@ export async function POST(request) {
     return Response.json({ ok: false }, { status: 400 })
   }
 
+  // Origen (atribución) y geo aproximada, igual que en la vista de ficha.
+  const ref = typeof body?.ref === 'string' ? body.ref.slice(0, 80) : null
+  const country = request.headers.get('x-vercel-ip-country') || null
+  const region = request.headers.get('x-vercel-ip-country-region') ||
+    request.headers.get('x-vercel-ip-city') || null
+
   try {
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
       { cookies: { getAll: () => [], setAll: () => {} } }
     )
-    await supabase.rpc('increment_business_contact', { bid: id, kind })
+    await supabase.rpc('track_contact', {
+      bid: id, p_kind: kind, p_ref: ref, p_country: country, p_region: region,
+    })
   } catch {
     // Silencioso: el tracking nunca debe bloquear la navegación del usuario.
     return Response.json({ ok: false }, { status: 200 })
