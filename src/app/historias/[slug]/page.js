@@ -385,7 +385,7 @@ export default async function HistoriaPage({ params }) {
             {a.faq.map((f, i) => (
               <details key={i}>
                 <summary>{f.q}</summary>
-                <div className="art-faq-a">{f.a}</div>
+                <div className="art-faq-a" dangerouslySetInnerHTML={{ __html: conRef(f.a, slug) }} />
               </details>
             ))}
           </section>

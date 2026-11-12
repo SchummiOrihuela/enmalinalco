@@ -1269,7 +1269,7 @@ export const ARTICULOS = [
       { q: '¿Cuánto cuesta hospedarse en Malinalco?', a: 'Varía según el tipo y la temporada. Las habitaciones de hotel boutique suelen ser la opción para dos personas; las casas completas con alberca salen más baratas por persona cuando se divide el costo entre el grupo. Los precios suben en fines de semana, puentes, Semana Santa y fechas decembrinas.' },
       { q: '¿Hay cabañas y casas con alberca en Malinalco?', a: 'Sí. Es uno de los formatos más buscados por el clima templado-cálido del pueblo. Encuentras cabañas entre naturaleza y casas completas con alberca, cocina y varias recámaras, ideales para familias y grupos. Puedes verlas en la categoría Hospedaje del directorio.' },
       { q: '¿Con cuánta anticipación debo reservar?', a: 'Entre semana puedes encontrar lugar sobre la marcha. Para fin de semana reserva con 3 a 4 semanas de anticipación, y con más tiempo aún para Semana Santa, puentes, el Festival Cultural y las fechas decembrinas, cuando la disponibilidad se agota rápido.' },
-      { q: '¿Se puede reservar directo sin plataformas?', a: 'Sí. Varios hospedajes de Malinalco ofrecen reserva directa con el anfitrión, lo que suele significar mejor trato y sin comisiones de intermediarios. Cantera y Calma, por ejemplo, trabaja con reserva directa.' },
+      { q: '¿Se puede reservar directo sin plataformas?', a: 'Sí. Varios hospedajes de Malinalco ofrecen reserva directa con el anfitrión, lo que suele significar mejor trato y sin comisiones de intermediarios. <strong><a href="/negocio/cantera-y-calma">Cantera y Calma</a></strong>, por ejemplo, trabaja con reserva directa.' },
     ],
     relacionados: ['fin-de-semana-malinalco-cdmx', '48-horas-malinalco', 'escapada-romantica-malinalco'],
   },
