@@ -119,10 +119,12 @@ export async function GET(request) {
     })
   }
 
-  // TEST: envía solo al correo indicado, con los datos del 1er contacto.
+  // TEST: envía solo al correo indicado. Si ese correo está en la lista, usa
+  // SUS datos (su negocio); si no, usa los del primer contacto como muestra.
   if (test) {
+    const muestra = lista.find((c) => c.email?.toLowerCase() === test.toLowerCase()) || lista[0]
     try {
-      const r = await enviarInvitacion(datos(lista[0], test))
+      const r = await enviarInvitacion(datos(muestra, test))
       return Response.json({ ok: true, modo: 'test', enviadoA: test, id: r?.data?.id || null })
     } catch (e) {
       return Response.json(
