@@ -1,12 +1,13 @@
 'use client'
 
-// Ventana flotante "Mi inteligencia": concentra TODOS los insights (Fase 1 + 2)
-// en una capa elegante, en vez de amontonarlos al inicio del panel.
-//   - Fase 1: salud de ficha, tasa de contacto, ranking, valor estimado (ROI),
-//             recomendaciones ESPECÍFICAS por red (Instagram/Facebook/WhatsApp).
-//   - Fase 2: tendencia (30 días), mapa de calor día×hora, origen geográfico y
-//             atribución a historias/eventos (tabla events).
-// Recibe todo ya calculado desde el servidor (props serializables).
+// 🐆 Ojo de Jaguar — la inteligencia de negocio de En Malinalco.
+// "Lo que Google Maps no te puede decir". Concentra, en una capa premium:
+//   - Lectura del Consultor: un párrafo que LEE los datos y te habla como asesor.
+//   - 3 acciones de la semana (lo que haría tu consultor).
+//   - KPIs (salud, tasa, ranking, ROI) y recomendaciones específicas por red.
+//   - Fase 2: tendencia, mapa de calor día×hora, origen geográfico y atribución.
+//   - Sello vs. Google y exportar el reporte para presumirlo / usarlo en ventas.
+// El jaguar (Ocēlōtl) ve en la oscuridad lo que nadie ve: justo lo que Google no da.
 import { useState, useEffect, Fragment } from 'react'
 
 const pesos = (n) =>
@@ -20,25 +21,28 @@ const RED_META = {
   contenido: { label: 'Contenido', icon: '🗓️' },
 }
 
-function Kpi({ label, value, sub, accent = '#DCB24A' }) {
+const ORO = '#DCB24A'
+
+function Kpi({ label, value, sub, accent = ORO }) {
   return (
     <div style={{
-      flex: '1 1 180px', minWidth: 0, padding: '14px 16px', borderRadius: '14px',
-      background: 'linear-gradient(135deg, rgba(220,178,74,0.10), rgba(28,59,40,0.30))',
+      flex: '1 1 180px', minWidth: 0, padding: '16px 18px', borderRadius: '16px',
+      background: 'linear-gradient(135deg, rgba(220,178,74,0.12), rgba(16,28,18,0.5))',
       border: '1px solid rgba(220,178,74,0.22)', borderLeft: `4px solid ${accent}`, color: '#F6F0E0',
     }}>
-      <div style={{ fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 700, color: 'rgba(246,240,224,0.66)' }}>{label}</div>
-      <div style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '26px', fontWeight: 600, marginTop: '4px' }}>{value}</div>
+      <div style={{ fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 700, color: 'rgba(246,240,224,0.62)' }}>{label}</div>
+      <div style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '27px', fontWeight: 600, marginTop: '4px' }}>{value}</div>
       {sub && <div style={{ fontSize: '12px', opacity: 0.82, lineHeight: 1.4, marginTop: '4px' }}>{sub}</div>}
     </div>
   )
 }
 
 const H2 = ({ children }) => (
-  <h3 style={{ margin: '22px 0 10px', fontSize: '13px', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#DCB24A', fontWeight: 800 }}>{children}</h3>
+  <h3 style={{ margin: '26px 0 12px', fontSize: '12.5px', letterSpacing: '0.1em', textTransform: 'uppercase', color: ORO, fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px' }}>
+    <span style={{ width: '20px', height: '1px', background: ORO, opacity: 0.6 }} />{children}
+  </h3>
 )
 
-// Barras de tendencia (30 días). Verde = vistas, oro = contactos.
 function Tendencia({ serie }) {
   const max = Math.max(1, ...serie.map((d) => d.vistas))
   return (
@@ -47,22 +51,20 @@ function Tendencia({ serie }) {
         {serie.map((d, i) => (
           <div key={i} title={`${d.dia}: ${d.vistas} vistas, ${d.contactos} contactos`}
             style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', height: '100%' }}>
-            <div style={{ height: `${(d.vistas / max) * 100}%`, background: 'linear-gradient(180deg,#82C994,#3A6B47)', borderRadius: '3px 3px 0 0', minHeight: d.vistas ? '2px' : 0 }} />
-            {d.contactos > 0 && <div style={{ height: '3px', background: '#DCB24A', marginTop: '1px' }} />}
+            <div style={{ height: `${(d.vistas / max) * 100}%`, background: 'linear-gradient(180deg,#E7C86A,#3A6B47)', borderRadius: '3px 3px 0 0', minHeight: d.vistas ? '2px' : 0 }} />
+            {d.contactos > 0 && <div style={{ height: '3px', background: ORO, marginTop: '1px' }} />}
           </div>
         ))}
       </div>
-      <div style={{ fontSize: '11px', opacity: 0.6, marginTop: '6px' }}>Últimos 30 días · verde = vistas · línea oro = contactos</div>
+      <div style={{ fontSize: '11px', opacity: 0.6, marginTop: '6px' }}>Últimos 30 días · barra = vistas · línea oro = contactos</div>
     </div>
   )
 }
 
-// Mapa de calor día (filas) × hora (columnas 0..23).
 function Heatmap({ hm }) {
   const color = (n) => {
     if (!n) return 'rgba(246,240,224,0.06)'
     const t = n / hm.max
-    // de verde tenue a oro intenso
     const r = Math.round(90 + t * 130), g = Math.round(120 + t * 60), b = Math.round(60 - t * 20)
     return `rgb(${r},${g},${b})`
   }
@@ -93,14 +95,59 @@ function Heatmap({ hm }) {
   )
 }
 
-function Vacio({ children }) {
-  return <p style={{ margin: 0, fontSize: '13px', color: 'rgba(246,240,224,0.6)', lineHeight: 1.5 }}>{children}</p>
+const Vacio = ({ children }) => (
+  <p style={{ margin: 0, fontSize: '13px', color: 'rgba(246,240,224,0.6)', lineHeight: 1.5 }}>{children}</p>
+)
+
+// Comparativo: qué das tú que Google Maps no.
+const VS_GOOGLE = [
+  'Une Instagram, Facebook y WhatsApp en un solo tablero',
+  'Te compara contra tu categoría en Malinalco, no contra todo México',
+  'Te dice qué historia o evento te trajo cada cliente',
+  'Traduce tus contactos a pesos y retorno de tu mensualidad',
+  'Te da recomendaciones accionables, no solo números',
+]
+
+// Exporta el reporte a una ventana imprimible (el cliente guarda PDF o screenshot).
+function exportarReporte({ negocio, lectura, acciones, salud, tasa, ranking, roi, fase2 }) {
+  const fecha = new Date().toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' })
+  const kpi = (l, v) => `<div style="flex:1 1 150px;border:1px solid #E4D7B4;border-left:4px solid #B98A16;border-radius:12px;padding:12px 14px"><div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8A7A4F;font-weight:700">${l}</div><div style="font-family:Georgia,serif;font-size:24px;color:#1C3B28;font-weight:700;margin-top:2px">${v}</div></div>`
+  const kpis = [
+    salud ? kpi('Salud de ficha', `${salud.score}/100`) : '',
+    tasa && tasa.pct !== null ? kpi('Tasa de contacto', `${tasa.pct}%`) : '',
+    ranking ? kpi('Lugar en categoría', `#${ranking.pos} de ${ranking.n}`) : '',
+    roi && roi.contactos > 0 ? kpi('Valor estimado', pesos(roi.ingreso)) : '',
+  ].join('')
+  const accs = (acciones || []).map((a, i) => `<li style="margin:0 0 8px;font-size:14px;color:#2A2016">${a.icon} ${a.text}</li>`).join('')
+  const geo = fase2 && fase2.geo && fase2.geo.total > 0
+    ? `<h3 style="color:#B98A16;font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin:20px 0 8px">¿De dónde vienen?</h3>` +
+      fase2.geo.filas.map((g) => `<div style="font-size:13px;color:#2A2016;margin:3px 0">${g.label} — <strong>${g.pct}%</strong></div>`).join('')
+    : ''
+  const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Ojo de Jaguar — ${negocio || 'Mi negocio'}</title></head>
+  <body style="margin:0;background:#F6F0E0;font-family:Arial,Helvetica,sans-serif;color:#2A2016">
+    <div style="max-width:720px;margin:0 auto;padding:36px 28px">
+      <div style="color:#B98A16;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase">🐆 Ojo de Jaguar · En Malinalco</div>
+      <h1 style="font-family:Georgia,serif;font-size:30px;color:#1C3B28;margin:6px 0 2px">${negocio || 'Mi negocio'}</h1>
+      <div style="color:#6B6052;font-size:13px;margin-bottom:4px">Reporte de inteligencia · ${fecha}</div>
+      <div style="color:#8A7A4F;font-size:12px;font-style:italic;margin-bottom:20px">Lo que Google Maps no te puede decir</div>
+      ${lectura ? `<div style="background:#EAF4EC;border:1px solid #CFE3D4;border-left:4px solid #3A6B47;border-radius:12px;padding:16px 18px;font-size:15px;line-height:1.6;color:#223">${lectura}<div style="margin-top:8px;font-size:12px;color:#6B6052;font-style:italic">— Tu consultor En Malinalco</div></div>` : ''}
+      <h3 style="color:#B98A16;font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin:22px 0 8px">Tus 3 acciones de la semana</h3>
+      <ol style="padding-left:18px;margin:0">${accs}</ol>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 0">${kpis}</div>
+      ${geo}
+      <p style="margin:26px 0 0;color:#9A8E7C;font-size:11px">Valores de ingreso estimados con supuestos conservadores. En Malinalco · El directorio del Pueblo Mágico.</p>
+    </div>
+    <script>window.onload=function(){setTimeout(function(){window.print()},300)}</script>
+  </body></html>`
+  const w = window.open('', '_blank')
+  if (!w) { alert('Permite las ventanas emergentes para descargar tu reporte.'); return }
+  w.document.open(); w.document.write(html); w.document.close()
 }
 
 export default function InsightsDrawer({ insights }) {
   const [open, setOpen] = useState(false)
   const [red, setRed] = useState(null)
-  const { salud, tasa, ranking, roi, recosPorRed, fase2 } = insights
+  const { salud, tasa, ranking, roi, recosPorRed, fase2, lectura, acciones, negocio } = insights
 
   useEffect(() => {
     if (!open) return
@@ -115,57 +162,108 @@ export default function InsightsDrawer({ insights }) {
 
   return (
     <>
+      {/* Botón de acceso premium */}
       <button onClick={() => setOpen(true)} style={{
         marginTop: '14px', width: '100%', cursor: 'pointer',
-        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
-        padding: '14px 18px', borderRadius: '14px', border: '1px solid rgba(220,178,74,0.45)',
-        background: 'linear-gradient(135deg, rgba(220,178,74,0.18), rgba(28,59,40,0.30))',
-        color: '#F6F0E0', fontSize: '15px', fontWeight: 700, fontFamily: 'inherit',
+        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px',
+        padding: '16px 18px', borderRadius: '16px', border: '1px solid rgba(220,178,74,0.5)',
+        background: 'linear-gradient(135deg, rgba(220,178,74,0.22), rgba(16,28,18,0.55))',
+        color: '#F6F0E0', fontSize: '16px', fontWeight: 800, fontFamily: 'inherit',
+        boxShadow: '0 6px 22px rgba(0,0,0,0.22)', letterSpacing: '0.01em',
       }}>
-        📊 Ver mi inteligencia completa
-        <span style={{ fontSize: '12px', fontWeight: 500, opacity: 0.75 }}>salud · ROI · recomendaciones · tendencias</span>
+        <span style={{ fontSize: '20px' }}>🐆</span>
+        Ojo de Jaguar
+        <span style={{ fontSize: '12px', fontWeight: 500, opacity: 0.78 }}>lo que Google Maps no te puede decir</span>
       </button>
 
       {open && (
         <div onClick={() => setOpen(false)} style={{
-          position: 'fixed', inset: 0, zIndex: 1000, background: 'rgba(10,18,12,0.66)',
-          backdropFilter: 'blur(3px)', display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
+          position: 'fixed', inset: 0, zIndex: 1000, background: 'rgba(6,12,8,0.72)',
+          backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
           padding: '4vh 16px', overflowY: 'auto',
         }}>
           <div onClick={(e) => e.stopPropagation()} style={{
-            width: '100%', maxWidth: '920px', borderRadius: '20px',
-            background: 'linear-gradient(180deg,#213A26,#1C2E1E)',
-            border: '1px solid rgba(220,178,74,0.25)', boxShadow: '0 24px 70px rgba(0,0,0,0.5)',
+            width: '100%', maxWidth: '940px', borderRadius: '22px',
+            background: 'linear-gradient(180deg,#1E3322,#121E14)',
+            border: '1px solid rgba(220,178,74,0.28)', boxShadow: '0 30px 80px rgba(0,0,0,0.6)',
             color: '#F6F0E0', fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif",
           }}>
-            {/* Encabezado */}
+            {/* HERO */}
             <div style={{
-              position: 'sticky', top: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              padding: '18px 22px', borderBottom: '1px solid rgba(220,178,74,0.18)',
-              background: 'linear-gradient(180deg,#1C3B28,#213A26)', borderRadius: '20px 20px 0 0', zIndex: 2,
+              position: 'sticky', top: 0, zIndex: 2, borderRadius: '22px 22px 0 0',
+              padding: '20px 24px', borderBottom: '1px solid rgba(220,178,74,0.2)',
+              background: 'radial-gradient(600px 180px at 10% -40%, rgba(220,178,74,0.22), transparent 70%), linear-gradient(180deg,#17301E,#1E3322)',
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px',
             }}>
-              <div>
-                <div style={{ fontSize: '11px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#DCB24A', fontWeight: 800 }}>En Malinalco · Inteligencia</div>
-                <div style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '22px', fontWeight: 600 }}>Mi negocio en números</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                <div style={{ fontSize: '34px', lineHeight: 1, filter: 'drop-shadow(0 2px 6px rgba(220,178,74,0.4))' }}>🐆</div>
+                <div>
+                  <div style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '23px', fontWeight: 600, letterSpacing: '-0.01em' }}>Ojo de Jaguar</div>
+                  <div style={{ fontSize: '11.5px', color: ORO, fontWeight: 700, letterSpacing: '0.04em' }}>Lo que Google Maps no te puede decir</div>
+                  {negocio && <div style={{ fontSize: '12px', opacity: 0.7, marginTop: '2px' }}>{negocio}</div>}
+                </div>
               </div>
-              <button onClick={() => setOpen(false)} aria-label="Cerrar" style={{
-                cursor: 'pointer', width: '38px', height: '38px', borderRadius: '50%',
-                border: '1px solid rgba(246,240,224,0.25)', background: 'rgba(0,0,0,0.2)', color: '#F6F0E0', fontSize: '18px',
-              }}>✕</button>
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                <button onClick={() => exportarReporte(insights)} title="Descargar / imprimir" style={{
+                  cursor: 'pointer', padding: '9px 14px', borderRadius: '9999px', fontSize: '13px', fontWeight: 700, fontFamily: 'inherit',
+                  border: '1px solid rgba(220,178,74,0.5)', background: 'rgba(220,178,74,0.14)', color: '#F6F0E0',
+                }}>⬇ Exportar</button>
+                <button onClick={() => setOpen(false)} aria-label="Cerrar" style={{
+                  cursor: 'pointer', width: '38px', height: '38px', borderRadius: '50%',
+                  border: '1px solid rgba(246,240,224,0.25)', background: 'rgba(0,0,0,0.25)', color: '#F6F0E0', fontSize: '18px',
+                }}>✕</button>
+              </div>
             </div>
 
-            <div style={{ padding: '18px 22px 26px' }}>
-              {/* KPIs Fase 1 */}
+            <div style={{ padding: '20px 24px 28px' }}>
+              {/* LECTURA DEL CONSULTOR */}
+              {lectura && (
+                <div style={{
+                  padding: '18px 20px', borderRadius: '16px',
+                  background: 'linear-gradient(135deg, rgba(124,182,137,0.14), rgba(16,28,18,0.4))',
+                  border: '1px solid rgba(124,182,137,0.3)', borderLeft: '4px solid #6FB880',
+                }}>
+                  <div style={{ fontSize: '11.5px', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#8FD3A0', fontWeight: 800, marginBottom: '8px' }}>
+                    🔎 La lectura de tu consultor
+                  </div>
+                  <p style={{ margin: 0, fontSize: '15.5px', lineHeight: 1.65, color: '#F3EEE2' }}>{lectura}</p>
+                  <div style={{ marginTop: '10px', fontSize: '12px', fontStyle: 'italic', opacity: 0.7 }}>— Tu consultor En Malinalco</div>
+                </div>
+              )}
+
+              {/* 3 ACCIONES DE LA SEMANA */}
+              {acciones && acciones.length > 0 && (
+                <>
+                  <H2>Tus 3 acciones de la semana</H2>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    {acciones.map((a, i) => (
+                      <div key={i} style={{
+                        display: 'flex', gap: '14px', alignItems: 'center', padding: '13px 16px', borderRadius: '14px',
+                        background: 'rgba(220,178,74,0.08)', border: '1px solid rgba(220,178,74,0.22)',
+                      }}>
+                        <div style={{
+                          flexShrink: 0, width: '30px', height: '30px', borderRadius: '50%', display: 'grid', placeItems: 'center',
+                          background: 'linear-gradient(135deg,#E7C86A,#B98A16)', color: '#1C2E1E', fontWeight: 800, fontFamily: "'Fraunces', Georgia, serif",
+                        }}>{i + 1}</div>
+                        <div style={{ fontSize: '14px', lineHeight: 1.5 }}><span style={{ marginRight: '6px' }}>{a.icon}</span>{a.text}</div>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+
+              {/* KPIs */}
+              <H2>Tus números</H2>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
                 {salud && (
-                  <Kpi label="Salud de tu ficha" value={`${salud.score}/100`} accent={salud.score >= 85 ? '#3E9E59' : salud.score >= 60 ? '#DCB24A' : '#BF5028'}
+                  <Kpi label="Salud de tu ficha" value={`${salud.score}/100`} accent={salud.score >= 85 ? '#3E9E59' : salud.score >= 60 ? ORO : '#BF5028'}
                     sub={salud.faltantes.length ? `Te falta: ${salud.faltantes.slice(0, 2).join(', ')}` : '¡Ficha completa!'} />
                 )}
                 {tasa && tasa.pct !== null && (
                   <Kpi label="Tasa de contacto" value={`${tasa.pct}%`} sub={`${tasa.contactos} contactos de ${tasa.vistas} vistas`} />
                 )}
                 {ranking && (
-                  <Kpi label="Tu lugar en la categoría" value={`#${ranking.pos} de ${ranking.n}`} accent={ranking.pos === 1 ? '#3E9E59' : '#DCB24A'}
+                  <Kpi label="Tu lugar en la categoría" value={`#${ranking.pos} de ${ranking.n}`} accent={ranking.pos === 1 ? '#3E9E59' : ORO}
                     sub={ranking.pos === 1 ? '¡Primer lugar del pueblo!' : 'Por vistas en tu categoría'} />
                 )}
                 {roi && roi.contactos > 0 && (
@@ -174,7 +272,7 @@ export default function InsightsDrawer({ insights }) {
                 )}
               </div>
 
-              {/* Recomendaciones por red */}
+              {/* RECOMENDACIONES POR RED */}
               {redes.length > 0 && (
                 <>
                   <H2>Recomendaciones para tu caso</H2>
@@ -182,9 +280,8 @@ export default function InsightsDrawer({ insights }) {
                     {redes.map((k) => (
                       <button key={k} onClick={() => setRed(k)} style={{
                         cursor: 'pointer', padding: '7px 14px', borderRadius: '9999px', fontSize: '13px', fontWeight: 700, fontFamily: 'inherit',
-                        border: `1px solid ${k === redActiva ? '#DCB24A' : 'rgba(246,240,224,0.2)'}`,
-                        background: k === redActiva ? 'rgba(220,178,74,0.22)' : 'transparent',
-                        color: '#F6F0E0',
+                        border: `1px solid ${k === redActiva ? ORO : 'rgba(246,240,224,0.2)'}`,
+                        background: k === redActiva ? 'rgba(220,178,74,0.22)' : 'transparent', color: '#F6F0E0',
                       }}>{RED_META[k]?.icon} {RED_META[k]?.label || k}</button>
                     ))}
                   </div>
@@ -202,7 +299,7 @@ export default function InsightsDrawer({ insights }) {
                 </>
               )}
 
-              {/* Fase 2 */}
+              {/* FASE 2 */}
               {fase2 && (
                 <>
                   <H2>Tendencia</H2>
@@ -220,7 +317,7 @@ export default function InsightsDrawer({ insights }) {
                         <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px' }}>
                           <div style={{ width: '120px', opacity: 0.85 }}>{g.label}</div>
                           <div style={{ flex: 1, height: '10px', borderRadius: '9999px', background: 'rgba(246,240,224,0.08)', overflow: 'hidden' }}>
-                            <div style={{ width: `${g.pct}%`, height: '100%', background: 'linear-gradient(90deg,#82C994,#3A6B47)' }} />
+                            <div style={{ width: `${g.pct}%`, height: '100%', background: 'linear-gradient(90deg,#E7C86A,#3A6B47)' }} />
                           </div>
                           <div style={{ width: '42px', textAlign: 'right', fontWeight: 700 }}>{g.pct}%</div>
                         </div>
@@ -244,6 +341,20 @@ export default function InsightsDrawer({ insights }) {
                   ) : <Vacio>Cuando una de nuestras historias o eventos te mande visitas, aquí verás exactamente cuántas — la prueba de que lo que hacemos por el pueblo te llega a la caja.</Vacio>}
                 </>
               )}
+
+              {/* SELLO VS GOOGLE */}
+              <H2>Por qué esto no es Google Maps</H2>
+              <div style={{
+                padding: '16px 18px', borderRadius: '16px',
+                background: 'linear-gradient(135deg, rgba(220,178,74,0.10), rgba(16,28,18,0.4))',
+                border: '1px solid rgba(220,178,74,0.25)',
+              }}>
+                {VS_GOOGLE.map((t, i) => (
+                  <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontSize: '13.5px', lineHeight: 1.5, padding: '5px 0' }}>
+                    <span style={{ color: '#6FB880', fontWeight: 900 }}>✓</span><span>{t}</span>
+                  </div>
+                ))}
+              </div>
 
               <p style={{ margin: '22px 0 0', fontSize: '12px', color: 'rgba(246,240,224,0.55)', lineHeight: 1.5 }}>
                 Los valores de ingreso son estimados con supuestos conservadores por categoría. La geografía es aproximada y sin datos personales.

@@ -310,6 +310,49 @@ export function recomendaciones(input, max = 3) {
   return top.slice(0, max).map(({ icon, text }) => ({ icon, text }))
 }
 
+// ── 5b) Lectura del Consultor ───────────────────────────────────────────────
+// El diferenciador BI: un párrafo narrativo que LEE los datos y le habla al
+// dueño como un consultor. No es un dato suelto (eso lo da Google); es la
+// interpretación + el siguiente paso. Rule-based, siempre coherente.
+export function lecturaConsultor({ business, salud, tasa, roi, ranking }) {
+  const b = business
+  const vistasMes = delta(b.view_count, b.views_last_month)
+  const frases = []
+
+  // 1) Apertura: el pulso del mes (crecimiento de vistas).
+  if (vistasMes > 0 && b.views_last_month) {
+    const pct = Math.round((vistasMes / Math.max(1, b.views_last_month)) * 100)
+    frases.push(`Este mes tu ficha creció ${pct > 0 ? `un ${pct}%` : ''} en visibilidad: ${vistasMes} personas nuevas te descubrieron en En Malinalco.`)
+  } else if ((b.view_count || 0) > 0) {
+    frases.push(`Llevas ${b.view_count} personas que han descubierto tu negocio en En Malinalco.`)
+  } else {
+    frases.push('Tu ficha acaba de arrancar. En cuanto empiece a recibir visitas, aquí te diré exactamente qué está funcionando y qué ajustar.')
+  }
+
+  // 2) El cuello de botella: conversión o salud de ficha.
+  if (tasa && tasa.pct !== null && tasa.vistas >= 15 && tasa.pct < 5) {
+    frases.push(`Pero ojo: de cada 100 que te ven, solo ${tasa.pct} te contactan. El cuello de botella está en tu ficha —casi siempre es la foto principal o que falta el precio—, no en el alcance.`)
+  } else if (salud && salud.score < 70 && salud.faltantes.length) {
+    frases.push(`Tu mayor oportunidad ahora es completar la ficha (vas ${salud.score}/100): te falta ${salud.faltantes.slice(0, 2).join(' y ')}. Las fichas completas convierten hasta 3× más.`)
+  } else if (tasa && tasa.pct !== null && tasa.pct >= 7) {
+    frases.push(`Y lo mejor: tu ficha convierte bien (${tasa.pct}% de quienes te ven te contactan). El motor funciona; ahora toca echarle más gente encima con redes.`)
+  }
+
+  // 3) Posición competitiva.
+  if (ranking) {
+    if (ranking.pos === 1) frases.push(`Vas en el #1 de tu categoría en el pueblo: eres el referente. Defiende ese lugar manteniendo fotos y promos frescas.`)
+    else if (ranking.pos <= 3) frases.push(`Estás en el Top ${ranking.pos} de ${ranking.n} en tu categoría. Un empujón en redes y peleas el primer lugar.`)
+    else frases.push(`Vas #${ranking.pos} de ${ranking.n} en tu categoría: hay techo para subir, y las recomendaciones de abajo son tu camino.`)
+  }
+
+  // 4) Cierre con el valor en pesos.
+  if (roi && roi.contactos > 0 && roi.retorno >= 1) {
+    frases.push(`En dinero: los ${roi.contactos} contactos de este mes valen alrededor de ${pesos(roi.ingreso)} en ventas potenciales —unas ${roi.retorno}× lo que pagas. Tu mensualidad ya se pagó sola.`)
+  }
+
+  return frases.join(' ')
+}
+
 // ── 6) Agregadores de Fase 2 (sobre la tabla `events`) ──────────────────────
 // Reciben el arreglo crudo de eventos del negocio y devuelven vistas listas.
 // Cada evento: { kind, ref, country, region, created_at }. Puras, sin red.
