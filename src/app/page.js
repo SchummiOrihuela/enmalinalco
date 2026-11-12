@@ -542,7 +542,8 @@ nav.dnav a:hover::after{transform:scaleX(1)}
 .pcrd.star .plan-feats li{color:rgba(242,237,227,.78)}
 .plan-feats li.oj-feat{color:#E6D08A;font-weight:600}
 .plan-feats li.oj-feat strong{color:#F0DC9A;font-weight:800}
-.plan-feats li.oj-feat svg{width:16px;height:16px;margin-top:0}
+.plan-feats li.oj-feat svg{width:16px;height:16px;margin-top:0;align-self:flex-start}
+.plan-feats li.oj-feat span{flex:1;min-width:0}
 .pcrd.star .plan-feats li.oj-feat{color:#E6D08A}
 
 /* Pulsos elegantes de la landing (card popular, CTA y "Malinalco" del título) */
@@ -764,9 +765,18 @@ footer{background:var(--espresso);padding-block:clamp(var(--s12),7vw,var(--s20))
 .faq-list{max-width:60ch;margin:var(--s10) auto 0;
   display:flex;flex-direction:column;gap:var(--s3)}
 .faq-item{border:1px solid var(--fog);border-radius:14px;
-  background:var(--surf);overflow:hidden;transform-origin:center;
+  background:var(--surf);overflow:visible;transform-origin:center;
+  animation:faqBeat 2.2s ease-in-out infinite;
   transition:border-color var(--dur),background var(--dur),box-shadow var(--dur),transform .28s cubic-bezier(.2,.7,.3,1)}
-.faq-item:hover{transform:scale(1.02);border-color:rgba(220,178,74,.55);
+.faq-item:nth-of-type(2n){animation-delay:.55s}
+.faq-item:nth-of-type(3n){animation-delay:1.1s}
+.faq-item:nth-of-type(4n){animation-delay:1.65s}
+@keyframes faqBeat{
+  0%{box-shadow:0 0 0 0 rgba(220,178,74,0),0 4px 16px rgba(0,0,0,.1);border-color:var(--fog);transform:scale(1)}
+  45%{box-shadow:0 0 0 7px rgba(220,178,74,.16),0 10px 26px rgba(0,0,0,.14);border-color:rgba(220,178,74,.6);transform:scale(1.012)}
+  70%{box-shadow:0 0 0 12px rgba(220,178,74,0),0 6px 20px rgba(0,0,0,.12);border-color:rgba(220,178,74,.4);transform:scale(1)}
+  100%{box-shadow:0 0 0 0 rgba(220,178,74,0),0 4px 16px rgba(0,0,0,.1);border-color:var(--fog);transform:scale(1)}}
+.faq-item:hover{animation:none;transform:scale(1.02);border-color:rgba(220,178,74,.55);
   box-shadow:0 10px 28px rgba(0,0,0,.14)}
 .faq-item[open]{background:#F5ECD7;border-color:rgba(220,178,74,.72);
   box-shadow:0 6px 24px rgba(0,0,0,.14);animation:faqGold 1.5s cubic-bezier(.2,.7,.3,1)}
@@ -780,7 +790,7 @@ footer{background:var(--espresso);padding-block:clamp(var(--s12),7vw,var(--s20))
   100%{box-shadow:0 0 0 10px rgba(220,178,74,0),0 6px 24px rgba(0,0,0,.14);border-color:rgba(220,178,74,.72)}}
 @media (prefers-reduced-motion:reduce){
   .faq-item:hover,.faq-item[open]:hover{transform:none}
-  .faq-item[open]{animation:none}}
+  .faq-item,.faq-item[open]{animation:none}}
 .faq-item[open] summary{color:#241C12}
 .faq-item[open] summary:hover{color:#8A5E16}
 .faq-item[open] summary .faq-ic{color:#B0842C}
@@ -1186,7 +1196,7 @@ const MARKUP = `<!-- Progress bar -->
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Contacto, ubicación y horarios</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Apareces en el directorio y el buscador</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Comparte tu ficha por WhatsApp</li>
-            <li class="oj-feat">${ojoJaguarSVG(16, 'ojp3')} <strong>Ojo de Jaguar</strong>: salud de ficha, conversión y vistas</li>
+            <li class="oj-feat">${ojoJaguarSVG(16, 'ojp3')} <span><strong>Ojo de Jaguar</strong>: salud de ficha, conversión y vistas</span></li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Siempre visible, todo el año</li>
           </ul>
         </div>
@@ -1207,7 +1217,7 @@ const MARKUP = `<!-- Progress bar -->
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Apareces en los primeros lugares de tu categoría</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Insignia "Recomendado"</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>1 mención al mes en nuestras redes</li>
-            <li class="oj-feat">${ojoJaguarSVG(16, 'ojp4')} <strong>Ojo de Jaguar con IA</strong>: recomendaciones por red, ranking, alertas y metas</li>
+            <li class="oj-feat">${ojoJaguarSVG(16, 'ojp4')} <span><strong>Ojo de Jaguar con IA</strong>: recomendaciones por red, ranking, alertas y metas</span></li>
           </ul>
         </div>
         <div class="plan-price">
@@ -1225,7 +1235,7 @@ const MARKUP = `<!-- Progress bar -->
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Primer lugar en tu categoría y en la portada</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Tu historia contada: artículo editorial propio</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>En temporada alta, apareces en el Top 3</li>
-            <li class="oj-feat">${ojoJaguarSVG(16, 'ojp5')} <strong>Ojo de Jaguar total</strong>: origen de cada cliente, mejores horas y reporte exportable</li>
+            <li class="oj-feat">${ojoJaguarSVG(16, 'ojp5')} <span><strong>Ojo de Jaguar total</strong>: origen de cada cliente, mejores horas y reporte exportable</span></li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Atención personalizada, directa con nosotros</li>
           </ul>
         </div>
