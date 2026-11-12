@@ -132,6 +132,23 @@ export async function enviarReporteMensual({ email, negocio, stats }) {
     ? `<p style="margin:18px 0 0;padding:14px 16px;background:#F0F5F1;border:1px solid #CFE3D4;border-radius:10px;color:#2A2016;font-size:14px">📈 ${stats.comparativa}</p>`
     : ""
 
+  // Valor estimado del mes (ROI): contactos → pesos potenciales vs. precio del plan.
+  const valor = stats.valor
+    ? `<div style="margin:18px 0 0;padding:16px 18px;background:#EAF4EC;border:1px solid #CFE3D4;border-radius:10px">
+        <p style="margin:0 0 4px;color:#B0863A;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Valor estimado del mes</p>
+        <p style="margin:0;color:#1C3B28;font-size:22px;font-weight:700;font-family:Georgia,serif">${stats.valor.ingreso}${stats.valor.retorno ? ` <span style="font-size:14px;color:#3A6B47">· ${stats.valor.retorno}× tu plan</span>` : ""}</p>
+        <p style="margin:6px 0 0;color:#4A4034;font-size:13px;line-height:1.5">${stats.valor.detalle}</p>
+      </div>`
+    : ""
+
+  // Recomendaciones del mes (motor Fase 1).
+  const recos = Array.isArray(stats.recomendaciones) && stats.recomendaciones.length
+    ? `<div style="margin:18px 0 0;padding:16px 18px;background:#FBF7EC;border:1px solid #EFE2C2;border-radius:10px">
+        <p style="margin:0 0 8px;color:#B0863A;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Tus recomendaciones de este mes</p>
+        ${stats.recomendaciones.map((r) => `<p style="margin:0 0 8px;color:#2A2016;font-size:14px;line-height:1.5">${r.icon} ${r.text}</p>`).join("")}
+      </div>`
+    : ""
+
   const html = `<!doctype html><html lang="es"><body style="margin:0;background:#F6F0E0;font-family:Arial,Helvetica,sans-serif">
   <div style="max-width:560px;margin:0 auto;padding:28px 22px">
     <p style="color:#B0863A;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin:0 0 6px">Reporte mensual · En Malinalco</p>
@@ -142,6 +159,8 @@ export async function enviarReporteMensual({ email, negocio, stats }) {
       ${filas}
     </table>
     ${comparativa}
+    ${valor}
+    ${recos}
     <p style="margin:22px 0 0;color:#4A4034;font-size:14px;line-height:1.6">
       Gracias por ser <strong>Ocēlōtl</strong>, el plan de referencia del pueblo. Entra a tu panel para ver el detalle y actualizar tus fotos, horarios y promociones.
     </p>
