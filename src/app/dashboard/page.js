@@ -13,7 +13,9 @@ import FoundersWelcome from './FoundersWelcome'
 import BackToTop from './BackToTop'
 import ContactForm from './ContactForm'
 import PreviewSpace from './PreviewSpace'
+import InsightsPanel from './InsightsPanel'
 import FeedbackButton from './FeedbackButton'
+import { saludFicha, tasaContacto, rankingCategoria, roiEstimado, recomendaciones } from '@/lib/insights'
 import { BrandTile } from '@/app/components/BrandIcon'
 import ScrollProgress from '@/app/components/ScrollProgress'
 
@@ -72,16 +74,32 @@ export default async function DashboardPage({ searchParams }) {
   // Comparativa vs. categoría (beneficio de inteligencia: Cuāuhtli en adelante).
   // Promedio de vistas de los negocios activos de la misma categoría.
   let catAvg = null
+  let peersCat = null
   if (business && getPriority(business.plan) >= 2 && business.category) {
     const { data: peers } = await supabase
       .from('businesses')
       .select('view_count')
       .eq('is_active', true)
       .eq('category', business.category)
+    peersCat = peers || null
     if (peers && peers.length >= 3) {
       const avg = peers.reduce((a, b) => a + (b.view_count || 0), 0) / peers.length
       catAvg = { n: peers.length, views: avg }
     }
+  }
+
+  // ── Inteligencia Fase 1 (sobre los contadores actuales) ───────────────────
+  // Salud y tasa de contacto: todos los planes. Ranking, ROI y recomendaciones:
+  // Cuāuhtli en adelante (coherente con el reparto por plan).
+  let insights = null
+  if (business) {
+    const tierP = getPriority(business.plan)
+    const salud = saludFicha({ business, photos, hoursCount: hours.length })
+    const tasa = tasaContacto(business)
+    const ranking = tierP >= 2 ? rankingCategoria(peersCat, business.view_count) : null
+    const roi = tierP >= 2 ? roiEstimado(business) : null
+    const recs = tierP >= 2 ? recomendaciones({ business, salud, tasa }, 3) : null
+    insights = { salud, tasa, ranking, roi, recs }
   }
 
   return (
@@ -346,6 +364,17 @@ export default async function DashboardPage({ searchParams }) {
                     <span aria-hidden="true">{compara.tone === 'down' ? '📉' : '📈'}</span>
                     <span>{compara.text} <span style={{ fontWeight: 400, opacity: 0.7 }}>({catAvg.n} negocios en tu categoría)</span></span>
                   </div>
+                )}
+
+                {/* Inteligencia Fase 1: salud, tasa, ranking, ROI y recomendaciones */}
+                {insights && (
+                  <InsightsPanel
+                    salud={insights.salud}
+                    tasa={insights.tasa}
+                    ranking={insights.ranking}
+                    roi={insights.roi}
+                    recs={insights.recs}
+                  />
                 )}
 
                 {/* Teasers de upsell según el plan */}

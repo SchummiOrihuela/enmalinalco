@@ -8,6 +8,7 @@
 //
 // Requiere: CRON_SECRET, SUPABASE_SERVICE_ROLE_KEY, RESEND_API_KEY.
 import { enviarReporteMensual } from '@/lib/email'
+import { roiEstimado, recomendaciones, tasaContacto, pesos } from '@/lib/insights'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -55,7 +56,8 @@ export async function GET(request) {
 
   // 2) Negocios Ocēlōtl activos (destinatarios).
   const cols = [
-    'id', 'name', 'owner_id', 'category',
+    'id', 'name', 'owner_id', 'category', 'plan',
+    'whatsapp', 'instagram', 'facebook', 'description', 'address', 'maps_url',
     'view_count', 'views_last_month',
     'whatsapp_clicks', 'whatsapp_clicks_last_month',
     'phone_clicks', 'phone_clicks_last_month',
@@ -90,11 +92,25 @@ export async function GET(request) {
         else comparativa = `Vas en línea con el promedio de ${b.category} en el pueblo.`
       }
 
+      // Valor estimado (ROI) y recomendaciones del mes (Fase 1).
+      const roi = roiEstimado(b)
+      const valor = roi.contactos > 0
+        ? {
+            ingreso: pesos(roi.ingreso),
+            retorno: roi.retorno >= 1 ? roi.retorno : null,
+            detalle: `${roi.contactos} contactos × ${roi.cierreTexto} cerrado × ${pesos(roi.ticket)} ticket (estimado). Tu plan: ${pesos(roi.precio)}.`,
+          }
+        : null
+      const recos = recomendaciones({ business: b, tasa: tasaContacto(b) }, 3)
+        .map((r) => ({ icon: r.icon, text: r.text }))
+
       await enviarReporteMensual({
         email,
         negocio: b.name,
         stats: {
           vistas: { total: b.view_count || 0, mes: mes(b.view_count, b.views_last_month) },
+          valor,
+          recomendaciones: recos,
           contactos: [
             { label: '💬 Contactos por WhatsApp', total: b.whatsapp_clicks || 0, mes: mes(b.whatsapp_clicks, b.whatsapp_clicks_last_month) },
             { label: '📞 Llamadas', total: b.phone_clicks || 0, mes: mes(b.phone_clicks, b.phone_clicks_last_month) },
