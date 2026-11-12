@@ -186,6 +186,16 @@ export const RECOS_CATALOGO = [
   { red: 'instagram', prio: 50, icon: '💰', test: (c) => c.hasIG && c.restaurante, text: 'Pon tu menú y precios visibles en un reel o Highlight: el 70% abandona un perfil de restaurante si no ve cuánto cuesta.' },
   { red: 'instagram', prio: 50, icon: '🛏️', test: (c) => c.hasIG && c.hospedaje, text: 'Muestra la habitación, el baño y la vista en un solo reel: el huésped quiere ver exactamente dónde va a dormir antes de escribirte.' },
   { red: 'instagram', prio: 40, icon: '🏷️', test: (c) => c.hasIG, text: 'Usa 3–5 hashtags locales (#Malinalco #PuebloMagico #EdoMex) en lugar de 30 genéricos: pesan más para tu audiencia real.' },
+  { red: 'instagram', prio: 39, icon: '🎠', test: (c) => c.hasIG, text: 'Sube carruseles de 5–7 fotos: Instagram les da más alcance y el usuario pasa más tiempo en tu post (dos señales que premia el algoritmo).' },
+  { red: 'instagram', prio: 38, icon: '🔗', test: (c) => c.hasIG, text: 'Deja un solo enlace útil en tu bio (wa.me o tu ficha de En Malinalco): que escribirte sea de un toque, no una búsqueda.' },
+  { red: 'instagram', prio: 37, icon: '📌', test: (c) => c.hasIG, text: 'Fija (pin) tus 3 mejores posts arriba del perfil: son la primera impresión de quien te acaba de descubrir.' },
+  { red: 'instagram', prio: 36, icon: '🎵', test: (c) => c.hasIG, text: 'Usa un audio en tendencia en tus reels: Instagram empuja el contenido que monta sobre sonidos populares.' },
+  { red: 'instagram', prio: 35, icon: '❓', test: (c) => c.hasIG, text: 'Usa stickers de pregunta y encuestas en stories ("¿Qué platillo pedimos este finde?"): la interacción sube tu alcance con quien ya te sigue.' },
+  { red: 'instagram', prio: 34, icon: '📍', test: (c) => c.hasIG, text: 'Geo-etiqueta también puntos famosos (Zona Arqueológica, Convento, Los Bichos): alcanzas a quien explora el pueblo por ubicación.' },
+  { red: 'instagram', prio: 33, icon: '🗓️', test: (c) => c.hasIG, text: 'Programa tu contenido con Meta Business Suite: aunque tengas una semana llena, no dejas tu perfil abandonado.' },
+  { red: 'instagram', prio: 32, icon: '👨‍🍳', test: (c) => c.hasIG, text: 'Muestra el detrás de cámaras (cocina, equipo, el anfitrión): humanizar la marca genera confianza y cercanía antes de la visita.' },
+  { red: 'instagram', prio: 31, icon: '🤳', test: (c) => c.hasIG, text: 'Haz canje con micro-influencers locales (una comida o una noche a cambio de contenido): alcance real y barato con su audiencia de la región.' },
+  { red: 'instagram', prio: 30, icon: '📚', test: (c) => c.hasIG, text: 'Arma Guías de Instagram ("Un día en Malinalco", "Dónde comer trucha"): contenido que se guarda y comparte, y te posiciona como experto del pueblo.' },
 
   // ───────────── FACEBOOK (13) ─────────────
   { red: 'facebook', prio: 93, icon: '👍', test: (c) => !c.hasFB, text: 'Agrega tu Facebook a la ficha: ahí viven los grupos de "escapadas desde CDMX/Edomex" y "qué hacer en Malinalco" donde se decide el fin de semana.' },
@@ -201,6 +211,16 @@ export const RECOS_CATALOGO = [
   { red: 'facebook', prio: 54, icon: '🎯', test: (c) => c.hasFB, text: 'Si pruebas pauta, invierte poco ($100–150) segmentando a CDMX y Toluca, 25–55 años: es tu turista real de fin de semana.' },
   { red: 'facebook', prio: 50, icon: '🍽️', test: (c) => c.hasFB && c.restaurante, text: 'Publica tu menú del fin de semana cada jueves: la gente de la ciudad arma su plan de comida en Malinalco con 2–3 días de anticipación.' },
   { red: 'facebook', prio: 50, icon: '🏡', test: (c) => c.hasFB && c.hospedaje, text: 'Publica disponibilidad del próximo puente con fotos y precio: el huésped compara y reserva con semanas de anticipación.' },
+  { red: 'facebook', prio: 49, icon: '📋', test: (c) => c.hasFB, text: 'Completa toda la info de tu página (horarios, servicios, precios, zona): Facebook usa esos datos para recomendarte a quien busca en Malinalco.' },
+  { red: 'facebook', prio: 48, icon: '📌', test: (c) => c.hasFB, text: 'Fija una publicación destacada con tu promo o plato estrella actual: es lo primero que ve quien entra a tu página.' },
+  { red: 'facebook', prio: 47, icon: '🎬', test: (c) => c.hasFB, text: 'Reutiliza tus reels de Instagram como Reels de Facebook: es alcance orgánico extra sin crear nada nuevo.' },
+  { red: 'facebook', prio: 46, icon: '🎥', test: (c) => c.hasFB, text: 'Sube el video del recorrido directo a Facebook (no un link de YouTube): el video nativo pesa mucho más en el alcance.' },
+  { red: 'facebook', prio: 45, icon: '🫶', test: (c) => c.hasFB, text: 'Responde las reseñas negativas con calma y una solución pública: demuestra servicio a los cientos que las leen, no solo a quien se quejó.' },
+  { red: 'facebook', prio: 44, icon: '🎟️', test: (c) => c.hasFB, text: 'Crea una Oferta (Offer) con cupón para el fin de semana: Facebook la distribuye y la gente la guarda para canjearla contigo.' },
+  { red: 'facebook', prio: 43, icon: '📣', test: (c) => c.hasFB, text: 'Invita a tus clientes contentos a seguir y dar "me gusta" a tu página: cada seguidor nuevo amplía tu alcance futuro gratis.' },
+  { red: 'facebook', prio: 42, icon: '🏷️', test: (c) => c.hasFB, text: 'Etiqueta la ubicación Malinalco y a @EnMalinalco en cada publicación: entras en los feeds de quienes siguen al pueblo.' },
+  { red: 'facebook', prio: 41, icon: '📖', test: (c) => c.hasFB, text: 'Sube Historias de Facebook a diario (puedes sincronizarlas con las de Instagram): mantienen tu página activa arriba del feed.' },
+  { red: 'facebook', prio: 40, icon: '🛍️', test: (c) => c.hasFB, text: 'Si vendes productos o experiencias, publícalos en Marketplace: es un escaparate extra donde la gente de la región ya está comprando.' },
 
   // ───────────── WHATSAPP (13) ─────────────
   { red: 'whatsapp', prio: 96, icon: '💬', test: (c) => !c.hasWA, text: 'Agrega tu WhatsApp a la ficha: es tu canal de venta #1. Sin él, el cliente interesado no tiene cómo cerrar contigo en el momento.' },
@@ -216,6 +236,16 @@ export const RECOS_CATALOGO = [
   { red: 'whatsapp', prio: 56, icon: '✅', test: (c) => c.hasWA && c.hospedaje, text: 'Confirma y recuerda la reserva por WhatsApp un día antes: baja los "no show" y el huésped llega tranquilo.' },
   { red: 'whatsapp', prio: 54, icon: '⭐', test: (c) => c.hasWA, text: 'Pide la reseña por WhatsApp justo después de la visita, con el link directo: es cuando el cliente está más feliz y sí te la deja.' },
   { red: 'whatsapp', prio: 50, icon: '💰', test: (c) => c.hasWA, text: 'Ten el catálogo con precios visible: evitas el "¿cuánto cuesta?" y filtras a quien sí va a comprar.' },
+  { red: 'whatsapp', prio: 49, icon: '📢', test: (c) => c.hasWA, text: 'Usa listas de difusión (con permiso) para avisar la promo del fin a quienes ya te escribieron: llega al chat personal, no a un feed saturado.' },
+  { red: 'whatsapp', prio: 48, icon: '🔳', test: (c) => c.hasWA, text: 'Imprime tu código QR de WhatsApp en la mesa o la recepción: un escaneo y ya te escriben para pedir, reservar o dejar reseña.' },
+  { red: 'whatsapp', prio: 47, icon: '🕑', test: (c) => c.hasWA, text: 'Configura tu horario de atención y un mensaje de ausencia: quien escribe de noche sabe cuándo le respondes y no se va con otro.' },
+  { red: 'whatsapp', prio: 46, icon: '🔁', test: (c) => c.hasWA, text: 'Manda un mensaje de seguimiento al día siguiente ("¿Cómo la pasaste? Déjanos tu reseña aquí"): recuperas clientes y subes tu reputación.' },
+  { red: 'whatsapp', prio: 45, icon: '💳', test: (c) => c.hasWA, text: 'Ofrece apartar por WhatsApp con un anticipo (link de pago): aseguras la venta y bajas las cancelaciones de última hora.' },
+  { red: 'whatsapp', prio: 44, icon: '⭐', test: (c) => c.hasWA, text: 'Etiqueta a tus clientes frecuentes y mándales una promo exclusiva de vez en cuando: el cliente que regresa es el más barato de conseguir.' },
+  { red: 'whatsapp', prio: 43, icon: '📲', test: (c) => c.hasWA, text: 'Pon tu link wa.me en tu bio de Instagram, tu página de Facebook y tu Google: un solo toque para escribirte desde donde te encuentren.' },
+  { red: 'whatsapp', prio: 42, icon: '📍', test: (c) => c.hasWA && c.hospedaje, text: 'Al confirmar la reserva, comparte tu ubicación en vivo o el mapa: el huésped llega sin perderse por las calles del pueblo.' },
+  { red: 'whatsapp', prio: 41, icon: '🖼️', test: (c) => c.hasWA, text: 'Cuida las fotos del catálogo: buena luz y precio por producto o habitación. El catálogo es tu vitrina dentro del chat.' },
+  { red: 'whatsapp', prio: 40, icon: '🔔', test: (c) => c.hasWA, text: 'Confirma disponibilidad en tiempo real por WhatsApp antes de cerrar: evitas el no-show y el sobrecupo en temporada alta.' },
 
   // ───────────── FICHA (conversión) ─────────────
   { red: 'ficha', prio: 100, icon: '🧩', test: (c) => c.salud && c.salud.score < 70 && c.salud.faltantes.length > 0, text: null /* se arma dinámico abajo */ },
@@ -238,7 +268,7 @@ function textoReco(item, c) {
 
 // Devuelve las recomendaciones aplicables AGRUPADAS por red (para la vista de
 // detalle / solapa flotante). Cada red trae solo las que aplican a su caso.
-export function recomendacionesPorRed(ctx, maxPorRed = 8) {
+export function recomendacionesPorRed(ctx, maxPorRed = 12) {
   const grupos = {}
   for (const item of RECOS_CATALOGO) {
     let aplica = false
