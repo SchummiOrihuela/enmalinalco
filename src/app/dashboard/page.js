@@ -167,7 +167,7 @@ export default async function DashboardPage({ searchParams }) {
       {/* Barra superior de marca */}
       <header style={{
         background: 'linear-gradient(180deg, #1C3B28 0%, #213A26 100%)',
-        padding: '16px 40px',
+        padding: 'clamp(13px, 3.5vw, 16px) clamp(16px, 5vw, 40px)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -222,7 +222,7 @@ export default async function DashboardPage({ searchParams }) {
       <main style={{
         maxWidth: '820px',
         margin: '0 auto',
-        padding: '40px 24px 80px',
+        padding: 'clamp(24px, 6vw, 40px) clamp(16px, 5vw, 24px) 80px',
       }}>
         {/* Encabezado del panel */}
         <div style={{ marginBottom: '32px' }}>
@@ -260,20 +260,16 @@ export default async function DashboardPage({ searchParams }) {
             .ecg-base { stroke: rgba(95,184,116,0.22); stroke-width: 2; }
             .ecg-run {
               stroke: #5FB874; stroke-width: 2.5;
-              stroke-dasharray: 16 84;
               filter: drop-shadow(0 0 4px rgba(95,184,116,0.85));
-              animation: ecgRun 2.4s linear infinite;
             }
-            @keyframes ecgRun { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
             @media (prefers-reduced-motion: reduce) {
               .dash-title-pulse, .dash-badge-pulse, .stat-pulse { animation: none; }
               .stat-card:hover { transform: none; }
-              .ecg-run { animation: none; }
             }
           `}</style>
           <h1 className={business ? 'dash-title-pulse' : undefined} style={{
             fontFamily: "'Cormorant Garamond', Georgia, serif",
-            fontSize: '40px',
+            fontSize: 'clamp(30px, 8vw, 40px)',
             fontWeight: 500,
             color: '#F6F0E0',
             lineHeight: 1.08,
@@ -320,8 +316,8 @@ export default async function DashboardPage({ searchParams }) {
               <div style={{ marginTop: '22px' }}>
                 <div style={{
                   display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))',
-                  gap: '14px',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(155px, 1fr))',
+                  gap: 'clamp(10px, 3vw, 14px)',
                 }}>
                   {stats.map((s) => {
                     const total = s.total || 0
@@ -332,7 +328,7 @@ export default async function DashboardPage({ searchParams }) {
                         className="stat-card stat-pulse"
                         style={{
                         display: 'flex', flexDirection: 'column', gap: '12px',
-                        padding: '18px 20px',
+                        padding: 'clamp(14px, 4vw, 18px) clamp(15px, 4vw, 20px)',
                         minHeight: '116px',
                         background: isViews
                           ? 'linear-gradient(135deg, rgba(220,178,74,0.18), rgba(28,59,40,0.25))'
@@ -342,21 +338,28 @@ export default async function DashboardPage({ searchParams }) {
                         boxShadow: '0 4px 16px rgba(0,0,0,0.14)',
                       }}>
                         {/* Fila: icono + número + crecimiento */}
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(9px, 3vw, 12px)', minWidth: 0 }}>
                           <BrandTile brand={s.brand} size={42} />
                           <strong style={{
                             fontFamily: "'Fraunces', Georgia, serif",
-                            fontSize: '32px', fontWeight: 600, color: '#F6F0E0', lineHeight: 1,
+                            fontSize: 'clamp(26px, 7vw, 32px)', fontWeight: 600, color: '#F6F0E0', lineHeight: 1,
                             letterSpacing: '-0.01em', fontVariantNumeric: 'tabular-nums lining-nums',
+                            minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis',
                           }}>{Number(total).toLocaleString('es-MX')}</strong>
                           {d !== null && d > 0 && (
                             <span style={{
-                              display: 'inline-flex', alignItems: 'center', gap: '2px',
-                              marginLeft: 'auto',
+                              display: 'inline-flex', alignItems: 'center', gap: '3px',
+                              marginLeft: 'auto', flexShrink: 0, whiteSpace: 'nowrap',
                               fontSize: '12px', fontWeight: 800, color: '#FFFFFF',
-                              background: '#3E9E59', padding: '2px 8px', borderRadius: '9999px',
+                              background: '#3E9E59', padding: '3px 9px', borderRadius: '9999px',
                               boxShadow: '0 1px 6px rgba(62,158,89,0.5)',
-                            }}>▲ {d}</span>
+                              fontVariantNumeric: 'tabular-nums lining-nums', lineHeight: 1,
+                            }}>
+                              <svg width="8" height="8" viewBox="0 0 10 10" aria-hidden="true" style={{ display: 'block' }}>
+                                <path d="M5 1 L9 8 L1 8 Z" fill="currentColor" />
+                              </svg>
+                              {d}
+                            </span>
                           )}
                         </div>
                         {/* Label estirado, una sola línea */}
@@ -379,7 +382,9 @@ export default async function DashboardPage({ searchParams }) {
                   {/* Electro: el "pulso" / salud de tu página */}
                   <svg className="ecg" viewBox="0 0 300 28" preserveAspectRatio="none" aria-hidden="true">
                     <path className="ecg-base" pathLength="100" d="M0,16 H120 l5,-2 4,2 H140 l3,5 4,-20 4,24 3,-7 4,0 H300" />
-                    <path className="ecg-run"  pathLength="100" d="M0,16 H120 l5,-2 4,2 H140 l3,5 4,-20 4,24 3,-7 4,0 H300" />
+                    <path className="ecg-run" pathLength="100" strokeDasharray="16 84" d="M0,16 H120 l5,-2 4,2 H140 l3,5 4,-20 4,24 3,-7 4,0 H300">
+                      <animate attributeName="stroke-dashoffset" from="100" to="0" dur="2.4s" calcMode="linear" repeatCount="indefinite" />
+                    </path>
                   </svg>
                   <p style={{
                     margin: 0, fontSize: '14px', color: 'rgba(246,240,224,0.92)', lineHeight: 1.6,

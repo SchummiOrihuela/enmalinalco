@@ -12,14 +12,71 @@ import { useState, useEffect, Fragment } from 'react'
 import { createClient } from '@/lib/supabaseBrowser'
 
 const RED_META = {
-  instagram: { label: 'Instagram', icon: '📸' },
-  facebook: { label: 'Facebook', icon: '👍' },
-  whatsapp: { label: 'WhatsApp', icon: '💬' },
-  ficha: { label: 'Tu ficha', icon: '🧩' },
-  contenido: { label: 'Contenido', icon: '🗓️' },
+  instagram: { label: 'Instagram' },
+  facebook: { label: 'Facebook' },
+  whatsapp: { label: 'WhatsApp' },
+  ficha: { label: 'Tu ficha' },
+  contenido: { label: 'Contenido' },
 }
 
 const ORO = '#DCB24A'
+
+// — Iconos de marca (SVG oficiales simplificados) para las redes —
+function BrandIcon({ red, size = 17 }) {
+  const common = { width: size, height: size, viewBox: '0 0 24 24', 'aria-hidden': true, style: { display: 'block', flexShrink: 0 } }
+  if (red === 'instagram') {
+    return (
+      <svg {...common}>
+        <defs>
+          <linearGradient id="igGrad" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0" stopColor="#FEDA75" /><stop offset="0.35" stopColor="#FA7E1E" />
+            <stop offset="0.6" stopColor="#D62976" /><stop offset="0.85" stopColor="#962FBF" /><stop offset="1" stopColor="#4F5BD5" />
+          </linearGradient>
+        </defs>
+        <path fill="url(#igGrad)" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+      </svg>
+    )
+  }
+  if (red === 'facebook') {
+    return (
+      <svg {...common}>
+        <path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+      </svg>
+    )
+  }
+  if (red === 'whatsapp') {
+    return (
+      <svg {...common}>
+        <path fill="#25D366" d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.413c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 001.558 5.306l-.999 3.648 3.93-1.033zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.767.967-.94 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.15-.174.199-.298.298-.497.1-.198.05-.371-.025-.52-.074-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.84 12.84 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413z" />
+      </svg>
+    )
+  }
+  if (red === 'ficha') {
+    return (
+      <svg {...common} fill="none" stroke={ORO} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="4" width="18" height="16" rx="2.5" /><path d="M7 9h6M7 13h10M7 17h7" />
+      </svg>
+    )
+  }
+  // contenido (calendario)
+  return (
+    <svg {...common} fill="none" stroke={ORO} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="4.5" width="18" height="16" rx="2.5" /><path d="M3 9h18M8 2.5v4M16 2.5v4" />
+    </svg>
+  )
+}
+
+// — Iconos premium para exportar —
+const IconImagen = ({ size = 15 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ display: 'block' }}>
+    <rect x="3" y="4" width="18" height="16" rx="2.5" /><circle cx="8.5" cy="9.5" r="1.6" /><path d="M21 16l-4.5-4.5L7 20" />
+  </svg>
+)
+const IconDescarga = ({ size = 15 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ display: 'block' }}>
+    <path d="M12 3v12M7 10l5 5 5-5M5 21h14" />
+  </svg>
+)
 
 function Kpi({ label, value, sub, accent = ORO }) {
   return (
@@ -313,48 +370,51 @@ export default function InsightsDrawer({ insights }) {
           backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
           padding: '4vh 16px', overflowY: 'auto',
         }}>
+          {/* Cerrar flotante — siempre accesible al hacer scroll en móvil */}
+          <button onClick={() => setOpen(false)} aria-label="Cerrar" style={{
+            position: 'fixed', top: '14px', right: '14px', zIndex: 1002, width: '42px', height: '42px', borderRadius: '50%',
+            cursor: 'pointer', border: '1px solid rgba(246,240,224,0.3)', background: 'rgba(8,16,10,0.72)',
+            backdropFilter: 'blur(6px)', color: '#F6F0E0', fontSize: '19px', lineHeight: 1,
+            boxShadow: '0 6px 20px rgba(0,0,0,0.4)',
+          }}>✕</button>
           <div onClick={(e) => e.stopPropagation()} style={{
             width: '100%', maxWidth: '940px', borderRadius: '22px',
             background: 'linear-gradient(180deg,#1E3322,#121E14)',
             border: '1px solid rgba(220,178,74,0.28)', boxShadow: '0 30px 80px rgba(0,0,0,0.6)',
             color: '#F6F0E0', fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif",
           }}>
-            {/* HERO */}
+            {/* HERO — no sticky: en móvil ocupa menos y se va al hacer scroll */}
             <div style={{
-              position: 'sticky', top: 0, zIndex: 2, borderRadius: '22px 22px 0 0',
-              padding: '20px 24px', borderBottom: '1px solid rgba(220,178,74,0.2)',
+              borderRadius: '22px 22px 0 0',
+              padding: 'clamp(16px, 4.5vw, 20px) clamp(16px, 4.5vw, 22px)', borderBottom: '1px solid rgba(220,178,74,0.2)',
               background: 'radial-gradient(600px 180px at 10% -40%, rgba(220,178,74,0.22), transparent 70%), linear-gradient(180deg,#17301E,#1E3322)',
-              display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px',
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap',
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                <div style={{ fontSize: '46px', lineHeight: 1, filter: 'drop-shadow(0 3px 8px rgba(220,178,74,0.45))' }}>🐆</div>
-                <div>
-                  <div style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '23px', fontWeight: 600, letterSpacing: '-0.01em' }}>Ojo de Jaguar</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(11px, 3vw, 14px)', minWidth: 0 }}>
+                <div style={{ fontSize: 'clamp(38px, 11vw, 46px)', lineHeight: 1, filter: 'drop-shadow(0 3px 8px rgba(220,178,74,0.45))' }}>🐆</div>
+                <div style={{ minWidth: 0 }}>
+                  <div style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: 'clamp(20px, 5.5vw, 23px)', fontWeight: 600, letterSpacing: '-0.01em' }}>Ojo de Jaguar</div>
                   <div style={{ fontSize: '11.5px', color: ORO, fontWeight: 700, letterSpacing: '0.04em' }}>Lo que Google, ni en sueños te daría</div>
                   {negocio && <div style={{ fontSize: '12px', opacity: 0.7, marginTop: '2px' }}>{negocio}</div>}
                 </div>
               </div>
-              <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
                 {tier >= 3 && (
                   <>
                     <button onClick={() => descargarImagen(insights)} title="Descargar imagen para compartir" style={{
-                      cursor: 'pointer', padding: '9px 14px', borderRadius: '9999px', fontSize: '13px', fontWeight: 700, fontFamily: 'inherit',
+                      cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '9px 14px', borderRadius: '9999px', fontSize: '13px', fontWeight: 700, fontFamily: 'inherit',
                       border: '1px solid rgba(220,178,74,0.5)', background: 'rgba(220,178,74,0.14)', color: '#F6F0E0',
-                    }}>🖼 Imagen</button>
+                    }}><IconImagen /> Imagen</button>
                     <button onClick={() => exportarReporte(insights)} title="Descargar / imprimir (PDF)" style={{
-                      cursor: 'pointer', padding: '9px 14px', borderRadius: '9999px', fontSize: '13px', fontWeight: 700, fontFamily: 'inherit',
+                      cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '9px 14px', borderRadius: '9999px', fontSize: '13px', fontWeight: 700, fontFamily: 'inherit',
                       border: '1px solid rgba(220,178,74,0.5)', background: 'rgba(220,178,74,0.14)', color: '#F6F0E0',
-                    }}>⬇ PDF</button>
+                    }}><IconDescarga /> PDF</button>
                   </>
                 )}
-                <button onClick={() => setOpen(false)} aria-label="Cerrar" style={{
-                  cursor: 'pointer', width: '38px', height: '38px', borderRadius: '50%',
-                  border: '1px solid rgba(246,240,224,0.25)', background: 'rgba(0,0,0,0.25)', color: '#F6F0E0', fontSize: '18px',
-                }}>✕</button>
               </div>
             </div>
 
-            <div style={{ padding: '20px 24px 28px' }}>
+            <div style={{ padding: 'clamp(16px, 4.5vw, 24px) clamp(16px, 4.5vw, 24px) 28px' }}>
               {/* ALERTAS PROACTIVAS */}
               {avisos && avisos.length > 0 && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '16px' }}>
@@ -440,16 +500,41 @@ export default function InsightsDrawer({ insights }) {
                 <>
                   <H2>Meta del mes</H2>
                   {meta.meta ? (
-                    <div style={{ padding: '14px 16px', borderRadius: '14px', background: 'rgba(124,182,137,0.10)', border: '1px solid rgba(124,182,137,0.25)' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '8px' }}>
-                        <span style={{ fontSize: '14px' }}><strong>{meta.actual}</strong> de <strong>{meta.meta}</strong> contactos</span>
-                        <button onClick={() => { setMetaInput(String(meta.meta)); setEditMeta(true) }} style={{ cursor: 'pointer', background: 'none', border: 'none', color: ORO, fontSize: '12px', fontWeight: 700 }}>Editar</button>
+                    <div style={{
+                      padding: '18px 20px', borderRadius: '18px',
+                      background: 'radial-gradient(420px 160px at 90% -40%, rgba(124,182,137,0.18), transparent 70%), linear-gradient(160deg, rgba(124,182,137,0.12), rgba(16,28,18,0.35))',
+                      border: '1px solid rgba(124,182,137,0.3)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04)',
+                    }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '12px' }}>
+                        <div>
+                          <div style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '28px', fontWeight: 600, lineHeight: 1, color: '#F6F0E0' }}>
+                            {meta.actual}<span style={{ fontSize: '16px', opacity: 0.6, fontWeight: 500 }}> / {meta.meta}</span>
+                          </div>
+                          <div style={{ fontSize: '11.5px', letterSpacing: '0.04em', textTransform: 'uppercase', opacity: 0.6, marginTop: '4px', fontWeight: 600 }}>contactos este mes</div>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                          <span style={{
+                            fontFamily: "'Fraunces', Georgia, serif", fontSize: '22px', fontWeight: 600,
+                            color: meta.pct >= 100 ? '#8FD3A0' : ORO,
+                          }}>{meta.pct}%</span>
+                          <button onClick={() => { setMetaInput(String(meta.meta)); setEditMeta(true) }} style={{ cursor: 'pointer', background: 'none', border: 'none', color: 'rgba(246,240,224,0.65)', fontSize: '12px', fontWeight: 700 }}>Editar</button>
+                        </div>
                       </div>
-                      <div style={{ height: '12px', borderRadius: '9999px', background: 'rgba(0,0,0,0.25)', overflow: 'hidden' }}>
-                        <div style={{ width: `${meta.pct}%`, height: '100%', background: meta.pct >= 100 ? 'linear-gradient(90deg,#6FB880,#3E9E59)' : 'linear-gradient(90deg,#E7C86A,#B98A16)' }} />
+                      <div style={{
+                        position: 'relative', height: '14px', borderRadius: '9999px',
+                        background: 'rgba(0,0,0,0.3)', overflow: 'hidden', boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.4)',
+                      }}>
+                        <div style={{
+                          position: 'relative', width: `${Math.max(meta.pct, 3)}%`, height: '100%', borderRadius: '9999px',
+                          background: meta.pct >= 100 ? 'linear-gradient(90deg,#6FB880,#3E9E59)' : 'linear-gradient(90deg,#F0D77A,#DCB24A,#B98A16)',
+                          boxShadow: meta.pct >= 100 ? '0 0 14px rgba(111,184,128,0.6)' : '0 0 14px rgba(220,178,74,0.55)',
+                          transition: 'width 0.6s ease',
+                        }}>
+                          <div style={{ position: 'absolute', inset: 0, borderRadius: '9999px', background: 'linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0) 55%)' }} />
+                        </div>
                       </div>
-                      <div style={{ fontSize: '12px', opacity: 0.8, marginTop: '6px' }}>
-                        {meta.pct >= 100 ? '🎉 ¡Meta cumplida este mes!' : `Vas al ${meta.pct}%. ¡Tú puedes!`}
+                      <div style={{ fontSize: '12.5px', opacity: 0.82, marginTop: '10px', fontWeight: 500 }}>
+                        {meta.pct >= 100 ? '🎉 ¡Meta cumplida este mes!' : `Te faltan ${Math.max(0, meta.meta - meta.actual)} para tu meta. ¡Tú puedes!`}
                       </div>
                     </div>
                   ) : editMeta ? null : (
@@ -476,10 +561,11 @@ export default function InsightsDrawer({ insights }) {
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '12px' }}>
                     {redes.map((k) => (
                       <button key={k} onClick={() => setRed(k)} style={{
-                        cursor: 'pointer', padding: '7px 14px', borderRadius: '9999px', fontSize: '13px', fontWeight: 700, fontFamily: 'inherit',
+                        cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '7px 14px', borderRadius: '9999px', fontSize: '13px', fontWeight: 700, fontFamily: 'inherit',
                         border: `1px solid ${k === redActiva ? ORO : 'rgba(246,240,224,0.2)'}`,
                         background: k === redActiva ? 'rgba(220,178,74,0.22)' : 'transparent', color: '#F6F0E0',
-                      }}>{RED_META[k]?.icon} {RED_META[k]?.label || k}</button>
+                        opacity: k === redActiva ? 1 : 0.78,
+                      }}><BrandIcon red={k} /> {RED_META[k]?.label || k}</button>
                     ))}
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -559,18 +645,41 @@ export default function InsightsDrawer({ insights }) {
                 </a>
               )}
 
-              {/* SELLO VS GOOGLE */}
-              <H2>Por qué esto no es Google Maps</H2>
+              {/* SELLO VS GOOGLE — "La ventaja del Jaguar" */}
               <div style={{
-                padding: '16px 18px', borderRadius: '16px',
-                background: 'linear-gradient(135deg, rgba(220,178,74,0.10), rgba(16,28,18,0.4))',
-                border: '1px solid rgba(220,178,74,0.25)',
+                marginTop: '26px', borderRadius: '20px', overflow: 'hidden',
+                border: '1px solid rgba(220,178,74,0.4)',
+                background: 'radial-gradient(520px 200px at 85% -30%, rgba(220,178,74,0.22), transparent 70%), linear-gradient(160deg, #1B3020 0%, #12201528 100%)',
+                boxShadow: '0 14px 44px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04)',
               }}>
-                {VS_GOOGLE.map((t, i) => (
-                  <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontSize: '13.5px', lineHeight: 1.5, padding: '5px 0' }}>
-                    <span style={{ color: '#6FB880', fontWeight: 900 }}>✓</span><span>{t}</span>
+                <div style={{ padding: '20px 22px 8px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <span style={{ fontSize: '26px', lineHeight: 1, filter: 'drop-shadow(0 2px 6px rgba(220,178,74,0.5))' }}>🐆</span>
+                    <div>
+                      <div style={{ fontSize: '10.5px', letterSpacing: '0.16em', textTransform: 'uppercase', color: ORO, fontWeight: 800 }}>La ventaja del Jaguar</div>
+                      <div style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '18px', fontWeight: 600, color: '#F6F0E0', letterSpacing: '-0.01em' }}>Lo que Google jamás te dará</div>
+                    </div>
                   </div>
-                ))}
+                </div>
+                <div style={{ padding: '6px 14px 18px' }}>
+                  {VS_GOOGLE.map((t, i) => (
+                    <div key={i} style={{
+                      display: 'flex', gap: '12px', alignItems: 'center', padding: '11px 10px',
+                      borderTop: i === 0 ? 'none' : '1px solid rgba(220,178,74,0.12)',
+                    }}>
+                      <span style={{
+                        flexShrink: 0, width: '26px', height: '26px', borderRadius: '8px', display: 'grid', placeItems: 'center',
+                        background: 'linear-gradient(135deg, rgba(111,184,128,0.25), rgba(62,158,89,0.12))',
+                        border: '1px solid rgba(111,184,128,0.4)',
+                      }}>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8FD3A0" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                          <path d="M20 6L9 17l-5-5" />
+                        </svg>
+                      </span>
+                      <span style={{ fontSize: '13.5px', lineHeight: 1.45, color: '#F3EEE2' }}>{t}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               <p style={{ margin: '22px 0 0', fontSize: '12px', color: 'rgba(246,240,224,0.55)', lineHeight: 1.5 }}>
