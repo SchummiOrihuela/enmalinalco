@@ -542,7 +542,7 @@ nav.dnav a:hover::after{transform:scaleX(1)}
 .pcrd.star .plan-feats li{color:rgba(242,237,227,.78)}
 .plan-feats li.oj-feat{color:#E6D08A;font-weight:600}
 .plan-feats li.oj-feat strong{color:#F0DC9A;font-weight:800}
-.plan-feats li.oj-feat svg{color:var(--oro)}
+.plan-feats li.oj-feat svg{width:16px;height:16px;margin-top:0}
 .pcrd.star .plan-feats li.oj-feat{color:#E6D08A}
 
 /* Pulsos elegantes de la landing (card popular, CTA y "Malinalco" del título) */
@@ -1173,7 +1173,7 @@ const MARKUP = `<!-- Progress bar -->
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Contacto, ubicación y horarios</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Apareces en el directorio y el buscador</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Comparte tu ficha por WhatsApp</li>
-            <li class="oj-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>${ojoJaguarSVG(17, 'ojp3')} <strong>Ojo de Jaguar</strong>: salud de ficha, conversión y vistas</li>
+            <li class="oj-feat">${ojoJaguarSVG(16, 'ojp3')} <strong>Ojo de Jaguar</strong>: salud de ficha, conversión y vistas</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Siempre visible, todo el año</li>
           </ul>
         </div>
@@ -1194,7 +1194,7 @@ const MARKUP = `<!-- Progress bar -->
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Apareces en los primeros lugares de tu categoría</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Insignia "Recomendado"</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>1 mención al mes en nuestras redes</li>
-            <li class="oj-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>${ojoJaguarSVG(17, 'ojp4')} <strong>Ojo de Jaguar con IA</strong>: recomendaciones por red, ranking, alertas y metas</li>
+            <li class="oj-feat">${ojoJaguarSVG(16, 'ojp4')} <strong>Ojo de Jaguar con IA</strong>: recomendaciones por red, ranking, alertas y metas</li>
           </ul>
         </div>
         <div class="plan-price">
@@ -1212,7 +1212,7 @@ const MARKUP = `<!-- Progress bar -->
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Primer lugar en tu categoría y en la portada</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Tu historia contada: artículo editorial propio</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>En temporada alta, apareces en el Top 3</li>
-            <li class="oj-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>${ojoJaguarSVG(17, 'ojp5')} <strong>Ojo de Jaguar total</strong>: origen de cada cliente, mejores horas y reporte exportable</li>
+            <li class="oj-feat">${ojoJaguarSVG(16, 'ojp5')} <strong>Ojo de Jaguar total</strong>: origen de cada cliente, mejores horas y reporte exportable</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Atención personalizada, directa con nosotros</li>
           </ul>
         </div>
