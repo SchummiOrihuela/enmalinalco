@@ -140,11 +140,18 @@ export default function PlansSection({ businessId, currentPlan, isActive }) {
 
               {/* Beneficios */}
               <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 22px', display: 'flex', flexDirection: 'column', gap: '9px' }}>
-                {p.benefits.map((b, i) => (
-                  <li key={i} style={{ display: 'flex', gap: '8px', fontSize: '13px', lineHeight: 1.4, color: 'var(--ink)', opacity: 0.82 }}>
-                    <Check />{b}
-                  </li>
-                ))}
+                {p.benefits.map((b, i) => {
+                  const esOjo = b.includes('Ojo de Jaguar')
+                  return (
+                    <li key={i} style={{
+                      display: 'flex', gap: '8px', fontSize: '13px', lineHeight: 1.4,
+                      color: esOjo ? '#8A5E16' : 'var(--ink)', opacity: esOjo ? 1 : 0.82,
+                      fontWeight: esOjo ? 700 : 400,
+                    }}>
+                      <Check />{b}
+                    </li>
+                  )
+                })}
               </ul>
 
               {/* Botón (anclado abajo para alinear alturas) */}
