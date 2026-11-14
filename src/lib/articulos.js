@@ -1387,8 +1387,8 @@ export const ARTICULOS = [
   // ─────────────────────────────── BALNEARIOS ───────────────────────────────
   {
     slug: 'balnearios-malinalco',
-    seoTitle: 'Balnearios en Malinalco: albercas y aguas termales 2026',
-    seoDescription: 'Guía 2026 de balnearios en Malinalco: albercas, parques acuáticos y aguas termales para un día de agua en familia. Opciones, precios, qué llevar y cómo elegir.',
+    seoTitle: 'Balnearios en Malinalco: 5 albercas y aguas termales (2026)',
+    seoDescription: 'Las 5 mejores albercas y aguas termales de Malinalco para un día de agua en familia: opciones, precios aproximados, qué llevar y cómo elegir. Guía local 2026.',
     categoria: 'Tu Finde en Mali',
     categoriaDirSlug: 'balnearios',
     grupo: 'finde',
@@ -1442,7 +1442,7 @@ export const ARTICULOS = [
   // ─────────────────────────────── LOGÍSTICA / FINDE ───────────────────────────────
   {
     slug: 'como-llegar-malinalco',
-    seoTitle: 'Cómo llegar a Malinalco desde CDMX: 2.5 h, ruta y casetas',
+    seoTitle: 'Cómo llegar a Malinalco: 2.5 h de CDMX y 1.5 h de Toluca',
     seoDescription: 'Cómo llegar a Malinalco desde CDMX en 2.5 h (1.5 h desde Toluca): la ruta exacta, costo de casetas, estacionamiento y transporte público. Tips de local 2026.',
     categoria: 'Tu Finde en Mali',
     grupo: 'finde',
@@ -1490,6 +1490,7 @@ export const ARTICULOS = [
         'Lleva algo de efectivo para casetas, estacionamiento y lugares que no toman tarjeta.',
         'Ya en el pueblo, planea tu ruta con nuestra <a href="/historias/que-hacer-malinalco">guía de qué hacer en Malinalco</a>.',
       ] },
+      { t: 'p', html: '¿Vienes en diciembre? Vale doble el viaje: el pueblo se enciende con las <a href="/historias/posadas-navidenas-malinalco">posadas y la Navidad</a> (16–24 de diciembre) y, si corres, el <a href="/historias/trail-nocturno-malinalco">Trail Nocturno del 19 de diciembre</a> sube al monte con lámpara. Son fechas que se llenan: reserva tu hospedaje con anticipación.' },
       { t: 'p', html: '¿Ya sabes cómo llegar? Lo siguiente es decidir dónde dormir y qué hacer. Empieza por la <a href="/historias/48-horas-malinalco">guía de 48 horas</a> o explora todo el <a href="/directorio">directorio del pueblo</a>.' },
     ],
     faq: [
@@ -1499,7 +1500,7 @@ export const ARTICULOS = [
       { q: '¿Dónde me estaciono en Malinalco?', a: 'Hay estacionamientos públicos cerca del jardín principal y del mercado. En fin de semana se llenan, así que llegar antes del mediodía ayuda. El centro se recorre mejor caminando.' },
       { q: '¿Cuál es la ruta más corta a Malinalco?', a: 'Desde Toluca, por Tenango del Valle y Tenancingo, en 1 a 1.5 horas. Es el acceso más rápido si vienes del poniente del Estado de México o del Bajío.' },
     ],
-    relacionados: ['que-hacer-malinalco', '48-horas-malinalco', 'fin-de-semana-malinalco-cdmx'],
+    relacionados: ['que-hacer-malinalco', 'posadas-navidenas-malinalco', 'trail-nocturno-malinalco'],
   },
 
   {
@@ -1548,7 +1549,7 @@ export const ARTICULOS = [
       { t: 'ul', items: [
         '<strong>14. Comprar artesanía local.</strong> Textiles, barro y piezas de autor en galerías y tiendas del centro.',
         '<strong>15. Conocer por qué es Pueblo Mágico.</strong> La historia que pocos cuentan, en <a href="/historias/malinalco-pueblo-magico-historia">por qué Malinalco es Pueblo Mágico</a>.',
-        '<strong>16. Coincidir con una fiesta o festival.</strong> El pueblo cobra otra vida: revisa el <a href="/historias/festival-cultural-malinalco">Festival Cultural</a>, el <a href="/historias/dia-de-muertos-malinalco">Día de Muertos</a> y las <a href="/historias/posadas-navidenas-malinalco">posadas de diciembre</a>.',
+        '<strong>16. Coincidir con una fiesta o festival.</strong> El pueblo cobra otra vida: revisa el <a href="/historias/festival-cultural-malinalco">Festival Cultural</a>, el <a href="/historias/dia-de-muertos-malinalco">Día de Muertos</a>, las <a href="/historias/posadas-navidenas-malinalco">posadas de diciembre</a> y el <a href="/historias/trail-nocturno-malinalco">Trail Nocturno del 19 de diciembre</a>.',
       ] },
       { t: 'h2', id: 'cerca', text: 'Escapadas cercanas (si te sobra un día)' },
       { t: 'ul', items: [
@@ -1709,7 +1710,7 @@ export const ARTICULOS = [
       { t: 'p', html: 'Malinalco está a unos 1.700 metros sobre el nivel del mar, en una zona de transición entre el altiplano y la tierra caliente. Eso le da días cálidos y noches frescas buena parte del año, con dos temporadas marcadas: <strong>secas</strong> (de noviembre a mayo) y <strong>lluvias</strong> (de junio a octubre). Es más templado que Cuernavaca y más cálido que Toluca.' },
       { t: 'h2', id: 'mes-a-mes', text: 'Mes a mes, qué esperar' },
       { t: 'ul', items: [
-        '<strong>Noviembre–febrero:</strong> seco y fresco. Días soleados y noches frías. Ideal para caminar, subir al cerro y disfrutar sin sudar. Lleva una chamarra para la noche.',
+        '<strong>Noviembre–febrero:</strong> seco y fresco. Días soleados y noches frías. Ideal para caminar, subir al cerro y disfrutar sin sudar; diciembre suma posadas, Navidad y el Trail Nocturno. Lleva una chamarra para la noche.',
         '<strong>Marzo–mayo:</strong> la temporada más cálida y seca. Perfecta para balnearios y alberca. Sube el calor al mediodía; madruga para la zona arqueológica.',
         '<strong>Junio–agosto:</strong> temporada de lluvias. El valle se pone verde y espectacular; las lluvias suelen caer por la tarde-noche, así que las mañanas se aprovechan bien. Lleva impermeable.',
         '<strong>Septiembre–octubre:</strong> fin de lluvias, paisaje exuberante y menos gente. Para muchos, la época más bonita del año en el pueblo.',
@@ -1723,7 +1724,7 @@ export const ARTICULOS = [
       { t: 'h2', id: 'multitudes', text: 'Cuándo se llena el pueblo' },
       { t: 'p', html: 'Más que el clima, lo que cambia tu experiencia son las multitudes. Malinalco se llena en <strong>Semana Santa, los puentes largos, las vacaciones de verano (agosto) y diciembre</strong>. Son fechas con mucho ambiente, pero también con restaurantes llenos y estacionamiento complicado. Si buscas tranquilidad, elige un fin de semana normal fuera de temporada alta, o visita entre semana.' },
       { t: 'h2', id: 'festividades', text: 'Visitar en fechas especiales' },
-      { t: 'p', html: 'Si quieres coincidir con una celebración, vale la pena planear alrededor del <a href="/historias/festival-cultural-malinalco">Festival Cultural</a>, el <a href="/historias/dia-de-muertos-malinalco">Día de Muertos</a> o las <a href="/historias/posadas-navidenas-malinalco">posadas de diciembre</a>: el pueblo cobra otra vida, aunque conviene reservar hospedaje con mucha anticipación.' },
+      { t: 'p', html: 'Si quieres coincidir con una celebración, vale la pena planear alrededor del <a href="/historias/festival-cultural-malinalco">Festival Cultural</a>, el <a href="/historias/dia-de-muertos-malinalco">Día de Muertos</a>, las <a href="/historias/posadas-navidenas-malinalco">posadas de diciembre</a> o el <a href="/historias/trail-nocturno-malinalco">Trail Nocturno del 19 de diciembre</a>: el pueblo cobra otra vida, aunque conviene reservar hospedaje con mucha anticipación.' },
       CTA_NEGOCIO,
       { t: 'p', html: 'Elijas la época que elijas, llega preparado: revisa <a href="/historias/como-llegar-malinalco">cómo llegar a Malinalco</a>, decide <a href="/historias/que-hacer-malinalco">qué hacer</a> y asegura tu lugar con la <a href="/historias/donde-hospedarte-malinalco">guía de hospedaje</a>.' },
     ],
@@ -1734,7 +1735,7 @@ export const ARTICULOS = [
       { q: '¿Cuándo se llena Malinalco de turistas?', a: 'En Semana Santa, los puentes largos, las vacaciones de verano (agosto) y diciembre. Si prefieres tranquilidad, elige un fin de semana normal fuera de temporada alta o visita entre semana.' },
       { q: '¿Se puede visitar Malinalco en temporada de lluvias?', a: 'Sí, y para muchos es la época más bonita: el paisaje se pone verde y las lluvias suelen ser vespertinas. Planea las actividades al aire libre por la mañana y lleva impermeable por si acaso.' },
     ],
-    relacionados: ['como-llegar-malinalco', 'que-hacer-malinalco', 'balnearios-malinalco'],
+    relacionados: ['que-hacer-malinalco', 'posadas-navidenas-malinalco', 'trail-nocturno-malinalco'],
   },
 
   {
