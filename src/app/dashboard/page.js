@@ -119,6 +119,8 @@ export default async function DashboardPage({ searchParams }) {
     // Fase 2: eventos de los últimos 90 días (solo Ocēlōtl; RLS filtra por dueño).
     let fase2 = null
     if (tierP >= 3) {
+      // Ventana de 90 días para la consulta, dentro de un cargador async (no en render).
+      // eslint-disable-next-line react-hooks/purity
       const desde = new Date(Date.now() - 90 * 864e5).toISOString()
       const { data: evRows } = await supabase
         .from('events')
