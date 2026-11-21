@@ -1133,7 +1133,7 @@ export const ARTICULOS = [
       { q: '¿Qué equipo necesito?', a: 'Es obligatorio y hay revisión antes de salir: lámpara frontal de mínimo 300 lúmenes con repuesto, silbato, manta térmica, sistema de hidratación, vaso reutilizable (evento Zero Waste), celular cargado y número visible. Se recomiendan tenis de trail y ropa de abrigo: en diciembre el monte enfría de noche.' },
       { q: '¿Hay cupo limitado?', a: 'Sí, solo 200 corredores por el entorno natural, categoría única libre para mayores de 18. Al ser la primera edición es muy probable que se agote antes de la fecha límite.' },
     ],
-    relacionados: ['subida-cerro-idolos', 'posadas-navidenas-malinalco', 'mejor-epoca-visitar-malinalco'],
+    relacionados: ['subida-cerro-idolos', 'posadas-navidenas-malinalco', 'virgen-guadalupe-malinalco', 'mejor-epoca-visitar-malinalco'],
   },
 
   {
@@ -1327,7 +1327,7 @@ export const ARTICULOS = [
       { q: '¿Conviene reservar hospedaje para Día de Muertos?', a: 'Sí. Es una de las temporadas de mayor afluencia en Malinalco y la disponibilidad se agota rápido; conviene reservar con varias semanas de anticipación, sobre todo si buscas casa completa o cabaña para grupo.' },
       { q: '¿Cómo visitar el panteón con respeto?', a: 'Baja la voz, no uses flash sin permiso, no te subas ni te apoyes en las tumbas y pide permiso antes de fotografiar a las personas. Es una tradición viva y familiar, no un espectáculo.' },
     ],
-    relacionados: ['posadas-navidenas-malinalco', 'trail-nocturno-malinalco', 'donde-hospedarte-malinalco'],
+    relacionados: ['posadas-navidenas-malinalco', 'trail-nocturno-malinalco', 'virgen-guadalupe-malinalco', 'donde-hospedarte-malinalco'],
   },
 
   // ─────────────────────── TEMPORADA: POSADAS / NAVIDAD ───────────────────────
@@ -1381,7 +1381,7 @@ export const ARTICULOS = [
       { q: '¿Las posadas son abiertas para visitantes?', a: 'Las posadas de barrio suelen ser comunitarias y acogedoras con el visitante respetuoso. Pregunta en tu hospedaje qué posada hay cada noche y acércate con buena actitud: participa en los cantos, la piñata y el ponche.' },
       { q: '¿Conviene reservar hospedaje para diciembre en Malinalco?', a: 'Totalmente. Diciembre, y en especial Nochebuena, Navidad y Año Nuevo, es de las temporadas de mayor demanda. Reserva con varias semanas de anticipación, sobre todo si buscas casa completa o cabaña para la familia.' },
     ],
-    relacionados: ['escapada-romantica-malinalco', 'malinalco-con-familia', 'donde-hospedarte-malinalco'],
+    relacionados: ['virgen-guadalupe-malinalco', 'escapada-romantica-malinalco', 'malinalco-con-familia', 'donde-hospedarte-malinalco'],
   },
 
   {
