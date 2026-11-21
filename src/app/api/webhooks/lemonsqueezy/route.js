@@ -13,10 +13,15 @@ export async function POST(req) {
   const rawBody = await req.text();
   const signature = req.headers.get("x-signature");
   const secret = process.env.LEMONSQUEEZY_WEBHOOK_SECRET;
-  // Verificar firma
-  const hmac = crypto.createHmac("sha256", secret);
-  const digest = hmac.update(rawBody).digest("hex");
-  if (digest !== signature) {
+  if (!secret) {
+    console.error("LEMONSQUEEZY_WEBHOOK_SECRET ausente");
+    return new Response("Config faltante", { status: 503 });
+  }
+  // Verificar firma con comparación de tiempo constante (evita timing attacks).
+  const digest = crypto.createHmac("sha256", secret).update(rawBody).digest("hex");
+  const sigBuf = Buffer.from(signature || "", "hex");
+  const digBuf = Buffer.from(digest, "hex");
+  if (sigBuf.length !== digBuf.length || !crypto.timingSafeEqual(sigBuf, digBuf)) {
     return new Response("Firma inválida", { status: 401 });
   }
   const event = JSON.parse(rawBody);
@@ -24,7 +29,6 @@ export async function POST(req) {
   const email = event.data.attributes.user_email;
   const variantId = String(event.data.attributes.variant_id);
   const tier = VARIANT_TO_TIER[variantId] || null;
-  console.log("VARIANT DEBUG →", { variantId, map: VARIANT_TO_TIER });
   // Cliente admin (service role) para saltar RLS
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -41,14 +45,13 @@ export async function POST(req) {
       .update({ is_active: isActive, plan: tier })
       .eq("email", email)
       .select();
-    console.log("LS update →", { email, isActive, tier, count: data?.length, error });
+    if (error) console.error("LS update error:", error.message);
 
     // Correo de bienvenida: solo en el ALTA nueva y activa (no en renovaciones
     // ni en updates). No bloquea la respuesta 200 al webhook si Resend falla.
     if (eventName === "subscription_created" && isActive && !error && data?.length) {
       try {
         await enviarBienvenida({ email, negocio: data[0].name, tier });
-        console.log("Bienvenida enviada →", email);
       } catch (e) {
         console.error("Error enviando bienvenida:", e);
       }
