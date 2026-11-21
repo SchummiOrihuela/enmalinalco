@@ -5,7 +5,12 @@ import { sendOwnerEmail, nuevoClienteEmail, clienteEnGraciaEmail } from '@/lib/n
 // Días que un negocio sigue visible tras cancelar/vencer su suscripción.
 const GRACE_DAYS = 7;
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+// Init perezoso: no instanciar Stripe al cargar el módulo para que `next build`
+// no truene cuando STRIPE_SECRET_KEY no está en el entorno (CI/local).
+let _stripe;
+function getStripe() {
+  return (_stripe ??= new Stripe(process.env.STRIPE_SECRET_KEY));
+}
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -68,7 +73,7 @@ export async function POST(request) {
 
   let event;
   try {
-    event = stripe.webhooks.constructEvent(body, sig, webhookSecret);
+    event = getStripe().webhooks.constructEvent(body, sig, webhookSecret);
   } catch (err) {
     console.error('Webhook signature error:', err.message);
     return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
