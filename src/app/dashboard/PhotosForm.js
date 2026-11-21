@@ -101,6 +101,9 @@ export default function PhotosForm({ businessId, initialPhotos, plan }) {
     setMsg('Subiendo...')
 
     const ext = file.name.split('.').pop()
+    // Date.now() genera un nombre de archivo único dentro de un handler de subida
+    // (no en render); la idempotencia no aplica aquí.
+    // eslint-disable-next-line react-hooks/purity
     const path = `${businessId}/${Date.now()}.${ext}`
 
     const { error: upErr } = await supabase.storage
