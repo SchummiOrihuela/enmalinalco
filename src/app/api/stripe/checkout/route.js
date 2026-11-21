@@ -2,7 +2,13 @@ import Stripe from 'stripe';
 import { NextResponse } from 'next/server';
 import { FOUNDERS } from '@/lib/plans';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+// Init perezoso: no instanciar Stripe al cargar el módulo para que `next build`
+// (fase de recolección de datos) no truene cuando STRIPE_SECRET_KEY no está en
+// el entorno (CI/local). El cliente se crea en el primer request.
+let _stripe;
+function getStripe() {
+  return (_stripe ??= new Stripe(process.env.STRIPE_SECRET_KEY));
+}
 
 const PRICE_MAP = {
   malinalli: process.env.STRIPE_PRICE_MALINALLI,
@@ -68,7 +74,7 @@ export async function POST(request) {
       sessionParams.discounts = [{ coupon: process.env.STRIPE_FOUNDER_COUPON }];
     }
 
-    const session = await stripe.checkout.sessions.create(sessionParams);
+    const session = await getStripe().checkout.sessions.create(sessionParams);
 
     return NextResponse.json({ url: session.url });
   } catch (err) {
