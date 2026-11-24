@@ -42,8 +42,11 @@ Meta de negocio: crecer reserva directa (canteraycalma.com) y llenar los 50 cupo
 - **El Pulso de Malinalco (nov 2026):** `src/app/dashboard/MalinalcoPulse.js` + rpc
   `malinalco_pulse()`. Índice de demanda del pueblo (cross-negocio), lo ven TODOS los tiers;
   arregla el "panel vacío" del arranque en frío. Hora en zona `America/Mexico_City`.
-- Reparto por tier: Malinalli (salud, tasa, vistas, Pulso); Cuāuhtli (+ consultor IA, ranking,
-  ROI, recos/red, alertas, meta, comparativa); Ocēlōtl (+ Fase 2 completa, export, correo).
+- Reparto por tier (nov 2026, **Fase 2 escalonada**): Malinalli (salud, tasa, vistas, Pulso
+  **+ Tendencia** de Fase 2 como probada real); Cuāuhtli (+ consultor IA, ranking, ROI,
+  oportunidad perdida, recos/red, alertas, meta, comparativa **+ heatmap "¿a qué hora?" y geo
+  "¿de dónde vienen?"**); Ocēlōtl (+ **atribución** historias/eventos [la joya], export, correo).
+  `fase2` se computa para TODOS los tiers en `page.js`; el drawer filtra las secciones por `tier`.
 - **Copy de tiers elevado** en `src/lib/plans.js` (nov 2026) a lenguaje de resultado/premium.
   OJO: el landing (`src/app/page.js`) tiene su copy de planes **hardcodeado aparte** (no importa
   `PLANS`); sincronizarlo es pendiente si se cambian beneficios de nuevo.

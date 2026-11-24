@@ -118,9 +118,11 @@ export default async function DashboardPage({ searchParams }) {
     const meta = tierP >= 2 ? metaProgreso(business) : null
     const mom = mesVsMes(business)
 
-    // Fase 2: eventos de los últimos 90 días (solo Ocēlōtl; RLS filtra por dueño).
+    // Fase 2: eventos de los últimos 90 días (TODOS los tiers; RLS filtra por dueño).
+    // El drawer decide qué secciones mostrar por nivel: tendencia a todos; "a qué
+    // hora" y "de dónde vienen" en Cuāuhtli+; atribución (la joya) en Ocēlōtl.
     let fase2 = null
-    if (tierP >= 3) {
+    {
       // Ventana de 90 días para la consulta, dentro de un cargador async (no en render).
       // eslint-disable-next-line react-hooks/purity
       const desde = new Date(Date.now() - 90 * 864e5).toISOString()
@@ -447,7 +449,7 @@ export default async function DashboardPage({ searchParams }) {
                     background: 'rgba(220,178,74,0.10)', border: '1px dashed rgba(220,178,74,0.4)',
                     textDecoration: 'none', color: '#F6F0E0', fontSize: '13.5px', lineHeight: 1.5,
                   }}>
-                    🔒 <strong>Con Cuāuhtli</strong> desbloqueas tu <strong>Consultor con IA</strong>: qué hacer esta semana, tus Top 3 recomendaciones por red, ranking, alertas y metas. <span style={{ color: 'var(--oro)', fontWeight: 700 }}>Mejorar mi plan →</span>
+                    🔒 <strong>Con Cuāuhtli</strong> desbloqueas tu <strong>Consultor con IA</strong>: qué hacer esta semana, tus Top 3 recomendaciones por red, ranking, <strong>a qué hora y de qué estados te buscan</strong>, alertas y metas. <span style={{ color: 'var(--oro)', fontWeight: 700 }}>Mejorar mi plan →</span>
                   </a>
                 )}
                 {tier === 2 && (
@@ -456,7 +458,7 @@ export default async function DashboardPage({ searchParams }) {
                     background: 'rgba(220,178,74,0.10)', border: '1px dashed rgba(220,178,74,0.4)',
                     textDecoration: 'none', color: '#F6F0E0', fontSize: '13.5px', lineHeight: 1.5,
                   }}>
-                    🔒 <strong>Con Ocēlōtl</strong> ves <strong>de dónde viene cada cliente</strong> (historias y eventos), a qué hora te buscan, de qué estados, y <strong>exportas tu reporte</strong>. <span style={{ color: 'var(--oro)', fontWeight: 700 }}>Mejorar mi plan →</span>
+                    🔒 <strong>Con Ocēlōtl</strong> ves la <strong>atribución completa</strong>: qué <strong>historia o evento</strong> te trajo cada cliente, y <strong>exportas tu reporte</strong> (PDF e imagen) para presumirlo. <span style={{ color: 'var(--oro)', fontWeight: 700 }}>Mejorar mi plan →</span>
                   </a>
                 )}
                 {tier >= 3 && (
