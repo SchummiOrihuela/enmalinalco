@@ -15,6 +15,7 @@ import BackToTop from './BackToTop'
 import ContactForm from './ContactForm'
 import PreviewSpace from './PreviewSpace'
 import InsightsDrawer from './InsightsDrawer'
+import MalinalcoPulse from './MalinalcoPulse'
 import FeedbackButton from './FeedbackButton'
 import {
   saludFicha, tasaContacto, rankingCategoria, roiEstimado,
@@ -139,6 +140,14 @@ export default async function DashboardPage({ searchParams }) {
       }
     }
     insights = { tier: tierP, salud, tasa, ranking, roi, recosPorRed, fase2, lectura, acciones, avisos, meta, mom, negocioId: business.id, negocio: business.name, categoria: business.category }
+  }
+
+  // El Pulso de Malinalco: demanda del PUEBLO entero (todos los tiers lo ven).
+  // Agregado seguro (SECURITY DEFINER): no expone datos de ningún negocio.
+  let pulse = null
+  if (business) {
+    const { data: p } = await supabase.rpc('malinalco_pulse')
+    pulse = p || null
   }
 
   return (
@@ -408,6 +417,9 @@ export default async function DashboardPage({ searchParams }) {
                     Esto es lo que tu presencia en En Malinalco te genera: <strong>cuánta gente descubre tu negocio y te contacta cada mes</strong> — la razón de ser de tu plan. El <strong style={{ color: '#5FB874' }}>▲</strong> es tu crecimiento vs. el mes pasado.
                   </p>
                 </div>
+
+                {/* El Pulso de Malinalco — demanda del pueblo (todos los tiers) */}
+                <MalinalcoPulse pulse={pulse} />
 
                 {/* Inteligencia comparativa (Cuāuhtli+) */}
                 {compara && (

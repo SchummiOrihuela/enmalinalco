@@ -23,8 +23,27 @@ Meta de negocio: crecer reserva directa (canteraycalma.com) y llenar los 50 cupo
   `snapshot_monthly_views` y `rls_auto_enable` tienen `EXECUTE` revocado a `anon`/`authenticated`
   (solo `service_role`). NO volver a exponerlas. Las de tracking público
   (`track_view`, `increment_business_view`, `founders_taken`, etc.) sí son públicas a propósito.
+- `malinalco_pulse()` (nov 2026): `SECURITY DEFINER` pública a `anon`/`authenticated` PERO
+  solo devuelve **agregados del pueblo** (nunca datos de un negocio). Alimenta "El Pulso de Malinalco".
 - **GA4** property `553976108`. **Search Console** `sc-domain:enmalinalco.com`.
 - Datos frescos se traen vía **Composio** (apps conectadas: google_analytics, google_search_console).
+
+## Ojo de Jaguar — inteligencia (panel)
+- Motor BI en `src/lib/insights.js` (funciones puras): salud de ficha, tasa de contacto,
+  ranking, ROI, catálogo de ~60 recomendaciones por red con `test(ctx)`, lectura del
+  consultor (reglas), alertas, meta del mes, y agregadores Fase 2 (serie, heatmap, atribución, geo).
+- UI en `src/app/dashboard/InsightsDrawer.js`; se arma en `dashboard/page.js`.
+- **ROI visible (nov 2026):** `roiEstimado` ya se renderiza en el panel (tarjeta "Tu
+  mensualidad, en perspectiva", Cuāuhtli+ cuando hay contactos del mes) y en el PDF export.
+  Antes se calculaba pero no se mostraba (solo salía en el correo mensual).
+- **El Pulso de Malinalco (nov 2026):** `src/app/dashboard/MalinalcoPulse.js` + rpc
+  `malinalco_pulse()`. Índice de demanda del pueblo (cross-negocio), lo ven TODOS los tiers;
+  arregla el "panel vacío" del arranque en frío. Hora en zona `America/Mexico_City`.
+- Reparto por tier: Malinalli (salud, tasa, vistas, Pulso); Cuāuhtli (+ consultor IA, ranking,
+  ROI, recos/red, alertas, meta, comparativa); Ocēlōtl (+ Fase 2 completa, export, correo).
+- **Copy de tiers elevado** en `src/lib/plans.js` (nov 2026) a lenguaje de resultado/premium.
+  OJO: el landing (`src/app/page.js`) tiene su copy de planes **hardcodeado aparte** (no importa
+  `PLANS`); sincronizarlo es pendiente si se cambian beneficios de nuevo.
 
 ## Dashboard Mensual (artefacto Claude)
 - Artefacto "enmalinalco . Dash Mensual", slug `aafdfa81-d09d-48d6-8ccf-f58cb62d76c9`.
@@ -37,6 +56,11 @@ Meta de negocio: crecer reserva directa (canteraycalma.com) y llenar los 50 cupo
 - Verificación: `npm run build` (necesita env; con dummies basta para validar) y `npx eslint`.
 - `eslint-config-next` 16.4.x activa `react-hooks/purity`; `Date.now()` en handlers/cargadores
   async son falsos positivos y van con `// eslint-disable-next-line react-hooks/purity`.
+
+## Documentos de estrategia (en `docs/`)
+- `metricas-y-recomendaciones.md` — hoja de ruta del producto/BI (Fase 0/1/2).
+- `estrategia-reels-y-crecimiento.md` — marketing: reels, pauta $250, venta de Ojo de Jaguar, tiers.
+- `ojo-de-jaguar-auditoria-bi.md` — auditoría del motor BI + ideas (ROI visible, Pulso, etc.).
 
 ## Recomendaciones SEO ya ejecutadas (no repetir)
 - Re-título de `balnearios-malinalco` y `como-llegar-malinalco` + enlaces internos a historias
