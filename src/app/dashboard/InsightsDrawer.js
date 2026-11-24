@@ -172,7 +172,7 @@ const VS_GOOGLE = [
 ]
 
 // Exporta el reporte a una ventana imprimible (el cliente guarda PDF o screenshot).
-function exportarReporte({ negocio, lectura, acciones, salud, tasa, ranking, roi, mom, fase2 }) {
+function exportarReporte({ negocio, lectura, acciones, salud, tasa, ranking, roi, oportunidad, mom, fase2 }) {
   const fecha = new Date().toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' })
   const kpi = (l, v) => `<div style="flex:1 1 150px;border:1px solid #E4D7B4;border-left:4px solid #B98A16;border-radius:12px;padding:12px 14px"><div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8A7A4F;font-weight:700">${l}</div><div style="font-family:Georgia,serif;font-size:24px;color:#1C3B28;font-weight:700;margin-top:2px">${v}</div></div>`
   const vp = mom && mom.vistas.pct !== null ? mom.vistas.pct : null
@@ -186,6 +186,10 @@ function exportarReporte({ negocio, lectura, acciones, salud, tasa, ranking, roi
   const roiHtml = roi && roi.contactos > 0
     ? `<h3 style="color:#B98A16;font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin:22px 0 8px">Tu mensualidad, en perspectiva</h3>` +
       `<div style="background:#FBF4DD;border:1px solid #E4D7B4;border-left:4px solid #B98A16;border-radius:12px;padding:14px 16px;font-size:14px;line-height:1.6;color:#2A2016">Este mes generaste <strong>${roi.contactos} contacto(s)</strong>. Si cierras <strong>${roi.cierreTexto}</strong> con un ticket de <strong>${pesos(roi.ticket)}</strong>, son <strong>~${pesos(roi.ingreso)} potenciales</strong>. Tu plan cuesta <strong>${pesos(roi.precio)}</strong>${roi.retorno >= 1 ? ` → <strong>${roi.retorno}× de retorno.</strong>` : '.'}</div>`
+    : ''
+  const oportHtml = oportunidad
+    ? `<h3 style="color:#B8541F;font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin:22px 0 8px">Lo que se quedó en la mesa</h3>` +
+      `<div style="background:#FBEAE0;border:1px solid #E8C3AE;border-left:4px solid #BF5028;border-radius:12px;padding:14px 16px;font-size:14px;line-height:1.6;color:#2A2016">Este mes <strong>${oportunidad.visitas}</strong> personas te vieron y <strong>${oportunidad.noContacto}</strong> no te escribieron. Si solo <strong>${oportunidad.capturaTexto}</strong> lo hubiera hecho y cerraras <strong>${oportunidad.cierreTexto}</strong>, son <strong>~${pesos(oportunidad.ingreso)}</strong> que se fueron con alguien más. Se recupera con mejor foto principal y precios visibles.</div>`
     : ''
   const geo = fase2 && fase2.geo && fase2.geo.total > 0
     ? `<h3 style="color:#B98A16;font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin:20px 0 8px">¿De dónde vienen?</h3>` +
@@ -203,6 +207,7 @@ function exportarReporte({ negocio, lectura, acciones, salud, tasa, ranking, roi
       <ol style="padding-left:18px;margin:0">${accs}</ol>
       <div style="display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 0">${kpis}</div>
       ${roiHtml}
+      ${oportHtml}
       ${geo}
       <p style="margin:26px 0 0;color:#9A8E7C;font-size:11px">Valores de ingreso estimados con supuestos conservadores. En Malinalco · El directorio del Pueblo Mágico.</p>
     </div>
@@ -318,7 +323,7 @@ function wrapText(x, text, px, py, maxW, lh) {
 export default function InsightsDrawer({ insights }) {
   const [open, setOpen] = useState(false)
   const [red, setRed] = useState(null)
-  const { tier, salud, tasa, ranking, roi, recosPorRed, fase2, lectura, acciones, avisos, mom, negocio, negocioId } = insights
+  const { tier, salud, tasa, ranking, roi, oportunidad, recosPorRed, fase2, lectura, acciones, avisos, mom, negocio, negocioId } = insights
   const [meta, setMeta] = useState(insights.meta)
   const [metaInput, setMetaInput] = useState('')
   const [editMeta, setEditMeta] = useState(false)
@@ -572,6 +577,30 @@ export default function InsightsDrawer({ insights }) {
                     </p>
                     <div style={{ marginTop: '10px', fontSize: '12px', color: 'rgba(246,240,224,0.6)', lineHeight: 1.5, fontStyle: 'italic' }}>
                       Estimado con supuestos conservadores (cierre y ticket por giro), sin contar a quienes llegaron sin avisar. Esto es lo que Google no te traduce: tus números en pesos.
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {/* OPORTUNIDAD PERDIDA — "lo que se quedó en la mesa" (Cuāuhtli+) */}
+              {oportunidad && (
+                <>
+                  <H2>Lo que se quedó en la mesa</H2>
+                  <div style={{
+                    padding: '18px 20px', borderRadius: '16px',
+                    background: 'radial-gradient(420px 160px at 88% -40%, rgba(191,80,40,0.20), transparent 70%), linear-gradient(135deg, rgba(191,80,40,0.12), rgba(16,28,18,0.4))',
+                    border: '1px solid rgba(220,120,74,0.35)', borderLeft: '4px solid #D9743C',
+                  }}>
+                    <div style={{ fontSize: '11.5px', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#E8A074', fontWeight: 800, marginBottom: '8px' }}>
+                      🫙 Visitas que no se volvieron cliente
+                    </div>
+                    <p style={{ margin: 0, fontSize: '15.5px', lineHeight: 1.6, color: '#F3EEE2', fontWeight: 500 }}>
+                      Este mes <strong>{oportunidad.visitas}</strong> personas te vieron y <strong>{oportunidad.noContacto}</strong> no te escribieron.
+                      {' '}Si solo <strong>{oportunidad.capturaTexto}</strong> lo hubiera hecho y cerraras <strong>{oportunidad.cierreTexto}</strong>,
+                      {' '}son <strong style={{ color: '#E8A074' }}>~{pesos(oportunidad.ingreso)}</strong> que se fueron con alguien más.
+                    </p>
+                    <div style={{ marginTop: '10px', fontSize: '12px', color: 'rgba(246,240,224,0.6)', lineHeight: 1.5, fontStyle: 'italic' }}>
+                      Estimado conservador. La buena noticia: casi siempre se recupera con una mejor <strong>foto principal</strong> y <strong>precios visibles</strong>.
                     </div>
                   </div>
                 </>

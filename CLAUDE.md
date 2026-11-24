@@ -36,6 +36,9 @@ Meta de negocio: crecer reserva directa (canteraycalma.com) y llenar los 50 cupo
 - **ROI visible (nov 2026):** `roiEstimado` ya se renderiza en el panel (tarjeta "Tu
   mensualidad, en perspectiva", Cuāuhtli+ cuando hay contactos del mes) y en el PDF export.
   Antes se calculaba pero no se mostraba (solo salía en el correo mensual).
+- **Oportunidad perdida (nov 2026):** `oportunidadPerdida()` en `insights.js` + tarjeta
+  "Lo que se quedó en la mesa" (Cuāuhtli+). Encuadre de pérdida honesto y conservador
+  (captura 1 de cada 10, piso de 10 visitas); también en el PDF export. No está en el correo aún.
 - **El Pulso de Malinalco (nov 2026):** `src/app/dashboard/MalinalcoPulse.js` + rpc
   `malinalco_pulse()`. Índice de demanda del pueblo (cross-negocio), lo ven TODOS los tiers;
   arregla el "panel vacío" del arranque en frío. Hora en zona `America/Mexico_City`.

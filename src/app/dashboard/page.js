@@ -18,7 +18,7 @@ import InsightsDrawer from './InsightsDrawer'
 import MalinalcoPulse from './MalinalcoPulse'
 import FeedbackButton from './FeedbackButton'
 import {
-  saludFicha, tasaContacto, rankingCategoria, roiEstimado,
+  saludFicha, tasaContacto, rankingCategoria, roiEstimado, oportunidadPerdida,
   contextoRecos, recomendacionesPorRed, recomendaciones, lecturaConsultor,
   alertas, metaProgreso, mesVsMes,
   heatmap, atribucion, origenGeografico, serieTiempo,
@@ -105,6 +105,7 @@ export default async function DashboardPage({ searchParams }) {
     const tasa = tasaContacto(business)
     const ranking = tierP >= 2 ? rankingCategoria(peersCat, business.view_count) : null
     const roi = tierP >= 2 ? roiEstimado(business) : null
+    const oportunidad = tierP >= 2 ? oportunidadPerdida(business) : null
     const ctx = contextoRecos({ business, salud, tasa })
     // Reparto por tier (Ojo de Jaguar en todos, seccionado):
     //  - Malinalli (1): salud, tasa, vistas y 1 acción (asómate al poder de tus datos).
@@ -139,7 +140,7 @@ export default async function DashboardPage({ searchParams }) {
         geo: origenGeografico(ev),
       }
     }
-    insights = { tier: tierP, salud, tasa, ranking, roi, recosPorRed, fase2, lectura, acciones, avisos, meta, mom, negocioId: business.id, negocio: business.name, categoria: business.category }
+    insights = { tier: tierP, salud, tasa, ranking, roi, oportunidad, recosPorRed, fase2, lectura, acciones, avisos, meta, mom, negocioId: business.id, negocio: business.name, categoria: business.category }
   }
 
   // El Pulso de Malinalco: demanda del PUEBLO entero (todos los tiers lo ven).
