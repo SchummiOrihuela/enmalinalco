@@ -132,6 +132,31 @@ export function roiEstimado(business, { ticket, cierre } = {}) {
   }
 }
 
+// ── 4b) Oportunidad perdida — "lo que se quedó en la mesa" ───────────────────
+// La cara opuesta del ROI (encuadre de pérdida). De las visitas del mes que NO
+// te contactaron, qué ingreso se fue SI solo una fracción pequeña te hubiera
+// escrito y cerraras a tu ritmo. Honesto y conservador: todo "potencial", con
+// una captura baja (1 de cada 10) y un piso mínimo de visitas para no exagerar.
+// Su fin es motivar a mejorar la ficha, no culpar.
+export function oportunidadPerdida(business, { ticket, cierre, captura = 0.1, minVisitas = 10 } = {}) {
+  const cat = business.category
+  const t = ticket ?? TICKET_SUGERIDO[cat] ?? TICKET_DEFAULT
+  const c = cierre ?? CIERRE_SUGERIDO[cat] ?? CIERRE_DEFAULT
+  const visitas = delta(business.view_count, business.views_last_month)
+  const contactos = contactosMes(business)
+  const noContacto = Math.max(0, visitas - contactos)
+  if (visitas < minVisitas || noContacto <= 0) return null
+  const ingreso = Math.round(noContacto * captura * c * t)
+  if (ingreso <= 0) return null
+  return {
+    visitas, contactos, noContacto,
+    captura, ticket: t, cierre: c,
+    capturaTexto: `1 de cada ${Math.max(1, Math.round(1 / captura))}`,
+    cierreTexto: `1 de cada ${Math.max(1, Math.round(1 / c))}`,
+    ingreso,
+  }
+}
+
 // ── 5) Motor de recomendaciones ─────────────────────────────────────────────
 // Catálogo de recomendaciones ESPECÍFICAS por red y por ficha. Cada una lleva:
 //   - red:  'instagram' | 'facebook' | 'whatsapp' | 'ficha' | 'contenido'
