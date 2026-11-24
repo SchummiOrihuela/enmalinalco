@@ -270,44 +270,76 @@ function rangoBadge({ ranking, salud, categoria }) {
 function dibujarBadge(x, insights, W, H) {
   const { negocio, tasa } = insights
   const r = rangoBadge(insights)
-  // Fondo obsidiana + halo oro.
+  // Fondo obsidiana + halos arriba Y abajo (balance de composición).
   const g = x.createLinearGradient(0, 0, 0, H)
   g.addColorStop(0, '#203A26'); g.addColorStop(1, '#0E1A11')
   x.fillStyle = g; x.fillRect(0, 0, W, H)
-  const halo = x.createRadialGradient(W / 2, 170, 60, W / 2, 170, 900)
-  halo.addColorStop(0, 'rgba(220,178,74,0.30)'); halo.addColorStop(1, 'rgba(220,178,74,0)')
-  x.fillStyle = halo; x.fillRect(0, 0, W, H)
+  const haloT = x.createRadialGradient(W / 2, 150, 60, W / 2, 150, 760)
+  haloT.addColorStop(0, 'rgba(220,178,74,0.28)'); haloT.addColorStop(1, 'rgba(220,178,74,0)')
+  x.fillStyle = haloT; x.fillRect(0, 0, W, H)
+  const haloB = x.createRadialGradient(W / 2, H - 150, 40, W / 2, H - 150, 640)
+  haloB.addColorStop(0, 'rgba(220,178,74,0.16)'); haloB.addColorStop(1, 'rgba(220,178,74,0)')
+  x.fillStyle = haloB; x.fillRect(0, 0, W, H)
   // Doble marco oro (sello).
   x.strokeStyle = 'rgba(220,178,74,0.55)'; x.lineWidth = 2.5; roundRect(x, 42, 42, W - 84, H - 84, 40); x.stroke()
   x.strokeStyle = 'rgba(220,178,74,0.20)'; x.lineWidth = 1; roundRect(x, 54, 54, W - 108, H - 108, 34); x.stroke()
+  // Acentos de esquina (toque de diploma).
+  const tick = (cx, cy, sx, sy) => {
+    x.strokeStyle = 'rgba(220,178,74,0.6)'; x.lineWidth = 2
+    x.beginPath(); x.moveTo(cx, cy); x.lineTo(cx + 26 * sx, cy); x.moveTo(cx, cy); x.lineTo(cx, cy + 26 * sy); x.stroke()
+    x.fillStyle = 'rgba(220,178,74,0.85)'; x.beginPath(); x.arc(cx, cy, 3, 0, Math.PI * 2); x.fill()
+  }
+  tick(86, 86, 1, 1); tick(W - 86, 86, -1, 1); tick(86, H - 86, 1, -1); tick(W - 86, H - 86, -1, -1)
 
   x.textAlign = 'center'; x.textBaseline = 'top'
-  dibujarOjo(x, W / 2, 118, 50)
+  dibujarOjo(x, W / 2, 128, 52)
   x.fillStyle = '#DCB24A'; x.font = '700 24px Georgia, serif'
-  x.fillText('OJO DE JAGUAR · EN MALINALCO', W / 2, 236)
+  x.fillText('OJO DE JAGUAR · EN MALINALCO', W / 2, 252)
   x.fillStyle = 'rgba(220,178,74,0.9)'; x.font = '700 20px Georgia, serif'
-  x.fillText('·  D I S T I N C I Ó N  ·', W / 2, 298)
+  x.fillText('·  D I S T I N C I Ó N  ·', W / 2, 312)
 
-  // Banda (el logro). Serif grande, oro claro.
-  x.fillStyle = '#F6EED3'; x.font = '700 62px Georgia, serif'
-  let y = wrapText(x, r.tag, W / 2, 352, 860, 72)
+  // Bloque del logro, centrado verticalmente entre el encabezado y el fleurón.
+  const fBand = '700 62px Georgia, serif', fSub = 'italic 30px Georgia, serif', fName = '600 46px Georgia, serif'
+  const countLines = (text, font, maxW) => {
+    x.font = font
+    const words = String(text).split(' '); let line = '', n = 0
+    for (const w of words) { const t = line + w + ' '; if (x.measureText(t).width > maxW && line) { n++; line = w + ' ' } else line = t }
+    return n + (line ? 1 : 0)
+  }
+  const bl = countLines(r.tag, fBand, 860)
+  const sl = countLines(r.sub, fSub, 820)
+  const nl = countLines(negocio || 'Mi negocio', fName, 900)
+  const hasProof = !!(tasa && (tasa.vistas || 0) >= 30)
+  const total = bl * 72 + 10 + sl * 40 + 64 + nl * 56 + (hasProof ? 52 : 0)
+  let y = Math.max(380, 725 - total / 2)
+
+  // Banda (el logro).
+  x.fillStyle = '#F6EED3'; x.font = fBand
+  y = wrapText(x, r.tag, W / 2, y, 860, 72)
   // Subtítulo.
-  x.fillStyle = 'rgba(246,240,224,0.82)'; x.font = 'italic 30px Georgia, serif'
+  x.fillStyle = 'rgba(246,240,224,0.82)'; x.font = fSub
   y = wrapText(x, r.sub, W / 2, y + 10, 820, 40)
   // Divisor.
   x.strokeStyle = 'rgba(220,178,74,0.4)'; x.lineWidth = 2
   x.beginPath(); x.moveTo(W / 2 - 110, y + 34); x.lineTo(W / 2 + 110, y + 34); x.stroke()
   // Nombre del negocio.
-  x.fillStyle = '#FFFFFF'; x.font = '600 46px Georgia, serif'
+  x.fillStyle = '#FFFFFF'; x.font = fName
   y = wrapText(x, negocio || 'Mi negocio', W / 2, y + 64, 900, 56)
   // Línea de prueba (opcional, discreta).
-  if (tasa && (tasa.vistas || 0) >= 30) {
+  if (hasProof) {
     x.fillStyle = 'rgba(246,240,224,0.6)'; x.font = '26px Arial, sans-serif'
     x.fillText(`Visto por ${tasa.vistas.toLocaleString('es-MX')} personas en enmalinalco.com`, W / 2, y + 18)
   }
+
+  // Fleurón de oro: puente elegante hacia el pie (llena el espacio inferior).
+  const fy = H - 234
+  x.strokeStyle = 'rgba(220,178,74,0.45)'; x.lineWidth = 2
+  x.beginPath(); x.moveTo(W / 2 - 150, fy); x.lineTo(W / 2 - 26, fy); x.moveTo(W / 2 + 26, fy); x.lineTo(W / 2 + 150, fy); x.stroke()
+  x.save(); x.translate(W / 2, fy); x.rotate(Math.PI / 4); x.fillStyle = '#DCB24A'; x.fillRect(-7, -7, 14, 14); x.restore()
+
   // Pie de marca.
   x.fillStyle = '#8FD3A0'; x.font = '700 36px Georgia, serif'
-  x.fillText('enmalinalco.com', W / 2, H - 152)
+  x.fillText('enmalinalco.com', W / 2, H - 150)
   x.fillStyle = 'rgba(246,240,224,0.5)'; x.font = '24px Arial, sans-serif'
   x.fillText('El directorio del Pueblo Mágico', W / 2, H - 102)
 }
