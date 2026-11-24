@@ -54,6 +54,11 @@ Meta de negocio: crecer reserva directa (canteraycalma.com) y llenar los 50 cupo
   "Recomendado" — NUNCA el número crudo (#7). Ranking existe desde Cuāuhtli; Malinalli luce
   "Recomendado/verificado". Botón "Compartir mi distinción" usa `navigator.share` (menú nativo)
   con descarga PNG de respaldo. El nivel de plan NO se imprime en el badge (es privado).
+- **Ranking por desempeño del mes (nov 2026):** `rankingCategoria` ordena por vistas ganadas
+  este mes (`view_count − views_last_month`), con histórico como desempate. Carrera ganable,
+  no premia antigüedad. `page.js` trae `views_last_month` de los pares.
+- **Nombres de lugar elegantes (nov 2026):** `lugarBonito()` mapea códigos crudos
+  (CMX→Ciudad de México, MEX→Estado de México, MOR→Morelos, MX→México…) en `origenGeografico`.
 - **Copy de tiers elevado** en `src/lib/plans.js` (nov 2026) a lenguaje de resultado/premium.
   OJO: el landing (`src/app/page.js`) tiene su copy de planes **hardcodeado aparte** (no importa
   `PLANS`); sincronizarlo es pendiente si se cambian beneficios de nuevo.

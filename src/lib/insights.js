@@ -102,10 +102,16 @@ export function saludFicha({ business, photos = [], hoursCount = 0, maxPhotos })
 // ── 3) Ranking dentro de la categoría ───────────────────────────────────────
 // peers: arreglo de { view_count } de los negocios activos de la misma categoría
 // (INCLUYENDO al propio). Devuelve posición (1 = primero) y total.
-export function rankingCategoria(peers, myViews) {
+// Ranking por DESEMPEÑO DEL MES: cuenta las vistas ganadas este mes
+// (view_count − views_last_month), con las vistas históricas como desempate.
+// Así es una carrera mensual, ganable y reseteable — no premia la antigüedad.
+// peers: arreglo de { view_count, views_last_month } de la categoría (incluido el propio).
+export function rankingCategoria(peers, myMonthly, myLifetime = 0) {
   if (!Array.isArray(peers) || peers.length < 2) return null
-  const mine = myViews || 0
-  const porEncima = peers.filter((p) => (p.view_count || 0) > mine).length
+  const mesDe = (p) => Math.max(0, (p.view_count || 0) - (p.views_last_month || 0))
+  const score = (m, l) => m * 1e9 + (l || 0)
+  const mine = score(Math.max(0, myMonthly || 0), myLifetime)
+  const porEncima = peers.filter((p) => score(mesDe(p), p.view_count || 0) > mine).length
   return { pos: porEncima + 1, n: peers.length }
 }
 
@@ -480,13 +486,43 @@ export function atribucion(events = []) {
   return Object.values(acc).sort((a, b) => (b.vistas + b.contactos) - (a.vistas + a.contactos))
 }
 
-// Origen geográfico aproximado (por región/estado). Top primero.
+// Nombres elegantes de lugar: de códigos crudos (CMX, MEX, MOR, MX) a nombres
+// que den orgullo leer. Si ya viene un nombre legible (ciudad), se respeta.
+const ESTADOS_MX = {
+  AGU: 'Aguascalientes', BCN: 'Baja California', BCS: 'Baja California Sur',
+  CAM: 'Campeche', CHP: 'Chiapas', CHH: 'Chihuahua', CMX: 'Ciudad de México',
+  COA: 'Coahuila', COL: 'Colima', DUR: 'Durango', GUA: 'Guanajuato',
+  GRO: 'Guerrero', HID: 'Hidalgo', JAL: 'Jalisco', MEX: 'Estado de México',
+  MIC: 'Michoacán', MOR: 'Morelos', NAY: 'Nayarit', NLE: 'Nuevo León',
+  OAX: 'Oaxaca', PUE: 'Puebla', QUE: 'Querétaro', ROO: 'Quintana Roo',
+  SLP: 'San Luis Potosí', SIN: 'Sinaloa', SON: 'Sonora', TAB: 'Tabasco',
+  TAM: 'Tamaulipas', TLA: 'Tlaxcala', VER: 'Veracruz', YUC: 'Yucatán',
+  ZAC: 'Zacatecas', DIF: 'Ciudad de México',
+}
+const PAISES = {
+  MX: 'México', US: 'Estados Unidos', CA: 'Canadá', ES: 'España',
+  GB: 'Reino Unido', FR: 'Francia', DE: 'Alemania', AR: 'Argentina',
+  CO: 'Colombia', CL: 'Chile', BR: 'Brasil',
+}
+export function lugarBonito(code) {
+  if (!code) return 'Desconocido'
+  const c = String(code).trim()
+  if (!c) return 'Desconocido'
+  const up = c.toUpperCase()
+  if (ESTADOS_MX[up]) return ESTADOS_MX[up]
+  const m = up.match(/^MX-([A-Z]{2,3})$/)
+  if (m && ESTADOS_MX[m[1]]) return ESTADOS_MX[m[1]]
+  if (PAISES[up]) return PAISES[up]
+  return c // nombre legible (ciudad u otro): se respeta tal cual
+}
+
+// Origen geográfico aproximado (por región/estado), con nombres elegantes. Top primero.
 export function origenGeografico(events = []) {
   const acc = {}
   let total = 0
   for (const e of events) {
     if (e.kind !== 'view') continue
-    const label = e.region || e.country || 'Desconocido'
+    const label = lugarBonito(e.region || e.country || 'Desconocido')
     acc[label] = (acc[label] || 0) + 1
     total += 1
   }

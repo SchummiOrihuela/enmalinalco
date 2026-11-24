@@ -653,7 +653,7 @@ export default function InsightsDrawer({ insights }) {
                 )}
                 {ranking && (
                   <Kpi label="Tu lugar en la categoría" value={`#${ranking.pos} de ${ranking.n}`} accent={ranking.pos === 1 ? '#3E9E59' : ORO}
-                    sub={ranking.pos === 1 ? '¡Primer lugar del pueblo!' : 'Por vistas en tu categoría'} />
+                    sub={ranking.pos === 1 ? '¡Primer lugar del pueblo este mes!' : 'Por tus vistas de este mes'} />
                 )}
                 {vPct !== null && (
                   <Kpi

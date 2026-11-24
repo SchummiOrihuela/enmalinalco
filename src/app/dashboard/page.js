@@ -85,7 +85,7 @@ export default async function DashboardPage({ searchParams }) {
   if (business && getPriority(business.plan) >= 2 && business.category) {
     const { data: peers } = await supabase
       .from('businesses')
-      .select('view_count')
+      .select('view_count, views_last_month')
       .eq('is_active', true)
       .eq('category', business.category)
     peersCat = peers || null
@@ -103,7 +103,9 @@ export default async function DashboardPage({ searchParams }) {
     const tierP = getPriority(business.plan)
     const salud = saludFicha({ business, photos, hoursCount: hours.length })
     const tasa = tasaContacto(business)
-    const ranking = tierP >= 2 ? rankingCategoria(peersCat, business.view_count) : null
+    const ranking = tierP >= 2
+      ? rankingCategoria(peersCat, (business.view_count || 0) - (business.views_last_month || 0), business.view_count || 0)
+      : null
     const roi = tierP >= 2 ? roiEstimado(business) : null
     const oportunidad = tierP >= 2 ? oportunidadPerdida(business) : null
     const ctx = contextoRecos({ business, salud, tasa })
