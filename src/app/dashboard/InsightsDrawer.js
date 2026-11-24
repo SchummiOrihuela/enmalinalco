@@ -693,46 +693,71 @@ export default function InsightsDrawer({ insights }) {
                 </>
               )}
 
-              {/* FASE 2 */}
+              {/* FASE 2 — escalonada por tier: Tendencia (todos) · hora+geo (Cuāuhtli+) · atribución (Ocēlōtl) */}
               {fase2 && (
                 <>
+                  {/* Tendencia — la probada real, en todos los planes */}
                   <H2>Tendencia</H2>
                   {fase2.total > 0 ? <Tendencia serie={fase2.serie} />
                     : <Vacio>Estamos recopilando datos de tu ficha. En cuanto tengas visitas verás aquí tu tendencia diaria.</Vacio>}
 
-                  <H2>¿A qué hora te buscan?</H2>
-                  {fase2.total > 0 ? <Heatmap hm={fase2.heatmap} />
-                    : <Vacio>Pronto sabrás los días y horas en que más te buscan, para publicar en el mejor momento.</Vacio>}
+                  {/* ¿A qué hora? + ¿De dónde? — Cuāuhtli en adelante */}
+                  {tier >= 2 ? (
+                    <>
+                      <H2>¿A qué hora te buscan?</H2>
+                      {fase2.total > 0 ? <Heatmap hm={fase2.heatmap} />
+                        : <Vacio>Pronto sabrás los días y horas en que más te buscan, para publicar en el mejor momento.</Vacio>}
 
-                  <H2>¿De dónde vienen?</H2>
-                  {fase2.geo.total > 0 ? (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '7px' }}>
-                      {fase2.geo.filas.map((g, i) => (
-                        <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px' }}>
-                          <div style={{ width: '120px', opacity: 0.85 }}>{g.label}</div>
-                          <div style={{ flex: 1, height: '10px', borderRadius: '9999px', background: 'rgba(246,240,224,0.08)', overflow: 'hidden' }}>
-                            <div style={{ width: `${g.pct}%`, height: '100%', background: 'linear-gradient(90deg,#E7C86A,#3A6B47)' }} />
-                          </div>
-                          <div style={{ width: '42px', textAlign: 'right', fontWeight: 700 }}>{g.pct}%</div>
+                      <H2>¿De dónde vienen?</H2>
+                      {fase2.geo.total > 0 ? (
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '7px' }}>
+                          {fase2.geo.filas.map((g, i) => (
+                            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px' }}>
+                              <div style={{ width: '120px', opacity: 0.85 }}>{g.label}</div>
+                              <div style={{ flex: 1, height: '10px', borderRadius: '9999px', background: 'rgba(246,240,224,0.08)', overflow: 'hidden' }}>
+                                <div style={{ width: `${g.pct}%`, height: '100%', background: 'linear-gradient(90deg,#E7C86A,#3A6B47)' }} />
+                              </div>
+                              <div style={{ width: '42px', textAlign: 'right', fontWeight: 700 }}>{g.pct}%</div>
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                  ) : <Vacio>Cuando tengas más visitas, aquí verás de qué estados llega tu público (CDMX, Toluca, Edomex…) para enfocar tu promoción.</Vacio>}
+                      ) : <Vacio>Cuando tengas más visitas, aquí verás de qué estados llega tu público (CDMX, Toluca, Edomex…) para enfocar tu promoción.</Vacio>}
+                    </>
+                  ) : (
+                    <a href="#planes" onClick={() => setOpen(false)} style={{
+                      display: 'block', margin: '16px 0 0', padding: '13px 16px', borderRadius: '13px', textDecoration: 'none',
+                      background: 'rgba(220,178,74,0.08)', border: '1px dashed rgba(220,178,74,0.5)', color: 'rgba(246,240,224,0.9)', fontSize: '13px', lineHeight: 1.5,
+                    }}>
+                      🔒 Con <strong style={{ color: ORO }}>Cuāuhtli</strong>: <strong>a qué hora</strong> te buscan y <strong>de qué estados</strong> llega tu público. <span style={{ color: ORO, fontWeight: 700, whiteSpace: 'nowrap' }}>Mejorar mi plan →</span>
+                    </a>
+                  )}
 
-                  <H2>Qué historias y eventos te traen clientes</H2>
-                  {fase2.atribucion.length > 0 ? (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '7px' }}>
-                      {fase2.atribucion.slice(0, 8).map((a, i) => (
-                        <div key={i} style={{
-                          display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px',
-                          padding: '10px 14px', borderRadius: '12px', background: 'rgba(220,178,74,0.08)', border: '1px solid rgba(220,178,74,0.2)', fontSize: '13px',
-                        }}>
-                          <span>{a.tipo === 'historia' ? '📖' : a.tipo === 'evento' ? '🎟️' : '🔗'} <strong>{a.slug || a.ref}</strong> <span style={{ opacity: 0.6 }}>({a.tipo})</span></span>
-                          <span style={{ whiteSpace: 'nowrap', opacity: 0.9 }}>{a.vistas} vistas · {a.contactos} contactos</span>
+                  {/* Atribución (la joya) — solo Ocēlōtl */}
+                  {tier >= 3 ? (
+                    <>
+                      <H2>Qué historias y eventos te traen clientes</H2>
+                      {fase2.atribucion.length > 0 ? (
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '7px' }}>
+                          {fase2.atribucion.slice(0, 8).map((a, i) => (
+                            <div key={i} style={{
+                              display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px',
+                              padding: '10px 14px', borderRadius: '12px', background: 'rgba(220,178,74,0.08)', border: '1px solid rgba(220,178,74,0.2)', fontSize: '13px',
+                            }}>
+                              <span>{a.tipo === 'historia' ? '📖' : a.tipo === 'evento' ? '🎟️' : '🔗'} <strong>{a.slug || a.ref}</strong> <span style={{ opacity: 0.6 }}>({a.tipo})</span></span>
+                              <span style={{ whiteSpace: 'nowrap', opacity: 0.9 }}>{a.vistas} vistas · {a.contactos} contactos</span>
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                  ) : <Vacio>Cuando una de nuestras historias o eventos te mande visitas, aquí verás exactamente cuántas — la prueba de que lo que hacemos por el pueblo te llega a la caja.</Vacio>}
+                      ) : <Vacio>Cuando una de nuestras historias o eventos te mande visitas, aquí verás exactamente cuántas — la prueba de que lo que hacemos por el pueblo te llega a la caja.</Vacio>}
+                    </>
+                  ) : (
+                    <a href="#planes" onClick={() => setOpen(false)} style={{
+                      display: 'block', margin: '16px 0 0', padding: '13px 16px', borderRadius: '13px', textDecoration: 'none',
+                      background: 'rgba(124,182,137,0.08)', border: '1px dashed rgba(124,182,137,0.5)', color: 'rgba(246,240,224,0.9)', fontSize: '13px', lineHeight: 1.5,
+                    }}>
+                      🔒 Con <strong style={{ color: '#8FD3A0' }}>Ocēlōtl</strong>: qué <strong>historia o evento</strong> te trae cada cliente — la prueba de que el pueblo te llega a la caja. <span style={{ color: '#8FD3A0', fontWeight: 700, whiteSpace: 'nowrap' }}>Mejorar mi plan →</span>
+                    </a>
+                  )}
                 </>
               )}
 
@@ -743,7 +768,7 @@ export default function InsightsDrawer({ insights }) {
                   background: 'linear-gradient(135deg, rgba(220,178,74,0.16), rgba(16,28,18,0.4))', border: '1px dashed rgba(220,178,74,0.5)', color: '#F6F0E0',
                 }}>
                   <div style={{ fontWeight: 800, fontSize: '14.5px', marginBottom: '4px' }}>🔒 Con <span style={{ color: ORO }}>Cuāuhtli</span> desbloqueas tu Consultor con IA</div>
-                  <div style={{ fontSize: '13px', opacity: 0.85, lineHeight: 1.5 }}>Te dice <strong>qué hacer esta semana</strong>, tus Top 3 recomendaciones por red social, tu ranking en el pueblo, alertas y metas. <span style={{ color: ORO, fontWeight: 700 }}>Mejorar mi plan →</span></div>
+                  <div style={{ fontSize: '13px', opacity: 0.85, lineHeight: 1.5 }}>Te dice <strong>qué hacer esta semana</strong>, tus Top 3 recomendaciones por red, tu ranking en el pueblo, <strong>a qué hora y de qué estados te buscan</strong>, alertas y metas. <span style={{ color: ORO, fontWeight: 700 }}>Mejorar mi plan →</span></div>
                 </a>
               )}
               {tier === 2 && (
@@ -751,8 +776,8 @@ export default function InsightsDrawer({ insights }) {
                   display: 'block', marginTop: '22px', padding: '16px 18px', borderRadius: '16px', textDecoration: 'none',
                   background: 'linear-gradient(135deg, rgba(124,182,137,0.14), rgba(16,28,18,0.4))', border: '1px dashed rgba(124,182,137,0.5)', color: '#F6F0E0',
                 }}>
-                  <div style={{ fontWeight: 800, fontSize: '14.5px', marginBottom: '4px' }}>🔒 Con <span style={{ color: '#8FD3A0' }}>Ocēlōtl</span> ves de dónde viene cada cliente</div>
-                  <div style={{ fontSize: '13px', opacity: 0.85, lineHeight: 1.5 }}>Qué <strong>historia o evento</strong> te trajo clientes, <strong>a qué hora</strong> te buscan, de qué estados, y <strong>exportas tu reporte</strong> para presumirlo. <span style={{ color: '#8FD3A0', fontWeight: 700 }}>Mejorar mi plan →</span></div>
+                  <div style={{ fontWeight: 800, fontSize: '14.5px', marginBottom: '4px' }}>🔒 Con <span style={{ color: '#8FD3A0' }}>Ocēlōtl</span> ves qué te trae cada cliente</div>
+                  <div style={{ fontSize: '13px', opacity: 0.85, lineHeight: 1.5 }}>La <strong>atribución completa</strong> —qué historia o evento te trajo clientes— y <strong>exportas tu reporte</strong> (PDF e imagen) para presumirlo. <span style={{ color: '#8FD3A0', fontWeight: 700 }}>Mejorar mi plan →</span></div>
                 </a>
               )}
 
