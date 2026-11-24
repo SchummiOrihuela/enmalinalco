@@ -1140,29 +1140,29 @@ const MARKUP = `<!-- Progress bar -->
       <p class="eyebrow rv">Para dueños de negocio</p>
       <h2 class="sec-h rv rv-d1">¿Tienes un negocio en <em class="mali-pulse" style="color:var(--verde-lt)">Malinalco</em>?</h2>
       <p class="sec-p rv rv-d2">
-        Miles de turistas visitan <em style="color:var(--verde-lt);font-style:normal;font-weight:600">Malinalco</em> cada fin de semana buscando dónde comer, dónde hospedarse y qué hacer. Anúnciate en <span style="white-space:nowrap;font-weight:600;color:rgba(242,237,227,.85)">enmalinalco.com</span> y te encontrarán a ti primero.
+        Cada fin de semana, miles de turistas buscan en <em style="color:var(--verde-lt);font-style:normal;font-weight:600">Malinalco</em> dónde comer, dónde hospedarse y qué hacer. Anúnciate en <span style="white-space:nowrap;font-weight:600;color:rgba(242,237,227,.85)">enmalinalco.com</span> y te encontrarán a ti primero — con una ventaja que <strong style="color:rgba(242,237,227,.9)">nadie más en el pueblo te puede dar</strong>.
       </p>
 
       <p class="b2b-power rv rv-d2">
-        ${ojoJaguarSVG(20, 'ojp1')} Y con <strong>Ojo de Jaguar</strong>, tu consultor con IA: <strong>Google cuenta las vistas; nosotros te decimos qué hacer para vender más</strong> —de dónde viene cada cliente, a qué hora te buscan y tu próxima acción de la semana.
+        ${ojoJaguarSVG(20, 'ojp1')} Y con <strong>Ojo de Jaguar</strong>, tu consultor con IA: <strong>Google cuenta las vistas; nosotros te decimos qué hacer para vender más.</strong> Sabes de dónde viene cada cliente —qué historia o evento lo trajo—, a qué hora y de qué estados te buscan, cuánto valen tus contactos en pesos y tu lugar en el ranking del pueblo. Y cada mes luces tu <strong>distinción</strong>, lista para presumir. <strong style="color:var(--verde-lt)">Esto no lo tiene nadie más en Malinalco.</strong>
       </p>
 
       <div class="trust-row rv rv-d2">
         <span class="tchip">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Control total de tu ficha
+          Te encuentran los turistas
         </span>
         <span class="tchip">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Conocemos a los turistas
+          De dónde viene cada cliente
         </span>
         <span class="tchip">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Ficha visible los 7 días
+          Tu valor en pesos y tu ranking
         </span>
         <span class="tchip">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Actualízalo desde tu celular
+          Tu distinción para compartir
         </span>
         <span class="tchip">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1190,14 +1190,14 @@ const MARKUP = `<!-- Progress bar -->
       <div class="pcrd" tabindex="0" data-tier="malinalli">
         <div>
           <div class="plan-name">Malinalli</div>
-          <div class="plan-sub">Tu lugar en el directorio del pueblo</div>
+          <div class="plan-sub">Tu lugar donde el visitante decide</div>
           <ul class="plan-feats">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Tu negocio, presente en el directorio del Pueblo Mágico</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Te encuentran los miles de turistas que cada fin de semana buscan dónde ir en Malinalco</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>WhatsApp directo para cerrar en el momento, sin intermediarios</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Apareces en el buscador y en tu categoría del directorio</li>
+            <li class="oj-feat">${ojoJaguarSVG(16, 'ojp3')} <span><strong>Ojo de Jaguar Esencial</strong>: salud de tu ficha, tasa de contacto y el Pulso de Malinalco — inteligencia que nadie más en el pueblo tiene</span></li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Hasta 3 fotos, contacto, mapa y horarios</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Apareces en las búsquedas y en tu categoría</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Botón directo a WhatsApp para cerrar en el momento</li>
-            <li class="oj-feat">${ojoJaguarSVG(16, 'ojp3')} <span><strong>Ojo de Jaguar Esencial</strong>: salud de tu ficha, tasa de contacto y el Pulso de Malinalco</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Presencia todo el año, sin permanencia</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Tu distinción del pueblo, lista para presumir en Instagram, Facebook o tu local</li>
           </ul>
         </div>
         <div class="plan-price">
@@ -1212,12 +1212,12 @@ const MARKUP = `<!-- Progress bar -->
           <div class="plan-name">Cuāuhtli</div>
           <div class="plan-sub">Que te elijan primero</div>
           <ul class="plan-feats">
+            <li class="oj-feat">${ojoJaguarSVG(16, 'ojp4')} <span><strong>Ojo de Jaguar con IA</strong>: tu consultor que te dice qué hacer esta semana para vender más — tu valor en pesos, a qué hora y de dónde te buscan, tu ranking, alertas y metas. Nadie más en el pueblo lo tiene.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Apareces primero en tu categoría, antes que tu competencia</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Te promovemos: 1 mención al mes en las redes de En Malinalco (tráfico que te atribuimos)</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Insignia "Recomendado" que genera confianza al visitante</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Comparativa contra tu categoría del pueblo</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Hasta 10 fotos y todas tus redes conectadas</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Prioridad: apareces primero en tu categoría</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Insignia "Recomendado" que genera confianza</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>1 mención al mes en nuestras redes (tráfico que te atribuimos)</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Comparativa contra tu categoría en Malinalco</li>
-            <li class="oj-feat">${ojoJaguarSVG(16, 'ojp4')} <span><strong>Ojo de Jaguar con IA</strong>: tu Consultor que te dice qué hacer esta semana, tu valor en pesos, ranking del pueblo, alertas y metas</span></li>
           </ul>
         </div>
         <div class="plan-price">
@@ -1231,12 +1231,12 @@ const MARKUP = `<!-- Progress bar -->
           <div class="plan-name">Ocēlōtl</div>
           <div class="plan-sub">El referente del pueblo, con consultor incluido</div>
           <ul class="plan-feats">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Primer lugar en tu categoría y la portada del pueblo — el primer negocio que ve quien llega a Malinalco</li>
+            <li class="oj-feat">${ojoJaguarSVG(16, 'ojp5')} <span><strong>Ojo de Jaguar Total</strong>: de dónde viene cada cliente (qué historia o evento lo trajo), a qué hora te buscan, de qué estados, y tu reporte completo exportable</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Contamos tu historia: un artículo editorial propio que te trae clientes (SEO del pueblo)</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Tu consultor dedicado, en persona: te acompañamos uno a uno, con reporte mensual a tu correo</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Atención prioritaria: lo que necesites, resuelto primero y el mismo día</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Hasta 30 fotos y galería ampliada</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Primer lugar en tu categoría y presencia en portada</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Tu historia contada: artículo editorial propio (SEO que te trae clientes)</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>En temporada alta, en el Top 3 del pueblo</li>
-            <li class="oj-feat">${ojoJaguarSVG(16, 'ojp5')} <span><strong>Ojo de Jaguar Total</strong>: de dónde viene cada cliente (historias y eventos), mapa de horas que te buscan, origen geográfico y reporte exportable</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Tu consultor dedicado: atención directa y reporte mensual a tu correo</li>
           </ul>
         </div>
         <div class="plan-price">
@@ -1494,7 +1494,7 @@ const MARKUP = `<!-- Progress bar -->
         <summary>¿Qué incluye cada plan?
           <svg class="faq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
         </summary>
-        <div class="faq-a">Malinalli (Esencial) te pone en el directorio del pueblo con hasta 3 fotos, contacto, mapa y horarios, y tu botón directo a WhatsApp. Cuāuhtli suma hasta 10 fotos, prioridad para aparecer primero en tu categoría, insignia "Recomendado", una mención al mes en nuestras redes y la comparativa contra tu categoría. Ocēlōtl llega hasta 30 fotos, primer lugar y portada, tu historia contada en un artículo propio, Top 3 en temporada alta y tu consultor dedicado. Además, todos incluyen ${ojoJaguarSVG(16, 'ojp7')} <strong>Ojo de Jaguar</strong>, tu panel que no solo cuenta vistas: te dice qué hacer para vender más —con más alcance en cada plan. Puedes verlos a detalle en <a href="#negocios">Para negocios</a>.</div>
+        <div class="faq-a">Malinalli te hace encontrar por los turistas en el directorio del Pueblo Mágico, con WhatsApp directo, tu Ojo de Jaguar Esencial (salud de ficha, tasa de contacto y el Pulso de Malinalco) y tu distinción para compartir. Cuāuhtli desbloquea tu consultor con IA —qué hacer cada semana, tu valor en pesos, a qué hora y de dónde te buscan, tu ranking, alertas y metas—, prioridad para aparecer primero en tu categoría y una mención al mes en nuestras redes. Ocēlōtl es el referente del pueblo: portada y primer lugar, tu historia contada en un artículo editorial propio, ${ojoJaguarSVG(16, 'ojp7')} <strong>Ojo de Jaguar Total</strong> (de dónde viene cada cliente y qué historia lo trajo, mapa de horas y reporte exportable), un consultor dedicado en persona y atención prioritaria. Las fotos crecen con cada plan (3 · 10 · 30). Puedes verlos a detalle en <a href="#negocios">Para negocios</a>.</div>
       </details>
 
       <details class="faq-item">
@@ -1643,7 +1643,7 @@ const faqSchema = {
     { q: "¿Qué es enmalinalco.com?", a: "enmalinalco.com es la guía y el directorio de Malinalco, hechos por quienes vivimos aquí. Reúne restaurantes, hospedaje, artesanías, cultura y ecoturismo, junto con rutas, historias y recomendaciones locales, para que encuentres todo lo que vale la pena en un solo lugar." },
     { q: "¿Cómo registro mi negocio en el directorio?", a: "Muy fácil: entra a la sección Para negocios, elige un plan y crea tu cuenta. Si prefieres, escríbenos y te ayudamos a armar tu ficha con fotos, contacto, ubicación y horarios. En minutos tu negocio queda visible para quienes buscan en Malinalco." },
     { q: "¿Cuánto cuesta anunciar mi negocio?", a: "Cada plan es una inversión mensual en la visibilidad de tu negocio: Malinalli $99, Cuāuhtli $249 y Ocēlōtl $449. Como reconocimiento a quienes creen en el proyecto desde el inicio, los primeros 50 negocios acceden al Programa Fundadores: una tarifa preferente con 30% menos durante sus primeros 3 meses, en el plan que elijan, sin permanencia." },
-    { q: "¿Qué incluye cada plan?", a: "Malinalli (Esencial) te pone en el directorio del pueblo con hasta 3 fotos, contacto, mapa y horarios, y tu botón directo a WhatsApp. Cuāuhtli suma hasta 10 fotos, prioridad para aparecer primero en tu categoría, insignia Recomendado, una mención al mes en nuestras redes y la comparativa contra tu categoría. Ocēlōtl llega hasta 30 fotos, primer lugar y portada, tu historia contada en un artículo propio, Top 3 en temporada alta y tu consultor dedicado. Y todos incluyen Ojo de Jaguar, tu panel que no solo cuenta vistas: te dice qué hacer para vender más, con más alcance en cada plan." },
+    { q: "¿Qué incluye cada plan?", a: "Malinalli te hace encontrar por los turistas en el directorio del Pueblo Mágico, con WhatsApp directo, tu Ojo de Jaguar Esencial (salud de ficha, tasa de contacto y el Pulso de Malinalco) y tu distinción para compartir. Cuāuhtli desbloquea tu consultor con IA —qué hacer cada semana, tu valor en pesos, a qué hora y de dónde te buscan, tu ranking, alertas y metas—, prioridad para aparecer primero en tu categoría y una mención al mes en nuestras redes. Ocēlōtl es el referente del pueblo: portada y primer lugar, tu historia contada en un artículo editorial propio, Ojo de Jaguar Total (de dónde viene cada cliente y qué historia lo trajo, mapa de horas y reporte exportable), un consultor dedicado en persona y atención prioritaria. Las fotos crecen con cada plan (3 · 10 · 30)." },
     { q: "¿Qué se puede hacer en Malinalco?", a: "En Malinalco puedes subir a la zona arqueológica, con su templo azteca tallado en roca viva; recorrer el mercado artesanal; visitar la Parroquia del Divino Salvador y el Museo Mario Schneider; conocer el criadero de truchas y probar la gastronomía local. Es un Pueblo Mágico para caminar con calma, entre calles empedradas y montañas." },
     { q: "¿Cómo llego a Malinalco desde CDMX o Toluca?", a: "Desde la Ciudad de México son entre 2 y 2.5 horas en auto, normalmente por la ruta hacia Chalma. Desde Toluca es más rápido, alrededor de 1.5 horas. También hay transporte foráneo que conecta con el pueblo, aunque lo más cómodo es llegar en coche para moverte por la zona." },
     { q: "¿Qué hacer en un fin de semana en Malinalco?", a: "Un plan ideal de dos días: el sábado por la mañana sube a la zona arqueológica, baja a desayunar al centro y recorre el mercado y la parroquia; por la tarde, un museo y un café tranquilo. El domingo, naturaleza: el criadero de truchas, un paseo entre montañas o una visita a Chalma, y comida local antes de volver. Todo a ritmo de pueblo, sin prisas." },
