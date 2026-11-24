@@ -59,9 +59,14 @@ Meta de negocio: crecer reserva directa (canteraycalma.com) y llenar los 50 cupo
   no premia antigüedad. `page.js` trae `views_last_month` de los pares.
 - **Nombres de lugar elegantes (nov 2026):** `lugarBonito()` mapea códigos crudos
   (CMX→Ciudad de México, MEX→Estado de México, MOR→Morelos, MX→México…) en `origenGeografico`.
-- **Copy de tiers elevado** en `src/lib/plans.js` (nov 2026) a lenguaje de resultado/premium.
-  OJO: el landing (`src/app/page.js`) tiene su copy de planes **hardcodeado aparte** (no importa
-  `PLANS`); sincronizarlo es pendiente si se cambian beneficios de nuevo.
+- **Copy de tiers power-first (nov 2026, #82):** los 3 tiers reescritos con el PODER en el
+  primer bullet (nunca "X fotos", que bajan al final) y el ángulo "nadie más en el pueblo lo tiene".
+  Taglines: Malinalli "Tu lugar donde el visitante decide", Cuāuhtli "Que te elijan primero",
+  Ocēlōtl "El referente del pueblo, con consultor incluido". Ocēlōtl cierra con **atención
+  prioritaria** (se quitó "Top 3 en temporada": no escalaba con muchos clientes).
+  OJO — el copy vive en **DOS lugares a mantener sincronizados**: `src/lib/plans.js` (→ /dashboard)
+  y el landing `src/app/page.js` (hardcodeado, no importa `PLANS`): tarjetas de planes, sección
+  "¿Tienes un negocio?" (intro + recuadro de potencia + chips), FAQ y modal "¿Cómo funciona?" (`hiw`).
 
 ## Dashboard Mensual (artefacto Claude)
 - Artefacto "enmalinalco . Dash Mensual", slug `aafdfa81-d09d-48d6-8ccf-f58cb62d76c9`.
