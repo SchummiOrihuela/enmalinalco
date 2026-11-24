@@ -47,6 +47,13 @@ Meta de negocio: crecer reserva directa (canteraycalma.com) y llenar los 50 cupo
   oportunidad perdida, recos/red, alertas, meta, comparativa **+ heatmap "¿a qué hora?" y geo
   "¿de dónde vienen?"**); Ocēlōtl (+ **atribución** historias/eventos [la joya], export, correo).
   `fase2` se computa para TODOS los tiers en `page.js`; el drawer filtra las secciones por `tier`.
+- **Export premium + Badge viral (nov 2026):** el PDF (`exportarReporte`, Ocēlōtl) ahora es
+  COMPLETO (consultor, alertas, acciones, KPIs, ROI, oportunidad, meta, recos por red, Fase 2).
+  El **badge compartible** (`compartirBadge`/`dibujarBadge`, TODOS los tiers) es un sello 4:5 @2×
+  con **rangos élite** (`rangoBadge`): N.º 1 / Top 3 / Top 5 / Top 10 / "Entre los mejores" /
+  "Recomendado" — NUNCA el número crudo (#7). Ranking existe desde Cuāuhtli; Malinalli luce
+  "Recomendado/verificado". Botón "Compartir mi distinción" usa `navigator.share` (menú nativo)
+  con descarga PNG de respaldo. El nivel de plan NO se imprime en el badge (es privado).
 - **Copy de tiers elevado** en `src/lib/plans.js` (nov 2026) a lenguaje de resultado/premium.
   OJO: el landing (`src/app/page.js`) tiene su copy de planes **hardcodeado aparte** (no importa
   `PLANS`); sincronizarlo es pendiente si se cambian beneficios de nuevo.

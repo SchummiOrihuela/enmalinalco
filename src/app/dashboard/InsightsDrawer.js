@@ -171,107 +171,179 @@ const VS_GOOGLE = [
   'Te da recomendaciones accionables, no solo números',
 ]
 
-// Exporta el reporte a una ventana imprimible (el cliente guarda PDF o screenshot).
-function exportarReporte({ negocio, lectura, acciones, salud, tasa, ranking, roi, oportunidad, mom, fase2 }) {
+// Exporta el reporte COMPLETO a una ventana imprimible (PDF). Premium y sólido:
+// consultor, alertas, acciones, KPIs, ROI, oportunidad, meta, recomendaciones por
+// red y Fase 2 (mejor franja, geo y atribución). Nada se queda fuera.
+function exportarReporte({ negocio, tier, lectura, acciones, avisos, salud, tasa, ranking, roi, oportunidad, meta, recosPorRed, mom, fase2 }) {
   const fecha = new Date().toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' })
-  const kpi = (l, v) => `<div style="flex:1 1 150px;border:1px solid #E4D7B4;border-left:4px solid #B98A16;border-radius:12px;padding:12px 14px"><div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8A7A4F;font-weight:700">${l}</div><div style="font-family:Georgia,serif;font-size:24px;color:#1C3B28;font-weight:700;margin-top:2px">${v}</div></div>`
+  const planName = tier === 3 ? 'Ocēlōtl' : tier === 2 ? 'Cuāuhtli' : 'Malinalli'
+  const sec = (t) => `<h3 style="color:#B98A16;font-size:12px;text-transform:uppercase;letter-spacing:.1em;margin:24px 0 10px;padding-bottom:6px;border-bottom:1px solid #E4D7B4">${t}</h3>`
+  const kpi = (l, v, c = '#1C3B28') => `<div style="flex:1 1 150px;min-width:140px;border:1px solid #E4D7B4;border-left:4px solid #B98A16;border-radius:12px;padding:12px 14px;background:#FBF7EA"><div style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#8A7A4F;font-weight:700">${l}</div><div style="font-family:Georgia,serif;font-size:24px;color:${c};font-weight:700;margin-top:2px">${v}</div></div>`
   const vp = mom && mom.vistas.pct !== null ? mom.vistas.pct : null
   const kpis = [
-    salud ? kpi('Salud de ficha', `${salud.score}/100`) : '',
+    salud ? kpi('Salud de ficha', `${salud.score}/100`, salud.score >= 85 ? '#2E7D4F' : salud.score >= 60 ? '#B98A16' : '#BF5028') : '',
     tasa && tasa.pct !== null ? kpi('Tasa de contacto', `${tasa.pct}%`) : '',
     ranking ? kpi('Lugar en categoría', `#${ranking.pos} de ${ranking.n}`) : '',
-    vp !== null ? kpi('Vistas vs mes pasado', `${vp > 0 ? '▲' : vp < 0 ? '▼' : ''} ${Math.abs(vp)}%`) : '',
+    vp !== null ? kpi('Vistas vs mes pasado', `${vp > 0 ? '▲' : vp < 0 ? '▼' : ''} ${Math.abs(vp)}%`, vp > 0 ? '#2E7D4F' : vp < 0 ? '#BF5028' : '#1C3B28') : '',
   ].join('')
-  const accs = (acciones || []).map((a, i) => `<li style="margin:0 0 8px;font-size:14px;color:#2A2016">${a.icon} ${a.text}</li>`).join('')
+  const avisosHtml = (avisos && avisos.length)
+    ? sec('Atiende esto ya') + avisos.map((a) => `<div style="background:${a.tono === 'alta' ? '#FBEAE0' : '#FBF4DD'};border:1px solid ${a.tono === 'alta' ? '#E8C3AE' : '#E4D7B4'};border-radius:10px;padding:10px 14px;margin:0 0 7px;font-size:13.5px;color:#2A2016">${a.icon} ${a.text}</div>`).join('')
+    : ''
+  const accs = (acciones || []).map((a) => `<li style="margin:0 0 8px;font-size:14px;color:#2A2016;line-height:1.5">${a.icon} ${a.text}</li>`).join('')
   const roiHtml = roi && roi.contactos > 0
-    ? `<h3 style="color:#B98A16;font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin:22px 0 8px">Tu mensualidad, en perspectiva</h3>` +
+    ? sec('Tu mensualidad, en perspectiva') +
       `<div style="background:#FBF4DD;border:1px solid #E4D7B4;border-left:4px solid #B98A16;border-radius:12px;padding:14px 16px;font-size:14px;line-height:1.6;color:#2A2016">Este mes generaste <strong>${roi.contactos} contacto(s)</strong>. Si cierras <strong>${roi.cierreTexto}</strong> con un ticket de <strong>${pesos(roi.ticket)}</strong>, son <strong>~${pesos(roi.ingreso)} potenciales</strong>. Tu plan cuesta <strong>${pesos(roi.precio)}</strong>${roi.retorno >= 1 ? ` → <strong>${roi.retorno}× de retorno.</strong>` : '.'}</div>`
     : ''
   const oportHtml = oportunidad
-    ? `<h3 style="color:#B8541F;font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin:22px 0 8px">Lo que se quedó en la mesa</h3>` +
+    ? sec('Lo que se quedó en la mesa') +
       `<div style="background:#FBEAE0;border:1px solid #E8C3AE;border-left:4px solid #BF5028;border-radius:12px;padding:14px 16px;font-size:14px;line-height:1.6;color:#2A2016">Este mes <strong>${oportunidad.visitas}</strong> personas te vieron y <strong>${oportunidad.noContacto}</strong> no te escribieron. Si solo <strong>${oportunidad.capturaTexto}</strong> lo hubiera hecho y cerraras <strong>${oportunidad.cierreTexto}</strong>, son <strong>~${pesos(oportunidad.ingreso)}</strong> que se fueron con alguien más. Se recupera con mejor foto principal y precios visibles.</div>`
     : ''
-  const geo = fase2 && fase2.geo && fase2.geo.total > 0
-    ? `<h3 style="color:#B98A16;font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin:20px 0 8px">¿De dónde vienen?</h3>` +
-      fase2.geo.filas.map((g) => `<div style="font-size:13px;color:#2A2016;margin:3px 0">${g.label} — <strong>${g.pct}%</strong></div>`).join('')
+  const metaHtml = meta && meta.meta
+    ? sec('Meta del mes') +
+      `<div style="font-size:14px;color:#2A2016">Llevas <strong>${meta.actual}</strong> de <strong>${meta.meta}</strong> contactos (<strong>${meta.pct}%</strong>).<div style="height:12px;border-radius:9999px;background:#EDE4CE;margin-top:8px;overflow:hidden"><div style="height:100%;width:${Math.max(meta.pct, 3)}%;background:linear-gradient(90deg,#F0D77A,#B98A16)"></div></div></div>`
     : ''
-  const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Ojo de Jaguar — ${negocio || 'Mi negocio'}</title></head>
+  const redLabels = { instagram: 'Instagram', facebook: 'Facebook', whatsapp: 'WhatsApp', ficha: 'Tu ficha', contenido: 'Contenido' }
+  let recosHtml = ''
+  if (recosPorRed && Object.keys(recosPorRed).some((k) => recosPorRed[k]?.length)) {
+    recosHtml = sec('Recomendaciones por red')
+    for (const red of Object.keys(recosPorRed)) {
+      const items = (recosPorRed[red] || []).slice(0, 2)
+      if (!items.length) continue
+      recosHtml += `<div style="margin:0 0 10px"><div style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#8A7A4F;font-weight:700;margin-bottom:4px">${redLabels[red] || red}</div>` +
+        items.map((r) => `<div style="font-size:13.5px;color:#2A2016;line-height:1.5;margin:0 0 4px">${r.icon} ${r.text}</div>`).join('') + `</div>`
+    }
+  }
+  let fase2Html = ''
+  if (fase2) {
+    if (fase2.heatmap && fase2.heatmap.mejorTexto) fase2Html += sec('¿A qué hora te buscan?') + `<div style="font-size:14px;color:#2A2016">🔥 Tu mejor franja: <strong>${fase2.heatmap.mejorTexto}</strong>. Publica tus promos y ten personal de más ahí.</div>`
+    if (fase2.geo && fase2.geo.total > 0) fase2Html += sec('¿De dónde vienen?') + fase2.geo.filas.map((g) => `<div style="font-size:13px;color:#2A2016;margin:3px 0">${g.label} — <strong>${g.pct}%</strong></div>`).join('')
+    if (fase2.atribucion && fase2.atribucion.length) fase2Html += sec('Qué historias y eventos te traen clientes') + fase2.atribucion.slice(0, 8).map((a) => `<div style="display:flex;justify-content:space-between;gap:10px;font-size:13px;color:#2A2016;margin:4px 0"><span>${a.tipo === 'historia' ? '📖' : a.tipo === 'evento' ? '🎟️' : '🔗'} <strong>${a.slug || a.ref}</strong></span><span style="white-space:nowrap;opacity:.8">${a.vistas} vistas · ${a.contactos} contactos</span></div>`).join('')
+  }
+  const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Ojo de Jaguar — ${negocio || 'Mi negocio'}</title>
+  <style>@page{margin:14mm}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}h3,ol,div,li{page-break-inside:avoid}</style></head>
   <body style="margin:0;background:#F6F0E0;font-family:Arial,Helvetica,sans-serif;color:#2A2016">
     <div style="max-width:720px;margin:0 auto;padding:36px 28px">
-      <div style="display:flex;align-items:center;gap:8px;color:#B98A16;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase">${ojoJaguarSVG(20, 'rep')} Ojo de Jaguar · En Malinalco</div>
-      <h1 style="font-family:Georgia,serif;font-size:30px;color:#1C3B28;margin:6px 0 2px">${negocio || 'Mi negocio'}</h1>
-      <div style="color:#6B6052;font-size:13px;margin-bottom:4px">Reporte de inteligencia · ${fecha}</div>
-      <div style="color:#8A7A4F;font-size:12px;font-style:italic;margin-bottom:20px">Lo que Google Maps no te puede decir</div>
-      ${lectura ? `<div style="background:#EAF4EC;border:1px solid #CFE3D4;border-left:4px solid #3A6B47;border-radius:12px;padding:16px 18px;font-size:15px;line-height:1.6;color:#223">${lectura}<div style="margin-top:8px;font-size:12px;color:#6B6052;font-style:italic">— Tu consultor En Malinalco</div></div>` : ''}
-      <h3 style="color:#B98A16;font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin:22px 0 8px">Tus 3 acciones de la semana</h3>
-      <ol style="padding-left:18px;margin:0">${accs}</ol>
-      <div style="display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 0">${kpis}</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+        <div style="display:flex;align-items:center;gap:8px;color:#B98A16;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase">${ojoJaguarSVG(20, 'rep')} Ojo de Jaguar · En Malinalco</div>
+        <div style="font-size:11px;font-weight:700;color:#1C3B28;background:#EFE6CC;border:1px solid #E4D7B4;border-radius:9999px;padding:4px 12px">Plan ${planName}</div>
+      </div>
+      <h1 style="font-family:Georgia,serif;font-size:30px;color:#1C3B28;margin:10px 0 2px">${negocio || 'Mi negocio'}</h1>
+      <div style="color:#6B6052;font-size:13px">Reporte de inteligencia · ${fecha}</div>
+      <div style="color:#8A7A4F;font-size:12px;font-style:italic;margin-bottom:18px">Lo que Google Maps no te puede decir</div>
+      ${avisosHtml}
+      ${lectura ? sec('La lectura de tu consultor') + `<div style="background:#EAF4EC;border:1px solid #CFE3D4;border-left:4px solid #3A6B47;border-radius:12px;padding:16px 18px;font-size:15px;line-height:1.6;color:#223">${lectura}<div style="margin-top:8px;font-size:12px;color:#6B6052;font-style:italic">— Tu consultor En Malinalco</div></div>` : ''}
+      ${sec('Tus 3 acciones de la semana')}<ol style="padding-left:18px;margin:0">${accs}</ol>
+      ${sec('Tus números')}<div style="display:flex;flex-wrap:wrap;gap:10px">${kpis}</div>
       ${roiHtml}
       ${oportHtml}
-      ${geo}
-      <p style="margin:26px 0 0;color:#9A8E7C;font-size:11px">Valores de ingreso estimados con supuestos conservadores. En Malinalco · El directorio del Pueblo Mágico.</p>
+      ${metaHtml}
+      ${recosHtml}
+      ${fase2Html}
+      <p style="margin:28px 0 0;color:#9A8E7C;font-size:11px;border-top:1px solid #E4D7B4;padding-top:12px">Valores de ingreso estimados con supuestos conservadores. La geografía es aproximada y sin datos personales. En Malinalco · El directorio del Pueblo Mágico · enmalinalco.com</p>
     </div>
-    <script>window.onload=function(){setTimeout(function(){window.print()},300)}</script>
+    <script>window.onload=function(){setTimeout(function(){window.print()},350)}</script>
   </body></html>`
   const w = window.open('', '_blank')
   if (!w) { alert('Permite las ventanas emergentes para descargar tu reporte.'); return }
   w.document.open(); w.document.write(html); w.document.close()
 }
 
-// Genera una imagen PNG lista para compartir (WhatsApp/IG) con los números clave.
-function descargarImagen({ negocio, salud, tasa, ranking, mom, lectura }) {
-  const W = 1080, H = 1080
-  const cv = document.createElement('canvas')
-  cv.width = W; cv.height = H
-  const x = cv.getContext('2d')
-  // Fondo obsidiana con halo oro.
+// Rango élite del badge: nunca mostramos "#7". O estás en una banda que se siente
+// de élite, o mostramos pertenencia (nunca el número que duele). El ranking existe
+// desde Cuāuhtli; Malinalli luce "Recomendado / verificado".
+function rangoBadge({ ranking, salud, categoria }) {
+  const cat = categoria || 'tu categoría'
+  if (ranking && ranking.n >= 2) {
+    const { pos, n } = ranking
+    if (pos === 1) return { tag: `N.º 1 en ${cat}`, sub: 'El referente de Malinalco' }
+    if (pos <= 3 && n >= 4) return { tag: `Top 3 en ${cat}`, sub: 'Entre los favoritos del pueblo' }
+    if (pos <= 5 && n >= 6) return { tag: `Top 5 en ${cat}`, sub: 'De los mejores de Malinalco' }
+    if (pos <= 10 && n >= 12) return { tag: `Top 10 en ${cat}`, sub: 'Entre los mejores de Malinalco' }
+    if (n >= 8 && pos <= Math.ceil(n * 0.25)) return { tag: `Entre los mejores en ${cat}`, sub: 'Recomendado en el Pueblo Mágico' }
+  }
+  if (salud && salud.score >= 85) return { tag: 'Recomendado en Malinalco', sub: 'Negocio verificado del Pueblo Mágico' }
+  return { tag: 'Recomendado en Malinalco', sub: 'Parte del directorio del Pueblo Mágico' }
+}
+
+// Dibuja el badge/sello (sublime, alta resolución) en el contexto, en coords
+// lógicas W×H. Diseño de medallón: obsidiana + oro, el Ojo de Jaguar y serif.
+function dibujarBadge(x, insights, W, H) {
+  const { negocio, tasa } = insights
+  const r = rangoBadge(insights)
+  // Fondo obsidiana + halo oro.
   const g = x.createLinearGradient(0, 0, 0, H)
-  g.addColorStop(0, '#1E3322'); g.addColorStop(1, '#101E14')
+  g.addColorStop(0, '#203A26'); g.addColorStop(1, '#0E1A11')
   x.fillStyle = g; x.fillRect(0, 0, W, H)
-  const halo = x.createRadialGradient(170, -40, 40, 170, -40, 700)
+  const halo = x.createRadialGradient(W / 2, 170, 60, W / 2, 170, 900)
   halo.addColorStop(0, 'rgba(220,178,74,0.30)'); halo.addColorStop(1, 'rgba(220,178,74,0)')
   x.fillStyle = halo; x.fillRect(0, 0, W, H)
+  // Doble marco oro (sello).
+  x.strokeStyle = 'rgba(220,178,74,0.55)'; x.lineWidth = 2.5; roundRect(x, 42, 42, W - 84, H - 84, 40); x.stroke()
+  x.strokeStyle = 'rgba(220,178,74,0.20)'; x.lineWidth = 1; roundRect(x, 54, 54, W - 108, H - 108, 34); x.stroke()
 
-  x.textBaseline = 'top'
-  dibujarOjo(x, 116, 104, 32)
-  x.fillStyle = '#DCB24A'; x.font = '700 26px Georgia, serif'
-  x.fillText('OJO DE JAGUAR · EN MALINALCO', 170, 92)
-  x.fillStyle = '#F6F0E0'; x.font = '600 58px Georgia, serif'
-  x.fillText((negocio || 'Mi negocio').slice(0, 26), 84, 170)
-  x.fillStyle = 'rgba(246,240,224,0.7)'; x.font = 'italic 24px sans-serif'
-  x.fillText('Lo que Google Maps no te puede decir', 84, 240)
+  x.textAlign = 'center'; x.textBaseline = 'top'
+  dibujarOjo(x, W / 2, 118, 50)
+  x.fillStyle = '#DCB24A'; x.font = '700 24px Georgia, serif'
+  x.fillText('OJO DE JAGUAR · EN MALINALCO', W / 2, 236)
+  x.fillStyle = 'rgba(220,178,74,0.9)'; x.font = '700 20px Georgia, serif'
+  x.fillText('·  D I S T I N C I Ó N  ·', W / 2, 298)
 
-  // Tarjetas KPI (2×2).
-  const vp = mom && mom.vistas.pct !== null ? mom.vistas.pct : null
-  const cards = [
-    salud ? ['Salud de ficha', `${salud.score}/100`] : null,
-    tasa && tasa.pct !== null ? ['Tasa de contacto', `${tasa.pct}%`] : null,
-    ranking ? ['Lugar en categoría', `#${ranking.pos} de ${ranking.n}`] : null,
-    vp !== null ? ['Vistas vs mes pasado', `${vp > 0 ? '▲' : vp < 0 ? '▼' : ''} ${Math.abs(vp)}%`] : null,
-  ].filter(Boolean)
-  const cw = 440, ch = 180, gx = 84, gy = 320, gap = 32
-  cards.slice(0, 4).forEach((c, i) => {
-    const cx = gx + (i % 2) * (cw + gap), cy = gy + Math.floor(i / 2) * (ch + gap)
-    x.fillStyle = 'rgba(220,178,74,0.12)'; roundRect(x, cx, cy, cw, ch, 20); x.fill()
-    x.fillStyle = '#DCB24A'; x.fillRect(cx, cy, 6, ch)
-    x.fillStyle = 'rgba(246,240,224,0.7)'; x.font = '600 22px sans-serif'; x.fillText(c[0].toUpperCase(), cx + 34, cy + 30)
-    x.fillStyle = '#F6F0E0'; x.font = '700 62px Georgia, serif'; x.fillText(c[1], cx + 34, cy + 72)
-  })
-
-  // Lectura del consultor (primera frase).
-  if (lectura) {
-    const frase = lectura.split('. ')[0] + '.'
-    x.fillStyle = 'rgba(143,211,160,0.95)'; x.font = '700 22px sans-serif'
-    x.fillText('🔎 LA LECTURA DE TU CONSULTOR', 84, 760)
-    x.fillStyle = '#F3EEE2'; x.font = '30px sans-serif'
-    wrapText(x, frase, 84, 800, W - 168, 42)
+  // Banda (el logro). Serif grande, oro claro.
+  x.fillStyle = '#F6EED3'; x.font = '700 62px Georgia, serif'
+  let y = wrapText(x, r.tag, W / 2, 352, 860, 72)
+  // Subtítulo.
+  x.fillStyle = 'rgba(246,240,224,0.82)'; x.font = 'italic 30px Georgia, serif'
+  y = wrapText(x, r.sub, W / 2, y + 10, 820, 40)
+  // Divisor.
+  x.strokeStyle = 'rgba(220,178,74,0.4)'; x.lineWidth = 2
+  x.beginPath(); x.moveTo(W / 2 - 110, y + 34); x.lineTo(W / 2 + 110, y + 34); x.stroke()
+  // Nombre del negocio.
+  x.fillStyle = '#FFFFFF'; x.font = '600 46px Georgia, serif'
+  y = wrapText(x, negocio || 'Mi negocio', W / 2, y + 64, 900, 56)
+  // Línea de prueba (opcional, discreta).
+  if (tasa && (tasa.vistas || 0) >= 30) {
+    x.fillStyle = 'rgba(246,240,224,0.6)'; x.font = '26px Arial, sans-serif'
+    x.fillText(`Visto por ${tasa.vistas.toLocaleString('es-MX')} personas en enmalinalco.com`, W / 2, y + 18)
   }
-  x.fillStyle = 'rgba(246,240,224,0.5)'; x.font = '22px sans-serif'
-  x.fillText('en Malinalco · El directorio del Pueblo Mágico', 84, 1010)
+  // Pie de marca.
+  x.fillStyle = '#8FD3A0'; x.font = '700 36px Georgia, serif'
+  x.fillText('enmalinalco.com', W / 2, H - 152)
+  x.fillStyle = 'rgba(246,240,224,0.5)'; x.font = '24px Arial, sans-serif'
+  x.fillText('El directorio del Pueblo Mágico', W / 2, H - 102)
+}
 
-  const a = document.createElement('a')
-  a.download = `ojo-de-jaguar-${(negocio || 'negocio').toLowerCase().replace(/[^a-z0-9]+/g, '-')}.png`
-  a.href = cv.toDataURL('image/png'); a.click()
+// Genera el badge en alta resolución (4:5 @2×) y lo comparte: en celular abre el
+// menú nativo (Instagram/Facebook/WhatsApp); en escritorio lo descarga como PNG.
+function compartirBadge(insights) {
+  const S = 2, W = 1080, H = 1350
+  const cv = document.createElement('canvas')
+  cv.width = W * S; cv.height = H * S
+  const x = cv.getContext('2d')
+  x.scale(S, S)
+  dibujarBadge(x, insights, W, H)
+  const nombre = `distincion-${(insights.negocio || 'negocio').toLowerCase().replace(/[^a-z0-9]+/g, '-')}-malinalco.png`
+  const descargar = (blob) => {
+    const a = document.createElement('a')
+    a.download = nombre; a.href = URL.createObjectURL(blob); a.click()
+    setTimeout(() => URL.revokeObjectURL(a.href), 1500)
+  }
+  cv.toBlob(async (blob) => {
+    if (!blob) return
+    const file = new File([blob], nombre, { type: 'image/png' })
+    try {
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: 'Mi distinción en Malinalco',
+          text: 'Encuéntranos en enmalinalco.com — el directorio del Pueblo Mágico 🐆',
+        })
+        return
+      }
+    } catch (e) {
+      if (e && e.name === 'AbortError') return // el usuario canceló
+    }
+    descargar(blob)
+  }, 'image/png')
 }
 function roundRect(x, px, py, w, h, r) {
   x.beginPath(); x.moveTo(px + r, py)
@@ -311,13 +383,14 @@ function dibujarOjo(x, cx, cy, r) {
   x.restore()
 }
 function wrapText(x, text, px, py, maxW, lh) {
-  const words = text.split(' '); let line = '', yy = py
+  const words = String(text).split(' '); let line = '', yy = py
   for (const w of words) {
     const test = line + w + ' '
     if (x.measureText(test).width > maxW && line) { x.fillText(line.trim(), px, yy); line = w + ' '; yy += lh }
     else line = test
   }
   x.fillText(line.trim(), px, yy)
+  return yy + lh
 }
 
 export default function InsightsDrawer({ insights }) {
@@ -459,19 +532,23 @@ export default function InsightsDrawer({ insights }) {
                   {negocio && <div style={{ fontSize: '12px', opacity: 0.7, marginTop: '2px' }}>{negocio}</div>}
                 </div>
               </div>
-              <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
-                {tier >= 3 && (
-                  <>
-                    <button onClick={() => descargarImagen(insights)} title="Descargar imagen para compartir" style={{
-                      cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '9px 14px', borderRadius: '9999px', fontSize: '13px', fontWeight: 700, fontFamily: 'inherit',
-                      border: '1px solid rgba(220,178,74,0.5)', background: 'rgba(220,178,74,0.14)', color: '#F6F0E0',
-                    }}><IconImagen /> Imagen</button>
-                    <button onClick={() => exportarReporte(insights)} title="Descargar / imprimir (PDF)" style={{
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '6px' }}>
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+                  <button onClick={() => compartirBadge(insights)} title="Descarga tu tarjeta para Instagram, Facebook, WhatsApp o imprimir" style={{
+                    cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '10px 16px', borderRadius: '9999px', fontSize: '13px', fontWeight: 800, fontFamily: 'inherit',
+                    border: '1px solid rgba(220,178,74,0.75)', background: 'linear-gradient(180deg,#E7C86A,#DCB24A)', color: '#25201A',
+                    boxShadow: '0 4px 14px rgba(220,178,74,0.35)',
+                  }}><IconImagen /> Compartir mi distinción</button>
+                  {tier >= 3 && (
+                    <button onClick={() => exportarReporte(insights)} title="Descargar / imprimir el reporte completo (PDF)" style={{
                       cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '7px', padding: '9px 14px', borderRadius: '9999px', fontSize: '13px', fontWeight: 700, fontFamily: 'inherit',
                       border: '1px solid rgba(220,178,74,0.5)', background: 'rgba(220,178,74,0.14)', color: '#F6F0E0',
                     }}><IconDescarga /> PDF</button>
-                  </>
-                )}
+                  )}
+                </div>
+                <span style={{ fontSize: '10.5px', color: 'rgba(246,240,224,0.6)', textAlign: 'right', maxWidth: '240px', lineHeight: 1.35 }}>
+                  Compártela en Instagram, Facebook, tu estado de WhatsApp — o imprímela para tu local.
+                </span>
               </div>
             </div>
 
